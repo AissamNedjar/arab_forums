@@ -79,7 +79,7 @@ exit();
 
 }}
 
-echo lock2_user;
+echo id_user;
 
 exit();
 
