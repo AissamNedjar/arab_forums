@@ -79,10 +79,6 @@ exit();
 
 }}
 
-echo id_user;
-
-exit();
-
 if(lock2_user == 1){
 
 online_other("arab-forums" , "home" , "0" , "0" , "0" , "0");
