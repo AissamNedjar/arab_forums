@@ -1,0 +1,11 @@
+/************************************************#
+* DM System for web services
+* http://dm.duhoktimes.com/
+*
+* DM Library v1.01
+* Work with JQuery Library 1.7.1 and later versions
+* Copyright 2011 - 2012, Dilovan Matini
+*
+* Date: Wednesday, ‎December ‎28, ‎2011
+#************************************************/
+.DMContainer{display:table;position:absolute;top:2px;left:2px;z-index:1001;border:#999 1px solid;background-color:#999;border-radius:4px;padding:3px;}.DMContainer .header{height:20px;line-height:20px;background:#d3d3d3 url(back.gif?x=1.00) repeat-x;padding:4px;}.DMContainer .header .text{float:right;outline:none;display:inline;font:bold 11px tahoma,arial;color:#000;padding:2px;}.DMContainer .header .close{width:16px;height:16px;float:left;outline:none;display:inline;cursor:pointer;margin:2px;}.DMContainer .body{font:normal 12px tahoma,arial;background-color:#f4f4f4;color:#000;}.DMContainer .footer{height:28px;line-height:28px;background-color:#f4f4f4;padding:4px;}.DMContainer .footer .text{font:normal 12px tahoma,arial;color:#000;}.DMContainer .footer .light{border:#808080 1px solid;font:bold 11px tahoma,arial;background:#d3d3d3 url(back.gif?x=1.00) repeat-x;color:#000;border-radius:3px;margin:1px 2px;padding:5px 8px;}.DMContainer .footer .dark{border:#303030 1px solid;font:bold 11px tahoma,arial;background:#20516d url(back-dark.gif?x=1.01) repeat-x;color:#fff;border-radius:3px;margin:1px 2px;padding:5px 8px;}.DMColorPickerPreview{text-align:center;vertical-align:bottom;border:#c0c0c0 1px solid;font:normal 9px tahoma;border-radius:5px;}.DMHeader{border:#c3c3c3 1px solid;text-align:center;background:#d3d3d3 url(back.gif?x=1.00) repeat-x;font:normal 11px tahoma,arial;color:#000;}.DMTitle{border:#c3c3c3 1px solid;background:#f1f0f0 url(back-light.gif?x=1.00) repeat-x;font:normal 11px tahoma,arial;color:#000;}.DMText{border:#c3c3c3 1px solid;background-color:#f1f0f0;font:normal 11px tahoma,arial;color:#000;}.DMInput{border:#c3c3c3 1px solid;background-color:#fff;font:normal 11px tahoma,arial;color:#000;padding:4px;}.DMButton{border:#808080 1px solid;font:bold 11px tahoma,arial;background:#d3d3d3 url(back.gif?x=1.00) repeat-x;color:#000;border-radius:3px;margin:1px;padding:3px 5px;}.DMSelect{font:normal 12px/1.6 tahoma,arial;color:#000;padding:2px 3px 3px;}

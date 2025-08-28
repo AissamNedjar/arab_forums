@@ -1,0 +1,150 @@
+/*#####################################################################*|
+
+|  Arab Forums 0.2                                                      |
+
+|  This Script Is Free Software                                         |
+
+|  Programmed By : Aissam Nedjar                                        |
+
+|  facebook : facebook.com/aissam.nedjar.43                             |
+
+|*#####################################################################*/
+
+body{padding:0px;margin:0px;border:#8d5252 8px solid;background:#ffffff url(../images/bg.gif);font:bold 13px tahoma;color:#8d5252;}
+a:link, a:visited {text-decoration: none; color:#40454d;}
+a:hover, a:active {color:#a50000;}
+
+#title{position:absolute;border:2px solid #8d5252;border-radius:2px;padding:5px;background-color:#dedede;font-weight:bold;color:#8d5252;text-align:center;font-size:11px;background-repeat:no-repeat;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
+
+#toTop{display:none;text-decoration:none;position:fixed;bottom:10px;right:10px;overflow:hidden;width:94px;height:30px;border:none;float:left;text-indent:-999px;background:url("../images/ui.totop.png") no-repeat left top;}
+#toTopHover{background:url("../images/ui.totop.png") no-repeat left -30px;width:94px;height:30px;display:block;overflow:hidden;float:left;opacity:0;-moz-opacity:0;filter:alpha(opacity=0);}
+#toTop:active, #toTop:focus {outline:none;}
+
+.stats{border-right:1px solid #000000;border-left:1px solid #000000;border-top:2px solid #000000;border-bottom:2px solid #000000;-moz-border-radius:11px;-webkit-border-radius:11px;border-radius:11px;background:#ffffff;text-align:center;}
+.stats:hover{border-bottom:2px solid #8d5252;background:#ffffff;text-align:center;}
+
+.user{padding:20px 7px 20px 7px;border:#8d5252 5px solid;vertical-align:middle;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;font-size:12px;text-align:right;background:#eaf2f6;}
+.user:hover{background:#ffffff;}
+
+.menu{background:#eaf2f6;padding:2px;border:#8d5252 3px solid;text-align:center;font-size:11px;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
+.menu:hover{background:#ffffff;}
+
+.input{background:#8d5252;color:#ffffff;padding:5px;border:2px solid #000000;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
+.input:hover{background:#ffffff;color:#8d5252;}
+
+.button{color:#8d5252;height:29px;padding:5px;background:-moz-linear-gradient(top,#ffffff 0%,#ebebeb 50%,#dbdbdb 50%,#b5b5b5);background:-webkit-gradient(linear, left top, left bottom, from(#ffffff),color-stop(0.50, #ebebeb),color-stop(0.50, #dbdbdb),to(#b5b5b5));border-radius: 10px;-moz-border-radius:10px;-webkit-border-radius:10px;border: 1px solid #000000;-moz-box-shadow:0px 1px 3px rgba(000,000,000,0.5),inset 0px 0px 2px rgba(255,255,255,1);-webkit-box-shadow:0px 1px 3px rgba(000,000,000,0.5),inset 0px 0px 2px rgba(255,255,255,1);text-shadow:0px -1px 0px rgba(000,000,000,0.2),0px 1px 0px rgba(255,255,255,1);}
+.button:hover{color:#a50000;cursor:pointer;}
+
+.textarea{background:#8d5252;color:#ffffff;border:2px solid #000000;padding:4px;vertical-align:middle;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
+.textarea:hover{background:#ffffff;color:#8d5252;}
+
+.border{background:gray;color:#636363;font:bold 14px tahoma;}
+
+.tcat , .tcatadmin{height:40px;border:2px;border-style:solid; border-color:threedhighlight threedshadow threedshadow threedhighlight;color:white;background:#8d5252;font:bold 12px tahoma;}
+.tcat a:link , .tcatadmin a:link {color:#ffffff;text-decoration:none;}
+.tcat a:visited , .tcatadmin a:visited {color:#ffffff;text-decoration:none;}
+.tcat a:hover, .tcat a:active , .tcatadmin a:hover  , .tcatadmin a:active {color:yellow;text-decoration:none;}
+
+
+.tcot , .tcotadmin{height:40px;border:2px;border-style:solid; border-color:threedhighlight threedshadow threedshadow threedhighlight;color:white;background:#a86b6b;font:bold 12px tahoma;}
+.tcot a:link , .tcotadmin a:link {color:#ffffff;text-decoration:none;}
+.tcot a:visited , .tcotadmin a:visited {color:#ffffff;text-decoration:none;}
+.tcot a:hover, .tcot a:active , .tcotadmin a:hover  , .tcotadmin a:active {color:yellow;text-decoration:none;}
+
+.tcatadmin , .tcotadmin{padding:13px;font:bold 15px tahoma;}
+
+.print1{height:40px;background:#8d5252;color:#ffffff;}
+
+.print2{background:#ffffff;color:#8d5252;}
+
+.topiclink1{border:1px solid #000000;background:#f5f3ea;text-align:center;-moz-border-radius:11px;-webkit-border-radius:11px;border-radius:11px;}
+
+.topiclink2{border:1px solid #000000;background:#e1dcc6;text-align:center;-moz-border-radius:11px;-webkit-border-radius:11px;border-radius:11px;}
+
+.tcatborder{padding:3px 20px 3px 0px;margin:0px;background:#f5f3ea url("../images/more.png") center right no-repeat;font-size:12px;color:black;border:#dddddd solid 5px;}
+
+.bordertd{padding:10px;border:#8d5252 2px solid;text-align:right;background:#e1dcc6;color:#8d5252;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
+
+.bordertdn{border:#8d5252 2px solid;text-align:right;background:#e1dcc6;color:#8d5252;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
+
+.pad{padding:5px;}
+
+.ttopityr{height:20px;color:#8d5252;background:#e3e3e3;font-size:12px;}
+
+.alttext1{padding:0px;margin:0px;background:#f5f3ea;color:#636363;font-size:12px;}
+
+.alttext2{padding:0px;margin:0px;background:#e1dcc6;color:#636363;font-size:12px;}
+
+.desc{font-size:10px;padding:5px 0px 0px 0px;color:#565656;}
+
+.inputselect{background:#8d5252;color:#ffffff;border:2px solid #000000;padding:4px;vertical-align:middle;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
+
+.footer{font-size:11px;color:#444f32;text-align:center;}
+
+.optgroup{background:#000000;color:#ffffff;padding:2px;}
+
+.topic{padding:10px 5px 10px 5px;}
+
+.topice{font-size:12px;color:black;}
+
+.topicn{background:#f5f3ea;}
+
+.topics{background:#e1dcc6;}
+
+.topicw{background:#e3c8c8;}
+
+.topicd{background:#c7bfbf;}
+
+.topich{background:#d4b08c;}
+
+.select{background:#ffeb90;}
+
+.opyiu{background:#f4f5f4;}
+
+.paddse{font-size:10px;padding:5px 0px 5px 0px;margin:2px;border-right:3px solid #000000;border-left:3px solid #000000;-moz-border-radius:11px;-webkit-border-radius:11px;border-radius:11px;background:#ffffff;border-top:1px solid #000000;border-bottom:1px solid #000000;}
+.paddse:hover{border-right:3px solid #8d5252;border-left:3px solid #8d5252;background:#ffffff;}
+
+.textw1{font-size:14px;border-top:2px solid #000000;border-bottom:2px solid #000000;}
+
+.textw2{color:gray;}
+
+.textw3{color:#8d5252;}
+
+.textw4{color:blue;}
+
+.textw5{color:red;}
+
+.optionget{background:#efbbb6;padding:5px;border:#8d5252 1px solid;text-align:right;font-size:11px;color:#5e5958;}
+
+.codes{padding:6px 5px 6px 20px;border:3px solid #000000;-moz-border-radius:11px;-webkit-border-radius:11px;border-radius:11px;background:#ffffff;text-align:center;color:#8d5252;letter-spacing:10px;font-size:13px;}
+.codes:hover{border:3px solid #8d5252;background:#ffffff;text-align:center;cursor:text;}
+
+.good, .error, .info, .att{width:70%;background-repeat:no-repeat;background-position:10px center;text-transform:uppercase;font-size:11px;margin-bottom:20px;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:50px;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;text-align:right;}
+
+.good ul, .error ul, .info ul, .att ul{padding:15px 30px 0px 0px;font-size:11px;}
+
+.good li, .error li, .info li, .att li{padding:15px 0px 0px 0px;font-size:11px;}
+
+.good {background-color:#EBF8D6;border:1px solid #A6DD88;color:#539B2D;background-image:url(../images/good.png);}
+
+.error{background-color:#FFECE6;border:1px solid #FF936F;color:#842100;background-image:url(../images/error.png);}
+
+.info{background-color: #D3EEF1;border:1px solid #81CDD8;color:#369CAB;background-image:url(../images/info.png);}
+
+.att{background-color:#FFFBCC;border:1px solid #FFF35E;color:#C69E00;background-image:url(../images/att.png);}
+
+.replyclass{background-repeat:no-repeat;background-position:top left;background-image:url(../images/replytop.png);}
+
+.desting{padding:5px 0px 5px 0px;}
+
+/*#####################################################################*|
+
+|  Arab Forums 0.2                                                      |
+
+|  This Script Is Free Software                                         |
+
+|  Programmed By : Aissam Nedjar                                        |
+
+|  facebook : facebook.com/aissam.nedjar.43                             |
+
+|*#####################################################################*/

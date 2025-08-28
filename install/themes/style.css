@@ -1,0 +1,69 @@
+/*#####################################################################*|
+
+|  Arab Forums 0.2                                                      |
+
+|  This Script Is Free Software                                         |
+
+|  Programmed By : Aissam Nedjar                                        |
+
+|  Mobile : +213771381373                                               |
+
+|  skype phone : attaf.algeria                                          |
+
+|  facebook : facebook.com/aissam.nedjar.43                             |
+
+|  site : www.prince-algeria.com  || www.arab-forums-sc.com             |
+
+|            ط¢ط®ط± طھط¹ط¯ظٹظ„ : 18-03-2016 ط¨ظˆط§ط³ط·ط© : Aissam Nedjar              |
+
+|*#####################################################################*/
+
+body{padding:0px;margin:0px;background:#6a8eba;font:bold 14px tahoma;color:#1f3754;}
+
+a{margin: 0;padding:0;font-size:100%;vertical-align: baseline;background:transparent;}
+
+a{color:black;text-decoration:none;font-weight:bold;}
+
+a:link, a:visited, a:active, a:focus {color:#40454d;outline: 0 none;text-decoration: none;-webkit-transition: background .2s linear, color .2s linear;-moz-transition: background .2s linear, color .2s linear;-o-transition: background .2s linear, color .2s linear;-ms-transition: background .2s linear, color .2s linear;transition: background .2s linear, color .2s linear;}
+
+a:hover{color:#a50000;}
+
+.menu{background:#a9bacf;padding-right:2px;padding:2px;border:#1f3754 3px solid;text-align:center;font-size:11px;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
+
+.menu:hover{background:#ffffff;padding-right:2px;padding:2px;border:#1f3754 3px solid;text-align:center;font-size:11px;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
+
+.input{background-color:#1f3754;color:#fff;padding:5px;border:2px solid #000;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
+
+.input:hover{background-color:#fff;color:#000;padding:5px;border:2px solid #000;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
+
+.button{color:#1f3754;height:29px;padding:5px;background: -moz-linear-gradient(top,#ffffff 0%,#ebebeb 50%,#dbdbdb 50%,#b5b5b5);background: -webkit-gradient(linear, left top, left bottom, from(#ffffff),color-stop(0.50, #ebebeb),color-stop(0.50, #dbdbdb),to(#b5b5b5));border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;border: 1px solid #1f3754;-moz-box-shadow:0px 1px 3px rgba(000,000,000,0.5),inset 0px 0px 2px rgba(255,255,255,1);-webkit-box-shadow:0px 1px 3px rgba(000,000,000,0.5),inset 0px 0px 2px rgba(255,255,255,1);text-shadow:0px -1px 0px rgba(000,000,000,0.2),0px 1px 0px rgba(255,255,255,1);}
+
+.button:hover{color:#a50000;height:29px;padding:5px;background: -moz-linear-gradient(top,#ffffff 0%,#ebebeb 50%,#dbdbdb 50%,#b5b5b5);background: -webkit-gradient(linear, left top, left bottom, from(#ffffff),color-stop(0.50, #ebebeb),color-stop(0.50, #dbdbdb),to(#b5b5b5));border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;border: 1px solid #1f3754;-moz-box-shadow:0px 1px 3px rgba(000,000,000,0.5),inset 0px 0px 2px rgba(255,255,255,1);-webkit-box-shadow:0px 1px 3px rgba(000,000,000,0.5),inset 0px 0px 2px rgba(255,255,255,1);text-shadow:0px -1px 0px rgba(000,000,000,0.2),0px 1px 0px rgba(255,255,255,1);}
+
+.border{background:gray;}
+
+.tcat{padding:5px;height:40px;border:2px;border-style:solid; border-color:threedhighlight threedshadow threedshadow threedhighlight;color:white;background:#1f3754;}
+
+.alttext1{padding:5px;margin:0px;background:#ffffec;font-size:12px;color:black;}
+
+#title{position:absolute;border:2px solid #1f3754;border-radius:2px;padding:5px;background-color:#ffffff;font-weight:bold;color:#000000;text-align:center;font-size:11px;background-repeat:no-repeat;}
+
+/*#####################################################################*|
+
+|  Arab Forums 0.2                                                      |
+
+|  This Script Is Free Software                                         |
+
+|  Programmed By : Aissam Nedjar                                        |
+
+|  Mobile : +213771381373                                               |
+
+|  skype phone : attaf.algeria                                          |
+
+|  facebook : facebook.com/aissam.nedjar.43                             |
+
+|  site : www.prince-algeria.com  || www.arab-forums-sc.com             |
+
+|            ط¢ط®ط± طھط¹ط¯ظٹظ„ : 18-03-2016 ط¨ظˆط§ط³ط·ط© : Aissam Nedjar              |
+
+|*#####################################################################*/
