@@ -24,7 +24,7 @@ $pass = text_other("arab-forums", post_other("arab-forums", "pass"), true, true,
 if ($name == "" || $pass == "" || $email == "") {
 
     $error = "الرجاء ملأ جميع الحقول ليتم تسجيل البيانات";
-} elseif (!eregi("^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$", $email)) {
+} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
     $error = "الإيميل المدخل غير صحيح";
 } else {
