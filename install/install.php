@@ -21,7 +21,9 @@ define("error_page_arab_forums", true);
 
 @include("../includes/f.otherto.php");
 
-@include("../inccrack.php");
+dd(forum_style);
+
+@include("themes/".forum_style."/css/style.php");
 
 echo post_hacker("arab-forums");
 
