@@ -25,7 +25,7 @@ $user_object = object_mysql("arab-forums" , $user_sql);
 
 define("id_user" , $user_object->user_id);
 
-define("lock2_user" , $user_object->user_lock2 ?? 0);
+define("lock2_user" , $user_object->user_lock2);
 
 define("name_user" , $user_object->user_nameuser);
 
