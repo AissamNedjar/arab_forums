@@ -169,23 +169,19 @@ return "<a href=\"{$url}\" ".($title == "" ? "" : "title=\"{$title}\" class=\"ti
 
 }}
 
-function code_other($copi , $size){
+function code_other($copi, $size)
+{
+    if ($copi == "arab-forums") {
+        $chars = "azertyuiopqsdfghjkllmwxcvbn123456789";
+        $rand_str = "";
 
-if($copi == "arab-forums"){
+        for ($i = 0; $i < $size; $i++) {
+            $rand_str .= $chars[mt_rand(0, strlen($chars) - 1)];
+        }
 
-$chars = "azertyuiopqsdfghjkllmwxcvbn123456789";
-
-$rand_str = "";
-
-for($i=0; $i<$size; $i++){
-
-$rand_str .= $chars{mt_rand(0,strlen($chars)-1)};
-
+        return $rand_str;
+    }
 }
-
-return $rand_str;
-
-}}
 
 function confirm_other($copi , $msg){
 
