@@ -11,382 +11,361 @@
 
 |*#####################################################################*/
 
-if(!defined("error_page_arab_forums")){exit(header("location: ../error.php"));}
-
-if(per_other("arab-forums" , 10) == false){
-
-$error = "للأسف المجموعة التي تنتمي إليها لا تملك التصريح المناسب لهذه الخاصية";
-
-}elseif(is_numeric(value) && allowedin3_other("arab-forums" , value , 1) == false){
-
-$error = "للأسف لا يمكنك عرض الأوصاف الموزعة في هذا المنتدى لأنك لا تملك التصريح المناسب";
-
-}elseif(is_numeric(id) && wasafallo_other("arab-forums" , id , 1 , "show" , false) == false){
-
-$error = "للأسف لا يمكنك عرض من يستعمل هذا الوصف لأنك لا تملك التصريح المناسب";
-
-}elseif(is_numeric(user) && userallo_other("arab-forums" , "id" , user) == false){
-
-$error = "للأسف لا يمكنك عرض الأوصاف الموزعة على هاته العضوية لأنك لا تملك التصريح المناسب";
-
-}else{
-
-$error = "";
-
+if (!defined("error_page_arab_forums")) {
+    exit(header("location: ../error.php"));
 }
 
-if($error == ""){
+if (per_other("arab-forums", 10) == false) {
 
-$allyu  = text_other("arab-forums" , post_other("arab-forums" , "allyu") , false , false , false , false , false);
+    $error = "للأسف المجموعة التي تنتمي إليها لا تملك التصريح المناسب لهذه الخاصية";
+} elseif (is_numeric(value) && allowedin3_other("arab-forums", value, 1) == false) {
 
-$wait  = text_other("arab-forums" , post_other("arab-forums" , "wait") , false , false , false , false , false);
+    $error = "للأسف لا يمكنك عرض الأوصاف الموزعة في هذا المنتدى لأنك لا تملك التصريح المناسب";
+} elseif (is_numeric(id) && wasafallo_other("arab-forums", id, 1, "show", false) == false) {
 
-$bad  = text_other("arab-forums" , post_other("arab-forums" , "bad") , false , false , false , false , false);
+    $error = "للأسف لا يمكنك عرض من يستعمل هذا الوصف لأنك لا تملك التصريح المناسب";
+} elseif (is_numeric(user) && userallo_other("arab-forums", "id", user) == false) {
 
-$delete  = text_other("arab-forums" , post_other("arab-forums" , "delete") , false , false , false , false , false);
+    $error = "للأسف لا يمكنك عرض الأوصاف الموزعة على هاته العضوية لأنك لا تملك التصريح المناسب";
+} else {
 
-$import = @implode("," , $allyu);
-
-if(isset($wait)){
-
-if($allyu == 0){
-
-$arraymsg = array(
-
-"msg" => "الرجاء تحديد وصف موزع وآحد على الأقل ليتم الموافقة عليه" ,
-
-"color" => "error" ,
-
-"url" => "" ,
-
-);
-
-echo msgadmin_template("arab-forums" , $arraymsg);
-
-}else{
-
-update_mysql("arab-forums" , "getwasaf" , "getwasaf_lock = \"0\" where getwasaf_id in({$import})");
-
-$arraymsg = array(
-
-"msg" => "تم الموافقة على الأوصاف الموزعة المحددة بنجآح تام" ,
-
-"color" => "good" ,
-
-"url" => "" ,
-
-);
-
-echo msgadmin_template("arab-forums" , $arraymsg);
-
-}}elseif(isset($bad)){
-
-if($allyu == 0){
-
-$arraymsg = array(
-
-"msg" => "الرجاء تحديد وصف موزع وآحد على الأقل ليتم رفضه" ,
-
-"color" => "error" ,
-
-"url" => "" ,
-
-);
-
-echo msgadmin_template("arab-forums" , $arraymsg);
-
-}else{
-
-update_mysql("arab-forums" , "getwasaf" , "getwasaf_lock = \"2\" where getwasaf_id in({$import})");
-
-$arraymsg = array(
-
-"msg" => "تم رفض الأوصاف الموزعة المحددة بنجآح تام" ,
-
-"color" => "good" ,
-
-"url" => "" ,
-
-);
-
-echo msgadmin_template("arab-forums" , $arraymsg);
-
-}}elseif(isset($delete)){
-
-if($allyu == 0){
-
-$arraymsg = array(
-
-"msg" => "الرجاء تحديد وصف موزع وآحد على الأقل ليتم حذفه" ,
-
-"color" => "error" ,
-
-"url" => "" ,
-
-);
-
-echo msgadmin_template("arab-forums" , $arraymsg);
-
-}else{
-
-update_mysql("arab-forums" , "getwasaf" , "getwasaf_lock = \"3\" where getwasaf_id in({$import})");
-
-$arraymsg = array(
-
-"msg" => "تم حذف الأوصاف الموزعة المحددة بنجآح تام" ,
-
-"color" => "good" ,
-
-"url" => "" ,
-
-);
-
-echo msgadmin_template("arab-forums" , $arraymsg);
-
-}}else{
-
-if(type == "wait"){
-
-$sqlo = "g.getwasaf_lock in(1)";
-
-$texto = "تعرض الأوصاف الموزعة التي تنتظر الموافقة";
-
-$urlo = "&type=wait";
-
-}elseif(type == "bad"){
-
-$sqlo = "g.getwasaf_lock in(2)";
-
-$texto = "تعرض الأوصاف الموزعة المرفوضة";
-
-$urlo = "&type=bad";
-
-}elseif(type == "delete"){
-
-$sqlo = "g.getwasaf_lock in(3)";
-
-$texto = "تعرض الأوصاف الموزعة المحذوفة";
-
-$urlo = "&type=delete";
-
-}else{
-
-$sqlo = "g.getwasaf_lock in(0)";
-
-$texto = "تعرض الأوصاف الموزعة السارية حالية";
-
-$urlo = "";
-
+    $error = "";
 }
 
-if(is_numeric(id)){
+if ($error == "") {
 
-$getwasaf_sql = select_mysql("arab-forums" , "wasaf" , "wasaf_id , wasaf_name" , "where wasaf_id in(".id.") limit 1");
+    $allyu  = text_other("arab-forums", post_other("arab-forums", "allyu"), false, false, false, false, false);
 
-$getwasaf_object = object_mysql("arab-forums" , $getwasaf_sql);
+    $wait  = text_other("arab-forums", post_other("arab-forums", "wait"), false, false, false, false, false);
 
-$textu = "عرض على من وزع الوصف رقم : ".id." ({$getwasaf_object->wasaf_name})";
+    $bad  = text_other("arab-forums", post_other("arab-forums", "bad"), false, false, false, false, false);
 
-$urlp = "&id={$getwasaf_object->wasaf_id}";
+    $delete  = text_other("arab-forums", post_other("arab-forums", "delete"), false, false, false, false, false);
 
-$sqlp = "&& w.wasaf_id in({$getwasaf_object->wasaf_id}) && (w.wasaf_forumid in(0) || w.wasaf_forumid in(".allowedin1_other("arab-forums")."))";
+    $import = @implode(",", $allyu);
 
-}elseif(is_numeric(value)){
+    if (isset($wait)) {
 
-$forum_sql = select_mysql("arab-forums" , "forum" , "forum_id , forum_name" , "where forum_id in(".value.") limit 1");
+        if ($allyu == 0) {
 
-$forum_object = object_mysql("arab-forums" , $forum_sql);
+            $arraymsg = array(
 
-$textu = "عرض الأوصاف الموزعة في : {$forum_object->forum_name}";
+                "msg" => "الرجاء تحديد وصف موزع وآحد على الأقل ليتم الموافقة عليه",
 
-$urlp = "&value={$forum_object->forum_id}";
+                "color" => "error",
 
-$sqlp = "&& w.wasaf_forumid in({$forum_object->forum_id})";
+                "url" => "",
 
-}elseif(is_numeric(user)){
+            );
 
-$user_sql = select_mysql("arab-forums" , "user" , "user_id , user_nameuser" , "where user_id in(".user.") limit 1");
+            echo msgadmin_template("arab-forums", $arraymsg);
+        } else {
 
-$user_object = object_mysql("arab-forums" , $user_sql);
+            update_mysql("arab-forums", "getwasaf", "getwasaf_lock = \"0\" where getwasaf_id in({$import})");
 
-$textu = "عرض الأوصاف الموزعة على : {$user_object->user_nameuser}";
+            $arraymsg = array(
 
-$urlp = "&user={$user_object->user_id}";
+                "msg" => "تم الموافقة على الأوصاف الموزعة المحددة بنجآح تام",
 
-$sqlp = "&& g.getwasaf_userid in({$user_object->user_id}) && (w.wasaf_forumid in(0) || w.wasaf_forumid in(".allowedin1_other("arab-forums")."))";
+                "color" => "good",
 
-}else{
+                "url" => "",
 
-$textu = "عرض جميع الأوصاف الموزعة الموزعة في المنتديات التي أشرف عليها";
+            );
 
-$urlp = "";
+            echo msgadmin_template("arab-forums", $arraymsg);
+        }
+    } elseif (isset($bad)) {
 
-$sqlp = "&& (w.wasaf_forumid in(0) || w.wasaf_forumid in(".allowedin1_other("arab-forums")."))";
+        if ($allyu == 0) {
 
-}
+            $arraymsg = array(
 
-$count_page = tother_option;
+                "msg" => "الرجاء تحديد وصف موزع وآحد على الأقل ليتم رفضه",
 
-$get_page = (page == "" || !is_numeric(page) ? 1 : page);
+                "color" => "error",
 
-$limit_page = (($get_page * $count_page) - $count_page);
+                "url" => "",
 
-echo "<table cellpadding=\"0\" cellspacing=\"3\" width=\"99%\" align=\"center\"><tr>";
+            );
 
-echo "<td>".img_other("arab-forums" , "images/service.png" , "" , "" , "" , "0" , "" , "")."</td>";
+            echo msgadmin_template("arab-forums", $arraymsg);
+        } else {
 
-echo "<td width=\"100%\"><span style=\"color:red;font-size:13px;\">{$textu}<br><br>{$texto}</span></td>";
+            update_mysql("arab-forums", "getwasaf", "getwasaf_lock = \"2\" where getwasaf_id in({$import})");
 
-echo "<td class=\"menu\"><span style=\"color:black;font-size:12px;\">عرض الأوصاف الموزعة</span><div class=\"pad\"><select class=\"inputselect\" onchange=\"getst(this)\">";
+            $arraymsg = array(
 
-echo "<option value=\"service.php?gert=wasaf&go=wasaf_listgo{$urlp}\" ".(type == "" ? "selected" : "").">السارية حاليا</option>";
+                "msg" => "تم رفض الأوصاف الموزعة المحددة بنجآح تام",
 
-echo "<option value=\"service.php?gert=wasaf&go=wasaf_listgo{$urlp}&type=wait\" ".(type == "wait" ? "selected" : "").">التي تنتظر الموافقة</option>";
+                "color" => "good",
 
-echo "<option value=\"service.php?gert=wasaf&go=wasaf_listgo{$urlp}&type=bad\" ".(type == "bad" ? "selected" : "").">المرفوضة</option>";
+                "url" => "",
 
-echo "<option value=\"service.php?gert=wasaf&go=wasaf_listgo{$urlp}&type=delete\" ".(type == "delete" ? "selected" : "").">المحذوفة</option>";
+            );
 
-echo "</select></div></td>";
+            echo msgadmin_template("arab-forums", $arraymsg);
+        }
+    } elseif (isset($delete)) {
 
-if(!is_numeric(id) && !is_numeric(user)){
+        if ($allyu == 0) {
 
-echo "<td class=\"menu\"><span style=\"color:black;font-size:12px;\">عرض أوصاف</span><div class=\"pad\"><select class=\"inputselect\" onchange=\"getst(this)\">";
+            $arraymsg = array(
 
-echo "<option value=\"service.php?gert=wasaf&go=wasaf_listgo{$urlo}\" ".(value == "" ? "selected" : "").">عرض الأوصاف الموزعة التابعة للمنتديات التي أشرف عليها</option>";
+                "msg" => "الرجاء تحديد وصف موزع وآحد على الأقل ليتم حذفه",
 
-$forum_sql = select_mysql("arab-forums" , "forum" , "forum_id , forum_name , forum_order" , "where forum_id in(".allowedin1_other("arab-forums").") order by forum_order asc");
+                "color" => "error",
 
-if(num_mysql("arab-forums" , $forum_sql) != false){
+                "url" => "",
 
-while($forum_object = object_mysql("arab-forums" , $forum_sql)){
+            );
 
-echo "<option value=\"service.php?gert=wasaf&go=wasaf_listgo&value={$forum_object->forum_id}{$urlo}\" ".(value == "{$forum_object->forum_id}" ? "selected" : "").">عرض أوصاف {$forum_object->forum_name}</option>";
+            echo msgadmin_template("arab-forums", $arraymsg);
+        } else {
 
-}}
+            update_mysql("arab-forums", "getwasaf", "getwasaf_lock = \"3\" where getwasaf_id in({$import})");
 
-echo "</select></div></td>";
+            $arraymsg = array(
 
-}
+                "msg" => "تم حذف الأوصاف الموزعة المحددة بنجآح تام",
 
-echo page_pager("arab-forums" , "getwasaf" , "g.getwasaf_id , g.getwasaf_wasafid , g.getwasaf_userid , g.getwasaf_lock , w.wasaf_id , w.wasaf_forumid , w.wasaf_lock" , "as g left join wasaf".prefix_connect." as w on(w.wasaf_id = g.getwasaf_wasafid) where w.wasaf_lock in(0) && {$sqlo} {$sqlp}" , $count_page , $get_page , "service.php?gert=wasaf&go=wasaf_listgo{$urlp}{$urlo}&");
+                "color" => "good",
 
-echo "</tr></table>";
+                "url" => "",
 
-echo "<form action=\"".self."\" method=\"post\">";
+            );
 
-echo "<table cellpadding=\"0\" cellspacing=\"3\" width=\"99%\" align=\"center\"><tr>";
+            echo msgadmin_template("arab-forums", $arraymsg);
+        }
+    } else {
 
-if(group_user > 2){
+        if (type == "wait") {
 
-if(type == "wait" || type == "delete" || type == "bad"){
+            $sqlo = "g.getwasaf_lock in(1)";
 
-echo "<td><nobr><input class=\"button\" value=\"الموافقة على الأوصاف الموزعة المحددة\" type=\"submit\" name=\"wait\" ".confirm_other("arab-forums" , "هل أنت متأكد من أنك تريد الموافقة على الأوصاف الموزعة المحددة ؟")."></nobr></td>";
+            $texto = "تعرض الأوصاف الموزعة التي تنتظر الموافقة";
 
-}
+            $urlo = "&type=wait";
+        } elseif (type == "bad") {
 
-if(type == "wait"){
+            $sqlo = "g.getwasaf_lock in(2)";
 
-echo "<td><nobr><input class=\"button\" value=\"رفض الأوصاف الموزعة المحددة\" type=\"submit\" name=\"bad\" ".confirm_other("arab-forums" , "هل أنت متأكد من أنك تريد رفض الأوصاف الموزعة المحددة ؟")."></nobr></td>";
+            $texto = "تعرض الأوصاف الموزعة المرفوضة";
 
-}}
+            $urlo = "&type=bad";
+        } elseif (type == "delete") {
 
-if(type == "" || type == "wait"){
+            $sqlo = "g.getwasaf_lock in(3)";
 
-echo "<td><nobr><input class=\"button\" value=\"حذف الأوصاف الموزعة المحددة\" type=\"submit\" name=\"delete\" ".confirm_other("arab-forums" , "هل أنت متأكد من أنك تريد حذف الأوصاف الموزعة المحددة ؟")."></nobr></td>";
+            $texto = "تعرض الأوصاف الموزعة المحذوفة";
 
-}
+            $urlo = "&type=delete";
+        } else {
 
-echo "<td width=\"100%\"></td>";
+            $sqlo = "g.getwasaf_lock in(0)";
 
-echo "</tr></table>";
- 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" width=\"99%\" align=\"center\">";
+            $texto = "تعرض الأوصاف الموزعة السارية حالية";
 
-$inputtext = array(
+            $urlo = "";
+        }
 
-1 => "تحديد جميع الأوصاف الموزعة" ,
+        if (is_numeric(id)) {
 
-2 => "إلغاء تحديد جميع الأوصاف الموزعة" ,
+            $getwasaf_sql = select_mysql("arab-forums", "wasaf", "wasaf_id , wasaf_name", "where wasaf_id in(" . id . ") limit 1");
 
-3 => "لا توجد أوصاف بالصفحة حاليا" ,
+            $getwasaf_object = object_mysql("arab-forums", $getwasaf_sql);
 
-4 => "عدد الأوصاف الموزعة الذي إخترت هو :" ,
+            $textu = "عرض على من وزع الوصف رقم : " . id . " ({$getwasaf_object->wasaf_name})";
 
-5 => "الوصف" ,
+            $urlp = "&id={$getwasaf_object->wasaf_id}";
 
-);
+            $sqlp = "&& w.wasaf_id in({$getwasaf_object->wasaf_id}) && (w.wasaf_forumid in(0) || w.wasaf_forumid in(" . allowedin1_other("arab-forums") . "))";
+        } elseif (is_numeric(value)) {
 
-echo "<tr>";
+            $forum_sql = select_mysql("arab-forums", "forum", "forum_id , forum_name", "where forum_id in(" . value . ") limit 1");
 
-echo "<td class=\"tcotadmin\" width=\"5%\" align=\"center\"><input type=\"checkbox\" title=\"{$inputtext["1"]}\" name=\"chk_all\" onclick=\"check2(this.form , this , '{$inputtext["1"]}' , '{$inputtext["2"]}' , '{$inputtext["3"]}' , '{$inputtext["4"]}' , '{$inputtext["5"]}' , 'alttext1 select');\"></td>";
+            $forum_object = object_mysql("arab-forums", $forum_sql);
 
-echo "<td class=\"tcotadmin\" width=\"35%\" align=\"center\">الوصف</td>";
+            $textu = "عرض الأوصاف الموزعة في : {$forum_object->forum_name}";
 
-echo "<td class=\"tcotadmin\" width=\"15%\" align=\"center\"><nobr>وزع على</nobr></td>";
+            $urlp = "&value={$forum_object->forum_id}";
 
-echo "<td class=\"tcotadmin\" width=\"15%\" align=\"center\"><nobr>بواسطة</nobr></td>";
+            $sqlp = "&& w.wasaf_forumid in({$forum_object->forum_id})";
+        } elseif (is_numeric(user)) {
 
-echo "<td class=\"tcotadmin\" width=\"20%\" align=\"center\">المنتدى</td>";
+            $user_sql = select_mysql("arab-forums", "user", "user_id , user_nameuser", "where user_id in(" . user . ") limit 1");
 
-echo "</tr>";
+            $user_object = object_mysql("arab-forums", $user_sql);
 
-$getwasaf_sql = select_mysql("arab-forums" , "getwasaf" , "g.getwasaf_id , g.getwasaf_wasafid , g.getwasaf_userid , g.getwasaf_lock , g.getwasaf_add , g.getwasaf_date , u1.user_id as u1user_id , u1.user_lock1 as u1user_lock , u1.user_nameuser as u1user_name , u1.user_group as u1user_group , u1.user_coloruser as u1user_color , u2.user_id as u2user_id , u2.user_lock1 as u2user_lock , u2.user_nameuser as u2user_name , u2.user_group as u2user_group , u2.user_coloruser as u2user_color , f.forum_id , f.forum_name , w.wasaf_id , w.wasaf_forumid , w.wasaf_forumall , w.wasaf_lock , w.wasaf_name" , "as g left join wasaf".prefix_connect." as w on(w.wasaf_id = g.getwasaf_wasafid) left join user".prefix_connect." as u1 on(u1.user_id = g.getwasaf_add) left join user".prefix_connect." as u2 on(u2.user_id = g.getwasaf_userid) left join forum".prefix_connect." as f on(f.forum_id = w.wasaf_forumid) where w.wasaf_lock in(0) && {$sqlo} {$sqlp} order by g.getwasaf_date desc limit {$limit_page},{$count_page}");
+            $textu = "عرض الأوصاف الموزعة على : {$user_object->user_nameuser}";
 
-if(num_mysql("arab-forums" , $getwasaf_sql) != false){
+            $urlp = "&user={$user_object->user_id}";
 
-while($getwasaf_object = object_mysql("arab-forums" , $getwasaf_sql)){
+            $sqlp = "&& g.getwasaf_userid in({$user_object->user_id}) && (w.wasaf_forumid in(0) || w.wasaf_forumid in(" . allowedin1_other("arab-forums") . "))";
+        } else {
 
-echo "<tr class=\"alttext1\" id=\"tr_{$getwasaf_object->getwasaf_id}\" align=\"center\">";
+            $textu = "عرض جميع الأوصاف الموزعة الموزعة في المنتديات التي أشرف عليها";
 
-if((($getwasaf_object->wasaf_forumid > 0) || ($getwasaf_object->wasaf_forumid == 0 && group_user == 6)) && (($getwasaf_object->getwasaf_lock == 0) || ($getwasaf_object->getwasaf_lock != 0 && group_user > 2))){
+            $urlp = "";
 
-echo "<td><div class=\"pad\"><input onclick=\"check1(this, '{$getwasaf_object->getwasaf_id}' , 'alttext1' , 'الوصف الموزع' , 'alttext1 select');\" type=\"checkbox\" name=\"allyu[]\" title=\"تحديد الوصف الموزع\" value=\"{$getwasaf_object->getwasaf_id}\"><input type=\"hidden\" name=\"bg_{$getwasaf_object->getwasaf_id}\" id=\"bg_{$getwasaf_object->getwasaf_id}\" value=\"alttext1\"></div></td>";
+            $sqlp = "&& (w.wasaf_forumid in(0) || w.wasaf_forumid in(" . allowedin1_other("arab-forums") . "))";
+        }
 
-}else{
+        $count_page = tother_option;
 
-echo "<td><div class=\"pad\">--</div></td>";
+        $get_page = (page == "" || !is_numeric(page) ? 1 : page);
 
-}
+        $limit_page = (($get_page * $count_page) - $count_page);
 
-echo "<td><div class=\"pad\" align=\"right\">{$getwasaf_object->wasaf_name}<br><br><span style=\"color:red;font-size:10px;\">".($getwasaf_object->wasaf_forumall == 1 ? "يظهر في جميع المنتديات" : "يظهر في المنتدى التابع له فقط")."</span></div></td>";
+        echo "<table cellpadding=\"0\" cellspacing=\"3\" width=\"99%\" align=\"center\"><tr>";
 
-echo "<td align=\"center\"><div class=\"pad\">".user_other("arab-forums" , array($getwasaf_object->u2user_id , $getwasaf_object->u2user_group , $getwasaf_object->u2user_name , $getwasaf_object->u2user_lock , $getwasaf_object->u2user_color , false))."</div></td>";
+        echo "<td>" . img_other("arab-forums", "images/service.png", "", "", "", "0", "", "") . "</td>";
 
-echo "<td align=\"center\"><div class=\"pad\"><span style=\"font-size:13px;\">".user_other("arab-forums" , array($getwasaf_object->u1user_id , $getwasaf_object->u1user_group , $getwasaf_object->u1user_name , $getwasaf_object->u1user_lock , $getwasaf_object->u1user_color , false))."</span><br><nobr>".times_date("arab-forums" , "" , $getwasaf_object->getwasaf_date)."</nobr></div></td>";
+        echo "<td width=\"100%\"><span style=\"color:red;font-size:13px;\">{$textu}<br><br>{$texto}</span></td>";
 
-echo "<td><div class=\"pad\"><span style=\"color:orange;font-size:12px;\">".($getwasaf_object->wasaf_forumid != 0 ? a_other("arab-forums" , "forum.php?id={$getwasaf_object->forum_id}" , "{$getwasaf_object->forum_name}" , "{$getwasaf_object->forum_name}" , "") : "في جميع المنتديات")."</span></div></td>";
+        echo "<td class=\"menu\"><span style=\"color:black;font-size:12px;\">عرض الأوصاف الموزعة</span><div class=\"pad\"><select class=\"inputselect\" onchange=\"getst(this)\">";
 
-echo "</tr>";
+        echo "<option value=\"service.php?gert=wasaf&go=wasaf_listgo{$urlp}\" " . (type == "" ? "selected" : "") . ">السارية حاليا</option>";
 
-}}else{
+        echo "<option value=\"service.php?gert=wasaf&go=wasaf_listgo{$urlp}&type=wait\" " . (type == "wait" ? "selected" : "") . ">التي تنتظر الموافقة</option>";
 
-echo "<tr>";
+        echo "<option value=\"service.php?gert=wasaf&go=wasaf_listgo{$urlp}&type=bad\" " . (type == "bad" ? "selected" : "") . ">المرفوضة</option>";
 
-echo "<td class=\"alttext1\" align=\"center\" colspan=\"5\"><br><div class=\"pad\">لآ يوجد أي وصف موزع حاليا</div><br></td>";
+        echo "<option value=\"service.php?gert=wasaf&go=wasaf_listgo{$urlp}&type=delete\" " . (type == "delete" ? "selected" : "") . ">المحذوفة</option>";
 
-echo "</tr>";
+        echo "</select></div></td>";
 
-}
+        if (!is_numeric(id) && !is_numeric(user)) {
 
-echo "</table>";
+            echo "<td class=\"menu\"><span style=\"color:black;font-size:12px;\">عرض أوصاف</span><div class=\"pad\"><select class=\"inputselect\" onchange=\"getst(this)\">";
 
-echo "</form>";
+            echo "<option value=\"service.php?gert=wasaf&go=wasaf_listgo{$urlo}\" " . (value == "" ? "selected" : "") . ">عرض الأوصاف الموزعة التابعة للمنتديات التي أشرف عليها</option>";
 
-}}else{
+            $forum_sql = select_mysql("arab-forums", "forum", "forum_id , forum_name , forum_order", "where forum_id in(" . allowedin1_other("arab-forums") . ") order by forum_order asc");
 
-$arraymsg = array(
+            if (num_mysql("arab-forums", $forum_sql) != false) {
 
-"msg" => $error ,
+                while ($forum_object = object_mysql("arab-forums", $forum_sql)) {
 
-"color" => "error" ,
+                    echo "<option value=\"service.php?gert=wasaf&go=wasaf_listgo&value={$forum_object->forum_id}{$urlo}\" " . (value == "{$forum_object->forum_id}" ? "selected" : "") . ">عرض أوصاف {$forum_object->forum_name}</option>";
+                }
+            }
 
-"url" => "" ,
+            echo "</select></div></td>";
+        }
 
-);
+        echo page_pager("arab-forums", "getwasaf", "g.getwasaf_id , g.getwasaf_wasafid , g.getwasaf_userid , g.getwasaf_lock , w.wasaf_id , w.wasaf_forumid , w.wasaf_lock", "as g left join wasaf" . prefix_connect . " as w on(w.wasaf_id = g.getwasaf_wasafid) where w.wasaf_lock in(0) && {$sqlo} {$sqlp}", $count_page, $get_page, "service.php?gert=wasaf&go=wasaf_listgo{$urlp}{$urlo}&");
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+        echo "</tr></table>";
 
+        echo "<form action=\"" . self . "\" method=\"post\">";
+
+        echo "<table cellpadding=\"0\" cellspacing=\"3\" width=\"99%\" align=\"center\"><tr>";
+
+        if (group_user > 2) {
+
+            if (type == "wait" || type == "delete" || type == "bad") {
+
+                echo "<td><nobr><input class=\"button\" value=\"الموافقة على الأوصاف الموزعة المحددة\" type=\"submit\" name=\"wait\" " . confirm_other("arab-forums", "هل أنت متأكد من أنك تريد الموافقة على الأوصاف الموزعة المحددة ؟") . "></nobr></td>";
+            }
+
+            if (type == "wait") {
+
+                echo "<td><nobr><input class=\"button\" value=\"رفض الأوصاف الموزعة المحددة\" type=\"submit\" name=\"bad\" " . confirm_other("arab-forums", "هل أنت متأكد من أنك تريد رفض الأوصاف الموزعة المحددة ؟") . "></nobr></td>";
+            }
+        }
+
+        if (type == "" || type == "wait") {
+
+            echo "<td><nobr><input class=\"button\" value=\"حذف الأوصاف الموزعة المحددة\" type=\"submit\" name=\"delete\" " . confirm_other("arab-forums", "هل أنت متأكد من أنك تريد حذف الأوصاف الموزعة المحددة ؟") . "></nobr></td>";
+        }
+
+        echo "<td width=\"100%\"></td>";
+
+        echo "</tr></table>";
+
+        echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" width=\"99%\" align=\"center\">";
+
+        $inputtext = array(
+
+            1 => "تحديد جميع الأوصاف الموزعة",
+
+            2 => "إلغاء تحديد جميع الأوصاف الموزعة",
+
+            3 => "لا توجد أوصاف بالصفحة حاليا",
+
+            4 => "عدد الأوصاف الموزعة الذي إخترت هو :",
+
+            5 => "الوصف",
+
+        );
+
+        echo "<tr>";
+
+        echo "<td class=\"tcotadmin\" width=\"5%\" align=\"center\"><input type=\"checkbox\" title=\"{$inputtext["1"]}\" name=\"chk_all\" onclick=\"check2(this.form , this , '{$inputtext["1"]}' , '{$inputtext["2"]}' , '{$inputtext["3"]}' , '{$inputtext["4"]}' , '{$inputtext["5"]}' , 'alttext1 select');\"></td>";
+
+        echo "<td class=\"tcotadmin\" width=\"35%\" align=\"center\">الوصف</td>";
+
+        echo "<td class=\"tcotadmin\" width=\"15%\" align=\"center\"><nobr>وزع على</nobr></td>";
+
+        echo "<td class=\"tcotadmin\" width=\"15%\" align=\"center\"><nobr>بواسطة</nobr></td>";
+
+        echo "<td class=\"tcotadmin\" width=\"20%\" align=\"center\">المنتدى</td>";
+
+        echo "</tr>";
+
+        $getwasaf_sql = select_mysql("arab-forums", "getwasaf", "g.getwasaf_id , g.getwasaf_wasafid , g.getwasaf_userid , g.getwasaf_lock , g.getwasaf_add , g.getwasaf_date , u1.user_id as u1user_id , u1.user_lock1 as u1user_lock , u1.user_nameuser as u1user_name , u1.user_group as u1user_group , u1.user_coloruser as u1user_color , u2.user_id as u2user_id , u2.user_lock1 as u2user_lock , u2.user_nameuser as u2user_name , u2.user_group as u2user_group , u2.user_coloruser as u2user_color , f.forum_id , f.forum_name , w.wasaf_id , w.wasaf_forumid , w.wasaf_forumall , w.wasaf_lock , w.wasaf_name", "as g left join wasaf" . prefix_connect . " as w on(w.wasaf_id = g.getwasaf_wasafid) left join user" . prefix_connect . " as u1 on(u1.user_id = g.getwasaf_add) left join user" . prefix_connect . " as u2 on(u2.user_id = g.getwasaf_userid) left join forum" . prefix_connect . " as f on(f.forum_id = w.wasaf_forumid) where w.wasaf_lock in(0) && {$sqlo} {$sqlp} order by g.getwasaf_date desc limit {$limit_page},{$count_page}");
+
+        if (num_mysql("arab-forums", $getwasaf_sql) != false) {
+
+            while ($getwasaf_object = object_mysql("arab-forums", $getwasaf_sql)) {
+
+                echo "<tr class=\"alttext1\" id=\"tr_{$getwasaf_object->getwasaf_id}\" align=\"center\">";
+
+                if ((($getwasaf_object->wasaf_forumid > 0) || ($getwasaf_object->wasaf_forumid == 0 && group_user == 6)) && (($getwasaf_object->getwasaf_lock == 0) || ($getwasaf_object->getwasaf_lock != 0 && group_user > 2))) {
+
+                    echo "<td><div class=\"pad\"><input onclick=\"check1(this, '{$getwasaf_object->getwasaf_id}' , 'alttext1' , 'الوصف الموزع' , 'alttext1 select');\" type=\"checkbox\" name=\"allyu[]\" title=\"تحديد الوصف الموزع\" value=\"{$getwasaf_object->getwasaf_id}\"><input type=\"hidden\" name=\"bg_{$getwasaf_object->getwasaf_id}\" id=\"bg_{$getwasaf_object->getwasaf_id}\" value=\"alttext1\"></div></td>";
+                } else {
+
+                    echo "<td><div class=\"pad\">--</div></td>";
+                }
+
+                echo "<td><div class=\"pad\" align=\"right\">{$getwasaf_object->wasaf_name}<br><br><span style=\"color:red;font-size:10px;\">" . ($getwasaf_object->wasaf_forumall == 1 ? "يظهر في جميع المنتديات" : "يظهر في المنتدى التابع له فقط") . "</span></div></td>";
+
+                echo "<td align=\"center\"><div class=\"pad\">" . user_other("arab-forums", array($getwasaf_object->u2user_id, $getwasaf_object->u2user_group, $getwasaf_object->u2user_name, $getwasaf_object->u2user_lock, $getwasaf_object->u2user_color, false)) . "</div></td>";
+
+                echo "<td align=\"center\"><div class=\"pad\"><span style=\"font-size:13px;\">" . user_other("arab-forums", array($getwasaf_object->u1user_id, $getwasaf_object->u1user_group, $getwasaf_object->u1user_name, $getwasaf_object->u1user_lock, $getwasaf_object->u1user_color, false)) . "</span><br><nobr>" . times_date("arab-forums", "", $getwasaf_object->getwasaf_date) . "</nobr></div></td>";
+
+                echo "<td><div class=\"pad\"><span style=\"color:orange;font-size:12px;\">" . ($getwasaf_object->wasaf_forumid != 0 ? a_other("arab-forums", "forum.php?id={$getwasaf_object->forum_id}", "{$getwasaf_object->forum_name}", "{$getwasaf_object->forum_name}", "") : "في جميع المنتديات") . "</span></div></td>";
+
+                echo "</tr>";
+            }
+        } else {
+
+            echo "<tr>";
+
+            echo "<td class=\"alttext1\" align=\"center\" colspan=\"5\"><br><div class=\"pad\">لآ يوجد أي وصف موزع حاليا</div><br></td>";
+
+            echo "</tr>";
+        }
+
+        echo "</table>";
+
+        echo "</form>";
+    }
+} else {
+
+    $arraymsg = array(
+
+        "msg" => $error,
+
+        "color" => "error",
+
+        "url" => "",
+
+    );
+
+    echo msgadmin_template("arab-forums", $arraymsg);
 }
 
 /*#####################################################################*|
@@ -400,4 +379,3 @@ echo msgadmin_template("arab-forums" , $arraymsg);
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

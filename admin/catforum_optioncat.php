@@ -11,374 +11,402 @@
 
 |*#####################################################################*/
 
-if(!defined("error_page_arab_forums")){exit(header("location: ../error.php"));}
-
-$cat_sql = select_mysql("arab-forums" , "cat" , "cat_id , cat_name , cat_order , cat_lock , cat_hid , cat_group0 , cat_group1 , cat_group2 , cat_group3 , cat_group4 , cat_group5 , cat_post1 , cat_post2 , cat_post3 , cat_post4 , cat_post5 , cat_monitor1 , cat_monitor1text , cat_monitor2 , cat_monitor2text , cat_home" , "where cat_id in(".id.")");
-
-if(num_mysql("arab-forums" , $cat_sql) != false){
-
-$cat_object = object_mysql("arab-forums" , $cat_sql);
-
-if(fort == "edit"){
-
-if(type == "insert"){
-
-$name = text_other("arab-forums" , post_other("arab-forums" , "name") , true , true , true , false , true);
-
-$order = text_other("arab-forums" , post_other("arab-forums" , "order") , true , true , true , false , true);
-
-$lock = text_other("arab-forums" , post_other("arab-forums" , "lock") , true , true , true , false , true);
-
-$hid = text_other("arab-forums" , post_other("arab-forums" , "hid") , true , true , true , false , true);
-
-$group0 = text_other("arab-forums" , post_other("arab-forums" , "group0") , true , true , true , false , true);
-
-$group1 = text_other("arab-forums" , post_other("arab-forums" , "group1") , true , true , true , false , true);
-
-$group2 = text_other("arab-forums" , post_other("arab-forums" , "group2") , true , true , true , false , true);
-
-$group3 = text_other("arab-forums" , post_other("arab-forums" , "group3") , true , true , true , false , true);
-
-$group4 = text_other("arab-forums" , post_other("arab-forums" , "group4") , true , true , true , false , true);
-
-$group5 = text_other("arab-forums" , post_other("arab-forums" , "group5") , true , true , true , false , true);
-
-$post1 = text_other("arab-forums" , post_other("arab-forums" , "post1") , true , true , true , false , true);
-
-$post2 = text_other("arab-forums" , post_other("arab-forums" , "post2") , true , true , true , false , true);
-
-$post3 = text_other("arab-forums" , post_other("arab-forums" , "post3") , true , true , true , false , true);
-
-$post4 = text_other("arab-forums" , post_other("arab-forums" , "post4") , true , true , true , false , true);
-
-$post5 = text_other("arab-forums" , post_other("arab-forums" , "post5") , true , true , true , false , true);
-
-$monitor1 = text_other("arab-forums" , post_other("arab-forums" , "monitor1") , true , true , true , false , true);
-
-$monitor1text = text_other("arab-forums" , post_other("arab-forums" , "monitor1text") , true , true , true , false , true);
-
-$monitor2 = text_other("arab-forums" , post_other("arab-forums" , "monitor2") , true , true , true , false , true);
-
-$monitor2text = text_other("arab-forums" , post_other("arab-forums" , "monitor2text") , true , true , true , false , true);
-
-$home = text_other("arab-forums" , post_other("arab-forums" , "home") , true , true , true , false , true);
-
-if($name == "" || $order == "" || $lock == "" || $hid == "" || $group0 == "" || $group1 == "" || $group2 == "" || $group3 == "" || $group4 == "" || $group5 == "" || $post1 == "" || $post2 == "" || $post3 == "" || $post4 == "" || $post5 == "" || $monitor1 == "" || $monitor1text == "" || $monitor2 == "" || $monitor2text == "" || $home == ""){
-
-$error = "الرجاء ملأ جميع الحقول ليتم التعديل على الفئة";
-
-}elseif(!is_numeric($order)){
-
-$error = "يجب أن تكون قيمة ترتيب الفئة صحيحة";
-
-}elseif(!is_numeric($monitor1)){
-
-$error = "يجب أن تكون قيمة مراقب الفئة صحيحة";
-
-}elseif(!is_numeric($monitor2)){
-
-$error = "يجب أن تكون قيمة نائب مراقب الفئة صحيحة";
-
-}else{
-
-$error = "";
-
+if (!defined("error_page_arab_forums")) {
+    exit(header("location: ../error.php"));
 }
 
-if($error != ""){
+$cat_sql = select_mysql("arab-forums", "cat", "cat_id , cat_name , cat_order , cat_lock , cat_hid , cat_group0 , cat_group1 , cat_group2 , cat_group3 , cat_group4 , cat_group5 , cat_post1 , cat_post2 , cat_post3 , cat_post4 , cat_post5 , cat_monitor1 , cat_monitor1text , cat_monitor2 , cat_monitor2text , cat_home", "where cat_id in(" . id . ")");
 
-$arraymsg = array(
+if (num_mysql("arab-forums", $cat_sql) != false) {
 
-"msg" => $error ,
+    $cat_object = object_mysql("arab-forums", $cat_sql);
 
-"color" => "error" ,
+    if (fort == "edit") {
 
-"url" => "" ,
+        if (type == "insert") {
 
-);
+            $name = text_other("arab-forums", post_other("arab-forums", "name"), true, true, true, false, true);
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            $order = text_other("arab-forums", post_other("arab-forums", "order"), true, true, true, false, true);
 
-}else{
+            $lock = text_other("arab-forums", post_other("arab-forums", "lock"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "cat" , "cat_name = \"{$name}\" , cat_order= \"{$order}\" , cat_lock = \"{$lock}\" , cat_hid = \"{$hid}\" , cat_group0 = \"{$group0}\" , cat_group1 = \"{$group1}\" , cat_group2 = \"{$group2}\" , cat_group3 = \"{$group3}\" , cat_group4 = \"{$group4}\" , cat_group5 = \"{$group5}\" , cat_post1 = \"{$post1}\" , cat_post2 = \"{$post2}\" , cat_post3 = \"{$post3}\" , cat_post4 = \"{$post4}\" , cat_post5 = \"{$post5}\" , cat_monitor1 = \"{$monitor1}\" , cat_monitor1text = \"{$monitor1text}\" , cat_monitor2 = \"{$monitor2}\" , cat_monitor2text = \"{$monitor2text}\" , cat_home = \"{$home}\" where cat_id in({$cat_object->cat_id})");
+            $hid = text_other("arab-forums", post_other("arab-forums", "hid"), true, true, true, false, true);
 
-$arraymsg = array(
+            $group0 = text_other("arab-forums", post_other("arab-forums", "group0"), true, true, true, false, true);
 
-"msg" => "تم تعديل الفئة بنجاح تام" ,
+            $group1 = text_other("arab-forums", post_other("arab-forums", "group1"), true, true, true, false, true);
 
-"color" => "good" ,
+            $group2 = text_other("arab-forums", post_other("arab-forums", "group2"), true, true, true, false, true);
 
-"url" => "admin.php?gert=catforum&go=catforum_list" ,
+            $group3 = text_other("arab-forums", post_other("arab-forums", "group3"), true, true, true, false, true);
 
-);
+            $group4 = text_other("arab-forums", post_other("arab-forums", "group4"), true, true, true, false, true);
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            $group5 = text_other("arab-forums", post_other("arab-forums", "group5"), true, true, true, false, true);
 
-}}else{
+            $post1 = text_other("arab-forums", post_other("arab-forums", "post1"), true, true, true, false, true);
 
-echo "<form action=\"admin.php?gert=catforum&go=catforum_optioncat&fort=edit&id={$cat_object->cat_id}&type=insert\" method=\"post\">";
- 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" width=\"99%\" align=\"center\">";
+            $post2 = text_other("arab-forums", post_other("arab-forums", "post2"), true, true, true, false, true);
 
-echo "<tr><td class=\"tcotadmin\">عنوان الفئة</td></tr>";
+            $post3 = text_other("arab-forums", post_other("arab-forums", "post3"), true, true, true, false, true);
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            $post4 = text_other("arab-forums", post_other("arab-forums", "post4"), true, true, true, false, true);
 
-echo "<input style=\"width:300px\" class=\"input\" name=\"name\" value=\"{$cat_object->cat_name}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال عنوان الفئة</span>";
+            $post5 = text_other("arab-forums", post_other("arab-forums", "post5"), true, true, true, false, true);
 
-echo "</div></td></tr>";
+            $monitor1 = text_other("arab-forums", post_other("arab-forums", "monitor1"), true, true, true, false, true);
 
-echo "<tr><td class=\"tcotadmin\">ترتيب الفئة</td></tr>";
+            $monitor1text = text_other("arab-forums", post_other("arab-forums", "monitor1text"), true, true, true, false, true);
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            $monitor2 = text_other("arab-forums", post_other("arab-forums", "monitor2"), true, true, true, false, true);
 
-echo "<input size=\"1\" class=\"input\" name=\"order\" value=\"{$cat_object->cat_order}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال الترتيب الخاص بالفئة و إن كنت لا تريدها مرتبة أتركها 1</span>";
+            $monitor2text = text_other("arab-forums", post_other("arab-forums", "monitor2text"), true, true, true, false, true);
 
-echo "</div></td></tr>";
+            $home = text_other("arab-forums", post_other("arab-forums", "home"), true, true, true, false, true);
 
-echo "<tr><td class=\"tcotadmin\">غلق الفئة</td></tr>";
+            if ($name == "" || $order == "" || $lock == "" || $hid == "" || $group0 == "" || $group1 == "" || $group2 == "" || $group3 == "" || $group4 == "" || $group5 == "" || $post1 == "" || $post2 == "" || $post3 == "" || $post4 == "" || $post5 == "" || $monitor1 == "" || $monitor1text == "" || $monitor2 == "" || $monitor2text == "" || $home == "") {
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                $error = "الرجاء ملأ جميع الحقول ليتم التعديل على الفئة";
+            } elseif (!is_numeric($order)) {
 
-echo "<select class=\"inputselect\" name=\"lock\">";
+                $error = "يجب أن تكون قيمة ترتيب الفئة صحيحة";
+            } elseif (!is_numeric($monitor1)) {
 
-echo "<option value=\"0\" ".($cat_object->cat_lock == 0 ? "selected" : "").">لآ</option>";
+                $error = "يجب أن تكون قيمة مراقب الفئة صحيحة";
+            } elseif (!is_numeric($monitor2)) {
 
-echo "<option value=\"1\" ".($cat_object->cat_lock == 1 ? "selected" : "").">نعم</option>";
+                $error = "يجب أن تكون قيمة نائب مراقب الفئة صحيحة";
+            } else {
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الفئة مغلوقة ؟</span>";
+                $error = "";
+            }
 
-echo "</div></td></tr>";
+            if ($error != "") {
 
-echo "<tr><td class=\"tcotadmin\">إخفاء الفئة</td></tr>";
+                $arraymsg = array(
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                    "msg" => $error,
 
-echo "<select class=\"inputselect\" name=\"hid\">";
+                    "color" => "error",
 
-echo "<option value=\"0\" ".($cat_object->cat_hid == 0 ? "selected" : "").">لآ</option>";
+                    "url" => "",
 
-echo "<option value=\"1\" ".($cat_object->cat_hid == 1 ? "selected" : "").">نعم</option>";
+                );
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الفئة مخفية ؟</span>";
+                echo msgadmin_template("arab-forums", $arraymsg);
+            } else {
 
-echo "</div></td></tr>";
+                update_mysql("arab-forums", "cat", "cat_name = \"{$name}\" , cat_order= \"{$order}\" , cat_lock = \"{$lock}\" , cat_hid = \"{$hid}\" , cat_group0 = \"{$group0}\" , cat_group1 = \"{$group1}\" , cat_group2 = \"{$group2}\" , cat_group3 = \"{$group3}\" , cat_group4 = \"{$group4}\" , cat_group5 = \"{$group5}\" , cat_post1 = \"{$post1}\" , cat_post2 = \"{$post2}\" , cat_post3 = \"{$post3}\" , cat_post4 = \"{$post4}\" , cat_post5 = \"{$post5}\" , cat_monitor1 = \"{$monitor1}\" , cat_monitor1text = \"{$monitor1text}\" , cat_monitor2 = \"{$monitor2}\" , cat_monitor2text = \"{$monitor2text}\" , cat_home = \"{$home}\" where cat_id in({$cat_object->cat_id})");
 
-echo "<tr><td class=\"tcotadmin\">إخفاء الفئة و منتدياتها من الرئيسية</td></tr>";
+                $arraymsg = array(
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                    "msg" => "تم تعديل الفئة بنجاح تام",
 
-echo "<select class=\"inputselect\" name=\"home\">";
+                    "color" => "good",
 
-echo "<option value=\"0\" ".($cat_object->cat_home == 0 ? "selected" : "").">لآ</option>";
+                    "url" => "admin.php?gert=catforum&go=catforum_list",
 
-echo "<option value=\"1\" ".($cat_object->cat_home == 1 ? "selected" : "").">نعم</option>";
+                );
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الفئة و منتدياتها لآ تظهر في الرئيسية ؟</span>";
+                echo msgadmin_template("arab-forums", $arraymsg);
+            }
+        } else {
 
-echo "</div></td></tr>";
+            echo "<form action=\"admin.php?gert=catforum&go=catforum_optioncat&fort=edit&id={$cat_object->cat_id}&type=insert\" method=\"post\">";
 
-echo "<tr><td class=\"tcotadmin\">ظهور الفئة للمجموعات</td></tr>";
+            echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" width=\"99%\" align=\"center\">";
 
-$groupup = array($cat_object->cat_group0 , $cat_object->cat_group1 , $cat_object->cat_group2 , $cat_object->cat_group3 , $cat_object->cat_group4 , $cat_object->cat_group5);
+            echo "<tr><td class=\"tcotadmin\">عنوان الفئة</td></tr>";
 
-for($x = 0; $x <= 5; $x++){
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "<input style=\"width:300px\" class=\"input\" name=\"name\" value=\"{$cat_object->cat_name}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال عنوان الفئة</span>";
 
-echo "<select class=\"inputselect\" name=\"group{$x}\">";
+            echo "</div></td></tr>";
 
-echo "<option value=\"1\" ".($groupup[$x] == 1 ? "selected" : "").">نعم</option>";
+            echo "<tr><td class=\"tcotadmin\">ترتيب الفئة</td></tr>";
 
-echo "<option value=\"0\" ".($groupup[$x] == 0 ? "selected" : "").">لآ</option>";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الفئة تظهر لمجموعة {$group_list[$x]} ؟</span>";
+            echo "<input size=\"1\" class=\"input\" name=\"order\" value=\"{$cat_object->cat_order}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال الترتيب الخاص بالفئة و إن كنت لا تريدها مرتبة أتركها 1</span>";
 
-echo "</div></td></tr>";
+            echo "</div></td></tr>";
 
-}
+            echo "<tr><td class=\"tcotadmin\">غلق الفئة</td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">السمآح للمجموعات بكتابة مواضيع و مشاركات في الفئة</td></tr>";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-$groupup = array("" , $cat_object->cat_post1 , $cat_object->cat_post2 , $cat_object->cat_post3 , $cat_object->cat_post4 , $cat_object->cat_post5);
+            echo "<select class=\"inputselect\" name=\"lock\">";
 
-for($x = 1; $x <= 5; $x++){
+            echo "<option value=\"0\" " . ($cat_object->cat_lock == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "<option value=\"1\" " . ($cat_object->cat_lock == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "<select class=\"inputselect\" name=\"post{$x}\">";
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الفئة مغلوقة ؟</span>";
 
-echo "<option value=\"1\" ".($groupup[$x] == 1 ? "selected" : "").">نعم</option>";
+            echo "</div></td></tr>";
 
-echo "<option value=\"0\" ".($groupup[$x] == 0 ? "selected" : "").">لآ</option>";
+            echo "<tr><td class=\"tcotadmin\">إخفاء الفئة</td></tr>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل تستطيع مجموعة {$group_list[$x]} كتابة مواضيع و مشاركات في الفئة ؟</span>";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "</div></td></tr>";
+            echo "<select class=\"inputselect\" name=\"hid\">";
 
-}
+            echo "<option value=\"0\" " . ($cat_object->cat_hid == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "<tr><td class=\"tcotadmin\">مراقب الفئة</td></tr>";
+            echo "<option value=\"1\" " . ($cat_object->cat_hid == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الفئة مخفية ؟</span>";
 
-echo "<input size=\"1\" class=\"input\" name=\"monitor1\" value=\"{$cat_object->cat_monitor1}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">ضع رقم العضو الذي تريد تعيينه كمراقب على الفئة و إن كنت تريدها بدون مراقب أكتب 0</span>";
+            echo "</div></td></tr>";
 
-echo "</div></td></tr>";
+            echo "<tr><td class=\"tcotadmin\">إخفاء الفئة و منتدياتها من الرئيسية</td></tr>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<select class=\"inputselect\" name=\"monitor1text\">";
+            echo "<select class=\"inputselect\" name=\"home\">";
 
-echo "<option value=\"1\" ".($cat_object->cat_monitor1text == 1 ? "selected" : "").">نعم</option>";
+            echo "<option value=\"0\" " . ($cat_object->cat_home == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "<option value=\"0\" ".($cat_object->cat_monitor1text == 0 ? "selected" : "").">لآ</option>";
+            echo "<option value=\"1\" " . ($cat_object->cat_home == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">ظهور مراقب الفئة في الرئيسية و داخل معلومات المنتديات و داخل بيانات المراقب ؟</span>";
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الفئة و منتدياتها لآ تظهر في الرئيسية ؟</span>";
 
-echo "</div></td></tr>";
+            echo "</div></td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">نائب مراقب الفئة</td></tr>";
+            echo "<tr><td class=\"tcotadmin\">ظهور الفئة للمجموعات</td></tr>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            $groupup = array($cat_object->cat_group0, $cat_object->cat_group1, $cat_object->cat_group2, $cat_object->cat_group3, $cat_object->cat_group4, $cat_object->cat_group5);
 
-echo "<input size=\"1\" class=\"input\" name=\"monitor2\" value=\"{$cat_object->cat_monitor2}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">ضع رقم العضو الذي تريد تعيينه كنائب مراقب على الفئة و إن كنت تريدها بدون نائب مراقب أكتب 0</span>";
+            for ($x = 0; $x <= 5; $x++) {
 
-echo "</div></td></tr>";
+                echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                echo "<select class=\"inputselect\" name=\"group{$x}\">";
 
-echo "<select class=\"inputselect\" name=\"monitor2text\">";
+                echo "<option value=\"1\" " . ($groupup[$x] == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "<option value=\"1\" ".($cat_object->cat_monitor2text == 1 ? "selected" : "").">نعم</option>";
+                echo "<option value=\"0\" " . ($groupup[$x] == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "<option value=\"0\" ".($cat_object->cat_monitor2text == 0 ? "selected" : "").">لآ</option>";
+                echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الفئة تظهر لمجموعة {$group_list[$x]} ؟</span>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">ظهور نائب مراقب الفئة في الرئيسية و داخل معلومات المنتديات و داخل بيانات نائب المراقب ؟</span>";
+                echo "</div></td></tr>";
+            }
 
-echo "</div></td></tr>";
+            echo "<tr><td class=\"tcotadmin\">السمآح للمجموعات بكتابة مواضيع و مشاركات في الفئة</td></tr>";
 
-echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال البيانات الجديدة\"  ".confirm_other("arab-forums" , "")."> - <input type=\"reset\" class=\"button\" value=\"إرجاع البيانات الأصلية\"><br><br></td></tr>";
+            $groupup = array("", $cat_object->cat_post1, $cat_object->cat_post2, $cat_object->cat_post3, $cat_object->cat_post4, $cat_object->cat_post5);
 
-echo "</table></form>";
+            for ($x = 1; $x <= 5; $x++) {
 
-}}elseif(fort == "delete"){
+                echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-delete_mysql("arab-forums" , "cat" , "cat_id in({$cat_object->cat_id})");
+                echo "<select class=\"inputselect\" name=\"post{$x}\">";
 
-$arraymsg = array(
+                echo "<option value=\"1\" " . ($groupup[$x] == 1 ? "selected" : "") . ">نعم</option>";
 
-"msg" => "تم حذف الفئة بنجاح تام" ,
+                echo "<option value=\"0\" " . ($groupup[$x] == 0 ? "selected" : "") . ">لآ</option>";
 
-"color" => "good" ,
+                echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل تستطيع مجموعة {$group_list[$x]} كتابة مواضيع و مشاركات في الفئة ؟</span>";
 
-"url" => "admin.php?gert=catforum&go=catforum_list" ,
+                echo "</div></td></tr>";
+            }
 
-);
+            echo "<tr><td class=\"tcotadmin\">مراقب الفئة</td></tr>";
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-}elseif(fort == "lock"){
+            echo "<input size=\"1\" class=\"input\" name=\"monitor1\" value=\"{$cat_object->cat_monitor1}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">ضع رقم العضو الذي تريد تعيينه كمراقب على الفئة و إن كنت تريدها بدون مراقب أكتب 0</span>";
 
-if($cat_object->cat_lock == 1){$error = false;$text = "الفئة مغلوقة من قبل";$class = "error";}else{$error = true;$text = "تم غلق الفئة بنجاح تام";$class = "good";}
+            echo "</div></td></tr>";
 
-if($error == true){update_mysql("arab-forums" , "cat" , "cat_lock = \"1\" where cat_id in({$cat_object->cat_id})");}
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-$arraymsg = array(
+            echo "<select class=\"inputselect\" name=\"monitor1text\">";
 
-"msg" => $text ,
+            echo "<option value=\"1\" " . ($cat_object->cat_monitor1text == 1 ? "selected" : "") . ">نعم</option>";
 
-"color" => $class ,
+            echo "<option value=\"0\" " . ($cat_object->cat_monitor1text == 0 ? "selected" : "") . ">لآ</option>";
 
-"url" => "admin.php?gert=catforum&go=catforum_list" ,
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">ظهور مراقب الفئة في الرئيسية و داخل معلومات المنتديات و داخل بيانات المراقب ؟</span>";
 
-);
+            echo "</div></td></tr>";
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            echo "<tr><td class=\"tcotadmin\">نائب مراقب الفئة</td></tr>";
 
-}elseif(fort == "nolock"){
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-if($cat_object->cat_lock == 0){$error = false;$text = "الفئة مفتوحة من قبل";$class = "error";}else{$error = true;$text = "تم فتح الفئة بنجاح تام";$class = "good";}
+            echo "<input size=\"1\" class=\"input\" name=\"monitor2\" value=\"{$cat_object->cat_monitor2}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">ضع رقم العضو الذي تريد تعيينه كنائب مراقب على الفئة و إن كنت تريدها بدون نائب مراقب أكتب 0</span>";
 
-if($error == true){update_mysql("arab-forums" , "cat" , "cat_lock = \"0\" where cat_id in({$cat_object->cat_id})");}
+            echo "</div></td></tr>";
 
-$arraymsg = array(
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-"msg" => $text ,
+            echo "<select class=\"inputselect\" name=\"monitor2text\">";
 
-"color" => $class ,
+            echo "<option value=\"1\" " . ($cat_object->cat_monitor2text == 1 ? "selected" : "") . ">نعم</option>";
 
-"url" => "admin.php?gert=catforum&go=catforum_list" ,
+            echo "<option value=\"0\" " . ($cat_object->cat_monitor2text == 0 ? "selected" : "") . ">لآ</option>";
 
-);
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">ظهور نائب مراقب الفئة في الرئيسية و داخل معلومات المنتديات و داخل بيانات نائب المراقب ؟</span>";
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            echo "</div></td></tr>";
 
-}elseif(fort == "hid"){
+            echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال البيانات الجديدة\"  " . confirm_other("arab-forums", "") . "> - <input type=\"reset\" class=\"button\" value=\"إرجاع البيانات الأصلية\"><br><br></td></tr>";
 
-if($cat_object->cat_hid == 1){$error = false;$text = "الفئة مخفية من قبل";$class = "error";}else{$error = true;$text = "تم إخفاء الفئة بنجاح تام";$class = "good";}
+            echo "</table></form>";
+        }
+    } elseif (fort == "delete") {
 
-if($error == true){update_mysql("arab-forums" , "cat" , "cat_hid = \"1\" where cat_id in({$cat_object->cat_id})");}
+        delete_mysql("arab-forums", "cat", "cat_id in({$cat_object->cat_id})");
 
-$arraymsg = array(
+        $arraymsg = array(
 
-"msg" => $text ,
+            "msg" => "تم حذف الفئة بنجاح تام",
 
-"color" => $class ,
+            "color" => "good",
 
-"url" => "admin.php?gert=catforum&go=catforum_list" ,
+            "url" => "admin.php?gert=catforum&go=catforum_list",
 
-);
+        );
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } elseif (fort == "lock") {
 
-}elseif(fort == "nohid"){
+        if ($cat_object->cat_lock == 1) {
+            $error = false;
+            $text = "الفئة مغلوقة من قبل";
+            $class = "error";
+        } else {
+            $error = true;
+            $text = "تم غلق الفئة بنجاح تام";
+            $class = "good";
+        }
 
-if($cat_object->cat_hid == 0){$error = false;$text = "الفئة ظاهرة من قبل";$class = "error";}else{$error = true;$text = "تم إظهار الفئة بنجاح تام";$class = "good";}
+        if ($error == true) {
+            update_mysql("arab-forums", "cat", "cat_lock = \"1\" where cat_id in({$cat_object->cat_id})");
+        }
 
-if($error == true){update_mysql("arab-forums" , "cat" , "cat_hid = \"0\" where cat_id in({$cat_object->cat_id})");}
+        $arraymsg = array(
 
-$arraymsg = array(
+            "msg" => $text,
 
-"msg" => $text ,
+            "color" => $class,
 
-"color" => $class ,
+            "url" => "admin.php?gert=catforum&go=catforum_list",
 
-"url" => "admin.php?gert=catforum&go=catforum_list" ,
+        );
 
-);
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } elseif (fort == "nolock") {
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+        if ($cat_object->cat_lock == 0) {
+            $error = false;
+            $text = "الفئة مفتوحة من قبل";
+            $class = "error";
+        } else {
+            $error = true;
+            $text = "تم فتح الفئة بنجاح تام";
+            $class = "good";
+        }
 
-}else{
+        if ($error == true) {
+            update_mysql("arab-forums", "cat", "cat_lock = \"0\" where cat_id in({$cat_object->cat_id})");
+        }
 
-$arraymsg = array(
+        $arraymsg = array(
 
-"msg" => "عفوآ لقد قمت بإختيار خدمة غير متوفرة حاليا" ,
+            "msg" => $text,
 
-"color" => "error" ,
+            "color" => $class,
 
-"url" => "admin.php?gert=catforum&go=catforum_list" ,
+            "url" => "admin.php?gert=catforum&go=catforum_list",
 
-);
+        );
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } elseif (fort == "hid") {
 
-}}else{
+        if ($cat_object->cat_hid == 1) {
+            $error = false;
+            $text = "الفئة مخفية من قبل";
+            $class = "error";
+        } else {
+            $error = true;
+            $text = "تم إخفاء الفئة بنجاح تام";
+            $class = "good";
+        }
 
-$arraymsg = array(
+        if ($error == true) {
+            update_mysql("arab-forums", "cat", "cat_hid = \"1\" where cat_id in({$cat_object->cat_id})");
+        }
 
-"msg" => "الفئة المختارة غير موجودة ضمن قائمة الفئات" ,
+        $arraymsg = array(
 
-"color" => "error" ,
+            "msg" => $text,
 
-"url" => "admin.php?gert=catforum&go=catforum_list" ,
+            "color" => $class,
 
-);
+            "url" => "admin.php?gert=catforum&go=catforum_list",
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+        );
 
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } elseif (fort == "nohid") {
+
+        if ($cat_object->cat_hid == 0) {
+            $error = false;
+            $text = "الفئة ظاهرة من قبل";
+            $class = "error";
+        } else {
+            $error = true;
+            $text = "تم إظهار الفئة بنجاح تام";
+            $class = "good";
+        }
+
+        if ($error == true) {
+            update_mysql("arab-forums", "cat", "cat_hid = \"0\" where cat_id in({$cat_object->cat_id})");
+        }
+
+        $arraymsg = array(
+
+            "msg" => $text,
+
+            "color" => $class,
+
+            "url" => "admin.php?gert=catforum&go=catforum_list",
+
+        );
+
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } else {
+
+        $arraymsg = array(
+
+            "msg" => "عفوآ لقد قمت بإختيار خدمة غير متوفرة حاليا",
+
+            "color" => "error",
+
+            "url" => "admin.php?gert=catforum&go=catforum_list",
+
+        );
+
+        echo msgadmin_template("arab-forums", $arraymsg);
+    }
+} else {
+
+    $arraymsg = array(
+
+        "msg" => "الفئة المختارة غير موجودة ضمن قائمة الفئات",
+
+        "color" => "error",
+
+        "url" => "admin.php?gert=catforum&go=catforum_list",
+
+    );
+
+    echo msgadmin_template("arab-forums", $arraymsg);
 }
 
 /*#####################################################################*|
@@ -392,4 +420,3 @@ echo msgadmin_template("arab-forums" , $arraymsg);
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

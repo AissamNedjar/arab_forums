@@ -11,96 +11,93 @@
 
 |*#####################################################################*/
 
-if(!defined("error_page_arab_forums")){exit(header("location: ../error.php"));}
-
-if(type == "insert"){
-
-$mcolor1 = text_other("arab-forums" , post_other("arab-forums" , "mcolor1") , true , true , true , false , true);
-
-$mcolor2 = text_other("arab-forums" , post_other("arab-forums" , "mcolor2") , true , true , true , false , true);
-
-$mcolor3 = text_other("arab-forums" , post_other("arab-forums" , "mcolor3") , true , true , true , false , true);
-
-$mcolor4 = text_other("arab-forums" , post_other("arab-forums" , "mcolor4") , true , true , true , false , true);
-
-$mcolor5 = text_other("arab-forums" , post_other("arab-forums" , "mcolor5") , true , true , true , false , true);
-
-$mcolor6 = text_other("arab-forums" , post_other("arab-forums" , "mcolor6") , true , true , true , false , true);
-
-if($mcolor1 == "" || $mcolor2 == "" || $mcolor3 == "" || $mcolor4 == "" || $mcolor5 == "" || $mcolor6 == ""){
-
-$error = "الرجاء ملأ جميع الحقول ليتم تسجيل البيانات";
-
-}else{
-
-$error = "";
-
+if (!defined("error_page_arab_forums")) {
+    exit(header("location: ../error.php"));
 }
 
-if($error != ""){
+if (type == "insert") {
 
-$arraymsg = array(
+    $mcolor1 = text_other("arab-forums", post_other("arab-forums", "mcolor1"), true, true, true, false, true);
 
-"msg" => $error ,
+    $mcolor2 = text_other("arab-forums", post_other("arab-forums", "mcolor2"), true, true, true, false, true);
 
-"color" => "error" ,
+    $mcolor3 = text_other("arab-forums", post_other("arab-forums", "mcolor3"), true, true, true, false, true);
 
-"url" => "" ,
+    $mcolor4 = text_other("arab-forums", post_other("arab-forums", "mcolor4"), true, true, true, false, true);
 
-);
+    $mcolor5 = text_other("arab-forums", post_other("arab-forums", "mcolor5"), true, true, true, false, true);
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+    $mcolor6 = text_other("arab-forums", post_other("arab-forums", "mcolor6"), true, true, true, false, true);
 
-}else{
+    if ($mcolor1 == "" || $mcolor2 == "" || $mcolor3 == "" || $mcolor4 == "" || $mcolor5 == "" || $mcolor6 == "") {
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$mcolor1}\" where option_name = \"mcolor1\"");
+        $error = "الرجاء ملأ جميع الحقول ليتم تسجيل البيانات";
+    } else {
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$mcolor2}\" where option_name = \"mcolor2\"");
+        $error = "";
+    }
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$mcolor3}\" where option_name = \"mcolor3\"");
+    if ($error != "") {
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$mcolor4}\" where option_name = \"mcolor4\"");
+        $arraymsg = array(
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$mcolor5}\" where option_name = \"mcolor5\"");
+            "msg" => $error,
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$mcolor6}\" where option_name = \"mcolor6\"");
+            "color" => "error",
 
-$arraymsg = array(
+            "url" => "",
 
-"msg" => "تم إدخال البيانات الجديدة بنجآح تآم" ,
+        );
 
-"color" => "good" ,
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } else {
 
-"url" => "admin.php?gert=usergroup&go=usergroup_coloru" ,
+        update_mysql("arab-forums", "option", "option_value = \"{$mcolor1}\" where option_name = \"mcolor1\"");
 
-);
+        update_mysql("arab-forums", "option", "option_value = \"{$mcolor2}\" where option_name = \"mcolor2\"");
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+        update_mysql("arab-forums", "option", "option_value = \"{$mcolor3}\" where option_name = \"mcolor3\"");
 
-}}else{
+        update_mysql("arab-forums", "option", "option_value = \"{$mcolor4}\" where option_name = \"mcolor4\"");
 
-echo "<form action=\"admin.php?gert=usergroup&go=usergroup_coloru&type=insert\" method=\"post\">";
- 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" width=\"99%\" align=\"center\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$mcolor5}\" where option_name = \"mcolor5\"");
 
-$groupup = array("" , mcolor1_option , mcolor2_option , mcolor3_option , mcolor4_option , mcolor5_option , mcolor6_option);
+        update_mysql("arab-forums", "option", "option_value = \"{$mcolor6}\" where option_name = \"mcolor6\"");
 
-for($x = 1; $x <= 6; $x++){
+        $arraymsg = array(
 
-echo "<tr><td class=\"tcotadmin\">لون مجموعة {$group_list[$x]}</td></tr>";
+            "msg" => "تم إدخال البيانات الجديدة بنجآح تآم",
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            "color" => "good",
 
-echo "<input style=\"width:300px\" class=\"input color\" name=\"mcolor{$x}\" value=\"".$groupup[$x]."\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إضغط على الخانة لكي تظهر قائمة الألوان و قم بالتغيير</span>";
+            "url" => "admin.php?gert=usergroup&go=usergroup_coloru",
 
-echo "</div></td></tr>";
+        );
 
-}
+        echo msgadmin_template("arab-forums", $arraymsg);
+    }
+} else {
 
-echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال البيانات الجديدة\"  ".confirm_other("arab-forums" , "")."> - <input type=\"reset\" class=\"button\" value=\"إرجاع البيانات الأصلية\"><br><br></td></tr>";
+    echo "<form action=\"admin.php?gert=usergroup&go=usergroup_coloru&type=insert\" method=\"post\">";
 
-echo "</table></form>";
+    echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" width=\"99%\" align=\"center\">";
 
+    $groupup = array("", mcolor1_option, mcolor2_option, mcolor3_option, mcolor4_option, mcolor5_option, mcolor6_option);
+
+    for ($x = 1; $x <= 6; $x++) {
+
+        echo "<tr><td class=\"tcotadmin\">لون مجموعة {$group_list[$x]}</td></tr>";
+
+        echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+
+        echo "<input style=\"width:300px\" class=\"input color\" name=\"mcolor{$x}\" value=\"" . $groupup[$x] . "\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إضغط على الخانة لكي تظهر قائمة الألوان و قم بالتغيير</span>";
+
+        echo "</div></td></tr>";
+    }
+
+    echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال البيانات الجديدة\"  " . confirm_other("arab-forums", "") . "> - <input type=\"reset\" class=\"button\" value=\"إرجاع البيانات الأصلية\"><br><br></td></tr>";
+
+    echo "</table></form>";
 }
 
 /*#####################################################################*|
@@ -114,4 +111,3 @@ echo "</table></form>";
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

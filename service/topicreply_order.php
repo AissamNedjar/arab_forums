@@ -11,179 +11,173 @@
 
 |*#####################################################################*/
 
-if(!defined("error_page_arab_forums")){exit(header("location: ../error.php"));}
-
-if(allowedin3_other("arab-forums" , value , 1) == false){
-
-$error = "للأسف لا يمكنك ترتيب وصلات مواضيع هذا المنتدى لأنك لا تملك التصريح المناسب";
-
-}else{
-
-$error = "";
-
+if (!defined("error_page_arab_forums")) {
+    exit(header("location: ../error.php"));
 }
 
-if($error == ""){
+if (allowedin3_other("arab-forums", value, 1) == false) {
 
-if(type == "insert"){
+    $error = "للأسف لا يمكنك ترتيب وصلات مواضيع هذا المنتدى لأنك لا تملك التصريح المناسب";
+} else {
 
-$error = "";
-
-$topic_get1 = text_other("arab-forums" , post_other("arab-forums" , "topicorder") , false , false , false , false , true);
-
-$topic_get2 = text_other("arab-forums" , post_other("arab-forums" , "topicorder_id") , false , false , false , false , true);
-
-$i = 0;
-
-$j = 0;
-
-while($i < count($cat_get1)){
-
-if($topic_get1[$j] == "" || !is_numeric($topic_get1[$j])){
-
-$error .= "1";
-
+    $error = "";
 }
 
-$j++;
+if ($error == "") {
 
-$i++;
+    if (type == "insert") {
 
-}
+        $error = "";
 
-if($error != ""){
+        $topic_get1 = text_other("arab-forums", post_other("arab-forums", "topicorder"), false, false, false, false, true);
 
-$arraymsg = array(
+        $topic_get2 = text_other("arab-forums", post_other("arab-forums", "topicorder_id"), false, false, false, false, true);
 
-"msg" => "الرجاء ملأ جميع الحقول ليتم إدخال الترتيب الجديد" ,
+        $i = 0;
 
-"color" => "error" ,
+        $j = 0;
 
-"url" => "" ,
+        while ($i < count($cat_get1)) {
 
-);
+            if ($topic_get1[$j] == "" || !is_numeric($topic_get1[$j])) {
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+                $error .= "1";
+            }
 
-}else{
+            $j++;
 
-$i = 0;$j = 0;
+            $i++;
+        }
 
-while($i < count($topic_get1)){
+        if ($error != "") {
 
-$topicoft1 = text_other("arab-forums" , $topic_get1[$j] , true , true , true , false , true);
+            $arraymsg = array(
 
-$topicoft2 = text_other("arab-forums" , $topic_get2[$i] , true , true , true , false , true);
+                "msg" => "الرجاء ملأ جميع الحقول ليتم إدخال الترتيب الجديد",
 
-update_mysql("arab-forums" , "topic" , "topic_linkorder = \"{$topicoft1}\" where topic_id = \"{$topicoft2}\"");
+                "color" => "error",
 
-$j++;$i++;
+                "url" => "",
 
-}
-$arraymsg = array(
+            );
 
-"msg" => "تم حفظ الترتيب الجديد بنجآح تام" ,
+            echo msgadmin_template("arab-forums", $arraymsg);
+        } else {
 
-"color" => "good" ,
+            $i = 0;
+            $j = 0;
 
-"url" => "service.php?gert=topicreply&go=topicreply_order&value=".value."" ,
+            while ($i < count($topic_get1)) {
 
-);
+                $topicoft1 = text_other("arab-forums", $topic_get1[$j], true, true, true, false, true);
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+                $topicoft2 = text_other("arab-forums", $topic_get2[$i], true, true, true, false, true);
 
-}}else{
+                update_mysql("arab-forums", "topic", "topic_linkorder = \"{$topicoft1}\" where topic_id = \"{$topicoft2}\"");
 
-$forum_sql = select_mysql("arab-forums" , "forum" , "forum_id , forum_name" , "where forum_id in(".value.") limit 1");
+                $j++;
+                $i++;
+            }
+            $arraymsg = array(
 
-$forum_object = object_mysql("arab-forums" , $forum_sql);
+                "msg" => "تم حفظ الترتيب الجديد بنجآح تام",
 
-$textu = "عرض وصلات مواضيع : {$forum_object->forum_name}";
+                "color" => "good",
 
-echo "<table cellpadding=\"0\" cellspacing=\"3\" width=\"99%\" align=\"center\"><tr>";
+                "url" => "service.php?gert=topicreply&go=topicreply_order&value=" . value . "",
 
-echo "<td>".img_other("arab-forums" , "images/service.png" , "" , "" , "" , "0" , "" , "")."</td>";
+            );
 
-echo "<td width=\"100%\"><span style=\"color:red;font-size:13px;\">{$textu}</span></td>";
+            echo msgadmin_template("arab-forums", $arraymsg);
+        }
+    } else {
 
-echo "<td class=\"menu\"><span style=\"color:black;font-size:12px;\">عرض وصلات مواضيع</span><div class=\"pad\"><select class=\"inputselect\" onchange=\"getst(this)\">";
+        $forum_sql = select_mysql("arab-forums", "forum", "forum_id , forum_name", "where forum_id in(" . value . ") limit 1");
 
-$forum_sql = select_mysql("arab-forums" , "forum" , "forum_id , forum_name , forum_order" , "where forum_id in(".allowedin1_other("arab-forums").") order by forum_order asc");
+        $forum_object = object_mysql("arab-forums", $forum_sql);
 
-if(num_mysql("arab-forums" , $forum_sql) != false){
+        $textu = "عرض وصلات مواضيع : {$forum_object->forum_name}";
 
-while($forum_object = object_mysql("arab-forums" , $forum_sql)){
+        echo "<table cellpadding=\"0\" cellspacing=\"3\" width=\"99%\" align=\"center\"><tr>";
 
-echo "<option value=\"service.php?gert=topicreply&go=topicreply_order&value={$forum_object->forum_id}\" ".(value == "{$forum_object->forum_id}" ? "selected" : "").">عرض وصلات مواضيع {$forum_object->forum_name}</option>";
+        echo "<td>" . img_other("arab-forums", "images/service.png", "", "", "", "0", "", "") . "</td>";
 
-}}
+        echo "<td width=\"100%\"><span style=\"color:red;font-size:13px;\">{$textu}</span></td>";
 
-echo "</select></div></td>";
+        echo "<td class=\"menu\"><span style=\"color:black;font-size:12px;\">عرض وصلات مواضيع</span><div class=\"pad\"><select class=\"inputselect\" onchange=\"getst(this)\">";
 
-echo "</tr></table>";
+        $forum_sql = select_mysql("arab-forums", "forum", "forum_id , forum_name , forum_order", "where forum_id in(" . allowedin1_other("arab-forums") . ") order by forum_order asc");
 
-echo "<form action=\"service.php?gert=topicreply&go=topicreply_order&value=".value."&type=insert\" method=\"post\">";
+        if (num_mysql("arab-forums", $forum_sql) != false) {
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" width=\"99%\" align=\"center\">";
+            while ($forum_object = object_mysql("arab-forums", $forum_sql)) {
 
-echo "<tr>";
+                echo "<option value=\"service.php?gert=topicreply&go=topicreply_order&value={$forum_object->forum_id}\" " . (value == "{$forum_object->forum_id}" ? "selected" : "") . ">عرض وصلات مواضيع {$forum_object->forum_name}</option>";
+            }
+        }
 
-echo "<td class=\"tcotadmin\" width=\"75%\"><nobr>الموضوع</nobr></td>";
+        echo "</select></div></td>";
 
-echo "<td class=\"tcotadmin\" width=\"20%\" align=\"center\"><nobr>الوصلة</nobr></td>";
+        echo "</tr></table>";
 
-echo "<td class=\"tcotadmin\" width=\"5%\" align=\"center\"><nobr>الترتيب</nobr></td>";
+        echo "<form action=\"service.php?gert=topicreply&go=topicreply_order&value=" . value . "&type=insert\" method=\"post\">";
 
-echo "</tr>";
+        echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" width=\"99%\" align=\"center\">";
 
-$link_sql = select_mysql("arab-forums" , "topic" , "topic_id , topic_forumid , topic_name , topic_wait , topic_delete , topic_hid , topic_link ,  topic_linkorder" , "where topic_forumid in(".value.") && topic_wait in(0) && topic_delete in(0) && topic_hid in(0) && topic_link in(1,2) order by topic_linkorder asc");
+        echo "<tr>";
 
-if(num_mysql("arab-forums" , $link_sql) != false){
+        echo "<td class=\"tcotadmin\" width=\"75%\"><nobr>الموضوع</nobr></td>";
 
-while($link_object = object_mysql("arab-forums" , $link_sql)){
+        echo "<td class=\"tcotadmin\" width=\"20%\" align=\"center\"><nobr>الوصلة</nobr></td>";
 
-echo "<tr>";
+        echo "<td class=\"tcotadmin\" width=\"5%\" align=\"center\"><nobr>الترتيب</nobr></td>";
 
-echo "<td class=\"alttext1\" align=\"right\"><br><div class=\"pad\">".a_other("arab-forums" , "topic.php?id={$link_object->topic_id}" , "{$link_object->topic_name}" , "{$link_object->topic_name}" , "")."</div><br></td>";
+        echo "</tr>";
 
-echo "<td class=\"alttext1\" align=\"center\"><div class=\"pad\">".($link_object->topic_link == 1 ? "عادية" : "أساسية")."</div></td>";
+        $link_sql = select_mysql("arab-forums", "topic", "topic_id , topic_forumid , topic_name , topic_wait , topic_delete , topic_hid , topic_link ,  topic_linkorder", "where topic_forumid in(" . value . ") && topic_wait in(0) && topic_delete in(0) && topic_hid in(0) && topic_link in(1,2) order by topic_linkorder asc");
 
-echo "<td class=\"alttext1\" align=\"center\"><div class=\"pad\"><span style=\"color:orange;font-size:12px;\"><input class=\"input\" type=\"text\" name=\"topicorder[]\" size=\"1\" value=\"{$link_object->topic_linkorder}\"><input type=\"hidden\" name=\"topicorder_id[]\" value=\"{$link_object->topic_id}\"></span></div></td>";
+        if (num_mysql("arab-forums", $link_sql) != false) {
 
-echo "</tr>";
+            while ($link_object = object_mysql("arab-forums", $link_sql)) {
 
-}
+                echo "<tr>";
 
-echo "<tr><td class=\"alttext2\" align=\"center\" colspan=\"6\"><br><input type=\"submit\" class=\"button\" value=\"إدخال الترتيب الجديد\"  ".confirm_other("arab-forums" , "هل أنت متأكد من أنك تريد إدخال الترتيب الجديد ؟")."> - <input type=\"reset\" class=\"button\" value=\"إرجاع البيانات الأصلية\"><br><br></td></tr>";
+                echo "<td class=\"alttext1\" align=\"right\"><br><div class=\"pad\">" . a_other("arab-forums", "topic.php?id={$link_object->topic_id}", "{$link_object->topic_name}", "{$link_object->topic_name}", "") . "</div><br></td>";
 
-}else{
+                echo "<td class=\"alttext1\" align=\"center\"><div class=\"pad\">" . ($link_object->topic_link == 1 ? "عادية" : "أساسية") . "</div></td>";
 
-echo "<tr>";
+                echo "<td class=\"alttext1\" align=\"center\"><div class=\"pad\"><span style=\"color:orange;font-size:12px;\"><input class=\"input\" type=\"text\" name=\"topicorder[]\" size=\"1\" value=\"{$link_object->topic_linkorder}\"><input type=\"hidden\" name=\"topicorder_id[]\" value=\"{$link_object->topic_id}\"></span></div></td>";
 
-echo "<td class=\"alttext1\" align=\"center\" colspan=\"3\"><br><div class=\"pad\">لا يوجد أي موضوع مجعول كوصلة في هذا المنتدى حاليا</div><br></td>";
+                echo "</tr>";
+            }
 
-echo "</tr>";
+            echo "<tr><td class=\"alttext2\" align=\"center\" colspan=\"6\"><br><input type=\"submit\" class=\"button\" value=\"إدخال الترتيب الجديد\"  " . confirm_other("arab-forums", "هل أنت متأكد من أنك تريد إدخال الترتيب الجديد ؟") . "> - <input type=\"reset\" class=\"button\" value=\"إرجاع البيانات الأصلية\"><br><br></td></tr>";
+        } else {
 
-}
+            echo "<tr>";
 
-echo "</table>";
+            echo "<td class=\"alttext1\" align=\"center\" colspan=\"3\"><br><div class=\"pad\">لا يوجد أي موضوع مجعول كوصلة في هذا المنتدى حاليا</div><br></td>";
 
-echo "</form>";
+            echo "</tr>";
+        }
 
-}}else{
+        echo "</table>";
 
-$arraymsg = array(
+        echo "</form>";
+    }
+} else {
 
-"msg" => $error ,
+    $arraymsg = array(
 
-"color" => "error" ,
+        "msg" => $error,
 
-"url" => "" ,
+        "color" => "error",
 
-);
+        "url" => "",
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+    );
 
+    echo msgadmin_template("arab-forums", $arraymsg);
 }
 
 /*#####################################################################*|
@@ -197,4 +191,3 @@ echo msgadmin_template("arab-forums" , $arraymsg);
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

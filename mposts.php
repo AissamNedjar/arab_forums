@@ -11,306 +11,282 @@
 
 |*#####################################################################*/
 
-define("error_page_arab_forums" , true);
+define("error_page_arab_forums", true);
 
 @include("includes.php");
 
-define("pageupdate" , true);
+define("pageupdate", true);
 
 @include("includes/e.noopen.php");
 
-define("pagebody" , "mposts");
+define("pagebody", "mposts");
 
 $get_id = (id == "" || !is_numeric(id) ? id_user : id);
 
-$user_sql = select_mysql("arab-forums" , "user" , "user_id , user_wait , user_active , user_bad , user_nameuser , user_sex" , "where user_id in({$get_id}) && user_wait in(0) && user_active in(0) && user_bad in(0)");
+$user_sql = select_mysql("arab-forums", "user", "user_id , user_wait , user_active , user_bad , user_nameuser , user_sex", "where user_id in({$get_id}) && user_wait in(0) && user_active in(0) && user_bad in(0)");
 
-if(group_user == 0){
+if (group_user == 0) {
 
-$error = "للأسف خاصية المفضلة متوفرة للأعضاء المسجلين فقط";
+    $error = "للأسف خاصية المفضلة متوفرة للأعضاء المسجلين فقط";
+} else {
 
-}else{
+    if (num_mysql("arab-forums", $user_sql) == false) {
 
-if(num_mysql("arab-forums" , $user_sql) == false){
+        $error = "للأسف لا يمكنك الولوج إلى هذه الصفحة لأنك لا تملك التصريح المناسب";
+    } else {
 
-$error = "للأسف لا يمكنك الولوج إلى هذه الصفحة لأنك لا تملك التصريح المناسب";
+        $user_object = object_mysql("arab-forums", $user_sql);
 
-}else{
+        if (value != "" && allowedin3_other("arab-forums", value, 3) == false) {
 
-$user_object = object_mysql("arab-forums" , $user_sql);
+            $error = "للأسف لا يمكنك مشاهدة مشاركاتك أو مشاركات عضو آخر في هذا المنتدى";
+        } else {
 
-if(value != "" && allowedin3_other("arab-forums" , value , 3) == false){
-
-$error = "للأسف لا يمكنك مشاهدة مشاركاتك أو مشاركات عضو آخر في هذا المنتدى";
-
-}else{
-
-$error = "";
-
-}}}
-
-if($error != ""){
-
-online_other("arab-forums" , "mposts" , "0" , "0" , "0" , "0");
-
-$arraymsg = array(
-
-"login" => true ,
-
-"msg" => $error ,
-
-"color" => "error" ,
-
-"old" => true ,
-
-"auto" => false ,
-
-"text" => "" ,
-
-"url" => "" ,
-
-"array" => "" ,
-
-);
-
-echo msg_template("arab-forums" , $arraymsg);
-
-}else{
-
-online_other("arab-forums" , "mposts" , "0" , "0" , "0" , $user_object->user_id);
-
-if($user_object->user_id == id_user){
-
-$usertitle = "مشاركاتك بالمنتديات";
-
-$usertitleerror = "لا توجد أي مشاركات لك بالمنتديات حاليا";
-
-$urtl = "mposts.php";
-
-$urtu = "mposts.php?";
-
-}else{
-
-$usertitle = "مشاركات ".($user_object->user_sex == 1 ? "العضو" : "العضوة")." ".$user_object->user_nameuser." بالمنتديات";
-
-$usertitleerror = "لا توجد أي مشاركات ".($user_object->user_sex == 1 ? "للعضو" : "للعضوة")." ".$user_object->user_nameuser." بالمنتديات حاليا";
-
-$urtl = "mposts.php?id={$user_object->user_id}";
-
-$urtu = "mposts.php?id={$user_object->user_id}&";
-
+            $error = "";
+        }
+    }
 }
 
-if(value != ""){
+if ($error != "") {
 
-$forum_sql = select_mysql("arab-forums" , "forum" , "forum_id , forum_name" , "where forum_id in(".value.") limit 1");
+    online_other("arab-forums", "mposts", "0", "0", "0", "0");
 
-$forum_object = object_mysql("arab-forums" , $forum_sql);
+    $arraymsg = array(
 
-$textother = "عرض المشاركات في : {$forum_object->forum_name}";
+        "login" => true,
 
-}else{
+        "msg" => $error,
 
-$textother = "عرض المشاركات في جميع المنتديات";
+        "color" => "error",
 
-}
+        "old" => true,
 
-echo bodytop_template("arab-forums" , $usertitle);
+        "auto" => false,
 
-$arrayheader = array(
+        "text" => "",
 
-"login" => true ,
+        "url" => "",
 
-);
+        "array" => "",
 
-echo header_template("arab-forums" , $arrayheader);
+    );
 
-echo "<table cellpadding=\"0\" cellspacing=\"3\" width=\"99%\" align=\"center\"><tr>";
+    echo msg_template("arab-forums", $arraymsg);
+} else {
 
-echo "<td>".img_other("arab-forums" , "images/mposts.png" , "" , "" , "" , "0" , "" , "")."</td>";
+    online_other("arab-forums", "mposts", "0", "0", "0", $user_object->user_id);
 
-echo "<td width=\"100%\">".a_other("arab-forums" , "mposts.php?id={$user_object->user_id}" , "{$usertitle}" , "{$usertitle}" , "")."<div class=\"pad\"><span style=\"color:red;font-size:12px;\">{$textother}</span></div></td>";
+    if ($user_object->user_id == id_user) {
 
-echo one_forumcatlist("arab-forums" , value , $urtu , $urtl);
+        $usertitle = "مشاركاتك بالمنتديات";
 
-echo list_forumcatlist("arab-forums");
+        $usertitleerror = "لا توجد أي مشاركات لك بالمنتديات حاليا";
 
-echo "</tr></table>";
+        $urtl = "mposts.php";
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" width=\"99%\" align=\"center\">";
+        $urtu = "mposts.php?";
+    } else {
 
-echo "<tr align=\"center\">";
+        $usertitle = "مشاركات " . ($user_object->user_sex == 1 ? "العضو" : "العضوة") . " " . $user_object->user_nameuser . " بالمنتديات";
 
-echo "<td class=\"tcat\" width=\"35%\" colspan=\"2\"><div class=\"pad\">الموضوع</div></td>";
+        $usertitleerror = "لا توجد أي مشاركات " . ($user_object->user_sex == 1 ? "للعضو" : "للعضوة") . " " . $user_object->user_nameuser . " بالمنتديات حاليا";
 
-echo "<td class=\"tcat\" width=\"12%\"><div class=\"pad\">الكاتب</div></td>";
+        $urtl = "mposts.php?id={$user_object->user_id}";
 
-echo "<td class=\"tcat\" width=\"12%\"><div class=\"pad\">آخر مشاركة</div></td>";
+        $urtu = "mposts.php?id={$user_object->user_id}&";
+    }
 
-echo "<td class=\"tcat\" width=\"9%\"><div class=\"pad\">الردود</div></td>";
+    if (value != "") {
 
-echo "<td class=\"tcat\" width=\"9%\"><div class=\"pad\">المشاهدات</div></td>";
+        $forum_sql = select_mysql("arab-forums", "forum", "forum_id , forum_name", "where forum_id in(" . value . ") limit 1");
 
-echo "<td class=\"tcat\" width=\"15%\"><div class=\"pad\">المنتدى</div></td>";
+        $forum_object = object_mysql("arab-forums", $forum_sql);
 
-echo "</tr>";
+        $textother = "عرض المشاركات في : {$forum_object->forum_name}";
+    } else {
 
-if(value != ""){
+        $textother = "عرض المشاركات في جميع المنتديات";
+    }
 
-$pops = " && f.forum_id in(".value.")";
+    echo bodytop_template("arab-forums", $usertitle);
 
-}else{
+    $arrayheader = array(
 
-$pops = "";
+        "login" => true,
 
-}
+    );
 
-$topic_sql = select_mysql("arab-forums" , "reply" , "i.iconstopic_id , i.iconstopic_name , i.iconstopic_images , i.iconstopic_forumid , x.texttopic_id , x.texttopic_name , x.texttopic_forumid , r.reply_id , r.reply_topicid , r.reply_user , r.reply_date , r.reply_wait , r.reply_hid , r.reply_delete , c.cat_id , c.cat_lock , c.cat_hid , c.cat_name , c.cat_monitor1 , c.cat_monitor2 , c.cat_group".group_user." , f.forum_id , f.forum_catid , f.forum_lock , f.forum_hid1 , f.forum_hid2 , f.forum_name , f.forum_logo , f.forum_moderattext , f.forum_totaltopic , f.forum_sex , f.forum_group".group_user." , f.forum_mode , u1.user_id as u1user_id , u1.user_lock1 as u1user_lock , u1.user_nameuser as u1user_name , u1.user_group as u1user_group , u1.user_coloruser as u1user_color , u2.user_id as u2user_id , u2.user_lock1 as u2user_lock , u2.user_nameuser as u2user_name , u2.user_group as u2user_group , u2.user_coloruser as u2user_color , t.topic_id , t.topic_forumid , t.topic_lock , t.topic_name , t.topic_wait , t.topic_delete , t.topic_hid , t.topic_stiky , t.topic_top , t.topic_survey , t.topic_icons , t.topic_text , t.topic_reply , t.topic_visit , t.topic_date , t.topic_user , t.topic_lastdate , t.topic_lastuser" , "as r left join topic".prefix_connect." as t on(t.topic_id = r.reply_topicid) left join iconstopic".prefix_connect." as i on(i.iconstopic_id = t.topic_icons) left join texttopic".prefix_connect." as x on(x.texttopic_id = t.topic_text) left join forum".prefix_connect." as f on(f.forum_id = t.topic_forumid) left join cat".prefix_connect." as c on(c.cat_id = f.forum_catid) left join user".prefix_connect." as u1 on(u1.user_id = t.topic_user) left join user".prefix_connect." as u2 on(u2.user_id = t.topic_lastuser) where r.reply_user in({$user_object->user_id}) && t.topic_delete in(0) && c.cat_group".group_user." in(1) && f.forum_group".group_user." in(1) && r.reply_wait in(0) && r.reply_hid in(0) && r.reply_delete in(0) {$pops} group by t.topic_id order by r.reply_date desc limit 50");
+    echo header_template("arab-forums", $arrayheader);
 
-if(num_mysql("arab-forums" , $topic_sql) != false){
+    echo "<table cellpadding=\"0\" cellspacing=\"3\" width=\"99%\" align=\"center\"><tr>";
 
-while($topic_object = object_mysql("arab-forums" , $topic_sql)){
+    echo "<td>" . img_other("arab-forums", "images/mposts.png", "", "", "", "0", "", "") . "</td>";
 
-if($topic_object->forum_hid1 == false || ($topic_object->forum_hid1 == true && forumhide1_other("arab-forums" , $topic_object->forum_id , $topic_object->cat_monitor1 , $topic_object->cat_monitor2 , $topic_object->forum_mode) == true)){
+    echo "<td width=\"100%\">" . a_other("arab-forums", "mposts.php?id={$user_object->user_id}", "{$usertitle}", "{$usertitle}", "") . "<div class=\"pad\"><span style=\"color:red;font-size:12px;\">{$textother}</span></div></td>";
 
-if($topic_object->forum_hid2 == false || ($topic_object->forum_hid2 == true && forumhide2_other("arab-forums" , $topic_object->cat_id , $topic_object->cat_monitor1 , $topic_object->cat_monitor2 , $topic_object->forum_mode) == true)){
+    echo one_forumcatlist("arab-forums", value, $urtu, $urtl);
 
-if((($topic_object->topic_wait == 0) || ($topic_object->topic_wait == 1 && ($moderatget1 == true || $topic_object->topic_user == id_user))) && (($topic_object->topic_hid == 0) || ($topic_object->topic_hid == 1 && ($moderatget1 == true || $topic_object->topic_user == id_user || num_mysql("arab-forums" , select_mysql("arab-forums" , "hidtopic" , "hidtopic_userid , hidtopic_topicid" , "where hidtopic_userid in(".id_user.") && hidtopic_topicid in({$topic_object->topic_id}) limit 1")) != false)))){
+    echo list_forumcatlist("arab-forums");
 
-$moderatget1 = moderatget1_other("arab-forums" , $topic_object->forum_id , $topic_object->cat_monitor1 , $topic_object->cat_monitor2 , $topic_object->forum_mode);
+    echo "</tr></table>";
 
-$moderatget2 = moderatget2_other("arab-forums" , $topic_object->cat_monitor1 , $topic_object->cat_monitor2);
+    echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"99%\" align=\"center\">";
 
-if($topic_object->topic_delete == 1){
+    echo "<tr align=\"center\">";
 
-$classtopic = "topicd";
+    echo "<td class=\"tcat\" width=\"35%\" colspan=\"2\"><div class=\"pad\">الموضوع</div></td>";
 
-}elseif($topic_object->topic_wait == 1){
+    echo "<td class=\"tcat\" width=\"12%\"><div class=\"pad\">الكاتب</div></td>";
 
-$classtopic = "topicw";
+    echo "<td class=\"tcat\" width=\"12%\"><div class=\"pad\">آخر مشاركة</div></td>";
 
-}elseif($topic_object->topic_hid == 1){
+    echo "<td class=\"tcat\" width=\"9%\"><div class=\"pad\">الردود</div></td>";
 
-$classtopic = "topich";
+    echo "<td class=\"tcat\" width=\"9%\"><div class=\"pad\">المشاهدات</div></td>";
 
-}elseif($topic_object->topic_stiky == 1){
+    echo "<td class=\"tcat\" width=\"15%\"><div class=\"pad\">المنتدى</div></td>";
 
-$classtopic = "topics";
+    echo "</tr>";
 
-}else{
+    if (value != "") {
 
-$classtopic = "topicn";
+        $pops = " && f.forum_id in(" . value . ")";
+    } else {
 
-}
+        $pops = "";
+    }
 
-if($topic_object->topic_text != 0 && ($topic_object->texttopic_forumid == 0 || $topic_object->texttopic_forumid == $topic_object->forum_id)){
+    $topic_sql = select_mysql("arab-forums", "reply", "i.iconstopic_id , i.iconstopic_name , i.iconstopic_images , i.iconstopic_forumid , x.texttopic_id , x.texttopic_name , x.texttopic_forumid , r.reply_id , r.reply_topicid , r.reply_user , r.reply_date , r.reply_wait , r.reply_hid , r.reply_delete , c.cat_id , c.cat_lock , c.cat_hid , c.cat_name , c.cat_monitor1 , c.cat_monitor2 , c.cat_group" . group_user . " , f.forum_id , f.forum_catid , f.forum_lock , f.forum_hid1 , f.forum_hid2 , f.forum_name , f.forum_logo , f.forum_moderattext , f.forum_totaltopic , f.forum_sex , f.forum_group" . group_user . " , f.forum_mode , u1.user_id as u1user_id , u1.user_lock1 as u1user_lock , u1.user_nameuser as u1user_name , u1.user_group as u1user_group , u1.user_coloruser as u1user_color , u2.user_id as u2user_id , u2.user_lock1 as u2user_lock , u2.user_nameuser as u2user_name , u2.user_group as u2user_group , u2.user_coloruser as u2user_color , t.topic_id , t.topic_forumid , t.topic_lock , t.topic_name , t.topic_wait , t.topic_delete , t.topic_hid , t.topic_stiky , t.topic_top , t.topic_survey , t.topic_icons , t.topic_text , t.topic_reply , t.topic_visit , t.topic_date , t.topic_user , t.topic_lastdate , t.topic_lastuser", "as r left join topic" . prefix_connect . " as t on(t.topic_id = r.reply_topicid) left join iconstopic" . prefix_connect . " as i on(i.iconstopic_id = t.topic_icons) left join texttopic" . prefix_connect . " as x on(x.texttopic_id = t.topic_text) left join forum" . prefix_connect . " as f on(f.forum_id = t.topic_forumid) left join cat" . prefix_connect . " as c on(c.cat_id = f.forum_catid) left join user" . prefix_connect . " as u1 on(u1.user_id = t.topic_user) left join user" . prefix_connect . " as u2 on(u2.user_id = t.topic_lastuser) where r.reply_user in({$user_object->user_id}) && t.topic_delete in(0) && c.cat_group" . group_user . " in(1) && f.forum_group" . group_user . " in(1) && r.reply_wait in(0) && r.reply_hid in(0) && r.reply_delete in(0) {$pops} group by t.topic_id order by r.reply_date desc limit 50");
 
-$text1topic = "<span style=\"color:red;\">{$topic_object->texttopic_name} : </span>";
+    if (num_mysql("arab-forums", $topic_sql) != false) {
 
-$text2topic = "{$topic_object->texttopic_name} : ";
+        while ($topic_object = object_mysql("arab-forums", $topic_sql)) {
 
-}else{
+            if ($topic_object->forum_hid1 == false || ($topic_object->forum_hid1 == true && forumhide1_other("arab-forums", $topic_object->forum_id, $topic_object->cat_monitor1, $topic_object->cat_monitor2, $topic_object->forum_mode) == true)) {
 
-$text1topic = "";
+                if ($topic_object->forum_hid2 == false || ($topic_object->forum_hid2 == true && forumhide2_other("arab-forums", $topic_object->cat_id, $topic_object->cat_monitor1, $topic_object->cat_monitor2, $topic_object->forum_mode) == true)) {
 
-$text2topic = "";
+                    if ((($topic_object->topic_wait == 0) || ($topic_object->topic_wait == 1 && ($moderatget1 == true || $topic_object->topic_user == id_user))) && (($topic_object->topic_hid == 0) || ($topic_object->topic_hid == 1 && ($moderatget1 == true || $topic_object->topic_user == id_user || num_mysql("arab-forums", select_mysql("arab-forums", "hidtopic", "hidtopic_userid , hidtopic_topicid", "where hidtopic_userid in(" . id_user . ") && hidtopic_topicid in({$topic_object->topic_id}) limit 1")) != false)))) {
 
-}
+                        $moderatget1 = moderatget1_other("arab-forums", $topic_object->forum_id, $topic_object->cat_monitor1, $topic_object->cat_monitor2, $topic_object->forum_mode);
 
-if($topic_object->topic_icons != 0 && ($topic_object->iconstopic_forumid == 0 || $topic_object->iconstopic_forumid == $topic_object->forum_id)){
+                        $moderatget2 = moderatget2_other("arab-forums", $topic_object->cat_monitor1, $topic_object->cat_monitor2);
 
-$iconstopic = img_other("arab-forums" , $topic_object->iconstopic_images , $topic_object->iconstopic_name , "" , "" , "0" , "class=\"title\"" , "images/iconsno.png");
+                        if ($topic_object->topic_delete == 1) {
 
-}else{
+                            $classtopic = "topicd";
+                        } elseif ($topic_object->topic_wait == 1) {
 
-if($topic_object->topic_delete == 1){
+                            $classtopic = "topicw";
+                        } elseif ($topic_object->topic_hid == 1) {
 
-$iconstopic = img_other("arab-forums" , "images/folder/delete.png" , "هذا الموضوع محذوف" , "" , "" , "0" , "class=\"title\"" , "");
+                            $classtopic = "topich";
+                        } elseif ($topic_object->topic_stiky == 1) {
 
-}elseif($topic_object->topic_wait == 1){
+                            $classtopic = "topics";
+                        } else {
 
-$iconstopic = img_other("arab-forums" , "images/folder/wait.png" , "هذا الموضوع ينتظر الموافقة" , "" , "" , "0" , "class=\"title\"" , "");
+                            $classtopic = "topicn";
+                        }
 
-}elseif($topic_object->topic_lock == 1){
+                        if ($topic_object->topic_text != 0 && ($topic_object->texttopic_forumid == 0 || $topic_object->texttopic_forumid == $topic_object->forum_id)) {
 
-$iconstopic = img_other("arab-forums" , "images/folder/lock.png" , "هذا الموضوع مغلوق" , "" , "" , "0" , "class=\"title\"" , "");
+                            $text1topic = "<span style=\"color:red;\">{$topic_object->texttopic_name} : </span>";
 
-}elseif($topic_object->topic_lock == 0 && $topic_object->topic_reply >= 10){
+                            $text2topic = "{$topic_object->texttopic_name} : ";
+                        } else {
 
-$iconstopic = img_other("arab-forums" , "images/folder/hote.png" , "هذا الموضوع نشيط" , "" , "" , "0" , "class=\"title\"" , "");
+                            $text1topic = "";
 
-}else{
+                            $text2topic = "";
+                        }
 
-$iconstopic = img_other("arab-forums" , "images/folder/new.png" , "هذا الموضوع مفتوح" , "" , "" , "0" , "class=\"title\"" , "");
+                        if ($topic_object->topic_icons != 0 && ($topic_object->iconstopic_forumid == 0 || $topic_object->iconstopic_forumid == $topic_object->forum_id)) {
 
-}}
+                            $iconstopic = img_other("arab-forums", $topic_object->iconstopic_images, $topic_object->iconstopic_name, "", "", "0", "class=\"title\"", "images/iconsno.png");
+                        } else {
 
-echo "<tr align=\"center\" class=\"topice {$classtopic}\">";
+                            if ($topic_object->topic_delete == 1) {
 
-echo "<td class=\"topic\" width=\"1%\">{$iconstopic}</td>";
+                                $iconstopic = img_other("arab-forums", "images/folder/delete.png", "هذا الموضوع محذوف", "", "", "0", "class=\"title\"", "");
+                            } elseif ($topic_object->topic_wait == 1) {
 
-echo "<td class=\"topic\" align=\"right\"><table cellpadding=\"3\" cellspacing=\"1\"><tr>";
+                                $iconstopic = img_other("arab-forums", "images/folder/wait.png", "هذا الموضوع ينتظر الموافقة", "", "", "0", "class=\"title\"", "");
+                            } elseif ($topic_object->topic_lock == 1) {
 
-echo "<td>".a_other("arab-forums" , "topic.php?id={$topic_object->topic_id}" , "" , img_other("arab-forums" , "images/plus.gif" , "" , "" , "" , "0" , "" , "") , "target=\"_blank\"")."</td>";
+                                $iconstopic = img_other("arab-forums", "images/folder/lock.png", "هذا الموضوع مغلوق", "", "", "0", "class=\"title\"", "");
+                            } elseif ($topic_object->topic_lock == 0 && $topic_object->topic_reply >= 10) {
 
-if($topic_object->topic_survey > 0){
+                                $iconstopic = img_other("arab-forums", "images/folder/hote.png", "هذا الموضوع نشيط", "", "", "0", "class=\"title\"", "");
+                            } else {
 
-echo "<td>".img_other("arab-forums" , "images/survey.png" , "هذا الموضوع يحتوي على إستفتاء" , "" , "" , "0" , "class=\"title\"" , "")."</td>";
+                                $iconstopic = img_other("arab-forums", "images/folder/new.png", "هذا الموضوع مفتوح", "", "", "0", "class=\"title\"", "");
+                            }
+                        }
 
-}
+                        echo "<tr align=\"center\" class=\"topice {$classtopic}\">";
 
-if($topic_object->topic_top == 1){
+                        echo "<td class=\"topic\" width=\"1%\">{$iconstopic}</td>";
 
-echo "<td>".img_other("arab-forums" , "images/top1.png" , "هذا الموضوع متميز في هذا المنتدى" , "" , "" , "0" , "class=\"title\"" , "")."</td>";
+                        echo "<td class=\"topic\" align=\"right\"><table cellpadding=\"3\" cellspacing=\"1\"><tr>";
 
-}elseif($topic_object->topic_top == 2){
+                        echo "<td>" . a_other("arab-forums", "topic.php?id={$topic_object->topic_id}", "", img_other("arab-forums", "images/plus.gif", "", "", "", "0", "", ""), "target=\"_blank\"") . "</td>";
 
-echo "<td>".img_other("arab-forums" , "images/top2.png" , "هذا الموضوع متميز في جميع المنتديات" , "" , "" , "0" , "class=\"title\"" , "")."</td>";
+                        if ($topic_object->topic_survey > 0) {
 
-}
+                            echo "<td>" . img_other("arab-forums", "images/survey.png", "هذا الموضوع يحتوي على إستفتاء", "", "", "0", "class=\"title\"", "") . "</td>";
+                        }
 
-echo "<td width=\"100%\">".a_other("arab-forums" , "topic.php?id={$topic_object->topic_id}" , "{$text2topic}{$topic_object->topic_name}" , "{$text1topic}{$topic_object->topic_name}" , "")."".reply_pager("arab-forums" , forum_replytopic , $topic_object->topic_id , $topic_object->topic_reply)."</td>";
+                        if ($topic_object->topic_top == 1) {
 
-if(group_user > 0){
+                            echo "<td>" . img_other("arab-forums", "images/top1.png", "هذا الموضوع متميز في هذا المنتدى", "", "", "0", "class=\"title\"", "") . "</td>";
+                        } elseif ($topic_object->topic_top == 2) {
 
-if(($moderatget1 == true) || ($topic_object->topic_wait == 0 && $topic_object->topic_lock == 0 && $topic_object->topic_user == id_user)){
+                            echo "<td>" . img_other("arab-forums", "images/top2.png", "هذا الموضوع متميز في جميع المنتديات", "", "", "0", "class=\"title\"", "") . "</td>";
+                        }
 
-echo "<td>".a_other("arab-forums" , "topic.php?id={$topic_object->topic_id}&go=edittopic" , "تعديل الموضوع" , img_other("arab-forums" , "images/edit.png" , "" , "" , "" , "0" , "" , "") , "")."</td>";
+                        echo "<td width=\"100%\">" . a_other("arab-forums", "topic.php?id={$topic_object->topic_id}", "{$text2topic}{$topic_object->topic_name}", "{$text1topic}{$topic_object->topic_name}", "") . "" . reply_pager("arab-forums", forum_replytopic, $topic_object->topic_id, $topic_object->topic_reply) . "</td>";
 
-}
+                        if (group_user > 0) {
 
-if(($moderatget1 == true) || ($topic_object->topic_wait == 0 && $topic_object->topic_lock == 0) || ($topic_object->topic_wait == 0 && num_mysql("arab-forums" , select_mysql("arab-forums" , "locktopic" , "locktopic_userid , locktopic_topicid" , "where locktopic_userid in(".id_user.") && locktopic_topicid in(".$topic_object->topic_id.") limit 1")) != false)){
+                            if (($moderatget1 == true) || ($topic_object->topic_wait == 0 && $topic_object->topic_lock == 0 && $topic_object->topic_user == id_user)) {
 
-echo "<td>".a_other("arab-forums" , "topic.php?id={$topic_object->topic_id}&go=newreply" , "الرد على الموضوع" , img_other("arab-forums" , "images/add.png" , "" , "" , "" , "0" , "" , "") , "")."</td>";
+                                echo "<td>" . a_other("arab-forums", "topic.php?id={$topic_object->topic_id}&go=edittopic", "تعديل الموضوع", img_other("arab-forums", "images/edit.png", "", "", "", "0", "", ""), "") . "</td>";
+                            }
 
-}}
+                            if (($moderatget1 == true) || ($topic_object->topic_wait == 0 && $topic_object->topic_lock == 0) || ($topic_object->topic_wait == 0 && num_mysql("arab-forums", select_mysql("arab-forums", "locktopic", "locktopic_userid , locktopic_topicid", "where locktopic_userid in(" . id_user . ") && locktopic_topicid in(" . $topic_object->topic_id . ") limit 1")) != false)) {
 
-echo "</tr></table></td>";
+                                echo "<td>" . a_other("arab-forums", "topic.php?id={$topic_object->topic_id}&go=newreply", "الرد على الموضوع", img_other("arab-forums", "images/add.png", "", "", "", "0", "", ""), "") . "</td>";
+                            }
+                        }
 
-echo "<td class=\"topic\">".($topic_object->topic_date != "" && $topic_object->topic_user != "" ? "<span style=\"font-size:13px;\">".user_other("arab-forums" , array($topic_object->u1user_id , $topic_object->u1user_group , $topic_object->u1user_name , $topic_object->u1user_lock , $topic_object->u1user_color , false))."</span><br><nobr>".times_date("arab-forums" , "" , $topic_object->topic_date)."</nobr>" : "")."</td>";
+                        echo "</tr></table></td>";
 
-echo "<td class=\"topic\">".($topic_object->topic_lastdate != "" && $topic_object->topic_lastuser != "" ? "<span style=\"font-size:13px;\">".user_other("arab-forums" , array($topic_object->u2user_id , $topic_object->u2user_group , $topic_object->u2user_name , $topic_object->u2user_lock , $topic_object->u2user_color , false))."</span><br><nobr>".times_date("arab-forums" , "" , $topic_object->topic_lastdate)."</nobr>" : "")."</td>";
+                        echo "<td class=\"topic\">" . ($topic_object->topic_date != "" && $topic_object->topic_user != "" ? "<span style=\"font-size:13px;\">" . user_other("arab-forums", array($topic_object->u1user_id, $topic_object->u1user_group, $topic_object->u1user_name, $topic_object->u1user_lock, $topic_object->u1user_color, false)) . "</span><br><nobr>" . times_date("arab-forums", "", $topic_object->topic_date) . "</nobr>" : "") . "</td>";
 
-echo "<td class=\"topic\">".num_other("arab-forums" , $topic_object->topic_reply)."</td>";
+                        echo "<td class=\"topic\">" . ($topic_object->topic_lastdate != "" && $topic_object->topic_lastuser != "" ? "<span style=\"font-size:13px;\">" . user_other("arab-forums", array($topic_object->u2user_id, $topic_object->u2user_group, $topic_object->u2user_name, $topic_object->u2user_lock, $topic_object->u2user_color, false)) . "</span><br><nobr>" . times_date("arab-forums", "", $topic_object->topic_lastdate) . "</nobr>" : "") . "</td>";
 
-echo "<td class=\"topic\">".num_other("arab-forums" , $topic_object->topic_visit)."</td>";
+                        echo "<td class=\"topic\">" . num_other("arab-forums", $topic_object->topic_reply) . "</td>";
 
-echo "<td class=\"topic\">".a_other("arab-forums" , "forum.php?id={$topic_object->forum_id}" , "{$topic_object->forum_name}" , "<span style=\"color:red;font-size:12px;\">{$topic_object->forum_name}</span>" , "")."</td>";
+                        echo "<td class=\"topic\">" . num_other("arab-forums", $topic_object->topic_visit) . "</td>";
 
-echo "</tr>";
+                        echo "<td class=\"topic\">" . a_other("arab-forums", "forum.php?id={$topic_object->forum_id}", "{$topic_object->forum_name}", "<span style=\"color:red;font-size:12px;\">{$topic_object->forum_name}</span>", "") . "</td>";
 
-}}}}}else{
+                        echo "</tr>";
+                    }
+                }
+            }
+        }
+    } else {
 
-echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"7\"><br><br>{$usertitleerror}<br><br><br></td></tr>";
+        echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"7\"><br><br>{$usertitleerror}<br><br><br></td></tr>";
+    }
 
-}
+    echo "</table>";
 
-echo "</table>";
+    echo footer_template("arab-forums");
 
-echo footer_template("arab-forums");
-
-echo bodybottom_template("arab-forums");
-
+    echo bodybottom_template("arab-forums");
 }
 
 disconnect_mysql("arab-forums");
@@ -326,4 +302,3 @@ disconnect_mysql("arab-forums");
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

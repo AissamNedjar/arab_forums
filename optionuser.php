@@ -11,1022 +11,1006 @@
 
 |*#####################################################################*/
 
-define("error_page_arab_forums" , true);
+define("error_page_arab_forums", true);
 
 @include("includes.php");
 
-define("pageupdate" , true);
+define("pageupdate", true);
 
 @include("includes/e.noopen.php");
 
-$option_sql = select_mysql("arab-forums" , "user" , "user_id , user_wait , user_active , user_bad , user_nameuser , user_namelogin , user_sex , user_lock1 , user_lock2 , user_group , user_post , user_point , user_posts , user_topics , user_dateregister , user_datelastvisite , user_datelastpost , user_adressip , user_lastadressip , user_photo , user_jobe , user_age , user_days , user_month , user_years , user_bio , user_sig , user_country , user_city , user_state , user_titleold , user_hala , user_email , user_time , user_style , user_editorcolor , user_editoralign , user_editorblod , user_editorfont , user_editorsize , user_coloruser , user_colorstar" , "where user_id in(".id.") && user_wait in(0) && user_active in(0) && user_bad in(0)");
+$option_sql = select_mysql("arab-forums", "user", "user_id , user_wait , user_active , user_bad , user_nameuser , user_namelogin , user_sex , user_lock1 , user_lock2 , user_group , user_post , user_point , user_posts , user_topics , user_dateregister , user_datelastvisite , user_datelastpost , user_adressip , user_lastadressip , user_photo , user_jobe , user_age , user_days , user_month , user_years , user_bio , user_sig , user_country , user_city , user_state , user_titleold , user_hala , user_email , user_time , user_style , user_editorcolor , user_editoralign , user_editorblod , user_editorfont , user_editorsize , user_coloruser , user_colorstar", "where user_id in(" . id . ") && user_wait in(0) && user_active in(0) && user_bad in(0)");
 
-if(num_mysql("arab-forums" , $option_sql) == false){
+if (num_mysql("arab-forums", $option_sql) == false) {
 
-$errorop = "لا تملك التصريح المناسب لدخول هذه الصفحة";
+    $errorop = "لا تملك التصريح المناسب لدخول هذه الصفحة";
+} elseif (group_user < 2) {
 
-}elseif(group_user < 2){
+    $errorop = "لا تملك التصريح المناسب لدخول هذه الصفحة";
+} else {
 
-$errorop = "لا تملك التصريح المناسب لدخول هذه الصفحة";
+    $option_object = object_mysql("arab-forums", $option_sql);
 
-}else{
-
-$option_object = object_mysql("arab-forums" , $option_sql);
-
-$errorop = "";
-
+    $errorop = "";
 }
 
-if($errorop == ""){
+if ($errorop == "") {
 
-define("pagebody" , "optionuser");
+    define("pagebody", "optionuser");
 
-online_other("arab-forums" , "optionuser" , "0" , "0" , "0" , $option_object->user_id);
+    online_other("arab-forums", "optionuser", "0", "0", "0", $option_object->user_id);
 
-if(go == "lock1" && $option_object->user_group != 6 && per_other("arab-forums" , 7) == true){
+    if (go == "lock1" && $option_object->user_group != 6 && per_other("arab-forums", 7) == true) {
 
-if($option_object->user_lock1 == 1){
+        if ($option_object->user_lock1 == 1) {
 
-$arraymsg = array(
+            $arraymsg = array(
 
-"login" => true ,
+                "login" => true,
 
-"msg" => "لا يمكنك غلق العضوية لأنها مغلقة من قبل" ,
+                "msg" => "لا يمكنك غلق العضوية لأنها مغلقة من قبل",
 
-"color" => "error" ,
+                "color" => "error",
 
-"old" => true ,
+                "old" => true,
 
-"auto" => false ,
+                "auto" => false,
 
-"text" => "" ,
+                "text" => "",
 
-"url" => "" ,
+                "url" => "",
 
-"array" => "" ,
+                "array" => "",
 
-);
+            );
 
-echo msg_template("arab-forums" , $arraymsg);
+            echo msg_template("arab-forums", $arraymsg);
+        } else {
 
-}else{
+            if (type == "insert") {
 
-if(type == "insert"){
+                $msgtext = text_other("arab-forums", post_other("arab-forums", "msgtext"), false, true, false, false, true);
 
-$msgtext = text_other("arab-forums" , post_other("arab-forums" , "msgtext") , false , true , false , false , true);
+                $msgtextsenf = br_other("arab-forums", $msgtext);
 
-$msgtextsenf = br_other("arab-forums" , $msgtext);
+                if ($msgtext == "") {
 
-if($msgtext == ""){
+                    $arraymsg = array(
 
-$arraymsg = array(
+                        "login" => true,
 
-"login" => true ,
+                        "msg" => "للأسف يجب أن تقوم بإدخال السبب ليتم الحفظ",
 
-"msg" => "للأسف يجب أن تقوم بإدخال السبب ليتم الحفظ" ,
+                        "color" => "error",
 
-"color" => "error" ,
+                        "old" => true,
 
-"old" => true ,
+                        "auto" => false,
 
-"auto" => false ,
+                        "text" => "",
 
-"text" => "" ,
+                        "url" => "",
 
-"url" => "" ,
+                        "array" => "",
 
-"array" => "" ,
+                    );
 
-);
+                    echo msg_template("arab-forums", $arraymsg);
+                } else {
 
-echo msg_template("arab-forums" , $arraymsg);
+                    update_mysql("arab-forums", "user", "user_lock1 = \"1\" where user_id in({$option_object->user_id}) limit 1");
 
-}else{
+                    insert_mysql("arab-forums", "optionuser", "optionuser_id , optionuser_userid , optionuser_user , optionuser_date , optionuser_type , optionuser_msg", "null , \"{$option_object->user_id}\" , \"" . id_user . "\" , \"" . time() . "\" , \"lock1\" , \"{$msgtextsenf}\"");
 
-update_mysql("arab-forums" , "user" , "user_lock1 = \"1\" where user_id in({$option_object->user_id}) limit 1");
+                    $arraymsg = array(
 
-insert_mysql("arab-forums" , "optionuser" , "optionuser_id , optionuser_userid , optionuser_user , optionuser_date , optionuser_type , optionuser_msg" , "null , \"{$option_object->user_id}\" , \"".id_user."\" , \"".time()."\" , \"lock1\" , \"{$msgtextsenf}\"");
+                        "login" => true,
 
-$arraymsg = array(
+                        "msg" => "تم غلق العضوية بنجآح تام",
 
-"login" => true ,
+                        "color" => "good",
 
-"msg" => "تم غلق العضوية بنجآح تام" ,
+                        "old" => true,
 
-"color" => "good" ,
+                        "auto" => false,
 
-"old" => true ,
+                        "text" => "",
 
-"auto" => false ,
+                        "url" => get_cookie("arab-forums", "refererauser"),
 
-"text" => "" ,
+                        "array" => "",
 
-"url" => get_cookie("arab-forums" , "refererauser") ,
+                    );
 
-"array" => "" ,
+                    echo msg_template("arab-forums", $arraymsg);
+                }
+            } else {
 
-);
+                set_cookie("arab-forums", "refererauser", referer, 0);
 
-echo msg_template("arab-forums" , $arraymsg);
+                echo bodytop_template("arab-forums", "غلق عضوية");
 
-}}else{
+                $arrayheader = array(
 
-set_cookie("arab-forums" , "refererauser" , referer , 0);
+                    "login" => true,
 
-echo bodytop_template("arab-forums" , "غلق عضوية");
+                );
 
-$arrayheader = array(
+                echo header_template("arab-forums", $arrayheader);
 
-"login" => true ,
+                echo "<form action=\"optionuser.php?id={$option_object->user_id}&go=lock1&type=insert\" method=\"post\">";
 
-);
+                echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"45%\" align=\"center\">";
 
-echo header_template("arab-forums" , $arrayheader);
+                echo "<tr align=\"center\"><td class=\"tcat\"><div class=\"pad\">غلق العضوية رقم : {$option_object->user_id}</div></td></tr>";
 
-echo "<form action=\"optionuser.php?id={$option_object->user_id}&go=lock1&type=insert\" method=\"post\">";
+                echo "<tr align=\"center\"><td class=\"alttext1\"><div class=\"pad\"><br>{$option_object->user_nameuser}<br><br></div></td></tr>";
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" width=\"45%\" align=\"center\">";
+                echo "<tr align=\"center\"><td class=\"tcat\"><div class=\"pad\">سبب الغلق</div></td></tr>";
 
-echo "<tr align=\"center\"><td class=\"tcat\"><div class=\"pad\">غلق العضوية رقم : {$option_object->user_id}</div></td></tr>";
+                echo "<tr align=\"center\"><td class=\"alttext2\"><div class=\"pad\"><textarea name=\"msgtext\" class=\"textarea\" cols=\"60\" rows=\"12\"></textarea></div></td></tr>";
 
-echo "<tr align=\"center\"><td class=\"alttext1\"><div class=\"pad\"><br>{$option_object->user_nameuser}<br><br></div></td></tr>";
+                echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"2\"><div class=\"pad\"><br><center><input type=\"submit\" class=\"button\" value=\"غلق العضوية\"  " . confirm_other("arab-forums", "هل أنت متأكد من أنك تريد غلق هذه العضوية ؟") . "> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقل\"></center><br></div></td></tr>";
 
-echo "<tr align=\"center\"><td class=\"tcat\"><div class=\"pad\">سبب الغلق</div></td></tr>";
+                echo "</table>";
 
-echo "<tr align=\"center\"><td class=\"alttext2\"><div class=\"pad\"><textarea name=\"msgtext\" class=\"textarea\" cols=\"60\" rows=\"12\"></textarea></div></td></tr>";
+                echo "</form>";
 
-echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"2\"><div class=\"pad\"><br><center><input type=\"submit\" class=\"button\" value=\"غلق العضوية\"  ".confirm_other("arab-forums" , "هل أنت متأكد من أنك تريد غلق هذه العضوية ؟")."> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقل\"></center><br></div></td></tr>";
+                echo footer_template("arab-forums");
 
-echo "</table>";
+                echo bodybottom_template("arab-forums");
+            }
+        }
+    } elseif (go == "nolock1" && $option_object->user_group != 6 && per_other("arab-forums", 8) == true) {
 
-echo "</form>";
+        if ($option_object->user_lock1 == 0) {
 
-echo footer_template("arab-forums");
+            $arraymsg = array(
 
-echo bodybottom_template("arab-forums");
+                "login" => true,
 
-}}}elseif(go == "nolock1" && $option_object->user_group != 6 && per_other("arab-forums" , 8) == true){
+                "msg" => "لا بمكنك فتح العضوية لأنها مفتوحة من قبل",
 
-if($option_object->user_lock1 == 0){
+                "color" => "error",
 
-$arraymsg = array(
+                "old" => true,
 
-"login" => true ,
+                "auto" => false,
 
-"msg" => "لا بمكنك فتح العضوية لأنها مفتوحة من قبل" ,
+                "text" => "",
 
-"color" => "error" ,
+                "url" => "",
 
-"old" => true ,
+                "array" => "",
 
-"auto" => false ,
+            );
 
-"text" => "" ,
+            echo msg_template("arab-forums", $arraymsg);
+        } else {
 
-"url" => "" ,
+            if (type == "insert") {
 
-"array" => "" ,
+                $msgtext = text_other("arab-forums", post_other("arab-forums", "msgtext"), false, true, false, false, true);
 
-);
+                $msgtextsenf = br_other("arab-forums", $msgtext);
 
-echo msg_template("arab-forums" , $arraymsg);
+                if ($msgtext == "") {
 
-}else{
+                    $arraymsg = array(
 
-if(type == "insert"){
+                        "login" => true,
 
-$msgtext = text_other("arab-forums" , post_other("arab-forums" , "msgtext") , false , true , false , false , true);
+                        "msg" => "للأسف يجب أن تقوم بإدخال السبب ليتم الحفظ",
 
-$msgtextsenf = br_other("arab-forums" , $msgtext);
+                        "color" => "error",
 
-if($msgtext == ""){
+                        "old" => true,
 
-$arraymsg = array(
+                        "auto" => false,
 
-"login" => true ,
+                        "text" => "",
 
-"msg" => "للأسف يجب أن تقوم بإدخال السبب ليتم الحفظ" ,
+                        "url" => "",
 
-"color" => "error" ,
+                        "array" => "",
 
-"old" => true ,
+                    );
 
-"auto" => false ,
+                    echo msg_template("arab-forums", $arraymsg);
+                } else {
 
-"text" => "" ,
+                    update_mysql("arab-forums", "user", "user_lock1 = \"0\" where user_id in({$option_object->user_id}) limit 1");
 
-"url" => "" ,
+                    insert_mysql("arab-forums", "optionuser", "optionuser_id , optionuser_userid , optionuser_user , optionuser_date , optionuser_type , optionuser_msg", "null , \"{$option_object->user_id}\" , \"" . id_user . "\" , \"" . time() . "\" , \"nolock1\" , \"{$msgtextsenf}\"");
 
-"array" => "" ,
+                    $arraymsg = array(
 
-);
+                        "login" => true,
 
-echo msg_template("arab-forums" , $arraymsg);
+                        "msg" => "تم فتح العضوية بنجآح تام",
 
-}else{
+                        "color" => "good",
 
-update_mysql("arab-forums" , "user" , "user_lock1 = \"0\" where user_id in({$option_object->user_id}) limit 1");
+                        "old" => true,
 
-insert_mysql("arab-forums" , "optionuser" , "optionuser_id , optionuser_userid , optionuser_user , optionuser_date , optionuser_type , optionuser_msg" , "null , \"{$option_object->user_id}\" , \"".id_user."\" , \"".time()."\" , \"nolock1\" , \"{$msgtextsenf}\"");
+                        "auto" => false,
 
-$arraymsg = array(
+                        "text" => "",
 
-"login" => true ,
+                        "url" => get_cookie("arab-forums", "refererauser"),
 
-"msg" => "تم فتح العضوية بنجآح تام" ,
+                        "array" => "",
 
-"color" => "good" ,
+                    );
 
-"old" => true ,
+                    echo msg_template("arab-forums", $arraymsg);
+                }
+            } else {
 
-"auto" => false ,
+                set_cookie("arab-forums", "refererauser", referer, 0);
 
-"text" => "" ,
+                echo bodytop_template("arab-forums", "فتح عضوية");
 
-"url" => get_cookie("arab-forums" , "refererauser") ,
+                $arrayheader = array(
 
-"array" => "" ,
+                    "login" => true,
 
-);
+                );
 
-echo msg_template("arab-forums" , $arraymsg);
+                echo header_template("arab-forums", $arrayheader);
 
-}}else{
+                echo "<form action=\"optionuser.php?id={$option_object->user_id}&go=nolock1&type=insert\" method=\"post\">";
 
-set_cookie("arab-forums" , "refererauser" , referer , 0);
+                echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"45%\" align=\"center\">";
 
-echo bodytop_template("arab-forums" , "فتح عضوية");
+                echo "<tr align=\"center\"><td class=\"tcat\"><div class=\"pad\">فتح العضوية رقم : {$option_object->user_id}</div></td></tr>";
 
-$arrayheader = array(
+                echo "<tr align=\"center\"><td class=\"alttext1\"><div class=\"pad\"><br>{$option_object->user_nameuser}<br><br></div></td></tr>";
 
-"login" => true ,
+                echo "<tr align=\"center\"><td class=\"tcat\"><div class=\"pad\">سبب الفتح</div></td></tr>";
 
-);
+                echo "<tr align=\"center\"><td class=\"alttext2\"><div class=\"pad\"><textarea name=\"msgtext\" class=\"textarea\" cols=\"60\" rows=\"12\"></textarea></div></td></tr>";
 
-echo header_template("arab-forums" , $arrayheader);
+                echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"2\"><div class=\"pad\"><br><center><input type=\"submit\" class=\"button\" value=\"فتح العضوية\"  " . confirm_other("arab-forums", "هل أنت متأكد من أنك تريد فتح هذه العضوية ؟") . "> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقل\"></center><br></div></td></tr>";
 
-echo "<form action=\"optionuser.php?id={$option_object->user_id}&go=nolock1&type=insert\" method=\"post\">";
+                echo "</table>";
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" width=\"45%\" align=\"center\">";
+                echo "</form>";
 
-echo "<tr align=\"center\"><td class=\"tcat\"><div class=\"pad\">فتح العضوية رقم : {$option_object->user_id}</div></td></tr>";
+                echo footer_template("arab-forums");
 
-echo "<tr align=\"center\"><td class=\"alttext1\"><div class=\"pad\"><br>{$option_object->user_nameuser}<br><br></div></td></tr>";
+                echo bodybottom_template("arab-forums");
+            }
+        }
+    } elseif (go == "lock2" && $option_object->user_group != 6 && per_other("arab-forums", 5) == true) {
 
-echo "<tr align=\"center\"><td class=\"tcat\"><div class=\"pad\">سبب الفتح</div></td></tr>";
+        if ($option_object->user_lock2 == 1) {
 
-echo "<tr align=\"center\"><td class=\"alttext2\"><div class=\"pad\"><textarea name=\"msgtext\" class=\"textarea\" cols=\"60\" rows=\"12\"></textarea></div></td></tr>";
+            $arraymsg = array(
 
-echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"2\"><div class=\"pad\"><br><center><input type=\"submit\" class=\"button\" value=\"فتح العضوية\"  ".confirm_other("arab-forums" , "هل أنت متأكد من أنك تريد فتح هذه العضوية ؟")."> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقل\"></center><br></div></td></tr>";
+                "login" => true,
 
-echo "</table>";
+                "msg" => "لا يمكنك تجميد العضوية لأنها مجمدة من قبل",
 
-echo "</form>";
+                "color" => "error",
 
-echo footer_template("arab-forums");
+                "old" => true,
 
-echo bodybottom_template("arab-forums");
+                "auto" => false,
 
-}}}elseif(go == "lock2" && $option_object->user_group != 6 && per_other("arab-forums" , 5) == true){
+                "text" => "",
 
-if($option_object->user_lock2 == 1){
+                "url" => "",
 
-$arraymsg = array(
+                "array" => "",
 
-"login" => true ,
+            );
 
-"msg" => "لا يمكنك تجميد العضوية لأنها مجمدة من قبل" ,
+            echo msg_template("arab-forums", $arraymsg);
+        } else {
 
-"color" => "error" ,
+            if (type == "insert") {
 
-"old" => true ,
+                $msgtext = text_other("arab-forums", post_other("arab-forums", "msgtext"), false, true, false, false, true);
 
-"auto" => false ,
+                $msgtextsenf = br_other("arab-forums", $msgtext);
 
-"text" => "" ,
+                if ($msgtext == "") {
 
-"url" => "" ,
+                    $arraymsg = array(
 
-"array" => "" ,
+                        "login" => true,
 
-);
+                        "msg" => "للأسف يجب أن تقوم بإدخال السبب ليتم الحفظ",
 
-echo msg_template("arab-forums" , $arraymsg);
+                        "color" => "error",
 
-}else{
+                        "old" => true,
 
-if(type == "insert"){
+                        "auto" => false,
 
-$msgtext = text_other("arab-forums" , post_other("arab-forums" , "msgtext") , false , true , false , false , true);
+                        "text" => "",
 
-$msgtextsenf = br_other("arab-forums" , $msgtext);
+                        "url" => "",
 
-if($msgtext == ""){
+                        "array" => "",
 
-$arraymsg = array(
+                    );
 
-"login" => true ,
+                    echo msg_template("arab-forums", $arraymsg);
+                } else {
 
-"msg" => "للأسف يجب أن تقوم بإدخال السبب ليتم الحفظ" ,
+                    update_mysql("arab-forums", "user", "user_lock2 = \"1\" where user_id in({$option_object->user_id}) limit 1");
 
-"color" => "error" ,
+                    insert_mysql("arab-forums", "optionuser", "optionuser_id , optionuser_userid , optionuser_user , optionuser_date , optionuser_type , optionuser_msg", "null , \"{$option_object->user_id}\" , \"" . id_user . "\" , \"" . time() . "\" , \"lock2\" , \"{$msgtextsenf}\"");
 
-"old" => true ,
+                    $arraymsg = array(
 
-"auto" => false ,
+                        "login" => true,
 
-"text" => "" ,
+                        "msg" => "تم تجميد العضوية بنجآح تام",
 
-"url" => "" ,
+                        "color" => "good",
 
-"array" => "" ,
+                        "old" => true,
 
-);
+                        "auto" => false,
 
-echo msg_template("arab-forums" , $arraymsg);
+                        "text" => "",
 
-}else{
+                        "url" => get_cookie("arab-forums", "refererauser"),
 
-update_mysql("arab-forums" , "user" , "user_lock2 = \"1\" where user_id in({$option_object->user_id}) limit 1");
+                        "array" => "",
 
-insert_mysql("arab-forums" , "optionuser" , "optionuser_id , optionuser_userid , optionuser_user , optionuser_date , optionuser_type , optionuser_msg" , "null , \"{$option_object->user_id}\" , \"".id_user."\" , \"".time()."\" , \"lock2\" , \"{$msgtextsenf}\"");
+                    );
 
-$arraymsg = array(
+                    echo msg_template("arab-forums", $arraymsg);
+                }
+            } else {
 
-"login" => true ,
+                set_cookie("arab-forums", "refererauser", referer, 0);
 
-"msg" => "تم تجميد العضوية بنجآح تام" ,
+                echo bodytop_template("arab-forums", "تجميد عضوية");
 
-"color" => "good" ,
+                $arrayheader = array(
 
-"old" => true ,
+                    "login" => true,
 
-"auto" => false ,
+                );
 
-"text" => "" ,
+                echo header_template("arab-forums", $arrayheader);
 
-"url" => get_cookie("arab-forums" , "refererauser") ,
+                echo "<form action=\"optionuser.php?id={$option_object->user_id}&go=lock2&type=insert\" method=\"post\">";
 
-"array" => "" ,
+                echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"45%\" align=\"center\">";
 
-);
+                echo "<tr align=\"center\"><td class=\"tcat\"><div class=\"pad\">تجميد العضوية رقم : {$option_object->user_id}</div></td></tr>";
 
-echo msg_template("arab-forums" , $arraymsg);
+                echo "<tr align=\"center\"><td class=\"alttext1\"><div class=\"pad\"><br>{$option_object->user_nameuser}<br><br></div></td></tr>";
 
-}}else{
+                echo "<tr align=\"center\"><td class=\"tcat\"><div class=\"pad\">سبب التجميد</div></td></tr>";
 
-set_cookie("arab-forums" , "refererauser" , referer , 0);
+                echo "<tr align=\"center\"><td class=\"alttext2\"><div class=\"pad\"><textarea name=\"msgtext\" class=\"textarea\" cols=\"60\" rows=\"12\"></textarea></div></td></tr>";
 
-echo bodytop_template("arab-forums" , "تجميد عضوية");
+                echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"2\"><div class=\"pad\"><br><center><input type=\"submit\" class=\"button\" value=\"تجميد العضوية\"  " . confirm_other("arab-forums", "هل أنت متأكد من أنك تريد تجميد هذه العضوية ؟") . "> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقل\"></center><br></div></td></tr>";
 
-$arrayheader = array(
+                echo "</table>";
 
-"login" => true ,
+                echo "</form>";
 
-);
+                echo footer_template("arab-forums");
 
-echo header_template("arab-forums" , $arrayheader);
+                echo bodybottom_template("arab-forums");
+            }
+        }
+    } elseif (go == "nolock2" && $option_object->user_group != 6 && per_other("arab-forums", 6) == true) {
 
-echo "<form action=\"optionuser.php?id={$option_object->user_id}&go=lock2&type=insert\" method=\"post\">";
+        if ($option_object->user_lock2 == 0) {
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" width=\"45%\" align=\"center\">";
+            $arraymsg = array(
 
-echo "<tr align=\"center\"><td class=\"tcat\"><div class=\"pad\">تجميد العضوية رقم : {$option_object->user_id}</div></td></tr>";
+                "login" => true,
 
-echo "<tr align=\"center\"><td class=\"alttext1\"><div class=\"pad\"><br>{$option_object->user_nameuser}<br><br></div></td></tr>";
+                "msg" => "لا بمكنك إزالة تجميد العضوية لأنها غير مجمدة من قبل",
 
-echo "<tr align=\"center\"><td class=\"tcat\"><div class=\"pad\">سبب التجميد</div></td></tr>";
+                "color" => "error",
 
-echo "<tr align=\"center\"><td class=\"alttext2\"><div class=\"pad\"><textarea name=\"msgtext\" class=\"textarea\" cols=\"60\" rows=\"12\"></textarea></div></td></tr>";
+                "old" => true,
 
-echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"2\"><div class=\"pad\"><br><center><input type=\"submit\" class=\"button\" value=\"تجميد العضوية\"  ".confirm_other("arab-forums" , "هل أنت متأكد من أنك تريد تجميد هذه العضوية ؟")."> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقل\"></center><br></div></td></tr>";
+                "auto" => false,
 
-echo "</table>";
+                "text" => "",
 
-echo "</form>";
+                "url" => "",
 
-echo footer_template("arab-forums");
+                "array" => "",
 
-echo bodybottom_template("arab-forums");
+            );
 
-}}}elseif(go == "nolock2" && $option_object->user_group != 6 && per_other("arab-forums" , 6) == true){
+            echo msg_template("arab-forums", $arraymsg);
+        } else {
 
-if($option_object->user_lock2 == 0){
+            if (type == "insert") {
 
-$arraymsg = array(
+                $msgtext = text_other("arab-forums", post_other("arab-forums", "msgtext"), false, true, false, false, true);
 
-"login" => true ,
+                $msgtextsenf = br_other("arab-forums", $msgtext);
 
-"msg" => "لا بمكنك إزالة تجميد العضوية لأنها غير مجمدة من قبل" ,
+                if ($msgtext == "") {
 
-"color" => "error" ,
+                    $arraymsg = array(
 
-"old" => true ,
+                        "login" => true,
 
-"auto" => false ,
+                        "msg" => "للأسف يجب أن تقوم بإدخال السبب ليتم الحفظ",
 
-"text" => "" ,
+                        "color" => "error",
 
-"url" => "" ,
+                        "old" => true,
 
-"array" => "" ,
+                        "auto" => false,
 
-);
+                        "text" => "",
 
-echo msg_template("arab-forums" , $arraymsg);
+                        "url" => "",
 
-}else{
+                        "array" => "",
 
-if(type == "insert"){
+                    );
 
-$msgtext = text_other("arab-forums" , post_other("arab-forums" , "msgtext") , false , true , false , false , true);
+                    echo msg_template("arab-forums", $arraymsg);
+                } else {
 
-$msgtextsenf = br_other("arab-forums" , $msgtext);
+                    update_mysql("arab-forums", "user", "user_lock2 = \"0\" where user_id in({$option_object->user_id}) limit 1");
 
-if($msgtext == ""){
+                    insert_mysql("arab-forums", "optionuser", "optionuser_id , optionuser_userid , optionuser_user , optionuser_date , optionuser_type , optionuser_msg", "null , \"{$option_object->user_id}\" , \"" . id_user . "\" , \"" . time() . "\" , \"nolock2\" , \"{$msgtextsenf}\"");
 
-$arraymsg = array(
+                    $arraymsg = array(
 
-"login" => true ,
+                        "login" => true,
 
-"msg" => "للأسف يجب أن تقوم بإدخال السبب ليتم الحفظ" ,
+                        "msg" => "تم إزالة تجميد العضوية بنجآح تام",
 
-"color" => "error" ,
+                        "color" => "good",
 
-"old" => true ,
+                        "old" => true,
 
-"auto" => false ,
+                        "auto" => false,
 
-"text" => "" ,
+                        "text" => "",
 
-"url" => "" ,
+                        "url" => get_cookie("arab-forums", "refererauser"),
 
-"array" => "" ,
+                        "array" => "",
 
-);
+                    );
 
-echo msg_template("arab-forums" , $arraymsg);
+                    echo msg_template("arab-forums", $arraymsg);
+                }
+            } else {
 
-}else{
+                set_cookie("arab-forums", "refererauser", referer, 0);
 
-update_mysql("arab-forums" , "user" , "user_lock2 = \"0\" where user_id in({$option_object->user_id}) limit 1");
+                echo bodytop_template("arab-forums", "إزالة تجميد عضوية");
 
-insert_mysql("arab-forums" , "optionuser" , "optionuser_id , optionuser_userid , optionuser_user , optionuser_date , optionuser_type , optionuser_msg" , "null , \"{$option_object->user_id}\" , \"".id_user."\" , \"".time()."\" , \"nolock2\" , \"{$msgtextsenf}\"");
+                $arrayheader = array(
 
-$arraymsg = array(
+                    "login" => true,
 
-"login" => true ,
+                );
 
-"msg" => "تم إزالة تجميد العضوية بنجآح تام" ,
+                echo header_template("arab-forums", $arrayheader);
 
-"color" => "good" ,
+                echo "<form action=\"optionuser.php?id={$option_object->user_id}&go=nolock2&type=insert\" method=\"post\">";
 
-"old" => true ,
+                echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"45%\" align=\"center\">";
 
-"auto" => false ,
+                echo "<tr align=\"center\"><td class=\"tcat\"><div class=\"pad\">إزالة تجميد العضوية رقم : {$option_object->user_id}</div></td></tr>";
 
-"text" => "" ,
+                echo "<tr align=\"center\"><td class=\"alttext1\"><div class=\"pad\"><br>{$option_object->user_nameuser}<br><br></div></td></tr>";
 
-"url" => get_cookie("arab-forums" , "refererauser") ,
+                echo "<tr align=\"center\"><td class=\"tcat\"><div class=\"pad\">سبب إزالة التجميد</div></td></tr>";
 
-"array" => "" ,
+                echo "<tr align=\"center\"><td class=\"alttext2\"><div class=\"pad\"><textarea name=\"msgtext\" class=\"textarea\" cols=\"60\" rows=\"12\"></textarea></div></td></tr>";
 
-);
+                echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"2\"><div class=\"pad\"><br><center><input type=\"submit\" class=\"button\" value=\"إزالة تجميد العضوية\"  " . confirm_other("arab-forums", "هل أنت متأكد من أنك تريد إزالة تجميد هذه العضوية ؟") . "> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقل\"></center><br></div></td></tr>";
 
-echo msg_template("arab-forums" , $arraymsg);
+                echo "</table>";
 
-}}else{
+                echo "</form>";
 
-set_cookie("arab-forums" , "refererauser" , referer , 0);
+                echo footer_template("arab-forums");
 
-echo bodytop_template("arab-forums" , "إزالة تجميد عضوية");
+                echo bodybottom_template("arab-forums");
+            }
+        }
+    } elseif (go == "edit" && group_user == 6) {
 
-$arrayheader = array(
+        if (type == "insert") {
 
-"login" => true ,
+            $namelogin = text_other("arab-forums", post_other("arab-forums", "namelogin"), true, true, true, true, true);
 
-);
+            $nameuser = text_other("arab-forums", post_other("arab-forums", "nameuser"), true, true, true, true, true);
 
-echo header_template("arab-forums" , $arrayheader);
+            $pass = text_other("arab-forums", post_other("arab-forums", "pass"), true, true, true, true, true);
 
-echo "<form action=\"optionuser.php?id={$option_object->user_id}&go=nolock2&type=insert\" method=\"post\">";
+            $email = text_other("arab-forums", post_other("arab-forums", "email"), true, true, true, true, true);
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" width=\"45%\" align=\"center\">";
+            $group = text_other("arab-forums", post_other("arab-forums", "group"), true, true, true, true, true);
 
-echo "<tr align=\"center\"><td class=\"tcat\"><div class=\"pad\">إزالة تجميد العضوية رقم : {$option_object->user_id}</div></td></tr>";
+            $titleold = text_other("arab-forums", post_other("arab-forums", "titleold"), true, true, true, true, true);
 
-echo "<tr align=\"center\"><td class=\"alttext1\"><div class=\"pad\"><br>{$option_object->user_nameuser}<br><br></div></td></tr>";
+            $days = text_other("arab-forums", post_other("arab-forums", "days"), true, true, true, true, true);
 
-echo "<tr align=\"center\"><td class=\"tcat\"><div class=\"pad\">سبب إزالة التجميد</div></td></tr>";
+            $month = text_other("arab-forums", post_other("arab-forums", "month"), true, true, true, true, true);
 
-echo "<tr align=\"center\"><td class=\"alttext2\"><div class=\"pad\"><textarea name=\"msgtext\" class=\"textarea\" cols=\"60\" rows=\"12\"></textarea></div></td></tr>";
+            $years = text_other("arab-forums", post_other("arab-forums", "years"), true, true, true, true, true);
 
-echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"2\"><div class=\"pad\"><br><center><input type=\"submit\" class=\"button\" value=\"إزالة تجميد العضوية\"  ".confirm_other("arab-forums" , "هل أنت متأكد من أنك تريد إزالة تجميد هذه العضوية ؟")."> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقل\"></center><br></div></td></tr>";
+            $age = text_other("arab-forums", post_other("arab-forums", "age"), true, true, true, true, true);
 
-echo "</table>";
+            $sex = text_other("arab-forums", post_other("arab-forums", "sex"), true, true, true, true, true);
 
-echo "</form>";
+            $country = text_other("arab-forums", post_other("arab-forums", "country"), true, true, true, true, true);
 
-echo footer_template("arab-forums");
+            $city = text_other("arab-forums", post_other("arab-forums", "city"), true, true, true, true, true);
 
-echo bodybottom_template("arab-forums");
+            $state = text_other("arab-forums", post_other("arab-forums", "state"), true, true, true, true, true);
 
-}}}elseif(go == "edit" && group_user == 6){
+            $hala = text_other("arab-forums", post_other("arab-forums", "hala"), true, true, true, true, true);
 
-if(type == "insert"){
+            $jobe = text_other("arab-forums", post_other("arab-forums", "jobe"), true, true, true, true, true);
 
-$namelogin = text_other("arab-forums" , post_other("arab-forums" , "namelogin") , true , true , true , true , true);
+            $photo = text_other("arab-forums", post_other("arab-forums", "photo"), true, true, true, true, true);
 
-$nameuser = text_other("arab-forums" , post_other("arab-forums" , "nameuser") , true , true , true , true , true);
+            $sayra = text_other("arab-forums", post_other("arab-forums", "sayra"), true, false, true, false, true);
 
-$pass = text_other("arab-forums" , post_other("arab-forums" , "pass") , true , true , true , true , true);
+            $time = text_other("arab-forums", post_other("arab-forums", "time"), true, true, true, true, true);
 
-$email = text_other("arab-forums" , post_other("arab-forums" , "email") , true , true , true , true , true);
+            $style = text_other("arab-forums", post_other("arab-forums", "style"), true, true, true, true, true);
 
-$group = text_other("arab-forums" , post_other("arab-forums" , "group") , true , true , true , true , true);
+            $coloruser = text_other("arab-forums", post_other("arab-forums", "coloruser"), true, true, true, true, true);
 
-$titleold = text_other("arab-forums" , post_other("arab-forums" , "titleold") , true , true , true , true , true);
+            $colorstar = text_other("arab-forums", post_other("arab-forums", "colorstar"), true, true, true, true, true);
 
-$days = text_other("arab-forums" , post_other("arab-forums" , "days") , true , true , true , true , true);
+            if ($coloruser == "FFFFFF") {
 
-$month = text_other("arab-forums" , post_other("arab-forums" , "month") , true , true , true , true , true);
+                $coloruser = "";
+            }
 
-$years = text_other("arab-forums" , post_other("arab-forums" , "years") , true , true , true , true , true);
+            if ($email == "" || $group == "" || $titleold == "" || $days == "" || $month == "" || $years == "" || $age == "" || $sex == "" || $country == "" || $city == "" || $state == "" || $hala == "" || $time == "" || $style == "") {
 
-$age = text_other("arab-forums" , post_other("arab-forums" , "age") , true , true , true , true , true);
+                $errory = "الرجاء ملأ جميع الحقول ليتم إدخال البيانات الجديدة";
+            } elseif ($pass != "" && (mb_strlen($pass) < 5 || mb_strlen($pass) > 20)) {
 
-$sex = text_other("arab-forums" , post_other("arab-forums" , "sex") , true , true , true , true , true);
+                $errory = "الكلمة السرية لا يجب أن تكون أقل من 5 حروف و أكبر من 20 حرف";
+            } elseif (!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/i", $email)) {
 
-$country = text_other("arab-forums" , post_other("arab-forums" , "country") , true , true , true , true , true);
+                $errory = "البريد الإلكتروني يجب أن يكون صحيح";
+            } else {
 
-$city = text_other("arab-forums" , post_other("arab-forums" , "city") , true , true , true , true , true);
+                $errory = "";
+            }
 
-$state = text_other("arab-forums" , post_other("arab-forums" , "state") , true , true , true , true , true);
+            if ($errory != "") {
 
-$hala = text_other("arab-forums" , post_other("arab-forums" , "hala") , true , true , true , true , true);
+                $arraymsg = array(
 
-$jobe = text_other("arab-forums" , post_other("arab-forums" , "jobe") , true , true , true , true , true);
+                    "login" => true,
 
-$photo = text_other("arab-forums" , post_other("arab-forums" , "photo") , true , true , true , true , true);
+                    "msg" => $errory,
 
-$sayra = text_other("arab-forums" , post_other("arab-forums" , "sayra") , true , false , true , false , true);
+                    "color" => "error",
 
-$time = text_other("arab-forums" , post_other("arab-forums" , "time") , true , true , true , true , true);
+                    "old" => true,
 
-$style = text_other("arab-forums" , post_other("arab-forums" , "style") , true , true , true , true , true);
+                    "auto" => false,
 
-$coloruser = text_other("arab-forums" , post_other("arab-forums" , "coloruser") , true , true , true , true , true);
+                    "text" => "",
 
-$colorstar = text_other("arab-forums" , post_other("arab-forums" , "colorstar") , true , true , true , true , true);
+                    "url" => "",
 
-if($coloruser == "FFFFFF"){
+                    "array" => "",
 
-$coloruser = "";
+                );
 
-}
+                echo msg_template("arab-forums", $arraymsg);
+            } else {
 
-if($email == "" || $group == "" || $titleold == "" || $days == "" || $month == "" || $years == "" || $age == "" || $sex == "" || $country == "" || $city == "" || $state == "" || $hala == "" || $time == "" || $style == ""){
+                if ($pass != "") {
 
-$errory = "الرجاء ملأ جميع الحقول ليتم إدخال البيانات الجديدة";
+                    $passcha = ", user_pass = \"" . pass_other("arab-forums", $pass) . "\"";
+                } else {
 
-}elseif($pass != "" && (mb_strlen($pass) < 5 || mb_strlen($pass) > 20)){
+                    $passcha = "";
+                }
 
-$errory = "الكلمة السرية لا يجب أن تكون أقل من 5 حروف و أكبر من 20 حرف";
+                update_mysql("arab-forums", "user", "user_namelogin = \"{$namelogin}\" , user_nameuser = \"{$nameuser}\" , user_email = \"{$email}\" , user_group = \"{$group}\" , user_titleold = \"{$titleold}\" , user_days = \"{$days}\" , user_month = \"{$month}\" , user_years = \"{$years}\" , user_age = \"{$age}\" , user_sex = \"{$sex}\" , user_country = \"{$country}\" , user_city = \"{$city}\" , user_state = \"{$state}\" , user_hala = \"{$hala}\" , user_jobe = \"{$jobe}\" , user_photo = \"{$photo}\" , user_bio = \"{$sayra}\" , user_time = \"{$time}\" , user_style = \"{$style}\" , user_coloruser = \"{$coloruser}\" , user_colorstar = \"{$colorstar}\" {$passcha}  where user_id in({$option_object->user_id}) limit 1");
 
-}elseif(!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/i" , $email)){
+                insert_mysql("arab-forums", "optionuser", "optionuser_id , optionuser_userid , optionuser_user , optionuser_date , optionuser_type , optionuser_msg", "null , \"{$option_object->user_id}\" , \"" . id_user . "\" , \"" . time() . "\" , \"edit\" , \"{$msgtextsenf}\"");
 
-$errory = "البريد الإلكتروني يجب أن يكون صحيح";
+                $arraymsg = array(
 
-}else{
+                    "login" => true,
 
-$errory = "";
+                    "msg" => "تم تعديل البيانات بنجآح تام",
 
-}
+                    "color" => "good",
 
-if($errory != ""){
+                    "old" => true,
 
-$arraymsg = array(
+                    "auto" => false,
 
-"login" => true ,
+                    "text" => "",
 
-"msg" => $errory ,
+                    "url" => get_cookie("arab-forums", "refererauser"),
 
-"color" => "error" ,
+                    "array" => "",
 
-"old" => true ,
+                );
 
-"auto" => false ,
+                echo msg_template("arab-forums", $arraymsg);
+            }
+        } else {
 
-"text" => "" ,
+            set_cookie("arab-forums", "refererauser", referer, 0);
 
-"url" => "" ,
+            echo bodytop_template("arab-forums", "تعديل عضوية");
 
-"array" => "" ,
+            $arrayheader = array(
 
-);
+                "login" => true,
 
-echo msg_template("arab-forums" , $arraymsg);
+            );
 
-}else{
+            echo header_template("arab-forums", $arrayheader);
 
-if($pass != ""){
+            echo "<form action=\"optionuser.php?id={$option_object->user_id}&go=edit&type=insert\" method=\"post\">";
 
-$passcha = ", user_pass = \"".pass_other("arab-forums" , $pass)."\"";
+            echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"99%\" align=\"center\">";
 
-}else{
+            echo "<tr align=\"center\"><td class=\"tcat\" colspan=\"2\"><div class=\"pad\">تعديل العضوية رقم : {$option_object->user_id}</div></td></tr>";
 
-$passcha = "";
+            echo "<tr align=\"right\">";
 
-}
+            echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">إسم الدخول للعضوية : </div></td>";
 
-update_mysql("arab-forums" , "user" , "user_namelogin = \"{$namelogin}\" , user_nameuser = \"{$nameuser}\" , user_email = \"{$email}\" , user_group = \"{$group}\" , user_titleold = \"{$titleold}\" , user_days = \"{$days}\" , user_month = \"{$month}\" , user_years = \"{$years}\" , user_age = \"{$age}\" , user_sex = \"{$sex}\" , user_country = \"{$country}\" , user_city = \"{$city}\" , user_state = \"{$state}\" , user_hala = \"{$hala}\" , user_jobe = \"{$jobe}\" , user_photo = \"{$photo}\" , user_bio = \"{$sayra}\" , user_time = \"{$time}\" , user_style = \"{$style}\" , user_coloruser = \"{$coloruser}\" , user_colorstar = \"{$colorstar}\" {$passcha}  where user_id in({$option_object->user_id}) limit 1");
+            echo "<td class=\"alttext1\"><div class=\"pad\"><input style=\"width:250px\" class=\"input\" name=\"namelogin\" value=\"{$option_object->user_namelogin}\" type=\"text\"></div></td>";
 
-insert_mysql("arab-forums" , "optionuser" , "optionuser_id , optionuser_userid , optionuser_user , optionuser_date , optionuser_type , optionuser_msg" , "null , \"{$option_object->user_id}\" , \"".id_user."\" , \"".time()."\" , \"edit\" , \"{$msgtextsenf}\"");
+            echo "</tr>";
 
-$arraymsg = array(
+            echo "<tr align=\"right\">";
 
-"login" => true ,
+            echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">إسم المشاركات للعضوية : </div></td>";
 
-"msg" => "تم تعديل البيانات بنجآح تام" ,
+            echo "<td class=\"alttext1\"><div class=\"pad\"><input style=\"width:250px\" class=\"input\" name=\"nameuser\" value=\"{$option_object->user_nameuser}\" type=\"text\"></div></td>";
 
-"color" => "good" ,
+            echo "</tr>";
 
-"old" => true ,
+            echo "<tr align=\"right\">";
 
-"auto" => false ,
+            echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">الكلمة السرية الجديدة : </div></td>";
 
-"text" => "" ,
+            echo "<td class=\"alttext1\"><div class=\"pad\"><input style=\"width:250px\" class=\"input\" name=\"pass\" value=\"\" type=\"password\"></div></td>";
 
-"url" => get_cookie("arab-forums" , "refererauser") ,
+            echo "</tr>";
 
-"array" => "" ,
+            echo "<tr align=\"right\">";
 
-);
+            echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">البريد الإلكتروني : </div></td>";
 
-echo msg_template("arab-forums" , $arraymsg);
+            echo "<td class=\"alttext1\"><div class=\"pad\"><input dir=\"ltr\" style=\"width:250px\" class=\"input\" name=\"email\" value=\"{$option_object->user_email}\" type=\"text\"></div></td>";
 
-}}else{
+            echo "</tr>";
 
-set_cookie("arab-forums" , "refererauser" , referer , 0);
+            echo "<tr align=\"right\">";
 
-echo bodytop_template("arab-forums" , "تعديل عضوية");
+            echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">المجموعة : </div></td>";
 
-$arrayheader = array(
+            echo "<td class=\"alttext1\"><div class=\"pad\">";
 
-"login" => true ,
+            echo "<select class=\"inputselect\" name=\"group\">";
 
-);
+            for ($x = 1; $x <= 6; $x++) {
 
-echo header_template("arab-forums" , $arrayheader);
+                echo "<option value=\"{$x}\" " . ($option_object->user_group == $x ? "selected" : "") . ">مجموعة {$group_list[$x]}</option>";
+            }
 
-echo "<form action=\"optionuser.php?id={$option_object->user_id}&go=edit&type=insert\" method=\"post\">";
+            echo "</select>";
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" width=\"99%\" align=\"center\">";
+            echo "</div></td>";
 
-echo "<tr align=\"center\"><td class=\"tcat\" colspan=\"2\"><div class=\"pad\">تعديل العضوية رقم : {$option_object->user_id}</div></td></tr>";
+            echo "</tr>";
 
-echo "<tr align=\"right\">";
+            echo "<tr align=\"right\">";
 
-echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">إسم الدخول للعضوية : </div></td>";
+            echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">الوصف السابق : </div></td>";
 
-echo "<td class=\"alttext1\"><div class=\"pad\"><input style=\"width:250px\" class=\"input\" name=\"namelogin\" value=\"{$option_object->user_namelogin}\" type=\"text\"></div></td>";
+            echo "<td class=\"alttext1\"><div class=\"pad\">";
 
-echo "</tr>";
+            echo "<select class=\"inputselect\" name=\"titleold\">";
 
-echo "<tr align=\"right\">";
+            echo "<option value=\"0\" " . ($option_object->user_titleold == "0" ? "selected" : "") . ">بدون وصف سابق</option>";
 
-echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">إسم المشاركات للعضوية : </div></td>";
+            foreach ($titleold_list as $code => $name) {
 
-echo "<td class=\"alttext1\"><div class=\"pad\"><input style=\"width:250px\" class=\"input\" name=\"nameuser\" value=\"{$option_object->user_nameuser}\" type=\"text\"></div></td>";
+                echo "<option value=\"{$code}\" " . ($option_object->user_titleold == $code ? "selected" : "") . ">{$name}</option>";
+            }
 
-echo "</tr>";
+            echo "</select>";
 
-echo "<tr align=\"right\">";
+            echo "</div></td>";
 
-echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">الكلمة السرية الجديدة : </div></td>";
+            echo "</tr>";
 
-echo "<td class=\"alttext1\"><div class=\"pad\"><input style=\"width:250px\" class=\"input\" name=\"pass\" value=\"\" type=\"password\"></div></td>";
+            echo "<tr align=\"right\">";
 
-echo "</tr>";
+            echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">ظهور تاريخ الإزدياد و العمر : </div></td>";
 
-echo "<tr align=\"right\">";
+            echo "<td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">البريد الإلكتروني : </div></td>";
+            echo "<select class=\"inputselect\" name=\"age\">";
 
-echo "<td class=\"alttext1\"><div class=\"pad\"><input dir=\"ltr\" style=\"width:250px\" class=\"input\" name=\"email\" value=\"{$option_object->user_email}\" type=\"text\"></div></td>";
+            echo "<option value=\"1\" " . ($option_object->user_age == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "</tr>";
+            echo "<option value=\"0\" " . ($option_object->user_age == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "<tr align=\"right\">";
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل يمكن للأعضاء مشاهدة تاريخ الإزدياد و العمر في البيانات ؟</span>";
 
-echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">المجموعة : </div></td>";
+            echo "</div></td>";
 
-echo "<td class=\"alttext1\"><div class=\"pad\">";
+            echo "</tr>";
 
-echo "<select class=\"inputselect\" name=\"group\">";
+            echo "<tr align=\"right\">";
 
-for($x = 1; $x <= 6; $x++){
+            echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">تاريخ الإزدياد : </div></td>";
 
-echo "<option value=\"{$x}\" ".($option_object->user_group == $x ? "selected" : "").">مجموعة {$group_list[$x]}</option>";
+            echo "<td class=\"alttext1\"><div class=\"pad\"><select class=\"inputselect\" name=\"days\">";
 
-}
+            for ($x = 1; $x <= 31; $x++) {
+                echo "<option value=\"{$x}\" " . ($option_object->user_days == $x ? "selected" : "") . ">{$x}</option>";
+            }
 
-echo "</select>";
+            echo "</select>&nbsp;<select class=\"inputselect\" name=\"month\">";
 
-echo "</div></td>";
+            for ($x = 1; $x <= 12; $x++) {
+                echo "<option value=\"{$x}\" " . ($option_object->user_month == $x ? "selected" : "") . ">{$months_list[$x]}</option>";
+            }
 
-echo "</tr>";
+            echo "</select>&nbsp;<select class=\"inputselect\" name=\"years\">";
 
-echo "<tr align=\"right\">";
+            for ($x = 1904; $x <= 2012; $x++) {
+                echo "<option value=\"{$x}\" " . ($option_object->user_years == $x ? "selected" : "") . ">{$x}</option>";
+            }
 
-echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">الوصف السابق : </div></td>";
+            echo "</select></div></td>";
 
-echo "<td class=\"alttext1\"><div class=\"pad\">";
+            echo "</tr>";
 
-echo "<select class=\"inputselect\" name=\"titleold\">";
+            echo "<tr align=\"right\">";
 
-echo "<option value=\"0\" ".($option_object->user_titleold == "0" ? "selected" : "").">بدون وصف سابق</option>";
+            echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">الجنس : </div></td>";
 
-foreach($titleold_list as $code=>$name){
+            echo "<td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<option value=\"{$code}\" ".($option_object->user_titleold == $code ? "selected" : "").">{$name}</option>";
+            echo "<select class=\"inputselect\" name=\"sex\">";
 
-}
+            echo "<option value=\"1\" " . ($option_object->user_sex == 1 ? "selected" : "") . ">ذكر</option>";
 
-echo "</select>";
+            echo "<option value=\"2\" " . ($option_object->user_sex == 2 ? "selected" : "") . ">أنثى</option>";
 
-echo "</div></td>";
+            echo "</select>";
 
-echo "</tr>";
+            echo "</div></td>";
 
-echo "<tr align=\"right\">";
+            echo "</tr>";
 
-echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">ظهور تاريخ الإزدياد و العمر : </div></td>";
+            echo "<tr align=\"right\">";
 
-echo "<td class=\"alttext1\"><div class=\"pad\">";
+            echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">الدولة : </div></td>";
 
-echo "<select class=\"inputselect\" name=\"age\">";
+            echo "<td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<option value=\"1\" ".($option_object->user_age == 1 ? "selected" : "").">نعم</option>";
+            echo "<select class=\"inputselect\" name=\"country\">";
 
-echo "<option value=\"0\" ".($option_object->user_age == 0 ? "selected" : "").">لآ</option>";
+            foreach ($country_list as $code => $name) {
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل يمكن للأعضاء مشاهدة تاريخ الإزدياد و العمر في البيانات ؟</span>";
+                echo "<option value=\"{$code}\" " . ($option_object->user_country == $code ? "selected" : "") . ">{$name}</option>";
+            }
 
-echo "</div></td>";
+            echo "</select>";
 
-echo "</tr>";
+            echo "</div></td>";
 
-echo "<tr align=\"right\">";
+            echo "</tr>";
 
-echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">تاريخ الإزدياد : </div></td>";
+            echo "<tr align=\"right\">";
 
-echo "<td class=\"alttext1\"><div class=\"pad\"><select class=\"inputselect\" name=\"days\">";
+            echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">المدينة : </div></td>";
 
-for($x = 1; $x <= 31 ; $x++){echo "<option value=\"{$x}\" ".($option_object->user_days == $x ? "selected" : "").">{$x}</option>";}
+            echo "<td class=\"alttext1\"><div class=\"pad\"><input style=\"width:150px\" class=\"input\" name=\"city\" value=\"{$option_object->user_city}\" type=\"text\"></div></td>";
 
-echo "</select>&nbsp;<select class=\"inputselect\" name=\"month\">";
+            echo "</tr>";
 
-for($x = 1; $x <= 12 ; $x++){echo "<option value=\"{$x}\" ".($option_object->user_month == $x ? "selected" : "").">{$months_list[$x]}</option>";}
+            echo "<tr align=\"right\">";
 
-echo "</select>&nbsp;<select class=\"inputselect\" name=\"years\">";
+            echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">المنطقة : </div></td>";
 
-for($x = 1904; $x <= 2012 ; $x++){echo "<option value=\"{$x}\" ".($option_object->user_years == $x ? "selected" : "").">{$x}</option>";}
+            echo "<td class=\"alttext1\"><div class=\"pad\"><input style=\"width:150px\" class=\"input\" name=\"state\" value=\"{$option_object->user_state}\" type=\"text\"></div></td>";
 
-echo "</select></div></td>";
+            echo "</tr>";
 
-echo "</tr>";
+            echo "<tr align=\"right\">";
 
-echo "<tr align=\"right\">";
+            echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">الحالة الإجتماعية : </div></td>";
 
-echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">الجنس : </div></td>";
+            echo "<td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<td class=\"alttext1\"><div class=\"pad\">";
+            echo "<select class=\"inputselect\" name=\"hala\">";
 
-echo "<select class=\"inputselect\" name=\"sex\">";
+            foreach ($hala_list as $code => $name) {
 
-echo "<option value=\"1\" ".($option_object->user_sex == 1 ? "selected" : "").">ذكر</option>";
+                echo "<option value=\"{$code}\" " . ($option_object->user_hala == $code ? "selected" : "") . ">{$name}</option>";
+            }
 
-echo "<option value=\"2\" ".($option_object->user_sex == 2 ? "selected" : "").">أنثى</option>";
+            echo "</select>";
 
-echo "</select>";
+            echo "</div></td>";
 
-echo "</div></td>";
+            echo "</tr>";
 
-echo "</tr>";
+            echo "<tr align=\"right\">";
 
-echo "<tr align=\"right\">";
+            echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">المهنة : </div></td>";
 
-echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">الدولة : </div></td>";
+            echo "<td class=\"alttext1\"><div class=\"pad\"><input style=\"width:300px\" class=\"input\" name=\"jobe\" value=\"{$option_object->user_jobe}\" type=\"text\"></div></td>";
 
-echo "<td class=\"alttext1\"><div class=\"pad\">";
+            echo "</tr>";
 
-echo "<select class=\"inputselect\" name=\"country\">";
+            echo "<tr align=\"right\">";
 
-foreach($country_list as $code=>$name){
+            echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">الصورة الشخصية : </div></td>";
 
-echo "<option value=\"{$code}\" ".($option_object->user_country == $code ? "selected" : "").">{$name}</option>";
+            echo "<td class=\"alttext1\"><div class=\"pad\"><input dir=\"ltr\" style=\"width:300px\" class=\"input\" name=\"photo\" value=\"{$option_object->user_photo}\" type=\"text\"></div></td>";
 
-}
+            echo "</tr>";
 
-echo "</select>";
+            echo "<tr align=\"right\">";
 
-echo "</div></td>";
+            echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">السيرة الذاتية : </div></td>";
 
-echo "</tr>";
+            echo "<td class=\"alttext1\"><div class=\"pad\"><textarea name=\"sayra\" class=\"textarea\" cols=\"50\" rows=\"5\">{$option_object->user_bio}</textarea></div></td>";
 
-echo "<tr align=\"right\">";
+            echo "</tr>";
 
-echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">المدينة : </div></td>";
+            echo "<tr align=\"right\">";
 
-echo "<td class=\"alttext1\"><div class=\"pad\"><input style=\"width:150px\" class=\"input\" name=\"city\" value=\"{$option_object->user_city}\" type=\"text\"></div></td>";
+            echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">الوقت الإفتراضي : </div></td>";
 
-echo "</tr>";
+            echo "<td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr align=\"right\">";
+            echo "<select class=\"inputselect\" name=\"time\">";
 
-echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">المنطقة : </div></td>";
+            for ($x = -12; $x <= 12; $x++) {
 
-echo "<td class=\"alttext1\"><div class=\"pad\"><input style=\"width:150px\" class=\"input\" name=\"state\" value=\"{$option_object->user_state}\" type=\"text\"></div></td>";
+                echo "<option value=\"" . ($x == 0 ? "00" : $x) . "\" " . ($option_object->user_time == $x ? "selected" : "") . ">GMT " . ($x == 0 ? "" : ($x > 0 ? "+{$x}" : $x)) . "</option>";
+            }
 
-echo "</tr>";
+            echo "</select>";
 
-echo "<tr align=\"right\">";
+            echo "</div></td>";
 
-echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">الحالة الإجتماعية : </div></td>";
+            echo "</tr>";
 
-echo "<td class=\"alttext1\"><div class=\"pad\">";
+            echo "<tr align=\"right\">";
 
-echo "<select class=\"inputselect\" name=\"hala\">";
+            echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">الستايل الإفتراضي : </div></td>";
 
-foreach($hala_list as $code=>$name){
+            echo "<td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<option value=\"{$code}\" ".($option_object->user_hala == $code ? "selected" : "").">{$name}</option>";
+            echo "<select class=\"inputselect\" name=\"style\">";
 
-}
+            $style_sql = select_mysql("arab-forums", "style", "style_name , style_fils , style_lock", "where style_lock = \"0\"");
 
-echo "</select>";
+            if (num_mysql("arab-forums", $style_sql) != false) {
 
-echo "</div></td>";
+                while ($style_object = object_mysql("arab-forums", $style_sql)) {
 
-echo "</tr>";
+                    echo "<option value=\"{$style_object->style_fils}\" " . ($option_object->user_style == $style_object->style_fils ? "selected" : "") . ">{$style_object->style_name}</option>";
+                }
+            }
 
-echo "<tr align=\"right\">";
+            echo "</select>";
 
-echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">المهنة : </div></td>";
+            echo "</div></td>";
 
-echo "<td class=\"alttext1\"><div class=\"pad\"><input style=\"width:300px\" class=\"input\" name=\"jobe\" value=\"{$option_object->user_jobe}\" type=\"text\"></div></td>";
+            echo "</tr>";
 
-echo "</tr>";
+            echo "<tr align=\"right\">";
 
-echo "<tr align=\"right\">";
+            echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">لون العضوية : </div></td>";
 
-echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">الصورة الشخصية : </div></td>";
+            echo "<td class=\"alttext1\"><div class=\"pad\"><input style=\"width:300px\" class=\"input color\" name=\"coloruser\" value=\"{$style_object->user_coloruser}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">في حال تريد العضو يظهر بلون المجموعة التابعة لها أترك الخانة FFFFFF</span></div></td>";
 
-echo "<td class=\"alttext1\"><div class=\"pad\"><input dir=\"ltr\" style=\"width:300px\" class=\"input\" name=\"photo\" value=\"{$option_object->user_photo}\" type=\"text\"></div></td>";
+            echo "</tr>";
 
-echo "</tr>";
+            echo "<tr align=\"right\">";
 
-echo "<tr align=\"right\">";
+            echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">لون النجوم : </div></td>";
 
-echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">السيرة الذاتية : </div></td>";
+            echo "<td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<td class=\"alttext1\"><div class=\"pad\"><textarea name=\"sayra\" class=\"textarea\" cols=\"50\" rows=\"5\">{$option_object->user_bio}</textarea></div></td>";
+            echo "<br><input class=\"radio1\" type=\"radio\" name=\"colorstar\" value=\"\" " . ($style_object->user_colorstar == "" ? "checked" : "") . ">&nbsp;<span style=\"color:red;font-size:12px;\">اللون الإفتراضي لمجموعة العضوية</span><br><br>";
 
-echo "</tr>";
+            foreach ($colorn_list as $code => $name) {
 
-echo "<tr align=\"right\">";
+                echo "" . img_other("arab-forums", "images/star/{$code}.png", "{$name}", "", "", "0", "", "") . "<input class=\"radio1\" type=\"radio\" name=\"colorstar\" value=\"{$code}\" " . ($style_object->user_colorstar == $code ? "checked" : "") . ">&nbsp;<span style=\"color:red;font-size:12px;\">{$name}</span><br><br>";
+            }
 
-echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">الوقت الإفتراضي : </div></td>";
+            echo "</div></td>";
 
-echo "<td class=\"alttext1\"><div class=\"pad\">";
+            echo "</tr>";
 
-echo "<select class=\"inputselect\" name=\"time\">";
+            echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"2\"><div class=\"pad\"><br><center><input type=\"submit\" class=\"button\" value=\"تعديل العضوية\"  " . confirm_other("arab-forums", "هل أنت متأكد من أنك تريد تعديل هذه العضوية ؟") . "> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقل\"></center><br></div></td></tr>";
 
-for($x=-12;$x<=12;$x++){
+            echo "</table>";
 
-echo "<option value=\"".($x == 0 ? "00" : $x)."\" ".($option_object->user_time == $x ? "selected" : "").">GMT ".($x == 0 ? "" : ($x > 0 ? "+{$x}" : $x))."</option>";
+            echo "</form>";
 
-}
+            echo footer_template("arab-forums");
 
-echo "</select>";
+            echo bodybottom_template("arab-forums");
+        }
+    } else {
 
-echo "</div></td>";
+        $arraymsg = array(
 
-echo "</tr>";
+            "login" => true,
 
-echo "<tr align=\"right\">";
+            "msg" => "لا تملك التصريح المناسب لدخول هذه الصفحة",
 
-echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">الستايل الإفتراضي : </div></td>";
+            "color" => "error",
 
-echo "<td class=\"alttext1\"><div class=\"pad\">";
+            "old" => true,
 
-echo "<select class=\"inputselect\" name=\"style\">";
+            "auto" => false,
 
-$style_sql = select_mysql("arab-forums" , "style" , "style_name , style_fils , style_lock" , "where style_lock = \"0\"");
+            "text" => "",
 
-if(num_mysql("arab-forums" , $style_sql) != false){
+            "url" => "",
 
-while($style_object = object_mysql("arab-forums" , $style_sql)){
+            "array" => "",
 
-echo "<option value=\"{$style_object->style_fils}\" ".($option_object->user_style == $style_object->style_fils ? "selected" : "").">{$style_object->style_name}</option>";
+        );
 
-}}
+        echo msg_template("arab-forums", $arraymsg);
+    }
+} else {
 
-echo "</select>";
+    define("pagebody", "optionuser");
 
-echo "</div></td>";
+    online_other("arab-forums", "optionuser", "0", "0", "0", "0");
 
-echo "</tr>";
+    $arraymsg = array(
 
-echo "<tr align=\"right\">";
+        "login" => true,
 
-echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">لون العضوية : </div></td>";
+        "msg" => "{$errorop}",
 
-echo "<td class=\"alttext1\"><div class=\"pad\"><input style=\"width:300px\" class=\"input color\" name=\"coloruser\" value=\"{$style_object->user_coloruser}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">في حال تريد العضو يظهر بلون المجموعة التابعة لها أترك الخانة FFFFFF</span></div></td>";
+        "color" => "error",
 
-echo "</tr>";
+        "old" => true,
 
-echo "<tr align=\"right\">";
+        "auto" => false,
 
-echo "<td class=\"tcot\" width=\"20%\"><div class=\"pad\">لون النجوم : </div></td>";
+        "text" => "",
 
-echo "<td class=\"alttext1\"><div class=\"pad\">";
+        "url" => "",
 
-echo "<br><input class=\"radio1\" type=\"radio\" name=\"colorstar\" value=\"\" ".($style_object->user_colorstar == "" ? "checked" : "").">&nbsp;<span style=\"color:red;font-size:12px;\">اللون الإفتراضي لمجموعة العضوية</span><br><br>";
+        "array" => "",
 
-foreach($colorn_list as $code=>$name){
+    );
 
-echo "".img_other("arab-forums" , "images/star/{$code}.png" , "{$name}" , "" , "" , "0" , "" , "")."<input class=\"radio1\" type=\"radio\" name=\"colorstar\" value=\"{$code}\" ".($style_object->user_colorstar == $code ? "checked" : "").">&nbsp;<span style=\"color:red;font-size:12px;\">{$name}</span><br><br>";
-
-}
-
-echo "</div></td>";
-
-echo "</tr>";
-
-echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"2\"><div class=\"pad\"><br><center><input type=\"submit\" class=\"button\" value=\"تعديل العضوية\"  ".confirm_other("arab-forums" , "هل أنت متأكد من أنك تريد تعديل هذه العضوية ؟")."> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقل\"></center><br></div></td></tr>";
-
-echo "</table>";
-
-echo "</form>";
-
-echo footer_template("arab-forums");
-
-echo bodybottom_template("arab-forums");
-
-}}else{
-
-$arraymsg = array(
-
-"login" => true ,
-
-"msg" => "لا تملك التصريح المناسب لدخول هذه الصفحة" ,
-
-"color" => "error" ,
-
-"old" => true ,
-
-"auto" => false ,
-
-"text" => "" ,
-
-"url" => "" ,
-
-"array" => "" ,
-
-);
-
-echo msg_template("arab-forums" , $arraymsg);
-
-}}else{
-
-define("pagebody" , "optionuser");
-
-online_other("arab-forums" , "optionuser" , "0" , "0" , "0" , "0");
-
-$arraymsg = array(
-
-"login" => true ,
-
-"msg" => "{$errorop}" ,
-
-"color" => "error" ,
-
-"old" => true ,
-
-"auto" => false ,
-
-"text" => "" ,
-
-"url" => "" ,
-
-"array" => "" ,
-
-);
-
-echo msg_template("arab-forums" , $arraymsg);
-
+    echo msg_template("arab-forums", $arraymsg);
 }
 
 disconnect_mysql("arab-forums");
@@ -1042,4 +1026,3 @@ disconnect_mysql("arab-forums");
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

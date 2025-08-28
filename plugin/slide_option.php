@@ -11,156 +11,152 @@
 
 |*#####################################################################*/
 
-if(!defined("error_page_arab_forums")){exit(header("location: ../error.php"));}
-
-$slide_sql = select_mysql("arab-forums" , "slide" , "slide_id , slide_order , slide_name , slide_link , slide_images" , "where slide_id in(".id.")");
-
-if(num_mysql("arab-forums" , $slide_sql) != false){
-
-$slide_object = object_mysql("arab-forums" , $slide_sql);
-
-if(fort == "edit"){
-
-if(type == "insert"){
-
-$name = text_other("arab-forums" , post_other("arab-forums" , "name") , true , true , true , false , true);
-
-$order = text_other("arab-forums" , post_other("arab-forums" , "order") , true , true , true , false , true);
-
-$link = text_other("arab-forums" , post_other("arab-forums" , "link") , true , true , true , false , true);
-
-$images = text_other("arab-forums" , post_other("arab-forums" , "images") , true , true , true , false , true);
-
-if($name == "" || $order == "" || $link == "" || $images == ""){
-
-$error = "الرجاء ملأ جميع الحقول ليتم التعديل على الموضوع في السلايد";
-
-}elseif(!is_numeric($order)){
-
-$error = "يجب أن تكون قيمة ترتيب الموضوع في السلايد صحيحة";
-
-}else{
-
-$error = "";
-
+if (!defined("error_page_arab_forums")) {
+    exit(header("location: ../error.php"));
 }
 
-if($error != ""){
+$slide_sql = select_mysql("arab-forums", "slide", "slide_id , slide_order , slide_name , slide_link , slide_images", "where slide_id in(" . id . ")");
 
-$arraymsg = array(
+if (num_mysql("arab-forums", $slide_sql) != false) {
 
-"msg" => $error ,
+    $slide_object = object_mysql("arab-forums", $slide_sql);
 
-"color" => "error" ,
+    if (fort == "edit") {
 
-"url" => "" ,
+        if (type == "insert") {
 
-);
+            $name = text_other("arab-forums", post_other("arab-forums", "name"), true, true, true, false, true);
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            $order = text_other("arab-forums", post_other("arab-forums", "order"), true, true, true, false, true);
 
-}else{
+            $link = text_other("arab-forums", post_other("arab-forums", "link"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "slide" , "slide_order = \"{$order}\" , slide_name = \"{$name}\" , slide_link = \"{$link}\" , slide_images = \"{$images}\" where slide_id in({$slide_object->slide_id})");
+            $images = text_other("arab-forums", post_other("arab-forums", "images"), true, true, true, false, true);
 
-$arraymsg = array(
+            if ($name == "" || $order == "" || $link == "" || $images == "") {
 
-"msg" => "تم تعديل الموضوع في السلايد بنجاح تام" ,
+                $error = "الرجاء ملأ جميع الحقول ليتم التعديل على الموضوع في السلايد";
+            } elseif (!is_numeric($order)) {
 
-"color" => "good" ,
+                $error = "يجب أن تكون قيمة ترتيب الموضوع في السلايد صحيحة";
+            } else {
 
-"url" => "plugin.php?gert=slide&go=slide_list" ,
+                $error = "";
+            }
 
-);
+            if ($error != "") {
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+                $arraymsg = array(
 
-}}else{
+                    "msg" => $error,
 
-echo "<form action=\"plugin.php?gert=slide&go=slide_option&fort=edit&id={$slide_object->slide_id}&type=insert\" method=\"post\">";
- 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" width=\"99%\" align=\"center\">";
+                    "color" => "error",
 
-echo "<tr><td class=\"tcotadmin\">عنوان الموضوع في السلايد</td></tr>";
+                    "url" => "",
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                );
 
-echo "<input style=\"width:300px\" class=\"input\" name=\"name\" value=\"{$slide_object->slide_name}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال عنوان الموضوع في السلايد</span>";
+                echo msgadmin_template("arab-forums", $arraymsg);
+            } else {
 
-echo "</div></td></tr>";
+                update_mysql("arab-forums", "slide", "slide_order = \"{$order}\" , slide_name = \"{$name}\" , slide_link = \"{$link}\" , slide_images = \"{$images}\" where slide_id in({$slide_object->slide_id})");
 
-echo "<tr><td class=\"tcotadmin\">رقم الموضوع للسلايد</td></tr>";
+                $arraymsg = array(
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                    "msg" => "تم تعديل الموضوع في السلايد بنجاح تام",
 
-echo "<input dir=\"ltr\" style=\"width:100px\" class=\"input\" name=\"link\" value=\"{$slide_object->slide_link}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال رقم الموضوع الذي يأدي إليه السلايد</span>";
+                    "color" => "good",
 
-echo "</div></td></tr>";
+                    "url" => "plugin.php?gert=slide&go=slide_list",
 
-echo "<tr><td class=\"tcotadmin\">صورة الموضوه في السلايد</td></tr>";
+                );
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                echo msgadmin_template("arab-forums", $arraymsg);
+            }
+        } else {
 
-echo "<input dir=\"ltr\" style=\"width:300px\" class=\"input\" name=\"images\" value=\"{$slide_object->slide_images}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال رابط صورة الموضوع في السلايد التي تظهر في الهايدر</span>";
+            echo "<form action=\"plugin.php?gert=slide&go=slide_option&fort=edit&id={$slide_object->slide_id}&type=insert\" method=\"post\">";
 
-echo "</div></td></tr>";
+            echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" width=\"99%\" align=\"center\">";
 
-echo "<tr><td class=\"tcotadmin\">ترتيب الموضوع في السلايد</td></tr>";
+            echo "<tr><td class=\"tcotadmin\">عنوان الموضوع في السلايد</td></tr>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<input size=\"1\" class=\"input\" name=\"order\" value=\"{$slide_object->slide_order}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال الترتيب الخاص بالموضوع في السلايد و إن كنت لا تريده مرتب أتركه 1</span>";
+            echo "<input style=\"width:300px\" class=\"input\" name=\"name\" value=\"{$slide_object->slide_name}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال عنوان الموضوع في السلايد</span>";
 
-echo "</div></td></tr>";
+            echo "</div></td></tr>";
 
-echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال البيانات الجديدة\"  ".confirm_other("arab-forums" , "")."> - <input type=\"reset\" class=\"button\" value=\"إرجاع البيانات الأصلية\"><br><br></td></tr>";
+            echo "<tr><td class=\"tcotadmin\">رقم الموضوع للسلايد</td></tr>";
 
-echo "</table></form>";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-}}elseif(fort == "delete"){
+            echo "<input dir=\"ltr\" style=\"width:100px\" class=\"input\" name=\"link\" value=\"{$slide_object->slide_link}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال رقم الموضوع الذي يأدي إليه السلايد</span>";
 
-delete_mysql("arab-forums" , "slide" , "slide_id in({$slide_object->slide_id})");
+            echo "</div></td></tr>";
 
-$arraymsg = array(
+            echo "<tr><td class=\"tcotadmin\">صورة الموضوه في السلايد</td></tr>";
 
-"msg" => "تم حذف الإعلان بنجاح تام" ,
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-"color" => "good" ,
+            echo "<input dir=\"ltr\" style=\"width:300px\" class=\"input\" name=\"images\" value=\"{$slide_object->slide_images}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال رابط صورة الموضوع في السلايد التي تظهر في الهايدر</span>";
 
-"url" => "plugin.php?gert=slide&go=slide_list" ,
+            echo "</div></td></tr>";
 
-);
+            echo "<tr><td class=\"tcotadmin\">ترتيب الموضوع في السلايد</td></tr>";
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-}else{
+            echo "<input size=\"1\" class=\"input\" name=\"order\" value=\"{$slide_object->slide_order}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال الترتيب الخاص بالموضوع في السلايد و إن كنت لا تريده مرتب أتركه 1</span>";
 
-$arraymsg = array(
+            echo "</div></td></tr>";
 
-"msg" => "عفوآ لقد قمت بإختيار خدمة غير متوفرة حاليا" ,
+            echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال البيانات الجديدة\"  " . confirm_other("arab-forums", "") . "> - <input type=\"reset\" class=\"button\" value=\"إرجاع البيانات الأصلية\"><br><br></td></tr>";
 
-"color" => "error" ,
+            echo "</table></form>";
+        }
+    } elseif (fort == "delete") {
 
-"url" => "plugin.php?gert=catforum&go=slide_list" ,
+        delete_mysql("arab-forums", "slide", "slide_id in({$slide_object->slide_id})");
 
-);
+        $arraymsg = array(
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            "msg" => "تم حذف الإعلان بنجاح تام",
 
-}}else{
+            "color" => "good",
 
-$arraymsg = array(
+            "url" => "plugin.php?gert=slide&go=slide_list",
 
-"msg" => "الموضوع في السلايد المختار غير موجود ضمن قائمة المواضيع في السلايد" ,
+        );
 
-"color" => "error" ,
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } else {
 
-"url" => "plugin.php?gert=catforum&go=slide_list" ,
+        $arraymsg = array(
 
-);
+            "msg" => "عفوآ لقد قمت بإختيار خدمة غير متوفرة حاليا",
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            "color" => "error",
 
+            "url" => "plugin.php?gert=catforum&go=slide_list",
+
+        );
+
+        echo msgadmin_template("arab-forums", $arraymsg);
+    }
+} else {
+
+    $arraymsg = array(
+
+        "msg" => "الموضوع في السلايد المختار غير موجود ضمن قائمة المواضيع في السلايد",
+
+        "color" => "error",
+
+        "url" => "plugin.php?gert=catforum&go=slide_list",
+
+    );
+
+    echo msgadmin_template("arab-forums", $arraymsg);
 }
 
 /*#####################################################################*|
@@ -174,4 +170,3 @@ echo msgadmin_template("arab-forums" , $arraymsg);
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

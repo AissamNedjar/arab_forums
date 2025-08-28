@@ -11,17 +11,18 @@
 
 |*#####################################################################*/
 
-if(!defined("error_page_arab_forums")){exit(header("location: ../error.php"));}
-
-$sql  =  @mysql_query("select * from ".$connect["prefix"]."moderate");
-
-while($array  =  @mysql_fetch_assoc($sql)){
-
-insert_mysql("arab-forums" , "moderate" , "moderate_id , moderate_userid , moderate_forumid , moderate_catid , moderate_lock , moderate_add , moderate_date" , "\"".$array[moderate_id]."\" , \"".$array[moderate_user_id]."\" , \"".$array[moderate_forum_id]."\" , \"".$array[moderate_cat_id]."\" , \"0\" , \"".$array[moderate_member_id]."\" , \"".$array[moderate_date]."\"");
-
+if (!defined("error_page_arab_forums")) {
+    exit(header("location: ../error.php"));
 }
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" width=\"60%\" align=\"center\">";
+$sql  =  @mysql_query("select * from " . $connect["prefix"] . "moderate");
+
+while ($array  =  @mysql_fetch_assoc($sql)) {
+
+    insert_mysql("arab-forums", "moderate", "moderate_id , moderate_userid , moderate_forumid , moderate_catid , moderate_lock , moderate_add , moderate_date", "\"" . $array[moderate_id] . "\" , \"" . $array[moderate_user_id] . "\" , \"" . $array[moderate_forum_id] . "\" , \"" . $array[moderate_cat_id] . "\" , \"0\" , \"" . $array[moderate_member_id] . "\" , \"" . $array[moderate_date] . "\"");
+}
+
+echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"60%\" align=\"center\">";
 
 echo "<tr align=\"center\">";
 
@@ -52,4 +53,3 @@ echo "</table>";
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

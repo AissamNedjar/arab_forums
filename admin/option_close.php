@@ -11,88 +11,86 @@
 
 |*#####################################################################*/
 
-if(!defined("error_page_arab_forums")){exit(header("location: ../error.php"));}
-
-if(type == "insert"){
-
-$closeoff = text_other("arab-forums" , post_other("arab-forums" , "closeoff") , true , true , true , false , true);
-
-$closemsg = text_other("arab-forums" , post_other("arab-forums" , "closemsg") , true , false , true , false , true);
-
-if($closeoff == "" || $closemsg == ""){
-
-$error = "الرجاء ملأ جميع الحقول ليتم تسجيل البيانات";
-
-}else{
-
-$error = "";
-
+if (!defined("error_page_arab_forums")) {
+    exit(header("location: ../error.php"));
 }
 
-if($error != ""){
+if (type == "insert") {
 
-$arraymsg = array(
+    $closeoff = text_other("arab-forums", post_other("arab-forums", "closeoff"), true, true, true, false, true);
 
-"msg" => $error ,
+    $closemsg = text_other("arab-forums", post_other("arab-forums", "closemsg"), true, false, true, false, true);
 
-"color" => "error" ,
+    if ($closeoff == "" || $closemsg == "") {
 
-"url" => "" ,
+        $error = "الرجاء ملأ جميع الحقول ليتم تسجيل البيانات";
+    } else {
 
-);
+        $error = "";
+    }
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+    if ($error != "") {
 
-}else{
+        $arraymsg = array(
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$closeoff}\" where option_name = \"closeoff\"");
+            "msg" => $error,
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$closemsg}\" where option_name = \"closemsg\"");
+            "color" => "error",
 
-$arraymsg = array(
+            "url" => "",
 
-"msg" => "تم إدخال البيانات الجديدة بنجآح تآم" ,
+        );
 
-"color" => "good" ,
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } else {
 
-"url" => "admin.php?gert=option&go=option_close" ,
+        update_mysql("arab-forums", "option", "option_value = \"{$closeoff}\" where option_name = \"closeoff\"");
 
-);
+        update_mysql("arab-forums", "option", "option_value = \"{$closemsg}\" where option_name = \"closemsg\"");
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+        $arraymsg = array(
 
-}}else{
+            "msg" => "تم إدخال البيانات الجديدة بنجآح تآم",
 
-echo "<form action=\"admin.php?gert=option&go=option_close&type=insert\" method=\"post\">";
- 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" width=\"99%\" align=\"center\">";
+            "color" => "good",
 
-echo "<tr><td class=\"tcotadmin\">حالة إغلاق المنتدى</td></tr>";
+            "url" => "admin.php?gert=option&go=option_close",
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+        );
 
-echo "<select class=\"inputselect\" name=\"closeoff\">";
+        echo msgadmin_template("arab-forums", $arraymsg);
+    }
+} else {
 
-echo "<option value=\"0\" ".(closeoff_option == 0 ? "selected" : "").">المنتدى مفتوح</option>";
+    echo "<form action=\"admin.php?gert=option&go=option_close&type=insert\" method=\"post\">";
 
-echo "<option value=\"1\" ".(closeoff_option == 1 ? "selected" : "").">المنتدى مغلوق</option>";
+    echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" width=\"99%\" align=\"center\">";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">حالة المنتدى / مفتوح أو مغلوق</span>";
+    echo "<tr><td class=\"tcotadmin\">حالة إغلاق المنتدى</td></tr>";
 
-echo "</div></td></tr>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"tcotadmin\">سبب إغلاق المنتدى</td></tr>";
+    echo "<select class=\"inputselect\" name=\"closeoff\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<option value=\"0\" " . (closeoff_option == 0 ? "selected" : "") . ">المنتدى مفتوح</option>";
 
-echo "<textarea name=\"closemsg\" class=\"textarea\" cols=\"120\" rows=\"12\">".closemsg_option."</textarea>";
+    echo "<option value=\"1\" " . (closeoff_option == 1 ? "selected" : "") . ">المنتدى مغلوق</option>";
 
-echo "</div></td></tr>";
+    echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">حالة المنتدى / مفتوح أو مغلوق</span>";
 
-echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال البيانات الجديدة\"  ".confirm_other("arab-forums" , "")."> - <input type=\"reset\" class=\"button\" value=\"إرجاع البيانات الأصلية\"><br><br></td></tr>";
+    echo "</div></td></tr>";
 
-echo "</table></form>";
+    echo "<tr><td class=\"tcotadmin\">سبب إغلاق المنتدى</td></tr>";
 
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+
+    echo "<textarea name=\"closemsg\" class=\"textarea\" cols=\"120\" rows=\"12\">" . closemsg_option . "</textarea>";
+
+    echo "</div></td></tr>";
+
+    echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال البيانات الجديدة\"  " . confirm_other("arab-forums", "") . "> - <input type=\"reset\" class=\"button\" value=\"إرجاع البيانات الأصلية\"><br><br></td></tr>";
+
+    echo "</table></form>";
 }
 
 /*#####################################################################*|
@@ -106,4 +104,3 @@ echo "</table></form>";
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

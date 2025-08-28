@@ -11,9 +11,11 @@
 
 |*#####################################################################*/
 
-if(!defined("error_page_arab_forums")){exit(header("location: ../error.php"));}
- 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" width=\"99%\" align=\"center\">";
+if (!defined("error_page_arab_forums")) {
+    exit(header("location: ../error.php"));
+}
+
+echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" width=\"99%\" align=\"center\">";
 
 echo "<tr><td class=\"tcotadmin\" align=\"center\">Arab Forums</td></tr>";
 
@@ -32,4 +34,3 @@ echo "</table>";
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

@@ -11,152 +11,149 @@
 
 |*#####################################################################*/
 
-if(!defined("error_page_arab_forums")){exit(header("location: ../error.php"));}
-
-if(type == "insert"){
-
-$name = text_other("arab-forums" , post_other("arab-forums" , "name") , true , true , true , false , true);
-
-$order = text_other("arab-forums" , post_other("arab-forums" , "order") , true , true , true , false , true);
-
-$lock = text_other("arab-forums" , post_other("arab-forums" , "lock") , true , true , true , false , true);
-
-$open = text_other("arab-forums" , post_other("arab-forums" , "open") , true , true , true , false , true);
-
-$br = text_other("arab-forums" , post_other("arab-forums" , "br") , true , true , true , false , true);
-
-$link = text_other("arab-forums" , post_other("arab-forums" , "link") , true , true , true , false , true);
-
-$images = text_other("arab-forums" , post_other("arab-forums" , "images") , true , true , true , false , true);
-
-if($name == "" || $order == "" || $lock == "" || $open == "" || $br == "" || $link == "" || $images == ""){
-
-$error = "الرجاء ملأ جميع الحقول ليتم إدخال الإعلان الجديد";
-
-}elseif(!is_numeric($order)){
-
-$error = "يجب أن تكون قيمة ترتيب الإعلان صحيحة";
-
-}else{
-
-$error = "";
-
+if (!defined("error_page_arab_forums")) {
+    exit(header("location: ../error.php"));
 }
 
-if($error != ""){
+if (type == "insert") {
 
-$arraymsg = array(
+    $name = text_other("arab-forums", post_other("arab-forums", "name"), true, true, true, false, true);
 
-"msg" => $error ,
+    $order = text_other("arab-forums", post_other("arab-forums", "order"), true, true, true, false, true);
 
-"color" => "error" ,
+    $lock = text_other("arab-forums", post_other("arab-forums", "lock"), true, true, true, false, true);
 
-"url" => "" ,
+    $open = text_other("arab-forums", post_other("arab-forums", "open"), true, true, true, false, true);
 
-);
+    $br = text_other("arab-forums", post_other("arab-forums", "br"), true, true, true, false, true);
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+    $link = text_other("arab-forums", post_other("arab-forums", "link"), true, true, true, false, true);
 
-}else{
+    $images = text_other("arab-forums", post_other("arab-forums", "images"), true, true, true, false, true);
 
-insert_mysql("arab-forums" , "ads" , "ads_id , ads_lock , ads_order , ads_open , ads_br , ads_name , ads_link , ads_images" , "null , \"{$lock}\" , \"{$order}\" , \"{$open}\" , \"{$br}\" , \"{$name}\" , \"{$link}\" , \"{$images}\"");
+    if ($name == "" || $order == "" || $lock == "" || $open == "" || $br == "" || $link == "" || $images == "") {
 
-$arraymsg = array(
+        $error = "الرجاء ملأ جميع الحقول ليتم إدخال الإعلان الجديد";
+    } elseif (!is_numeric($order)) {
 
-"msg" => "تم إدخال الإعلان الجديد بنجاح تام" ,
+        $error = "يجب أن تكون قيمة ترتيب الإعلان صحيحة";
+    } else {
 
-"color" => "good" ,
+        $error = "";
+    }
 
-"url" => "admin.php?gert=ads&go=ads_list" ,
+    if ($error != "") {
 
-);
+        $arraymsg = array(
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            "msg" => $error,
 
-}}else{
+            "color" => "error",
 
-echo "<form action=\"admin.php?gert=ads&go=ads_add&type=insert\" method=\"post\">";
- 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" width=\"99%\" align=\"center\">";
+            "url" => "",
 
-echo "<tr><td class=\"tcotadmin\">عنوان الإعلان</td></tr>";
+        );
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } else {
 
-echo "<input style=\"width:300px\" class=\"input\" name=\"name\" value=\"\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال عنوان الإعلان</span>";
+        insert_mysql("arab-forums", "ads", "ads_id , ads_lock , ads_order , ads_open , ads_br , ads_name , ads_link , ads_images", "null , \"{$lock}\" , \"{$order}\" , \"{$open}\" , \"{$br}\" , \"{$name}\" , \"{$link}\" , \"{$images}\"");
 
-echo "</div></td></tr>";
+        $arraymsg = array(
 
-echo "<tr><td class=\"tcotadmin\">رابط الإعلان</td></tr>";
+            "msg" => "تم إدخال الإعلان الجديد بنجاح تام",
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            "color" => "good",
 
-echo "<input dir=\"ltr\" style=\"width:300px\" class=\"input\" name=\"link\" value=\"\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال الرابط الذي يأدي إليه الإعلان و يجب أن يكون مسبوق ب http://www</span>";
+            "url" => "admin.php?gert=ads&go=ads_list",
 
-echo "</div></td></tr>";
+        );
 
-echo "<tr><td class=\"tcotadmin\">صورة الإعلان</td></tr>";
+        echo msgadmin_template("arab-forums", $arraymsg);
+    }
+} else {
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<form action=\"admin.php?gert=ads&go=ads_add&type=insert\" method=\"post\">";
 
-echo "<input dir=\"ltr\" style=\"width:300px\" class=\"input\" name=\"images\" value=\"\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال رابط صورة الإعلان التي تظهر في مكان الإعلانات</span>";
+    echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" width=\"99%\" align=\"center\">";
 
-echo "</div></td></tr>";
+    echo "<tr><td class=\"tcotadmin\">عنوان الإعلان</td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">ترتيب الإعلان</td></tr>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<input style=\"width:300px\" class=\"input\" name=\"name\" value=\"\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال عنوان الإعلان</span>";
 
-echo "<input size=\"1\" class=\"input\" name=\"order\" value=\"1\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال الترتيب الخاص بالإعلان و إن كنت لا تريده مرتب أتركه 1</span>";
+    echo "</div></td></tr>";
 
-echo "</div></td></tr>";
+    echo "<tr><td class=\"tcotadmin\">رابط الإعلان</td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">تعطيل الإعلان</td></tr>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<input dir=\"ltr\" style=\"width:300px\" class=\"input\" name=\"link\" value=\"\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال الرابط الذي يأدي إليه الإعلان و يجب أن يكون مسبوق ب http://www</span>";
 
-echo "<select class=\"inputselect\" name=\"lock\">";
+    echo "</div></td></tr>";
 
-echo "<option value=\"0\">لآ</option>";
+    echo "<tr><td class=\"tcotadmin\">صورة الإعلان</td></tr>";
 
-echo "<option value=\"1\">نعم</option>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الإعلان معطل ؟</span>";
+    echo "<input dir=\"ltr\" style=\"width:300px\" class=\"input\" name=\"images\" value=\"\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال رابط صورة الإعلان التي تظهر في مكان الإعلانات</span>";
 
-echo "</div></td></tr>";
+    echo "</div></td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">فتح الإعلان في صفحة مستقلة</td></tr>";
+    echo "<tr><td class=\"tcotadmin\">ترتيب الإعلان</td></tr>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<select class=\"inputselect\" name=\"open\">";
+    echo "<input size=\"1\" class=\"input\" name=\"order\" value=\"1\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال الترتيب الخاص بالإعلان و إن كنت لا تريده مرتب أتركه 1</span>";
 
-echo "<option value=\"0\">لآ</option>";
+    echo "</div></td></tr>";
 
-echo "<option value=\"1\">نعم</option>";
+    echo "<tr><td class=\"tcotadmin\">تعطيل الإعلان</td></tr>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل رابط الإعلان يفتح في صفحة مستقلة ؟</span>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "</div></td></tr>";
+    echo "<select class=\"inputselect\" name=\"lock\">";
 
-echo "<tr><td class=\"tcotadmin\">ظهور الإعلان في سطر جديد</td></tr>";
+    echo "<option value=\"0\">لآ</option>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<option value=\"1\">نعم</option>";
 
-echo "<select class=\"inputselect\" name=\"br\">";
+    echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الإعلان معطل ؟</span>";
 
-echo "<option value=\"0\">لآ</option>";
+    echo "</div></td></tr>";
 
-echo "<option value=\"1\">نعم</option>";
+    echo "<tr><td class=\"tcotadmin\">فتح الإعلان في صفحة مستقلة</td></tr>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الإعلان يوضع في سطر جديد أي تحت الإعلانات السابقة ؟</span>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "</div></td></tr>";
+    echo "<select class=\"inputselect\" name=\"open\">";
 
-echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال الإعلان الجديد\"  ".confirm_other("arab-forums" , "هل أنت متأكد من أنك تريد إدخال الإعلان الجديد ؟")."> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقول\"><br><br></td></tr>";
+    echo "<option value=\"0\">لآ</option>";
 
-echo "</table></form>";
+    echo "<option value=\"1\">نعم</option>";
 
+    echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل رابط الإعلان يفتح في صفحة مستقلة ؟</span>";
+
+    echo "</div></td></tr>";
+
+    echo "<tr><td class=\"tcotadmin\">ظهور الإعلان في سطر جديد</td></tr>";
+
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+
+    echo "<select class=\"inputselect\" name=\"br\">";
+
+    echo "<option value=\"0\">لآ</option>";
+
+    echo "<option value=\"1\">نعم</option>";
+
+    echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الإعلان يوضع في سطر جديد أي تحت الإعلانات السابقة ؟</span>";
+
+    echo "</div></td></tr>";
+
+    echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال الإعلان الجديد\"  " . confirm_other("arab-forums", "هل أنت متأكد من أنك تريد إدخال الإعلان الجديد ؟") . "> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقول\"><br><br></td></tr>";
+
+    echo "</table></form>";
 }
 
 /*#####################################################################*|
@@ -170,4 +167,3 @@ echo "</table></form>";
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

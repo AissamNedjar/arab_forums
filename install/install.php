@@ -11,7 +11,7 @@
 
 |*#####################################################################*/
 
-define("error_page_arab_forums" , true);
+define("error_page_arab_forums", true);
 
 @include("../includes/f.hacker.php");
 
@@ -33,7 +33,7 @@ echo cracker_hacker("arab-forums");
 
 @include("../includes/e.connect.php");
 
-connect_mysql("arab-forums" , hostname_connect , username_connect , userpass_connect , dbname_connect);
+connect_mysql("arab-forums", hostname_connect, username_connect, userpass_connect, dbname_connect);
 
 @include("../includes/e.get.php");
 
@@ -57,7 +57,7 @@ echo "</head><body>";
 
 echo "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" width=\"90%\" align=\"center\">";
+echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"90%\" align=\"center\">";
 
 echo "<tr align=\"center\">";
 
@@ -69,148 +69,117 @@ echo "<tr align=\"center\">";
 
 echo "<td class=\"alttext1\"><br><br>";
 
-if(go == "install"){
+if (go == "install") {
 
-if(type == ""){
+    if (type == "") {
 
-@include("stupe1.php");
+        @include("stupe1.php");
+    } elseif (type == "option") {
 
-}elseif(type == "option"){
+        @include("stupe2.php");
+    } elseif (type == "insertoption") {
 
-@include("stupe2.php");
+        @include("stupe3.php");
+    } elseif (type == "admin") {
 
-}elseif(type == "insertoption"){
+        @include("stupe4.php");
+    } elseif (type == "insertadmin") {
 
-@include("stupe3.php");
+        @include("stupe5.php");
+    } elseif (type == "insertip1") {
 
-}elseif(type == "admin"){
+        @include("stupe6.php");
+    } elseif (type == "insertip2") {
 
-@include("stupe4.php");
+        @include("stupe7.php");
+    } elseif (type == "insertip3") {
 
-}elseif(type == "insertadmin"){
+        @include("stupe8.php");
+    } elseif (type == "insertip4") {
 
-@include("stupe5.php");
+        @include("stupe9.php");
+    } elseif (type == "insertip5") {
 
-}elseif(type == "insertip1"){
+        @include("stupe10.php");
+    } elseif (type == "insertip6") {
 
-@include("stupe6.php");
+        @include("stupe11.php");
+    } elseif (type == "insertip7") {
 
-}elseif(type == "insertip2"){
+        @include("stupe12.php");
+    } elseif (type == "insertip8") {
 
-@include("stupe7.php");
+        @include("stupe13.php");
+    } elseif (type == "insertip9") {
 
-}elseif(type == "insertip3"){
+        @include("stupe14.php");
+    } elseif (type == "insertip10") {
 
-@include("stupe8.php");
+        @include("stupe15.php");
+    } elseif (type == "insertip11") {
 
-}elseif(type == "insertip4"){
+        @include("stupe16.php");
+    } elseif (type == "insertip12") {
 
-@include("stupe9.php");
+        @include("stupe17.php");
+    } elseif (type == "insertip13") {
 
-}elseif(type == "insertip5"){
+        @include("stupe18.php");
+    } elseif (type == "insertip14") {
 
-@include("stupe10.php");
+        @include("stupe19.php");
+    } elseif (type == "insertip15") {
 
-}elseif(type == "insertip6"){
+        @include("stupe20.php");
+    } elseif (type == "insertip16") {
 
-@include("stupe11.php");
+        @include("stupe21.php");
+    }
+} elseif (go == "updatec0lddz") {
 
-}elseif(type == "insertip7"){
+    $connect    =     array(
 
-@include("stupe12.php");
+        "prefix"    =>    "forum_",
 
-}elseif(type == "insertip8"){
+    );
 
-@include("stupe13.php");
+    if (type == "") {
 
-}elseif(type == "insertip9"){
+        @include("update1.php");
+    } elseif (type == "insertoption") {
 
-@include("stupe14.php");
+        @include("update2.php");
+    } elseif (type == "updatetable1") {
 
-}elseif(type == "insertip10"){
+        @include("update3.php");
+    } elseif (type == "updatetable2") {
 
-@include("stupe15.php");
+        @include("update4.php");
+    } elseif (type == "updatetable3") {
 
-}elseif(type == "insertip11"){
+        @include("update5.php");
+    } elseif (type == "updatetable4") {
 
-@include("stupe16.php");
+        @include("update6.php");
+    } elseif (type == "updatetable5") {
 
-}elseif(type == "insertip12"){
+        @include("update7.php");
+    } elseif (type == "updatetable6") {
 
-@include("stupe17.php");
+        @include("update8.php");
+    } elseif (type == "updatetable7") {
 
-}elseif(type == "insertip13"){
+        @include("update9.php");
+    } elseif (type == "updatetable8") {
 
-@include("stupe18.php");
+        @include("update10.php");
+    } elseif (type == "updatetable9") {
 
-}elseif(type == "insertip14"){
+        @include("update11.php");
+    }
+} else {
 
-@include("stupe19.php");
-
-}elseif(type == "insertip15"){
-
-@include("stupe20.php");
-
-}elseif(type == "insertip16"){
-
-@include("stupe21.php");
-
-}}elseif(go == "updatec0lddz"){
-
-$connect    =     array(
-
-"prefix"    =>    "forum_"      ,
-
-);
-
-if(type == ""){
-
-@include("update1.php");
-
-}elseif(type == "insertoption"){
-
-@include("update2.php");
-
-}elseif(type == "updatetable1"){
-
-@include("update3.php");
-
-}elseif(type == "updatetable2"){
-
-@include("update4.php");
-
-}elseif(type == "updatetable3"){
-
-@include("update5.php");
-
-}elseif(type == "updatetable4"){
-
-@include("update6.php");
-
-}elseif(type == "updatetable5"){
-
-@include("update7.php");
-
-}elseif(type == "updatetable6"){
-
-@include("update8.php");
-
-}elseif(type == "updatetable7"){
-
-@include("update9.php");
-
-}elseif(type == "updatetable8"){
-
-@include("update10.php");
-
-}elseif(type == "updatetable9"){
-
-@include("update11.php");
-
-}}else{
-
-@include("home.php");
-
+    @include("home.php");
 }
 
 @include("themes/footer.php");
@@ -223,7 +192,7 @@ echo "</table>";
 
 echo "<br><br>";
 
-echo "<center>Arab Forums 0.2, Copyright ©2011 - ".date ("Y").", Aissam Nedjar</center>";
+echo "<center>Arab Forums 0.2, Copyright ©2011 - " . date("Y") . ", Aissam Nedjar</center>";
 
 echo "</body></html>";
 
@@ -240,4 +209,3 @@ disconnect_mysql("arab-forums");
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

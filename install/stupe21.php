@@ -8031,7 +8031,7 @@ insert_mysql("arab-forums" , "couip" , "couip_id , couip_star , couip_end , coui
 insert_mysql("arab-forums" , "couip" , "couip_id , couip_star , couip_end , couip_code" , "115513, '3255162368', '3255162623', 'FR'");
 insert_mysql("arab-forums" , "couip" , "couip_id , couip_star , couip_end , couip_code" , "115514, '3255162624', '3255162879', 'FR'");
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" width=\"60%\" align=\"center\">";
+echo "<table class=\"border\" cellpadding=\"".CELLPADDING."\" cellspacing=\"". CELLSPACING ."\" width=\"60%\" align=\"center\">";
 
 echo "<tr align=\"center\">";
 

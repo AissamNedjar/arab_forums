@@ -11,738 +11,714 @@
 
 |*#####################################################################*/
 
-define("error_page_arab_forums" , true);
+define("error_page_arab_forums", true);
 
 @include("includes.php");
 
-define("pageupdate" , true);
+define("pageupdate", true);
 
 @include("includes/e.noopen.php");
 
-define("pagebody" , "notify");
+define("pagebody", "notify");
 
-online_other("arab-forums" , "notify" , "0" , "0" , "0" , "0");
+online_other("arab-forums", "notify", "0", "0", "0", "0");
 
-if(go == "add"){
+if (go == "add") {
 
-if(fort == "topic"){
+    if (fort == "topic") {
 
-$notify_sql = select_mysql("arab-forums" , "topic" , "t.topic_id , t.topic_forumid , t.topic_user , t.topic_wait , t.topic_delete , t.topic_hid , t.topic_name , u.user_id , u.user_lock1 , u.user_nameuser , u.user_group , u.user_coloruser , c.cat_id , c.cat_hid , c.cat_monitor1 , c.cat_monitor2 , f.forum_id , f.forum_catid , f.forum_hid1 , f.forum_hid2 , f.forum_mode" , "as t left join user".prefix_connect." as u on(u.user_id = t.topic_user) left join forum".prefix_connect." as f on(t.topic_forumid = f.forum_id) left join cat".prefix_connect." as c on(f.forum_catid = c.cat_id) where t.topic_id in(".id.") && t.topic_delete in(0) && t.topic_hid in(0) && t.topic_wait in(0) && t.topic_user != \"".id_user."\" limit 1");
+        $notify_sql = select_mysql("arab-forums", "topic", "t.topic_id , t.topic_forumid , t.topic_user , t.topic_wait , t.topic_delete , t.topic_hid , t.topic_name , u.user_id , u.user_lock1 , u.user_nameuser , u.user_group , u.user_coloruser , c.cat_id , c.cat_hid , c.cat_monitor1 , c.cat_monitor2 , f.forum_id , f.forum_catid , f.forum_hid1 , f.forum_hid2 , f.forum_mode", "as t left join user" . prefix_connect . " as u on(u.user_id = t.topic_user) left join forum" . prefix_connect . " as f on(t.topic_forumid = f.forum_id) left join cat" . prefix_connect . " as c on(f.forum_catid = c.cat_id) where t.topic_id in(" . id . ") && t.topic_delete in(0) && t.topic_hid in(0) && t.topic_wait in(0) && t.topic_user != \"" . id_user . "\" limit 1");
 
-if(num_mysql("arab-forums" , $notify_sql) == false){
+        if (num_mysql("arab-forums", $notify_sql) == false) {
 
-$errorop = true;
+            $errorop = true;
+        } else {
 
-}else{
+            $notify_object = object_mysql("arab-forums", $notify_sql);
 
-$notify_object = object_mysql("arab-forums" , $notify_sql);
+            if (group_user == 0) {
 
-if(group_user == 0){
+                $errorop = true;
+            } elseif ($notify_object->cat_hid == true && cathide_other("arab-forums", $notify_object->cat_id, $notify_object->cat_monitor1, $notify_object->cat_monitor2) == false) {
 
-$errorop = true;
+                $errorop = true;
+            } elseif ($notify_object->forum_hid1 == true && forumhide1_other("arab-forums", $notify_object->forum_id, $notify_object->cat_monitor1, $notify_object->cat_monitor2, $notify_object->forum_mode) == false) {
 
-}elseif($notify_object->cat_hid == true && cathide_other("arab-forums" , $notify_object->cat_id , $notify_object->cat_monitor1 , $notify_object->cat_monitor2) == false){
+                $errorop = true;
+            } elseif ($notify_object->forum_hid2 == true && forumhide2_other("arab-forums", $notify_object->cat_id, $notify_object->cat_monitor1, $notify_object->cat_monitor2, $notify_object->forum_mode) == false) {
 
-$errorop = true;
+                $errorop = true;
+            } else {
 
-}elseif($notify_object->forum_hid1 == true && forumhide1_other("arab-forums" , $notify_object->forum_id , $notify_object->cat_monitor1 , $notify_object->cat_monitor2 , $notify_object->forum_mode) == false){
+                $texto = "لفت إنتباه المشرف عن الموضوع الخاص بـ : " . user_other("arab-forums", array($notify_object->user_id, $notify_object->user_group, $notify_object->user_nameuser, $notify_object->user_lock1, $notify_object->user_coloruser, false)) . "<br><br><span style=\"color:red;font-size:30px;\">{$notify_object->topic_name}</span>";
 
-$errorop = true;
+                $urluj = "notify.php?go=add&fort=topic&id={$notify_object->topic_id}";
 
-}elseif($notify_object->forum_hid2 == true && forumhide2_other("arab-forums" , $notify_object->cat_id , $notify_object->cat_monitor1 , $notify_object->cat_monitor2 , $notify_object->forum_mode) == false){
+                $msgtitle = "إضغط هنا للذهاب إلى الموضوع";
 
-$errorop = true;
+                $msgurl = "topic.php?id={$notify_object->topic_id}";
 
-}else{
+                $errorop = false;
+            }
+        }
+    } elseif (fort == "reply") {
 
-$texto = "لفت إنتباه المشرف عن الموضوع الخاص بـ : ".user_other("arab-forums" , array($notify_object->user_id , $notify_object->user_group , $notify_object->user_nameuser , $notify_object->user_lock1 , $notify_object->user_coloruser , false))."<br><br><span style=\"color:red;font-size:30px;\">{$notify_object->topic_name}</span>";
+        $notify_sql = select_mysql("arab-forums", "reply", "r.reply_id , r.reply_topicid , r.reply_user , r.reply_delete , r.reply_wait , r.reply_hid , u.user_id , u.user_lock1 , u.user_nameuser , u.user_group , u.user_coloruser , t.topic_id , t.topic_forumid , t.topic_wait , t.topic_delete , t.topic_hid , t.topic_name , c.cat_id , c.cat_hid , c.cat_monitor1 , c.cat_monitor2 , f.forum_id , f.forum_catid , f.forum_mode", "as r left join user" . prefix_connect . " as u on(u.user_id = r.reply_user) left join topic" . prefix_connect . " as t on(r.reply_topicid = t.topic_id) left join forum" . prefix_connect . " as f on(t.topic_forumid = f.forum_id) left join cat" . prefix_connect . " as c on(f.forum_catid = c.cat_id) where r.reply_id in(" . id . ") && r.reply_delete in(0) && r.reply_hid in(0) && r.reply_wait in(0) && t.topic_delete in(0) && t.topic_hid in(0) && t.topic_wait in(0) && r.reply_user != \"" . id_user . "\" limit 1");
 
-$urluj = "notify.php?go=add&fort=topic&id={$notify_object->topic_id}";
+        if (num_mysql("arab-forums", $notify_sql) == false) {
 
-$msgtitle = "إضغط هنا للذهاب إلى الموضوع";
+            $errorop = true;
+        } else {
 
-$msgurl = "topic.php?id={$notify_object->topic_id}";
+            $notify_object = object_mysql("arab-forums", $notify_sql);
 
-$errorop = false;
+            if ($notify_object->cat_hid == true && cathide_other("arab-forums", $notify_object->cat_id, $notify_object->cat_monitor1, $notify_object->cat_monitor2) == false) {
 
-}}}elseif(fort == "reply"){
+                $errorop = true;
+            } elseif ($notify_object->forum_hid1 == true && forumhide1_other("arab-forums", $notify_object->forum_id, $notify_object->cat_monitor1, $notify_object->cat_monitor2, $notify_object->forum_mode) == false) {
 
-$notify_sql = select_mysql("arab-forums" , "reply" , "r.reply_id , r.reply_topicid , r.reply_user , r.reply_delete , r.reply_wait , r.reply_hid , u.user_id , u.user_lock1 , u.user_nameuser , u.user_group , u.user_coloruser , t.topic_id , t.topic_forumid , t.topic_wait , t.topic_delete , t.topic_hid , t.topic_name , c.cat_id , c.cat_hid , c.cat_monitor1 , c.cat_monitor2 , f.forum_id , f.forum_catid , f.forum_mode" , "as r left join user".prefix_connect." as u on(u.user_id = r.reply_user) left join topic".prefix_connect." as t on(r.reply_topicid = t.topic_id) left join forum".prefix_connect." as f on(t.topic_forumid = f.forum_id) left join cat".prefix_connect." as c on(f.forum_catid = c.cat_id) where r.reply_id in(".id.") && r.reply_delete in(0) && r.reply_hid in(0) && r.reply_wait in(0) && t.topic_delete in(0) && t.topic_hid in(0) && t.topic_wait in(0) && r.reply_user != \"".id_user."\" limit 1");
+                $errorop = true;
+            } elseif ($notify_object->forum_hid2 == true && forumhide2_other("arab-forums", $notify_object->cat_id, $notify_object->cat_monitor1, $notify_object->cat_monitor2, $notify_object->forum_mode) == false) {
 
-if(num_mysql("arab-forums" , $notify_sql) == false){
+                $errorop = true;
+            } else {
 
-$errorop = true;
+                $texto = "لفت إنتباه المشرف عن المشاركة الخاصة بـ : " . user_other("arab-forums", array($notify_object->user_id, $notify_object->user_group, $notify_object->user_nameuser, $notify_object->user_lock1, $notify_object->user_coloruser, false)) . " في الموضوع التالي<br><br><span style=\"color:red;font-size:30px;\">{$notify_object->topic_name}</span>";
 
-}else{
+                $urluj = "notify.php?go=add&fort=reply&id={$notify_object->reply_id}";
 
-$notify_object = object_mysql("arab-forums" , $notify_sql);
+                $msgtitle = "إضغط هنا للذهاب إلى الموضوع";
 
-if($notify_object->cat_hid == true && cathide_other("arab-forums" , $notify_object->cat_id , $notify_object->cat_monitor1 , $notify_object->cat_monitor2) == false){
+                $msgurl = "topic.php?id={$notify_object->topic_id}";
 
-$errorop = true;
+                $errorop = false;
+            }
+        }
+    } else {
 
-}elseif($notify_object->forum_hid1 == true && forumhide1_other("arab-forums" , $notify_object->forum_id , $notify_object->cat_monitor1 , $notify_object->cat_monitor2 , $notify_object->forum_mode) == false){
+        $errorop = true;
+    }
 
-$errorop = true;
+    if ($errorop == false) {
 
-}elseif($notify_object->forum_hid2 == true && forumhide2_other("arab-forums" , $notify_object->cat_id , $notify_object->cat_monitor1 , $notify_object->cat_monitor2 , $notify_object->forum_mode) == false){
+        if (type == "insert") {
 
-$errorop = true;
+            $notifyname = $notify_list[text_other("arab-forums", post_other("arab-forums", "notifyname"), true, true, true, true, true)];
 
-}else{
+            $notifytext = text_other("arab-forums", post_other("arab-forums", "notifytext"), false, true, false, false, true);
 
-$texto = "لفت إنتباه المشرف عن المشاركة الخاصة بـ : ".user_other("arab-forums" , array($notify_object->user_id , $notify_object->user_group , $notify_object->user_nameuser , $notify_object->user_lock1 , $notify_object->user_coloruser , false))." في الموضوع التالي<br><br><span style=\"color:red;font-size:30px;\">{$notify_object->topic_name}</span>";
+            if ($notifyname == "" || $notifytext == "") {
 
-$urluj = "notify.php?go=add&fort=reply&id={$notify_object->reply_id}";
+                $arraymsg = array(
 
-$msgtitle = "إضغط هنا للذهاب إلى الموضوع";
+                    "login" => true,
 
-$msgurl = "topic.php?id={$notify_object->topic_id}";
+                    "msg" => "الرجاء ملأ جميع الحقول ليتم إرسال الشكوى",
 
-$errorop = false;
+                    "color" => "error",
 
-}}}else{
+                    "old" => true,
 
-$errorop = true;
+                    "auto" => false,
 
-}
+                    "text" => "",
 
-if($errorop == false){
+                    "url" => "",
 
-if(type == "insert"){
+                    "array" => "",
 
-$notifyname = $notify_list[text_other("arab-forums" ,post_other("arab-forums" , "notifyname") , true , true , true , true , true)];
+                );
 
-$notifytext = text_other("arab-forums" , post_other("arab-forums" , "notifytext") , false , true , false , false , true);
+                echo msg_template("arab-forums", $arraymsg);
+            } else {
 
-if($notifyname == "" || $notifytext == ""){
+                if (fort == "topic") {
 
-$arraymsg = array(
+                    $forumid = $notify_object->forum_id;
 
-"login" => true ,
+                    $topicid = $notify_object->topic_id;
 
-"msg" => "الرجاء ملأ جميع الحقول ليتم إرسال الشكوى" ,
+                    $replyid = "0";
 
-"color" => "error" ,
+                    $msgid = "0";
 
-"old" => true ,
+                    $userid = $notify_object->topic_user;
+                } elseif (fort == "reply") {
 
-"auto" => false ,
+                    $forumid = $notify_object->forum_id;
 
-"text" => "" ,
+                    $topicid = $notify_object->topic_id;
 
-"url" => "" ,
+                    $replyid = $notify_object->reply_id;
 
-"array" => "" ,
+                    $msgid = "0";
 
-);
+                    $userid = $notify_object->reply_user;
+                }
 
-echo msg_template("arab-forums" , $arraymsg);
+                $notifytextsenf = br_other("arab-forums", $notifytext);
 
-}else{
+                insert_mysql("arab-forums", "notify", "notify_id , notify_forumid , notify_topicid , notify_replyid , notify_msgid , notify_userid , notify_usersend , notify_datesend , notify_name , notify_text , notify_type", "null , \"{$forumid}\" , \"{$topicid}\" , \"{$replyid}\" , \"{$msgid}\" , \"{$userid}\" , \"" . id_user . "\" , \"" . time() . "\" , \"{$notifyname}\" , \"{$notifytextsenf}\" , \"" . fort . "\"");
 
-if(fort == "topic"){
+                $arraymsg = array(
 
-$forumid = $notify_object->forum_id;
+                    "login" => true,
 
-$topicid = $notify_object->topic_id;
+                    "msg" => "تم إرسال الشكوى بنجآح تام",
 
-$replyid = "0";
+                    "color" => "good",
 
-$msgid = "0";
+                    "old" => true,
 
-$userid = $notify_object->topic_user;
+                    "auto" => false,
 
-}elseif(fort == "reply"){
+                    "text" => $msgtitle,
 
-$forumid = $notify_object->forum_id;
+                    "url" => $msgurl,
 
-$topicid = $notify_object->topic_id;
+                    "array" => "",
 
-$replyid = $notify_object->reply_id;
+                );
 
-$msgid = "0";
+                echo msg_template("arab-forums", $arraymsg);
+            }
+        } else {
 
-$userid = $notify_object->reply_user;
+            echo bodytop_template("arab-forums", "إرسال شكوى");
 
-}
+            $arrayheader = array(
 
-$notifytextsenf = br_other("arab-forums" , $notifytext);
+                "login" => true,
 
-insert_mysql("arab-forums" , "notify" , "notify_id , notify_forumid , notify_topicid , notify_replyid , notify_msgid , notify_userid , notify_usersend , notify_datesend , notify_name , notify_text , notify_type" , "null , \"{$forumid}\" , \"{$topicid}\" , \"{$replyid}\" , \"{$msgid}\" , \"{$userid}\" , \"".id_user."\" , \"".time()."\" , \"{$notifyname}\" , \"{$notifytextsenf}\" , \"".fort."\"");
+            );
 
-$arraymsg = array(
+            echo header_template("arab-forums", $arrayheader);
 
-"login" => true ,
+            echo "<form action=\"{$urluj}&type=insert\" method=\"post\">";
 
-"msg" => "تم إرسال الشكوى بنجآح تام" ,
+            echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"50%\" align=\"center\">";
 
-"color" => "good" ,
+            echo "<tr align=\"center\"><td class=\"tcat\"><div class=\"pad\">إرسال شكوى</div></td></tr>";
 
-"old" => true ,
+            echo "<tr align=\"center\"><td class=\"alttext2\"><br>{$texto}<br><br></td></tr>";
 
-"auto" => false ,
+            echo "<tr align=\"center\">";
 
-"text" => $msgtitle ,
+            echo "<td class=\"alttext1\"><br>";
 
-"url" => $msgurl ,
+            echo "لتسهيل المهم الرجاء تحديد نوع البلاغ من القائمة التالية<br><br>";
 
-"array" => "" ,
+            echo "<select class=\"inputselect\" name=\"notifyname\">";
 
-);
+            foreach ($notify_list as $code => $name) {
 
-echo msg_template("arab-forums" , $arraymsg);
+                echo "<option value=\"{$code}\">{$name}</option>";
+            }
 
-}}else{
+            echo "</select><br><br></td>";
 
-echo bodytop_template("arab-forums" , "إرسال شكوى");
+            echo "</tr>";
 
-$arrayheader = array(
+            echo "<tr align=\"center\">";
 
-"login" => true ,
+            echo "<td class=\"alttext1\" align=\"center\"><br><textarea name=\"notifytext\" class=\"textarea\" cols=\"60\" rows=\"12\"></textarea><br><br></td>";
 
-);
+            echo "</tr>";
 
-echo header_template("arab-forums" , $arrayheader);
+            echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"5\"><div class=\"pad\"><br><center><input type=\"submit\" class=\"button\" value=\"إرسال الشكوى\"  " . confirm_other("arab-forums", "هل أنت متأكد من أنك تريد إرسال الشكوى ؟") . "> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقول\"></center><br></div></td></tr>";
 
-echo "<form action=\"{$urluj}&type=insert\" method=\"post\">";
+            echo "</table>";
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" width=\"50%\" align=\"center\">";
+            echo "</form>";
 
-echo "<tr align=\"center\"><td class=\"tcat\"><div class=\"pad\">إرسال شكوى</div></td></tr>";
+            echo footer_template("arab-forums");
 
-echo "<tr align=\"center\"><td class=\"alttext2\"><br>{$texto}<br><br></td></tr>";
+            echo bodybottom_template("arab-forums");
+        }
+    } else {
 
-echo "<tr align=\"center\">";
+        $arraymsg = array(
 
-echo "<td class=\"alttext1\"><br>";
+            "login" => true,
 
-echo "لتسهيل المهم الرجاء تحديد نوع البلاغ من القائمة التالية<br><br>";
+            "msg" => "للأسف لا يمكنك الولوج إلى هذه الصفحة لأنك لا تملك التصريح المناسب",
 
-echo "<select class=\"inputselect\" name=\"notifyname\">";
+            "color" => "error",
 
-foreach($notify_list as $code=>$name){
+            "old" => true,
 
-echo "<option value=\"{$code}\">{$name}</option>";
+            "auto" => false,
 
-}
+            "text" => "",
 
-echo "</select><br><br></td>";
+            "url" => "",
 
-echo "</tr>";
+            "array" => "",
 
-echo "<tr align=\"center\">";
+        );
 
-echo "<td class=\"alttext1\" align=\"center\"><br><textarea name=\"notifytext\" class=\"textarea\" cols=\"60\" rows=\"12\"></textarea><br><br></td>";
+        echo msg_template("arab-forums", $arraymsg);
+    }
+} elseif (go == "showall") {
 
-echo "</tr>";
+    if (fort == "forum") {
 
-echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"5\"><div class=\"pad\"><br><center><input type=\"submit\" class=\"button\" value=\"إرسال الشكوى\"  ".confirm_other("arab-forums" , "هل أنت متأكد من أنك تريد إرسال الشكوى ؟")."> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقول\"></center><br></div></td></tr>";
+        $notify_sql = select_mysql("arab-forums", "forum", "c.cat_id , c.cat_hid , c.cat_monitor1 , c.cat_monitor2 , f.forum_id , f.forum_catid , f.forum_hid1 , f.forum_hid2 , f.forum_name , f.forum_mode", "as f left join cat" . prefix_connect . " as c on(f.forum_catid = c.cat_id) where f.forum_id in(" . id . ") limit 1");
 
-echo "</table>";
+        if (num_mysql("arab-forums", $notify_sql) == false) {
 
-echo "</form>";
+            $errorop = true;
+        } else {
 
-echo footer_template("arab-forums");
+            $notify_object = object_mysql("arab-forums", $notify_sql);
 
-echo bodybottom_template("arab-forums");
+            $moderatget1 = moderatget1_other("arab-forums", $notify_object->forum_id, $notify_object->cat_monitor1, $notify_object->cat_monitor2, $notify_object->forum_mode);
 
-}}else{
+            $moderatget2 = moderatget2_other("arab-forums", $notify_object->cat_monitor1, $notify_object->cat_monitor2);
 
-$arraymsg = array(
+            if ($moderatget1 == false) {
 
-"login" => true ,
+                $errorop = true;
+            } else {
 
-"msg" => "للأسف لا يمكنك الولوج إلى هذه الصفحة لأنك لا تملك التصريح المناسب" ,
+                $errorop = false;
 
-"color" => "error" ,
+                $titleget = "عرض شكاوي {$notify_object->forum_name}";
 
-"old" => true ,
+                $whereget = "n.notify_forumid in({$notify_object->forum_id})";
 
-"auto" => false ,
+                $whereget2 = "notify_forumid in({$notify_object->forum_id})";
 
-"text" => "" ,
+                $urlget = "notify.php?go=showall&fort=forum&id={$notify_object->forum_id}";
+            }
+        }
+    } elseif (fort == "admin") {
 
-"url" => "" ,
+        if (group_user != 6) {
 
-"array" => "" ,
+            $errorop = true;
+        } else {
 
-);
+            $errorop = false;
 
-echo msg_template("arab-forums" , $arraymsg);
+            $titleget = "عرض شكاوي الإدارة";
 
-}}elseif(go == "showall"){
+            $whereget = "n.notify_forumid in(0)";
 
-if(fort == "forum"){
+            $whereget2 = "notify_forumid in(0)";
 
-$notify_sql = select_mysql("arab-forums" , "forum" , "c.cat_id , c.cat_hid , c.cat_monitor1 , c.cat_monitor2 , f.forum_id , f.forum_catid , f.forum_hid1 , f.forum_hid2 , f.forum_name , f.forum_mode" , "as f left join cat".prefix_connect." as c on(f.forum_catid = c.cat_id) where f.forum_id in(".id.") limit 1");
+            $urlget = "notify.php?go=showall&fort=admin";
+        }
+    } else {
 
-if(num_mysql("arab-forums" , $notify_sql) == false){
+        $errorop = true;
+    }
 
-$errorop = true;
+    if ($errorop == false) {
 
-}else{
+        echo bodytop_template("arab-forums", $titleget);
 
-$notify_object = object_mysql("arab-forums" , $notify_sql);
+        $arrayheader = array(
 
-$moderatget1 = moderatget1_other("arab-forums" , $notify_object->forum_id , $notify_object->cat_monitor1 , $notify_object->cat_monitor2 , $notify_object->forum_mode);
+            "login" => true,
 
-$moderatget2 = moderatget2_other("arab-forums" , $notify_object->cat_monitor1 , $notify_object->cat_monitor2);
+        );
 
-if($moderatget1 == false){
+        echo header_template("arab-forums", $arrayheader);
 
-$errorop = true;
+        if (gert == "delete") {
 
-}else{
+            $namemenu = "عرض الشكاوي<br>الجديدة";
 
-$errorop = false;
+            $urlmenu = "{$urlget}";
 
-$titleget = "عرض شكاوي {$notify_object->forum_name}";
+            $pagemenu = "";
 
-$whereget = "n.notify_forumid in({$notify_object->forum_id})";
+            $pagemenu2 = "{$urlget}&gert=delete";
 
-$whereget2 = "notify_forumid in({$notify_object->forum_id})";
+            $titlemenu = "تعرض الشكاوي القديمة";
 
-$urlget = "notify.php?go=showall&fort=forum&id={$notify_object->forum_id}";
+            $sql1menu = "notify_delete in(1) &&";
 
-}}}elseif(fort == "admin"){
+            $sql2menu = "n.notify_delete in(1) &&";
+        } else {
 
-if(group_user != 6){
+            $namemenu = "عرض الشكاوي<br>القديمة";
 
-$errorop = true;
+            $urlmenu = "{$urlget}&gert=delete";
 
-}else{
+            $pagemenu = "&gert=delete";
 
-$errorop = false;
+            $pagemenu2 = "{$urlget}";
 
-$titleget = "عرض شكاوي الإدارة";
+            $titlemenu = "تعرض الشكاوي الجديدة";
 
-$whereget = "n.notify_forumid in(0)";
+            $sql1menu = "notify_delete in(0) &&";
 
-$whereget2 = "notify_forumid in(0)";
+            $sql2menu = "n.notify_delete in(0) &&";
+        }
 
-$urlget = "notify.php?go=showall&fort=admin";
+        echo "<table cellpadding=\"0\" cellspacing=\"3\" width=\"99%\" align=\"center\"><tr>";
 
-}}else{
+        echo "<td>" . img_other("arab-forums", "images/warningto.png", "", "", "", "0", "", "") . "</td>";
 
-$errorop = true;
+        echo "<td width=\"100%\">" . a_other("arab-forums", $pagemenu2, "{$titleget} - {$titlemenu}", "{$titleget} <span style=\"color:red;\">- {$titlemenu}</span>", "") . "</td>";
 
-}
+        echo "<td class=\"menu\"><nobr>" . a_other("arab-forums", $urlmenu, $namemenu, $namemenu, "") . "</nobr></td>";
 
-if($errorop == false){
+        $count_page = tother_option;
 
-echo bodytop_template("arab-forums" , $titleget);
+        $get_page = (page == "" || !is_numeric(page) ? 1 : page);
 
-$arrayheader = array(
+        $limit_page = (($get_page * $count_page) - $count_page);
 
-"login" => true ,
+        echo page_pager("arab-forums", "notify", "notify_id , notify_delete , notify_forumid", "where {$sql1menu} {$whereget2}", $count_page, $get_page, "{$urlget}{$pagemenu}&");
 
-);
+        echo list_forumcatlist("arab-forums");
 
-echo header_template("arab-forums" , $arrayheader);
+        echo "</tr></table>";
 
-if(gert == "delete"){
+        echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"99%\" align=\"center\">";
 
-$namemenu = "عرض الشكاوي<br>الجديدة";
+        echo "<tr align=\"center\"><td class=\"tcat\" colspan=\"8\"><div class=\"pad\">{$titleget} - {$titlemenu}</div></td></tr>";
 
-$urlmenu = "{$urlget}";
+        echo "<tr align=\"center\">";
 
-$pagemenu = "";
+        echo "<td class=\"tcat\"><div class=\"pad\">الرقم</div></td>";
 
-$pagemenu2 = "{$urlget}&gert=delete";
+        echo "<td class=\"tcat\" align=\"right\" width=\"50%\"><div class=\"pad\">العنوان</div></td>";
 
-$titlemenu = "تعرض الشكاوي القديمة";
+        echo "<td class=\"tcat\"><div class=\"pad\">نوع الشكوى</div></td>";
 
-$sql1menu = "notify_delete in(1) &&";
+        echo "<td class=\"tcat\"><div class=\"pad\">مرسل الشكوى</div></td>";
 
-$sql2menu = "n.notify_delete in(1) &&";
+        echo "<td class=\"tcat\"><div class=\"pad\">تاريخ الإرسل</div></td>";
 
-}else{
+        echo "<td class=\"tcat\"><div class=\"pad\">تم الرد بواسطة</div></td>";
 
-$namemenu = "عرض الشكاوي<br>القديمة";
+        echo "<td class=\"tcat\"><div class=\"pad\">تاريخ الرد</div></td>";
 
-$urlmenu = "{$urlget}&gert=delete";
+        echo "</tr>";
 
-$pagemenu = "&gert=delete";
+        $notifylist_sql = select_mysql("arab-forums", "notify", "u1.user_id as u1user_id , u1.user_lock1 as u1user_lock , u1.user_nameuser as u1user_name , u1.user_group as u1user_group , u1.user_coloruser as u1user_color , u2.user_id as u2user_id , u2.user_lock1 as u2user_lock , u2.user_nameuser as u2user_name , u2.user_group as u2user_group , u2.user_coloruser as u2user_color , n.notify_id , n.notify_forumid , n.notify_topicid , n.notify_replyid , n.notify_msgid , n.notify_type , n.notify_name , n.notify_usersend , n.notify_userlock , n.notify_datesend , n.notify_datelock , n.notify_delete", "as n left join user" . prefix_connect . " as u1 on(u1.user_id = n.notify_usersend) left join user" . prefix_connect . " as u2 on(u2.user_id = n.notify_userlock) where {$sql2menu} {$whereget} order by n.notify_datesend desc , n.notify_id asc limit {$limit_page},{$count_page}");
 
-$pagemenu2 = "{$urlget}";
+        if (num_mysql("arab-forums", $notifylist_sql) == false) {
 
-$titlemenu = "تعرض الشكاوي الجديدة";
+            echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"8\"><br><br>لا توجد شكاوي بعد<br><br><br></td></tr>";
+        } else {
 
-$sql1menu = "notify_delete in(0) &&";
+            while ($notifylist_object = object_mysql("arab-forums", $notifylist_sql)) {
 
-$sql2menu = "n.notify_delete in(0) &&";
+                if ($notifylist_object->notify_type == "topic") {
+                    $typeo = "شكوى على موضوع";
+                    $typep = "الخاصة بالموضوع رقم : {$notifylist_object->notify_topicid}";
+                } elseif ($notifylist_object->notify_type == "reply") {
+                    $typeo = "شكوى على رد";
+                    $typep = "الخاصة بالرد رقم : {$notifylist_object->notify_replyid}";
+                } elseif ($notifylist_object->notify_type == "msg") {
+                    $typeo = "شكوى على رسالة";
+                    $typep = "الخاصة بالرسالة رقم : {$notifylist_object->notify_msgid}";
+                }
 
-}
+                echo "<tr align=\"center\">";
 
-echo "<table cellpadding=\"0\" cellspacing=\"3\" width=\"99%\" align=\"center\"><tr>";
+                echo "<td class=\"alttext1\">{$notifylist_object->notify_id}</td>";
 
-echo "<td>".img_other("arab-forums" , "images/warningto.png" , "" , "" , "" , "0" , "" , "")."</td>";
+                echo "<td class=\"alttext2\" align=\"right\"><br><div class=\"pad\">" . a_other("arab-forums", "notify.php?go=showone&fort={$notifylist_object->notify_type}&id={$notifylist_object->notify_id}", "الشكوى رقم : {$notifylist_object->notify_id} | {$typep}", "الشكوى رقم : {$notifylist_object->notify_id} | {$typep}", "") . "<div class=\"desc\">{$notifylist_object->notify_name}</div></div><br></td>";
 
-echo "<td width=\"100%\">".a_other("arab-forums" , $pagemenu2 , "{$titleget} - {$titlemenu}" , "{$titleget} <span style=\"color:red;\">- {$titlemenu}</span>" , "")."</td>";
+                echo "<td class=\"alttext1\"><nobr>{$typeo}</nobr></td>";
 
-echo "<td class=\"menu\"><nobr>".a_other("arab-forums" , $urlmenu , $namemenu , $namemenu , "")."</nobr></td>";
+                echo "<td class=\"alttext2\"><nobr>" . user_other("arab-forums", array($notifylist_object->u1user_id, $notifylist_object->u1user_group, $notifylist_object->u1user_name, $notifylist_object->u1user_lock, $notifylist_object->u1user_color, false)) . "</nobr></td>";
 
-$count_page = tother_option;
+                echo "<td class=\"alttext1\"><nobr>" . times_date("arab-forums", "", $notifylist_object->notify_datesend) . "</nobr></td>";
 
-$get_page = (page == "" || !is_numeric(page) ? 1 : page);
+                echo "<td class=\"alttext2\"><nobr>" . ($notifylist_object->notify_delete == 0 ? "لم يتم الرد" : user_other("arab-forums", array($notifylist_object->u2user_id, $notifylist_object->u2user_group, $notifylist_object->u2user_name, $notifylist_object->u2user_lock, $notifylist_object->u2user_color, false))) . "</nobr></td>";
 
-$limit_page = (($get_page * $count_page) - $count_page);
+                echo "<td class=\"alttext1\"><nobr>" . ($notifylist_object->notify_delete == 0 ? "لم يتم الرد" : times_date("arab-forums", "", $notifylist_object->notify_datelock)) . "</nobr></td>";
 
-echo page_pager("arab-forums" , "notify" , "notify_id , notify_delete , notify_forumid" , "where {$sql1menu} {$whereget2}" , $count_page , $get_page , "{$urlget}{$pagemenu}&");
+                echo "</tr>";
+            }
+        }
 
-echo list_forumcatlist("arab-forums");
+        echo "</table>";
 
-echo "</tr></table>";
+        echo footer_template("arab-forums");
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" width=\"99%\" align=\"center\">";
+        echo bodybottom_template("arab-forums");
+    } else {
 
-echo "<tr align=\"center\"><td class=\"tcat\" colspan=\"8\"><div class=\"pad\">{$titleget} - {$titlemenu}</div></td></tr>";
+        $arraymsg = array(
 
-echo "<tr align=\"center\">";
+            "login" => true,
 
-echo "<td class=\"tcat\"><div class=\"pad\">الرقم</div></td>";
+            "msg" => "للأسف لا يمكنك الولوج إلى هذه الصفحة لأنك لا تملك التصريح المناسب",
 
-echo "<td class=\"tcat\" align=\"right\" width=\"50%\"><div class=\"pad\">العنوان</div></td>";
+            "color" => "error",
 
-echo "<td class=\"tcat\"><div class=\"pad\">نوع الشكوى</div></td>";
+            "old" => true,
 
-echo "<td class=\"tcat\"><div class=\"pad\">مرسل الشكوى</div></td>";
+            "auto" => false,
 
-echo "<td class=\"tcat\"><div class=\"pad\">تاريخ الإرسل</div></td>";
+            "text" => "",
 
-echo "<td class=\"tcat\"><div class=\"pad\">تم الرد بواسطة</div></td>";
+            "url" => "",
 
-echo "<td class=\"tcat\"><div class=\"pad\">تاريخ الرد</div></td>";
+            "array" => "",
 
-echo "</tr>";
+        );
 
-$notifylist_sql = select_mysql("arab-forums" , "notify" , "u1.user_id as u1user_id , u1.user_lock1 as u1user_lock , u1.user_nameuser as u1user_name , u1.user_group as u1user_group , u1.user_coloruser as u1user_color , u2.user_id as u2user_id , u2.user_lock1 as u2user_lock , u2.user_nameuser as u2user_name , u2.user_group as u2user_group , u2.user_coloruser as u2user_color , n.notify_id , n.notify_forumid , n.notify_topicid , n.notify_replyid , n.notify_msgid , n.notify_type , n.notify_name , n.notify_usersend , n.notify_userlock , n.notify_datesend , n.notify_datelock , n.notify_delete" , "as n left join user".prefix_connect." as u1 on(u1.user_id = n.notify_usersend) left join user".prefix_connect." as u2 on(u2.user_id = n.notify_userlock) where {$sql2menu} {$whereget} order by n.notify_datesend desc , n.notify_id asc limit {$limit_page},{$count_page}");
+        echo msg_template("arab-forums", $arraymsg);
+    }
+} elseif (go == "showone") {
 
-if(num_mysql("arab-forums" , $notifylist_sql) == false){
+    if (fort == "topic") {
 
-echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"8\"><br><br>لا توجد شكاوي بعد<br><br><br></td></tr>";
+        $notify_sql = select_mysql("arab-forums", "notify", "u1.user_id as u1user_id , u1.user_lock1 as u1user_lock , u1.user_nameuser as u1user_name , u1.user_group as u1user_group , u1.user_coloruser as u1user_color , u2.user_id as u2user_id , u2.user_lock1 as u2user_lock , u2.user_nameuser as u2user_name , u2.user_group as u2user_group , u2.user_coloruser as u2user_color , u3.user_id as u3user_id , u3.user_lock1 as u3user_lock , u3.user_nameuser as u3user_name , u3.user_group as u3user_group , u3.user_coloruser as u3user_color , n.notify_id , n.notify_forumid , n.notify_topicid , n.notify_userid , n.notify_reply , n.notify_userlock , n.notify_datelock , n.notify_replyid , n.notify_msgid , n.notify_type , n.notify_name , n.notify_text , n.notify_usersend , t.topic_id , t.topic_forumid , t.topic_name , n.notify_datesend , n.notify_delete , c.cat_id , c.cat_monitor1 , c.cat_monitor2 , f.forum_id , f.forum_name , f.forum_catid , f.forum_mode", "as n left join user" . prefix_connect . " as u1 on(u1.user_id = n.notify_usersend) left join user" . prefix_connect . " as u2 on(u2.user_id = n.notify_userid) left join user" . prefix_connect . " as u3 on(u3.user_id = n.notify_userlock) left join topic" . prefix_connect . " as t on(t.topic_id = n.notify_topicid) left join forum" . prefix_connect . " as f on(t.topic_forumid = f.forum_id) left join cat" . prefix_connect . " as c on(f.forum_catid = c.cat_id) where n.notify_id in(" . id . ") limit 1");
 
-}else{
+        if (num_mysql("arab-forums", $notify_sql) == false) {
 
-while($notifylist_object = object_mysql("arab-forums" , $notifylist_sql)){
+            $errorop = true;
+        } else {
 
-if($notifylist_object->notify_type == "topic"){$typeo = "شكوى على موضوع";$typep = "الخاصة بالموضوع رقم : {$notifylist_object->notify_topicid}";}elseif($notifylist_object->notify_type == "reply"){$typeo = "شكوى على رد";$typep = "الخاصة بالرد رقم : {$notifylist_object->notify_replyid}";}elseif($notifylist_object->notify_type == "msg"){$typeo = "شكوى على رسالة";$typep = "الخاصة بالرسالة رقم : {$notifylist_object->notify_msgid}";}
+            $notify_object = object_mysql("arab-forums", $notify_sql);
 
-echo "<tr align=\"center\">";
+            $moderatget1 = moderatget1_other("arab-forums", $notify_object->forum_id, $notify_object->cat_monitor1, $notify_object->cat_monitor2, $notify_object->forum_mode);
 
-echo "<td class=\"alttext1\">{$notifylist_object->notify_id}</td>";
+            $moderatget2 = moderatget2_other("arab-forums", $notify_object->cat_monitor1, $notify_object->cat_monitor2);
 
-echo "<td class=\"alttext2\" align=\"right\"><br><div class=\"pad\">".a_other("arab-forums" , "notify.php?go=showone&fort={$notifylist_object->notify_type}&id={$notifylist_object->notify_id}" , "الشكوى رقم : {$notifylist_object->notify_id} | {$typep}" , "الشكوى رقم : {$notifylist_object->notify_id} | {$typep}" , "")."<div class=\"desc\">{$notifylist_object->notify_name}</div></div><br></td>";
+            if ($moderatget1 == false) {
 
-echo "<td class=\"alttext1\"><nobr>{$typeo}</nobr></td>";
+                $errorop = true;
+            } else {
 
-echo "<td class=\"alttext2\"><nobr>".user_other("arab-forums" , array($notifylist_object->u1user_id , $notifylist_object->u1user_group , $notifylist_object->u1user_name , $notifylist_object->u1user_lock , $notifylist_object->u1user_color , false))."</nobr></td>";
+                $errorop = false;
 
-echo "<td class=\"alttext1\"><nobr>".times_date("arab-forums" , "" , $notifylist_object->notify_datesend)."</nobr></td>";
+                $title1 = "عرض الشكوى رقم : {$notify_object->notify_id} | الخاصة بالموضوع رقم : {$notify_object->topic_id}";
 
-echo "<td class=\"alttext2\"><nobr>".($notifylist_object->notify_delete == 0 ? "لم يتم الرد" : user_other("arab-forums" , array($notifylist_object->u2user_id , $notifylist_object->u2user_group , $notifylist_object->u2user_name , $notifylist_object->u2user_lock , $notifylist_object->u2user_color , false)))."</nobr></td>";
+                $title2 = "لقد قام : " . user_other("arab-forums", array($notify_object->u1user_id, $notify_object->u1user_group, $notify_object->u1user_name, $notify_object->u1user_lock, $notify_object->u1user_color, false)) . " بإرسال شكوى على : " . user_other("arab-forums", array($notify_object->u2user_id, $notify_object->u2user_group, $notify_object->u2user_name, $notify_object->u2user_lock, $notify_object->u2user_color, false)) . " بكتابة الموضوع :<br><br>{$notify_object->topic_name}<br><br>لمشاهدة الموضوع " . a_other("arab-forums", "topic.php?id={$notify_object->topic_id}", "إضغط هنا", "إضغط هنا", "") . "<br><br><div class=\"desc\">{$notify_object->notify_name}</div><br><hr><br>نص الشكوى :<br><br><hr><br>{$notify_object->notify_text}";
+            }
+        }
+    } elseif (fort == "reply") {
 
-echo "<td class=\"alttext1\"><nobr>".($notifylist_object->notify_delete == 0 ? "لم يتم الرد" : times_date("arab-forums" , "" , $notifylist_object->notify_datelock))."</nobr></td>";
+        $notify_sql = select_mysql("arab-forums", "notify", "u1.user_id as u1user_id , u1.user_lock1 as u1user_lock , u1.user_nameuser as u1user_name , u1.user_group as u1user_group , u1.user_coloruser as u1user_color , u2.user_id as u2user_id , u2.user_lock1 as u2user_lock , u2.user_nameuser as u2user_name , u2.user_group as u2user_group , u2.user_coloruser as u2user_color , u3.user_id as u3user_id , u3.user_lock1 as u3user_lock , u3.user_nameuser as u3user_name , u3.user_group as u3user_group , u3.user_coloruser as u3user_color , n.notify_id , n.notify_forumid , n.notify_topicid , n.notify_userid , n.notify_reply , n.notify_userlock , n.notify_datelock , n.notify_replyid , n.notify_msgid , n.notify_type , n.notify_name , n.notify_text , n.notify_usersend , r.reply_id , r.reply_topicid , t.topic_id , t.topic_forumid , t.topic_name , n.notify_datesend , n.notify_delete , c.cat_id , c.cat_monitor1 , c.cat_monitor2 , f.forum_id , f.forum_name , f.forum_catid , f.forum_mode", "as n left join user" . prefix_connect . " as u1 on(u1.user_id = n.notify_usersend) left join user" . prefix_connect . " as u2 on(u2.user_id = n.notify_userid) left join user" . prefix_connect . " as u3 on(u3.user_id = n.notify_userlock) left join reply" . prefix_connect . " as r on(r.reply_id = n.notify_replyid) left join topic" . prefix_connect . " as t on(t.topic_id = r.reply_topicid) left join forum" . prefix_connect . " as f on(t.topic_forumid = f.forum_id) left join cat" . prefix_connect . " as c on(f.forum_catid = c.cat_id) where n.notify_id in(" . id . ") limit 1");
 
-echo "</tr>";
+        if (num_mysql("arab-forums", $notify_sql) == false) {
 
-}}
+            $errorop = true;
+        } else {
 
-echo "</table>";
+            $notify_object = object_mysql("arab-forums", $notify_sql);
 
-echo footer_template("arab-forums");
+            $moderatget1 = moderatget1_other("arab-forums", $notify_object->forum_id, $notify_object->cat_monitor1, $notify_object->cat_monitor2, $notify_object->forum_mode);
 
-echo bodybottom_template("arab-forums");
+            $moderatget2 = moderatget2_other("arab-forums", $notify_object->cat_monitor1, $notify_object->cat_monitor2);
 
-}else{
+            if ($moderatget1 == false) {
 
-$arraymsg = array(
+                $errorop = true;
+            } else {
 
-"login" => true ,
+                $errorop = false;
 
-"msg" => "للأسف لا يمكنك الولوج إلى هذه الصفحة لأنك لا تملك التصريح المناسب" ,
+                $title1 = "عرض الشكوى رقم : {$notify_object->notify_id} | الخاصة الرد رقم : {$notify_object->reply_id}";
 
-"color" => "error" ,
+                $title2 = "لقد قام : " . user_other("arab-forums", array($notify_object->u1user_id, $notify_object->u1user_group, $notify_object->u1user_name, $notify_object->u1user_lock, $notify_object->u1user_color, false)) . " بإرسال شكوى على : " . user_other("arab-forums", array($notify_object->u2user_id, $notify_object->u2user_group, $notify_object->u2user_name, $notify_object->u2user_lock, $notify_object->u2user_color, false)) . " بالمشاركة في موضوع :<br><br>{$notify_object->topic_name}<br><br>لمشاهدة المشاركة " . a_other("arab-forums", "topic.php?id={$notify_object->topic_id}&type=reply&value={$notify_object->reply_id}", "إضغط هنا", "إضغط هنا", "") . "<br><br><div class=\"desc\">{$notify_object->notify_name}</div><br><hr><br>نص الشكوى :<br><br><hr><br>{$notify_object->notify_text}";
+            }
+        }
+    } else {
 
-"old" => true ,
+        $errorop = true;
+    }
 
-"auto" => false ,
+    if ($errorop == false) {
 
-"text" => "" ,
+        if (type == "insert") {
 
-"url" => "" ,
+            $notifytext = text_other("arab-forums", post_other("arab-forums", "notifytext"), false, true, false, false, true);
 
-"array" => "" ,
+            if ($notifytext == "") {
 
-);
+                $msgerror = "الرجاء ملأ جميع الحقول ليتم الرد على الشكوى";
+            } elseif ($notify_object->notify_delete == 1) {
 
-echo msg_template("arab-forums" , $arraymsg);
+                $msgerror = "لا يمكنك الرد على شكوى تم الرد عليها من قبل";
+            } else {
 
-}}elseif(go == "showone"){
+                $msgerror = "";
+            }
 
-if(fort == "topic"){
+            if ($msgerror != "") {
 
-$notify_sql = select_mysql("arab-forums" , "notify" , "u1.user_id as u1user_id , u1.user_lock1 as u1user_lock , u1.user_nameuser as u1user_name , u1.user_group as u1user_group , u1.user_coloruser as u1user_color , u2.user_id as u2user_id , u2.user_lock1 as u2user_lock , u2.user_nameuser as u2user_name , u2.user_group as u2user_group , u2.user_coloruser as u2user_color , u3.user_id as u3user_id , u3.user_lock1 as u3user_lock , u3.user_nameuser as u3user_name , u3.user_group as u3user_group , u3.user_coloruser as u3user_color , n.notify_id , n.notify_forumid , n.notify_topicid , n.notify_userid , n.notify_reply , n.notify_userlock , n.notify_datelock , n.notify_replyid , n.notify_msgid , n.notify_type , n.notify_name , n.notify_text , n.notify_usersend , t.topic_id , t.topic_forumid , t.topic_name , n.notify_datesend , n.notify_delete , c.cat_id , c.cat_monitor1 , c.cat_monitor2 , f.forum_id , f.forum_name , f.forum_catid , f.forum_mode" , "as n left join user".prefix_connect." as u1 on(u1.user_id = n.notify_usersend) left join user".prefix_connect." as u2 on(u2.user_id = n.notify_userid) left join user".prefix_connect." as u3 on(u3.user_id = n.notify_userlock) left join topic".prefix_connect." as t on(t.topic_id = n.notify_topicid) left join forum".prefix_connect." as f on(t.topic_forumid = f.forum_id) left join cat".prefix_connect." as c on(f.forum_catid = c.cat_id) where n.notify_id in(".id.") limit 1");
+                $arraymsg = array(
 
-if(num_mysql("arab-forums" , $notify_sql) == false){
+                    "login" => true,
 
-$errorop = true;
+                    "msg" => $msgerror,
 
-}else{
+                    "color" => "error",
 
-$notify_object = object_mysql("arab-forums" , $notify_sql);
+                    "old" => true,
 
-$moderatget1 = moderatget1_other("arab-forums" , $notify_object->forum_id , $notify_object->cat_monitor1 , $notify_object->cat_monitor2 , $notify_object->forum_mode);
+                    "auto" => false,
 
-$moderatget2 = moderatget2_other("arab-forums" , $notify_object->cat_monitor1 , $notify_object->cat_monitor2);
+                    "text" => "",
 
-if($moderatget1 == false){
+                    "url" => "",
 
-$errorop = true;
+                    "array" => "",
 
-}else{
+                );
 
-$errorop = false;
+                echo msg_template("arab-forums", $arraymsg);
+            } else {
 
-$title1 = "عرض الشكوى رقم : {$notify_object->notify_id} | الخاصة بالموضوع رقم : {$notify_object->topic_id}";
+                $notifytextsenf = br_other("arab-forums", $notifytext);
 
-$title2 = "لقد قام : ".user_other("arab-forums" , array($notify_object->u1user_id , $notify_object->u1user_group , $notify_object->u1user_name , $notify_object->u1user_lock , $notify_object->u1user_color , false))." بإرسال شكوى على : ".user_other("arab-forums" , array($notify_object->u2user_id , $notify_object->u2user_group , $notify_object->u2user_name , $notify_object->u2user_lock , $notify_object->u2user_color , false))." بكتابة الموضوع :<br><br>{$notify_object->topic_name}<br><br>لمشاهدة الموضوع ".a_other("arab-forums" , "topic.php?id={$notify_object->topic_id}" , "إضغط هنا" , "إضغط هنا" , "")."<br><br><div class=\"desc\">{$notify_object->notify_name}</div><br><hr><br>نص الشكوى :<br><br><hr><br>{$notify_object->notify_text}";
+                update_mysql("arab-forums", "notify", "notify_delete = \"1\" , notify_reply = \"{$notifytextsenf}\" , notify_datelock = \"" . time() . "\" , notify_userlock = \"" . id_user . "\" where notify_id in({$notify_object->notify_id}) limit 1");
 
-}}}elseif(fort == "reply"){
+                $textopp = "رد على ملاحظتك لإشراف {$notify_object->forum_name}";
 
-$notify_sql = select_mysql("arab-forums" , "notify" , "u1.user_id as u1user_id , u1.user_lock1 as u1user_lock , u1.user_nameuser as u1user_name , u1.user_group as u1user_group , u1.user_coloruser as u1user_color , u2.user_id as u2user_id , u2.user_lock1 as u2user_lock , u2.user_nameuser as u2user_name , u2.user_group as u2user_group , u2.user_coloruser as u2user_color , u3.user_id as u3user_id , u3.user_lock1 as u3user_lock , u3.user_nameuser as u3user_name , u3.user_group as u3user_group , u3.user_coloruser as u3user_color , n.notify_id , n.notify_forumid , n.notify_topicid , n.notify_userid , n.notify_reply , n.notify_userlock , n.notify_datelock , n.notify_replyid , n.notify_msgid , n.notify_type , n.notify_name , n.notify_text , n.notify_usersend , r.reply_id , r.reply_topicid , t.topic_id , t.topic_forumid , t.topic_name , n.notify_datesend , n.notify_delete , c.cat_id , c.cat_monitor1 , c.cat_monitor2 , f.forum_id , f.forum_name , f.forum_catid , f.forum_mode" , "as n left join user".prefix_connect." as u1 on(u1.user_id = n.notify_usersend) left join user".prefix_connect." as u2 on(u2.user_id = n.notify_userid) left join user".prefix_connect." as u3 on(u3.user_id = n.notify_userlock) left join reply".prefix_connect." as r on(r.reply_id = n.notify_replyid) left join topic".prefix_connect." as t on(t.topic_id = r.reply_topicid) left join forum".prefix_connect." as f on(t.topic_forumid = f.forum_id) left join cat".prefix_connect." as c on(f.forum_catid = c.cat_id) where n.notify_id in(".id.") limit 1");
+                $editor = text_other("arab-forums", "<br><br>السلام عليكم و رحمة الله و براكته<br><br>بخصوص ملاحظتك التالية الى إشراف : {$notify_object->forum_name}<br><br><hr><br>{$notify_object->notify_name}<br><br><hr><br>لقد تم متابعة الملاحظة بواسطة فريق الإشراف و التالي نص الرد عليك :<br><br><hr><br>{$notifytextsenf}<br><br><br>", false, true, false, false, true);
 
-if(num_mysql("arab-forums" , $notify_sql) == false){
+                insert_mysql("arab-forums", "message", "message_id , message_getid , message_getmy , message_getto , message_getto2 , message_folder , message_type , message_reade , message_date , message_name , message_message", "null , \"{$notify_object->u1user_id}\", \"{$notify_object->u1user_id}\" , \"-{$notify_object->forum_id}\" , \"" . id_user . "\" , \"-1\" , \"1\" , \"0\" , \"" . time() . "\" , \"{$textopp}\" , \"{$editor}\"");
 
-$errorop = true;
+                $arraymsg = array(
 
-}else{
+                    "login" => true,
 
-$notify_object = object_mysql("arab-forums" , $notify_sql);
+                    "msg" => "تم الرد على الشكوى و إغلاقها بنجآح تام",
 
-$moderatget1 = moderatget1_other("arab-forums" , $notify_object->forum_id , $notify_object->cat_monitor1 , $notify_object->cat_monitor2 , $notify_object->forum_mode);
+                    "color" => "good",
 
-$moderatget2 = moderatget2_other("arab-forums" , $notify_object->cat_monitor1 , $notify_object->cat_monitor2);
+                    "old" => true,
 
-if($moderatget1 == false){
+                    "auto" => false,
 
-$errorop = true;
+                    "text" => "",
 
-}else{
+                    "url" => "",
 
-$errorop = false;
+                    "array" => "",
 
-$title1 = "عرض الشكوى رقم : {$notify_object->notify_id} | الخاصة الرد رقم : {$notify_object->reply_id}";
+                );
 
-$title2 = "لقد قام : ".user_other("arab-forums" , array($notify_object->u1user_id , $notify_object->u1user_group , $notify_object->u1user_name , $notify_object->u1user_lock , $notify_object->u1user_color , false))." بإرسال شكوى على : ".user_other("arab-forums" , array($notify_object->u2user_id , $notify_object->u2user_group , $notify_object->u2user_name , $notify_object->u2user_lock , $notify_object->u2user_color , false))." بالمشاركة في موضوع :<br><br>{$notify_object->topic_name}<br><br>لمشاهدة المشاركة ".a_other("arab-forums" , "topic.php?id={$notify_object->topic_id}&type=reply&value={$notify_object->reply_id}" , "إضغط هنا" , "إضغط هنا" , "")."<br><br><div class=\"desc\">{$notify_object->notify_name}</div><br><hr><br>نص الشكوى :<br><br><hr><br>{$notify_object->notify_text}";
+                echo msg_template("arab-forums", $arraymsg);
+            }
+        } else {
 
-}}
+            echo bodytop_template("arab-forums", "عرض شكوى");
 
-}else{
+            $arrayheader = array(
 
-$errorop = true;
+                "login" => true,
 
-}
+            );
 
-if($errorop == false){
+            echo header_template("arab-forums", $arrayheader);
 
-if(type == "insert"){
+            if ($notify_object->notify_delete == 0) {
 
-$notifytext = text_other("arab-forums" , post_other("arab-forums" , "notifytext") , false , true , false , false , true);
+                echo "<form action=\"notify.php?go=showone&fort=" . fort . "&id={$notify_object->notify_id}&type=insert\" method=\"post\">";
+            }
 
-if($notifytext == ""){
+            echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"50%\" align=\"center\">";
 
-$msgerror = "الرجاء ملأ جميع الحقول ليتم الرد على الشكوى";
+            echo "<tr align=\"center\"><td class=\"tcat\"><div class=\"pad\">{$title1}</div></td></tr>";
 
-}elseif($notify_object->notify_delete == 1){
+            echo "<tr align=\"center\"><td class=\"alttext2\"><br><div class=\"pad\">{$title2}</div><br></td></tr>";
 
-$msgerror = "لا يمكنك الرد على شكوى تم الرد عليها من قبل";
+            if ($notify_object->notify_delete == 0) {
 
-}else{
+                echo "<tr align=\"center\">";
 
-$msgerror = "";
+                echo "<td class=\"alttext1\"><br><div class=\"pad\">ملاحظة : أنت الذي تقرأ الشكوى إن لم تستطع فهم ماتحتويه أو لا يعنيك الأمر الرجاء منك ترك الشكوى للرتبة الأعلى منك ليتم التصرف</div><br></td>";
 
-}
+                echo "</tr>";
 
-if($msgerror != ""){
+                echo "<tr align=\"center\"><td class=\"tcat\"><div class=\"pad\">الرد على الشكوى</div></td></tr>";
 
-$arraymsg = array(
+                echo "<tr align=\"center\">";
 
-"login" => true ,
+                echo "<td class=\"alttext1\" align=\"center\"><br><textarea name=\"notifytext\" class=\"textarea\" cols=\"60\" rows=\"12\"></textarea><br><br></td>";
 
-"msg" => $msgerror ,
+                echo "</tr>";
 
-"color" => "error" ,
+                echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"5\"><div class=\"pad\"><br><center><input type=\"submit\" class=\"button\" value=\"إرسال الرد و إغلاق الشكوى\"  " . confirm_other("arab-forums", "هل أنت متأكد من أنك تريد الرد على الشكوى و إغلاقها ؟") . "> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقول\"></center><br></div></td></tr>";
+            } else {
 
-"old" => true ,
+                echo "<tr align=\"center\">";
 
-"auto" => false ,
+                echo "<td class=\"alttext1\"><br><div class=\"pad\">هذه الشكوى تم الرد عليها و تم غلقها بواسطة : <br><br>" . user_other("arab-forums", array($notify_object->u3user_id, $notify_object->u3user_group, $notify_object->u3user_name, $notify_object->u3user_lock, $notify_object->u3user_color, false)) . " | بتاريخ : " . times_date("arab-forums", "", $notify_object->notify_datelock) . "</div><br></td>";
 
-"text" => "" ,
+                echo "</tr>";
 
-"url" => "" ,
+                echo "<tr align=\"center\"><td class=\"tcat\"><div class=\"pad\">نص الرد على الشكوى</div></td></tr>";
 
-"array" => "" ,
+                echo "<tr align=\"center\">";
 
-);
+                echo "<td class=\"alttext1\"><br><div class=\"pad\">{$notify_object->notify_reply}</div><br></td>";
 
-echo msg_template("arab-forums" , $arraymsg);
+                echo "</tr>";
+            }
 
-}else{
+            echo "</table>";
 
-$notifytextsenf = br_other("arab-forums" , $notifytext);
+            if ($notify_object->notify_delete == 0) {
 
-update_mysql("arab-forums" , "notify" , "notify_delete = \"1\" , notify_reply = \"{$notifytextsenf}\" , notify_datelock = \"".time()."\" , notify_userlock = \"".id_user."\" where notify_id in({$notify_object->notify_id}) limit 1");
+                echo "</form>";
+            }
 
-$textopp = "رد على ملاحظتك لإشراف {$notify_object->forum_name}";
+            echo footer_template("arab-forums");
 
-$editor = text_other("arab-forums" , "<br><br>السلام عليكم و رحمة الله و براكته<br><br>بخصوص ملاحظتك التالية الى إشراف : {$notify_object->forum_name}<br><br><hr><br>{$notify_object->notify_name}<br><br><hr><br>لقد تم متابعة الملاحظة بواسطة فريق الإشراف و التالي نص الرد عليك :<br><br><hr><br>{$notifytextsenf}<br><br><br>" , false , true , false , false , true);
+            echo bodybottom_template("arab-forums");
+        }
+    } else {
 
-insert_mysql("arab-forums" , "message" , "message_id , message_getid , message_getmy , message_getto , message_getto2 , message_folder , message_type , message_reade , message_date , message_name , message_message" , "null , \"{$notify_object->u1user_id}\", \"{$notify_object->u1user_id}\" , \"-{$notify_object->forum_id}\" , \"".id_user."\" , \"-1\" , \"1\" , \"0\" , \"".time()."\" , \"{$textopp}\" , \"{$editor}\"");
+        $arraymsg = array(
 
-$arraymsg = array(
+            "login" => true,
 
-"login" => true ,
+            "msg" => "للأسف لا يمكنك الولوج إلى هذه الصفحة لأنك لا تملك التصريح المناسب",
 
-"msg" => "تم الرد على الشكوى و إغلاقها بنجآح تام" ,
+            "color" => "error",
 
-"color" => "good" ,
+            "old" => true,
 
-"old" => true ,
+            "auto" => false,
 
-"auto" => false ,
+            "text" => "",
 
-"text" => "" ,
+            "url" => "",
 
-"url" => "" ,
+            "array" => "",
 
-"array" => "" ,
+        );
 
-);
+        echo msg_template("arab-forums", $arraymsg);
+    }
+} else {
 
-echo msg_template("arab-forums" , $arraymsg);
+    $arraymsg = array(
 
-}}else{
+        "login" => true,
 
-echo bodytop_template("arab-forums" , "عرض شكوى");
+        "msg" => "للأسف لا يمكنك الولوج إلى هذه الصفحة لأنك لا تملك التصريح المناسب",
 
-$arrayheader = array(
+        "color" => "error",
 
-"login" => true ,
+        "old" => true,
 
-);
+        "auto" => false,
 
-echo header_template("arab-forums" , $arrayheader);
+        "text" => "",
 
-if($notify_object->notify_delete == 0){
+        "url" => "",
 
-echo "<form action=\"notify.php?go=showone&fort=".fort."&id={$notify_object->notify_id}&type=insert\" method=\"post\">";
+        "array" => "",
 
-}
+    );
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" width=\"50%\" align=\"center\">";
-
-echo "<tr align=\"center\"><td class=\"tcat\"><div class=\"pad\">{$title1}</div></td></tr>";
-
-echo "<tr align=\"center\"><td class=\"alttext2\"><br><div class=\"pad\">{$title2}</div><br></td></tr>";
-
-if($notify_object->notify_delete == 0){
-
-echo "<tr align=\"center\">";
-
-echo "<td class=\"alttext1\"><br><div class=\"pad\">ملاحظة : أنت الذي تقرأ الشكوى إن لم تستطع فهم ماتحتويه أو لا يعنيك الأمر الرجاء منك ترك الشكوى للرتبة الأعلى منك ليتم التصرف</div><br></td>";
-
-echo "</tr>";
-
-echo "<tr align=\"center\"><td class=\"tcat\"><div class=\"pad\">الرد على الشكوى</div></td></tr>";
-
-echo "<tr align=\"center\">";
-
-echo "<td class=\"alttext1\" align=\"center\"><br><textarea name=\"notifytext\" class=\"textarea\" cols=\"60\" rows=\"12\"></textarea><br><br></td>";
-
-echo "</tr>";
-
-echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"5\"><div class=\"pad\"><br><center><input type=\"submit\" class=\"button\" value=\"إرسال الرد و إغلاق الشكوى\"  ".confirm_other("arab-forums" , "هل أنت متأكد من أنك تريد الرد على الشكوى و إغلاقها ؟")."> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقول\"></center><br></div></td></tr>";
-
-}else{
-
-echo "<tr align=\"center\">";
-
-echo "<td class=\"alttext1\"><br><div class=\"pad\">هذه الشكوى تم الرد عليها و تم غلقها بواسطة : <br><br>".user_other("arab-forums" , array($notify_object->u3user_id , $notify_object->u3user_group , $notify_object->u3user_name , $notify_object->u3user_lock , $notify_object->u3user_color , false))." | بتاريخ : ".times_date("arab-forums" , "" , $notify_object->notify_datelock)."</div><br></td>";
-
-echo "</tr>";
-
-echo "<tr align=\"center\"><td class=\"tcat\"><div class=\"pad\">نص الرد على الشكوى</div></td></tr>";
-
-echo "<tr align=\"center\">";
-
-echo "<td class=\"alttext1\"><br><div class=\"pad\">{$notify_object->notify_reply}</div><br></td>";
-
-echo "</tr>";
-
-}
-
-echo "</table>";
-
-if($notify_object->notify_delete == 0){
-
-echo "</form>";
-
-}
-
-echo footer_template("arab-forums");
-
-echo bodybottom_template("arab-forums");
-
-}}else{
-
-$arraymsg = array(
-
-"login" => true ,
-
-"msg" => "للأسف لا يمكنك الولوج إلى هذه الصفحة لأنك لا تملك التصريح المناسب" ,
-
-"color" => "error" ,
-
-"old" => true ,
-
-"auto" => false ,
-
-"text" => "" ,
-
-"url" => "" ,
-
-"array" => "" ,
-
-);
-
-echo msg_template("arab-forums" , $arraymsg);
-
-}}else{
-
-$arraymsg = array(
-
-"login" => true ,
-
-"msg" => "للأسف لا يمكنك الولوج إلى هذه الصفحة لأنك لا تملك التصريح المناسب" ,
-
-"color" => "error" ,
-
-"old" => true ,
-
-"auto" => false ,
-
-"text" => "" ,
-
-"url" => "" ,
-
-"array" => "" ,
-
-);
-
-echo msg_template("arab-forums" , $arraymsg);
-
+    echo msg_template("arab-forums", $arraymsg);
 }
 
 disconnect_mysql("arab-forums");
@@ -758,4 +734,3 @@ disconnect_mysql("arab-forums");
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

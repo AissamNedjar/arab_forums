@@ -11,404 +11,360 @@
 
 |*#####################################################################*/
 
-define("error_page_arab_forums" , true);
+define("error_page_arab_forums", true);
 
 @include("includes.php");
 
-define("pageupdate" , true);
+define("pageupdate", true);
 
 @include("includes/e.noopen.php");
 
-define("pagebody" , "admin");
+define("pagebody", "admin");
 
-online_other("arab-forums" , "admin" , "0" , "0" , "0" , "0");
+online_other("arab-forums", "admin", "0", "0", "0", "0");
 
-if(group_user == 6){
+if (group_user == 6) {
 
-$gert = array(
+    $gert = array(
 
-"option" => "إعدادات المنتدى" ,
+        "option" => "إعدادات المنتدى",
 
-"catforum" => "إعدادات الفئات و المنتديات" ,
+        "catforum" => "إعدادات الفئات و المنتديات",
 
-"ads" => "إعدادات الإعلانات" ,
+        "ads" => "إعدادات الإعلانات",
 
-"style" => "إعدادات الستايلات" ,
+        "style" => "إعدادات الستايلات",
 
-"iconsheader" => "إعدادات أيقونات الهيدر" ,
+        "iconsheader" => "إعدادات أيقونات الهيدر",
 
-"usergroup" => "إعدادات الأعضاء و المجموعات" ,
+        "usergroup" => "إعدادات الأعضاء و المجموعات",
 
-"registerband" => "إعدادات الأسماء الممنوعة في التسجيل" ,
+        "registerband" => "إعدادات الأسماء الممنوعة في التسجيل",
 
-"wait" => "إعدادات الموافقة و الرفض" ,
+        "wait" => "إعدادات الموافقة و الرفض",
 
-"topic" => "إعدادات المواضيع" ,
+        "topic" => "إعدادات المواضيع",
 
-);
+    );
 
-$service["option"] = array(
+    $service["option"] = array(
 
-"option_option" => "الإعدادات الأساسية" ,
+        "option_option" => "الإعدادات الأساسية",
 
-"option_other" => "الإعدادات الأخرى" ,
+        "option_other" => "الإعدادات الأخرى",
 
-"option_num" => "إعدادات الأرقام" ,
+        "option_num" => "إعدادات الأرقام",
 
-"option_close" => "إعدادات الإغلاق" ,
+        "option_close" => "إعدادات الإغلاق",
 
-"option_sosial" => "إعدادات المواقع الإجتماعية" ,
+        "option_sosial" => "إعدادات المواقع الإجتماعية",
 
-);
+    );
 
-$service["catforum"] = array(
+    $service["catforum"] = array(
 
-"catforum_list" => "عرض و ترتيب الفئات و المنتديات" ,
+        "catforum_list" => "عرض و ترتيب الفئات و المنتديات",
 
-"catforum_addcat" => "إضافة فئة جديدة" ,
+        "catforum_addcat" => "إضافة فئة جديدة",
 
-"catforum_addforum" => "إضافة منتدى جديد" ,
+        "catforum_addforum" => "إضافة منتدى جديد",
 
-"catforum_optioncat" => "إعدادات فئة" ,
+        "catforum_optioncat" => "إعدادات فئة",
 
-"catforum_optionforum" => "إعدادات منتدى" ,
+        "catforum_optionforum" => "إعدادات منتدى",
 
-);
+    );
 
-$service["ads"] = array(
+    $service["ads"] = array(
 
-"ads_list" => "عرض و ترتيب الإعلانات" ,
+        "ads_list" => "عرض و ترتيب الإعلانات",
 
-"ads_add" => "إضافة إعلان جديد" ,
+        "ads_add" => "إضافة إعلان جديد",
 
-"ads_option" => "إعدادات إعلان" ,
+        "ads_option" => "إعدادات إعلان",
 
-"ads_google" => "إعدادات إعلانات قوقل" ,
+        "ads_google" => "إعدادات إعلانات قوقل",
 
-);
+    );
 
-$service["style"] = array(
+    $service["style"] = array(
 
-"style_list" => "عرض و ترتيب الستايلات" ,
+        "style_list" => "عرض و ترتيب الستايلات",
 
-"style_add" => "إضافة ستايل جديد" ,
+        "style_add" => "إضافة ستايل جديد",
 
-"style_option" => "إعدادات ستايل" ,
+        "style_option" => "إعدادات ستايل",
 
-);
+    );
 
-$service["iconsheader"] = array(
+    $service["iconsheader"] = array(
 
-"iconsheader_list" => "عرض و ترتيب أيقونات الهيدر" ,
+        "iconsheader_list" => "عرض و ترتيب أيقونات الهيدر",
 
-"iconsheader_add" => "إضافة أيقونة جديدة" ,
+        "iconsheader_add" => "إضافة أيقونة جديدة",
 
-"iconsheader_option" => "إعدادات أيقونة" ,
+        "iconsheader_option" => "إعدادات أيقونة",
 
-);
+    );
 
-$service["usergroup"] = array(
+    $service["usergroup"] = array(
 
-"usergroup_coloru" => "ألوان المجموعات" ,
+        "usergroup_coloru" => "ألوان المجموعات",
 
-"usergroup_colorn" => "ألوان نجوم المجموعات" ,
+        "usergroup_colorn" => "ألوان نجوم المجموعات",
 
-"usergroup_title" => "الأوصاف الإفتراضية" ,
+        "usergroup_title" => "الأوصاف الإفتراضية",
 
-"usergroup_permis" => "تصاريح المجموعات" ,
+        "usergroup_permis" => "تصاريح المجموعات",
 
-);
+    );
 
-$service["registerband"] = array(
+    $service["registerband"] = array(
 
-"registerband_list" => "عرض الأسماء الممنوعة في التسجيل" ,
+        "registerband_list" => "عرض الأسماء الممنوعة في التسجيل",
 
-"registerband_add" => "إضافة أسماء جديدة" ,
+        "registerband_add" => "إضافة أسماء جديدة",
 
-);
+    );
 
-$service["wait"] = array(
+    $service["wait"] = array(
 
-"wait_user" => "عضويات تنتظر الموافقة" ,
+        "wait_user" => "عضويات تنتظر الموافقة",
 
-"wait_bad" => "عضويات تم رفضها" ,
+        "wait_bad" => "عضويات تم رفضها",
 
-"wait_name" => "أسماء تنتظر الموافقة" ,
+        "wait_name" => "أسماء تنتظر الموافقة",
 
-);
+    );
 
-$service["topic"] = array(
+    $service["topic"] = array(
 
-"topic_topicall" => "إدخال موضوع جماعي" ,
+        "topic_topicall" => "إدخال موضوع جماعي",
 
-);
+    );
 
-if(gert == "option"){
+    if (gert == "option") {
 
-$true1 = true;
+        $true1 = true;
+    } elseif (gert == "catforum") {
 
-}elseif(gert == "catforum"){
+        $true1 = true;
+    } elseif (gert == "ads") {
 
-$true1 = true;
+        $true1 = true;
+    } elseif (gert == "style") {
 
-}elseif(gert == "ads"){
+        $true1 = true;
+    } elseif (gert == "iconsheader") {
 
-$true1 = true;
+        $true1 = true;
+    } elseif (gert == "usergroup") {
 
-}elseif(gert == "style"){
+        $true1 = true;
+    } elseif (gert == "registerband") {
 
-$true1 = true;
+        $true1 = true;
+    } elseif (gert == "wait") {
 
-}elseif(gert == "iconsheader"){
+        $true1 = true;
+    } elseif (gert == "topic") {
 
-$true1 = true;
+        $true1 = true;
+    } else {
 
-}elseif(gert == "usergroup"){
+        $true1 = false;
+    }
 
-$true1 = true;
+    if (go == "option_option") {
 
-}elseif(gert == "registerband"){
+        $true2 = true;
+    } elseif (go == "option_other") {
 
-$true1 = true;
+        $true2 = true;
+    } elseif (go == "option_num") {
 
-}elseif(gert == "wait"){
+        $true2 = true;
+    } elseif (go == "option_close") {
 
-$true1 = true;
+        $true2 = true;
+    } elseif (go == "option_sosial") {
 
-}elseif(gert == "topic"){
+        $true2 = true;
+    } elseif (go == "catforum_list") {
 
-$true1 = true;
+        $true2 = true;
+    } elseif (go == "catforum_addcat") {
 
-}else{
+        $true2 = true;
+    } elseif (go == "catforum_addforum") {
 
-$true1 = false;
+        $true2 = true;
+    } elseif (go == "catforum_optioncat") {
 
-}
+        $true2 = true;
+    } elseif (go == "catforum_optionforum") {
 
-if(go == "option_option"){
+        $true2 = true;
+    } elseif (go == "ads_list") {
 
-$true2 = true;
+        $true2 = true;
+    } elseif (go == "ads_add") {
 
-}elseif(go == "option_other"){
+        $true2 = true;
+    } elseif (go == "ads_option") {
 
-$true2 = true;
+        $true2 = true;
+    } elseif (go == "ads_google") {
 
-}elseif(go == "option_num"){
+        $true2 = true;
+    } elseif (go == "style_list") {
 
-$true2 = true;
+        $true2 = true;
+    } elseif (go == "style_add") {
 
-}elseif(go == "option_close"){
+        $true2 = true;
+    } elseif (go == "style_option") {
 
-$true2 = true;
+        $true2 = true;
+    } elseif (go == "iconsheader_list") {
 
-}elseif(go == "option_sosial"){
+        $true2 = true;
+    } elseif (go == "iconsheader_add") {
 
-$true2 = true;
+        $true2 = true;
+    } elseif (go == "iconsheader_option") {
 
-}elseif(go == "catforum_list"){
+        $true2 = true;
+    } elseif (go == "usergroup_coloru") {
 
-$true2 = true;
+        $true2 = true;
+    } elseif (go == "usergroup_colorn") {
 
-}elseif(go == "catforum_addcat"){
+        $true2 = true;
+    } elseif (go == "usergroup_permis") {
 
-$true2 = true;
+        $true2 = true;
+    } elseif (go == "usergroup_title") {
 
-}elseif(go == "catforum_addforum"){
+        $true2 = true;
+    } elseif (go == "registerband_list") {
 
-$true2 = true;
+        $true2 = true;
+    } elseif (go == "registerband_add") {
 
-}elseif(go == "catforum_optioncat"){
+        $true2 = true;
+    } elseif (go == "wait_user") {
 
-$true2 = true;
+        $true2 = true;
+    } elseif (go == "wait_bad") {
 
-}elseif(go == "catforum_optionforum"){
+        $true2 = true;
+    } elseif (go == "wait_name") {
 
-$true2 = true;
+        $true2 = true;
+    } elseif (go == "topic_topicall") {
 
-}elseif(go == "ads_list"){
+        $true2 = true;
+    } else {
 
-$true2 = true;
+        $true2 = false;
+    }
 
-}elseif(go == "ads_add"){
+    echo bodytop_template("arab-forums", "الإدارة العامة");
 
-$true2 = true;
+    $arrayheader = array(
 
-}elseif(go == "ads_option"){
+        "login" => true,
 
-$true2 = true;
+    );
 
-}elseif(go == "ads_google"){
+    echo header_template("arab-forums", $arrayheader);
 
-$true2 = true;
+    echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" width=\"99%\" align=\"center\">";
 
-}elseif(go == "style_list"){
+    echo "<tr><td class=\"tcatadmin\" colspan=\"2\" align=\"center\">أهلا و سهلا بك يا " . name_user . " في الإدارة العامة</td></tr>";
 
-$true2 = true;
+    echo "<tr>";
 
-}elseif(go == "style_add"){
+    echo "<td class=\"alttext1\" align=\"center\" width=\"25%\" valign=\"top\"><br>";
 
-$true2 = true;
+    echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" align=\"center\" width=\"98%\">";
 
-}elseif(go == "style_option"){
+    echo "<tr><td class=\"tcotadmin\">الإدارة العامة</td></tr>";
 
-$true2 = true;
+    echo "<tr><td class=\"tcatborder\"><div class=\"pad\">" . a_other("arab-forums", "admin.php", "الصفحة الرئيسية", "الصفحة الرئيسية", "") . "</div></td></tr>";
 
-}elseif(go == "iconsheader_list"){
+    foreach ($gert as $fort => $text) {
 
-$true2 = true;
+        echo "<tr><td class=\"tcotadmin\">{$text}</td></tr>";
 
-}elseif(go == "iconsheader_add"){
+        foreach ($service[$fort] as $url => $name) {
 
-$true2 = true;
+            if ($url != "catforum_optionforum" && $url != "catforum_optioncat" && $url != "ads_option" && $url != "iconsheader_option" && $url != "style_option") {
 
-}elseif(go == "iconsheader_option"){
+                echo "<tr><td class=\"tcatborder\"><div class=\"pad\">" . a_other("arab-forums", "admin.php?gert={$fort}&go={$url}", $name, $name, "") . "</div></td></tr>";
+            }
+        }
+    }
 
-$true2 = true;
+    echo "</table>";
 
-}elseif(go == "usergroup_coloru"){
+    echo "<br></td>";
 
-$true2 = true;
+    echo "<td class=\"alttext1\" align=\"center\" width=\"75%\" valign=\"top\"><br>";
 
-}elseif(go == "usergroup_colorn"){
+    echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" align=\"center\" width=\"99%\">";
 
-$true2 = true;
+    if ($true1 == true && $true2 == true) {
 
-}elseif(go == "usergroup_permis"){
+        echo "<tr><td class=\"tcotadmin\" align=\"center\">{$gert[gert]} => {$service[gert][go]}</td></tr>";
 
-$true2 = true;
+        echo "<tr align=\"center\"><td class=\"alttext2\"><div class=\"pad\">";
 
-}elseif(go == "usergroup_title"){
+        @include("admin/" . go . ".php");
+    } else {
 
-$true2 = true;
+        echo "<tr><td class=\"tcotadmin\" align=\"center\">الإدارة العامة => الصفحة الرئيسية</td></tr>";
 
-}elseif(go == "registerband_list"){
+        echo "<tr><td class=\"alttext2\"><div class=\"pad\">";
 
-$true2 = true;
+        @include("admin/home.php");
+    }
 
-}elseif(go == "registerband_add"){
+    echo "</div></td></tr>";
 
-$true2 = true;
+    echo "</table>";
 
-}elseif(go == "wait_user"){
+    echo "<br></td>";
 
-$true2 = true;
+    echo "</tr></table>";
 
-}elseif(go == "wait_bad"){
+    echo footer_template("arab-forums");
 
-$true2 = true;
+    echo bodybottom_template("arab-forums");
+} else {
 
-}elseif(go == "wait_name"){
+    $arraymsg = array(
 
-$true2 = true;
+        "login" => true,
 
-}elseif(go == "topic_topicall"){
+        "msg" => "للأسف لا يمكنك الولوج إلى هذه الصفحة لأنك لا تملك التصريح المناسب",
 
-$true2 = true;
+        "color" => "error",
 
-}else{
+        "old" => true,
 
-$true2 = false;
+        "auto" => false,
 
-}
+        "text" => "",
 
-echo bodytop_template("arab-forums" , "الإدارة العامة");
+        "url" => "",
 
-$arrayheader = array(
+        "array" => "",
 
-"login" => true ,
+    );
 
-);
-
-echo header_template("arab-forums" , $arrayheader);
-
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" width=\"99%\" align=\"center\">";
-
-echo "<tr><td class=\"tcatadmin\" colspan=\"2\" align=\"center\">أهلا و سهلا بك يا ".name_user." في الإدارة العامة</td></tr>";
-
-echo "<tr>";
-
-echo "<td class=\"alttext1\" align=\"center\" width=\"25%\" valign=\"top\"><br>";
-
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" align=\"center\" width=\"98%\">";
-
-echo "<tr><td class=\"tcotadmin\">الإدارة العامة</td></tr>";
-
-echo "<tr><td class=\"tcatborder\"><div class=\"pad\">".a_other("arab-forums" , "admin.php" , "الصفحة الرئيسية" , "الصفحة الرئيسية" , "")."</div></td></tr>";
-
-foreach($gert as $fort=>$text){
-
-echo "<tr><td class=\"tcotadmin\">{$text}</td></tr>";
-
-foreach($service[$fort] as $url=>$name){
-
-if($url != "catforum_optionforum" && $url != "catforum_optioncat" && $url != "ads_option" && $url != "iconsheader_option" && $url != "style_option"){
-
-echo "<tr><td class=\"tcatborder\"><div class=\"pad\">".a_other("arab-forums" , "admin.php?gert={$fort}&go={$url}" , $name , $name , "")."</div></td></tr>";
-
-}}}
-
-echo "</table>";
-
-echo "<br></td>";
-
-echo "<td class=\"alttext1\" align=\"center\" width=\"75%\" valign=\"top\"><br>";
-
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" align=\"center\" width=\"99%\">";
-
-if($true1 == true && $true2 == true){
-
-echo "<tr><td class=\"tcotadmin\" align=\"center\">{$gert[gert]} => {$service[gert][go]}</td></tr>";
-
-echo "<tr align=\"center\"><td class=\"alttext2\"><div class=\"pad\">";
-
-@include("admin/".go.".php");
-
-}else{
-
-echo "<tr><td class=\"tcotadmin\" align=\"center\">الإدارة العامة => الصفحة الرئيسية</td></tr>";
-
-echo "<tr><td class=\"alttext2\"><div class=\"pad\">";
-
-@include("admin/home.php");
-
-}
-
-echo "</div></td></tr>";
-
-echo "</table>";
-
-echo "<br></td>";
-
-echo "</tr></table>";
-
-echo footer_template("arab-forums");
-
-echo bodybottom_template("arab-forums");
-
-}else{
-
-$arraymsg = array(
-
-"login" => true ,
-
-"msg" => "للأسف لا يمكنك الولوج إلى هذه الصفحة لأنك لا تملك التصريح المناسب" ,
-
-"color" => "error" ,
-
-"old" => true ,
-
-"auto" => false ,
-
-"text" => "" ,
-
-"url" => "" ,
-
-"array" => "" ,
-
-);
-
-echo msg_template("arab-forums" , $arraymsg);
-
+    echo msg_template("arab-forums", $arraymsg);
 }
 
 disconnect_mysql("arab-forums");
@@ -424,4 +380,3 @@ disconnect_mysql("arab-forums");
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

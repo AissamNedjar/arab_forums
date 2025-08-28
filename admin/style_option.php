@@ -11,218 +11,256 @@
 
 |*#####################################################################*/
 
-if(!defined("error_page_arab_forums")){exit(header("location: ../error.php"));}
-
-$style_sql = select_mysql("arab-forums" , "style" , "style_id , style_lock , style_order , style_fils , style_name , style_default" , "where style_id in(".id.")");
-
-if(num_mysql("arab-forums" , $style_sql) != false){
-
-$style_object = object_mysql("arab-forums" , $style_sql);
-
-if(fort == "edit"){
-
-if(type == "insert"){
-
-$name = text_other("arab-forums" , post_other("arab-forums" , "name") , true , true , true , false , true);
-
-$fils = text_other("arab-forums" , post_other("arab-forums" , "fils") , true , true , true , false , true);
-
-$order = text_other("arab-forums" , post_other("arab-forums" , "order") , true , true , true , false , true);
-
-$lock = text_other("arab-forums" , post_other("arab-forums" , "lock") , true , true , true , false , true);
-
-if($name == "" || $order == "" || $lock == "" || $fils == ""){
-
-$error = "الرجاء ملأ جميع الحقول ليتم التعديل على الستايل";
-
-}elseif(!is_numeric($order)){
-
-$error = "يجب أن تكون قيمة ترتيب الستايل صحيحة";
-
-}else{
-
-$error = "";
-
+if (!defined("error_page_arab_forums")) {
+    exit(header("location: ../error.php"));
 }
 
-if($error != ""){
+$style_sql = select_mysql("arab-forums", "style", "style_id , style_lock , style_order , style_fils , style_name , style_default", "where style_id in(" . id . ")");
 
-$arraymsg = array(
+if (num_mysql("arab-forums", $style_sql) != false) {
 
-"msg" => $error ,
+    $style_object = object_mysql("arab-forums", $style_sql);
 
-"color" => "error" ,
+    if (fort == "edit") {
 
-"url" => "" ,
+        if (type == "insert") {
 
-);
+            $name = text_other("arab-forums", post_other("arab-forums", "name"), true, true, true, false, true);
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            $fils = text_other("arab-forums", post_other("arab-forums", "fils"), true, true, true, false, true);
 
-}else{
+            $order = text_other("arab-forums", post_other("arab-forums", "order"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "style" , "style_lock = \"{$lock}\" , style_order = \"{$order}\" , style_fils = \"{$fils}\" , style_name = \"{$name}\" where style_id in({$style_object->style_id})");
+            $lock = text_other("arab-forums", post_other("arab-forums", "lock"), true, true, true, false, true);
 
-$arraymsg = array(
+            if ($name == "" || $order == "" || $lock == "" || $fils == "") {
 
-"msg" => "تم تعديل الستايل بنجاح تام" ,
+                $error = "الرجاء ملأ جميع الحقول ليتم التعديل على الستايل";
+            } elseif (!is_numeric($order)) {
 
-"color" => "good" ,
+                $error = "يجب أن تكون قيمة ترتيب الستايل صحيحة";
+            } else {
 
-"url" => "admin.php?gert=style&go=style_list" ,
+                $error = "";
+            }
 
-);
+            if ($error != "") {
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+                $arraymsg = array(
 
-}}else{
+                    "msg" => $error,
 
-echo "<form action=\"admin.php?gert=style&go=style_option&fort=edit&id={$style_object->style_id}&type=insert\" method=\"post\">";
- 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" width=\"99%\" align=\"center\">";
+                    "color" => "error",
 
-echo "<tr><td class=\"tcotadmin\">عنوان الستايل</td></tr>";
+                    "url" => "",
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                );
 
-echo "<input style=\"width:300px\" class=\"input\" name=\"name\" value=\"{$style_object->style_name}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال عنوان الستايل</span>";
+                echo msgadmin_template("arab-forums", $arraymsg);
+            } else {
 
-echo "</div></td></tr>";
+                update_mysql("arab-forums", "style", "style_lock = \"{$lock}\" , style_order = \"{$order}\" , style_fils = \"{$fils}\" , style_name = \"{$name}\" where style_id in({$style_object->style_id})");
 
-echo "<tr><td class=\"tcotadmin\">مجلد الستايل</td></tr>";
+                $arraymsg = array(
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                    "msg" => "تم تعديل الستايل بنجاح تام",
 
-echo "<input dir=\"ltr\" style=\"width:300px\" class=\"input\" name=\"fils\" value=\"{$style_object->style_fils}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال إسم مجلد الستايل</span>";
+                    "color" => "good",
 
-echo "</div></td></tr>";
+                    "url" => "admin.php?gert=style&go=style_list",
 
-echo "<tr><td class=\"tcotadmin\">ترتيب الستايل</td></tr>";
+                );
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                echo msgadmin_template("arab-forums", $arraymsg);
+            }
+        } else {
 
-echo "<input size=\"1\" class=\"input\" name=\"order\" value=\"{$style_object->style_order}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال الترتيب الخاص بالستايل و إن كنت لا تريده مرتب أتركه 1</span>";
+            echo "<form action=\"admin.php?gert=style&go=style_option&fort=edit&id={$style_object->style_id}&type=insert\" method=\"post\">";
 
-echo "</div></td></tr>";
+            echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" width=\"99%\" align=\"center\">";
 
-echo "<tr><td class=\"tcotadmin\">تعطيل الستايل</td></tr>";
+            echo "<tr><td class=\"tcotadmin\">عنوان الستايل</td></tr>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<select class=\"inputselect\" name=\"lock\">";
+            echo "<input style=\"width:300px\" class=\"input\" name=\"name\" value=\"{$style_object->style_name}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال عنوان الستايل</span>";
 
-echo "<option value=\"0\" ".($style_object->style_lock == 0 ? "selected" : "").">لآ</option>";
+            echo "</div></td></tr>";
 
-echo "<option value=\"1\" ".($style_object->style_lock == 1 ? "selected" : "").">نعم</option>";
+            echo "<tr><td class=\"tcotadmin\">مجلد الستايل</td></tr>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الستايل معطل ؟</span>";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "</div></td></tr>";
+            echo "<input dir=\"ltr\" style=\"width:300px\" class=\"input\" name=\"fils\" value=\"{$style_object->style_fils}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال إسم مجلد الستايل</span>";
 
-echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال البيانات الجديدة\"  ".confirm_other("arab-forums" , "")."> - <input type=\"reset\" class=\"button\" value=\"إرجاع البيانات الأصلية\"><br><br></td></tr>";
+            echo "</div></td></tr>";
 
-echo "</table></form>";
+            echo "<tr><td class=\"tcotadmin\">ترتيب الستايل</td></tr>";
 
-}}elseif(fort == "delete"){
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-if($style_object->style_default == 1){$error = false;$text = "لا يمكنك حذف الستايل الإفتراضي";$class = "error";}else{$error = true;$text = "تم حذف الستايل بنجاح تام";$class = "good";}
+            echo "<input size=\"1\" class=\"input\" name=\"order\" value=\"{$style_object->style_order}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال الترتيب الخاص بالستايل و إن كنت لا تريده مرتب أتركه 1</span>";
 
-if($error == true){delete_mysql("arab-forums" , "style" , "style_id in({$style_object->style_id})");}
+            echo "</div></td></tr>";
 
-$arraymsg = array(
+            echo "<tr><td class=\"tcotadmin\">تعطيل الستايل</td></tr>";
 
-"msg" => $text ,
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-"color" => $class ,
+            echo "<select class=\"inputselect\" name=\"lock\">";
 
-"url" => "admin.php?gert=style&go=style_list" ,
+            echo "<option value=\"0\" " . ($style_object->style_lock == 0 ? "selected" : "") . ">لآ</option>";
 
-);
+            echo "<option value=\"1\" " . ($style_object->style_lock == 1 ? "selected" : "") . ">نعم</option>";
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الستايل معطل ؟</span>";
 
-}elseif(fort == "lock"){
+            echo "</div></td></tr>";
 
-if($style_object->style_lock == 1){$error = false;$text = "الستايل معطل من قبل";$class = "error";}elseif($style_object->style_default == 1){$error = false;$text = "لا يمكنك تعطيل الستايل الإفتراضي";$class = "error";}else{$error = true;$text = "تم تعطيل الستايل بنجاح تام";$class = "good";}
+            echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال البيانات الجديدة\"  " . confirm_other("arab-forums", "") . "> - <input type=\"reset\" class=\"button\" value=\"إرجاع البيانات الأصلية\"><br><br></td></tr>";
 
-if($error == true){update_mysql("arab-forums" , "style" , "style_lock = \"1\" where style_id = \"{$style_object->style_id}\"");}
+            echo "</table></form>";
+        }
+    } elseif (fort == "delete") {
 
-$arraymsg = array(
+        if ($style_object->style_default == 1) {
+            $error = false;
+            $text = "لا يمكنك حذف الستايل الإفتراضي";
+            $class = "error";
+        } else {
+            $error = true;
+            $text = "تم حذف الستايل بنجاح تام";
+            $class = "good";
+        }
 
-"msg" => $text ,
+        if ($error == true) {
+            delete_mysql("arab-forums", "style", "style_id in({$style_object->style_id})");
+        }
 
-"color" => $class ,
+        $arraymsg = array(
 
-"url" => "admin.php?gert=style&go=style_list" ,
+            "msg" => $text,
 
-);
+            "color" => $class,
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            "url" => "admin.php?gert=style&go=style_list",
 
-}elseif(fort == "nolock"){
+        );
 
-if($style_object->style_lock == 0){$error = false;$text = "الستايل مفعل من قبل";$class = "error";}else{$error = true;$text = "تم تفعيل الستايل بنجاح تام";$class = "good";}
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } elseif (fort == "lock") {
 
-if($error == true){update_mysql("arab-forums" , "style" , "style_lock = \"0\" where style_id = \"{$style_object->style_id}\"");}
+        if ($style_object->style_lock == 1) {
+            $error = false;
+            $text = "الستايل معطل من قبل";
+            $class = "error";
+        } elseif ($style_object->style_default == 1) {
+            $error = false;
+            $text = "لا يمكنك تعطيل الستايل الإفتراضي";
+            $class = "error";
+        } else {
+            $error = true;
+            $text = "تم تعطيل الستايل بنجاح تام";
+            $class = "good";
+        }
 
-$arraymsg = array(
+        if ($error == true) {
+            update_mysql("arab-forums", "style", "style_lock = \"1\" where style_id = \"{$style_object->style_id}\"");
+        }
 
-"msg" => $text ,
+        $arraymsg = array(
 
-"color" => $class ,
+            "msg" => $text,
 
-"url" => "admin.php?gert=style&go=style_list" ,
+            "color" => $class,
 
-);
+            "url" => "admin.php?gert=style&go=style_list",
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+        );
 
-}elseif(fort == "default"){
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } elseif (fort == "nolock") {
 
-if($style_object->style_default == 1){$error = false;$text = "الستايل معين كستايل إفتراضي من قبل";$class = "error";}else{$error = true;$text = "تم تفعيل الستايل كستايل إفتراضي بنجاح تام";$class = "good";}
+        if ($style_object->style_lock == 0) {
+            $error = false;
+            $text = "الستايل مفعل من قبل";
+            $class = "error";
+        } else {
+            $error = true;
+            $text = "تم تفعيل الستايل بنجاح تام";
+            $class = "good";
+        }
 
-if($error == true){update_mysql("arab-forums" , "style" , "style_default = \"0\" where style_default = \"1\""); update_mysql("arab-forums" , "style" , "style_default = \"1\" where style_id = \"{$style_object->style_id}\"");}
+        if ($error == true) {
+            update_mysql("arab-forums", "style", "style_lock = \"0\" where style_id = \"{$style_object->style_id}\"");
+        }
 
-$arraymsg = array(
+        $arraymsg = array(
 
-"msg" => $text ,
+            "msg" => $text,
 
-"color" => $class ,
+            "color" => $class,
 
-"url" => "admin.php?gert=style&go=style_list" ,
+            "url" => "admin.php?gert=style&go=style_list",
 
-);
+        );
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } elseif (fort == "default") {
 
-}else{
+        if ($style_object->style_default == 1) {
+            $error = false;
+            $text = "الستايل معين كستايل إفتراضي من قبل";
+            $class = "error";
+        } else {
+            $error = true;
+            $text = "تم تفعيل الستايل كستايل إفتراضي بنجاح تام";
+            $class = "good";
+        }
 
-$arraymsg = array(
+        if ($error == true) {
+            update_mysql("arab-forums", "style", "style_default = \"0\" where style_default = \"1\"");
+            update_mysql("arab-forums", "style", "style_default = \"1\" where style_id = \"{$style_object->style_id}\"");
+        }
 
-"msg" => "عفوآ لقد قمت بإختيار خدمة غير متوفرة حاليا" ,
+        $arraymsg = array(
 
-"color" => "error" ,
+            "msg" => $text,
 
-"url" => "admin.php?gert=catforum&go=style_list" ,
+            "color" => $class,
 
-);
+            "url" => "admin.php?gert=style&go=style_list",
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+        );
 
-}}else{
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } else {
 
-$arraymsg = array(
+        $arraymsg = array(
 
-"msg" => "الستايل المختار غير موجود ضمن قائمة الستايلات" ,
+            "msg" => "عفوآ لقد قمت بإختيار خدمة غير متوفرة حاليا",
 
-"color" => "error" ,
+            "color" => "error",
 
-"url" => "admin.php?gert=catforum&go=style_list" ,
+            "url" => "admin.php?gert=catforum&go=style_list",
 
-);
+        );
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+        echo msgadmin_template("arab-forums", $arraymsg);
+    }
+} else {
 
+    $arraymsg = array(
+
+        "msg" => "الستايل المختار غير موجود ضمن قائمة الستايلات",
+
+        "color" => "error",
+
+        "url" => "admin.php?gert=catforum&go=style_list",
+
+    );
+
+    echo msgadmin_template("arab-forums", $arraymsg);
 }
 
 /*#####################################################################*|
@@ -236,4 +274,3 @@ echo msgadmin_template("arab-forums" , $arraymsg);
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

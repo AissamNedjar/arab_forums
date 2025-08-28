@@ -11,204 +11,188 @@
 
 |*#####################################################################*/
 
-if(!defined("error_page_arab_forums")){exit(header("location: ../error.php"));}
-
-if(per_other("arab-forums" , 9) == false){
-
-$error = "للأسف المجموعة التي تنتمي إليها لا تملك التصريح المناسب لهذه الخاصية";
-
-}else{
-
-$error = "";
-
+if (!defined("error_page_arab_forums")) {
+    exit(header("location: ../error.php"));
 }
 
-if($error == ""){
+if (per_other("arab-forums", 9) == false) {
 
-if(type == "insert"){
+    $error = "للأسف المجموعة التي تنتمي إليها لا تملك التصريح المناسب لهذه الخاصية";
+} else {
 
-$addwhat = text_other("arab-forums" , post_other("arab-forums" , "addwhat") , true , true , true , true , true);
-
-$useroft = text_other("arab-forums" , post_other("arab-forums" , "userid") , true , true , true , true , true);
-
-$plaseid = text_other("arab-forums" , post_other("arab-forums" , "plaseid") , true , true , true , true , true);
-
-if(medalallo_other("arab-forums" , $plaseid , 1 , "goall" , true) == false){
-
-$error = "لا يمكنك توزيع هذا الوسام على الأعضاء لأنك لا تملك التصريح المناسب";
-
-}elseif(userallo_other("arab-forums" , $addwhat , $useroft) == false){
-
-$error = "لا يمكنك توزيع الوسام على العضوية المحددة لأن لا تملك التصريح المناسب";
-
-}else{
-
-$error = "";
-
+    $error = "";
 }
 
-if($error != ""){
+if ($error == "") {
 
-$arraymsg = array(
+    if (type == "insert") {
 
-"msg" => $error ,
+        $addwhat = text_other("arab-forums", post_other("arab-forums", "addwhat"), true, true, true, true, true);
 
-"color" => "error" ,
+        $useroft = text_other("arab-forums", post_other("arab-forums", "userid"), true, true, true, true, true);
 
-"url" => "" ,
+        $plaseid = text_other("arab-forums", post_other("arab-forums", "plaseid"), true, true, true, true, true);
 
-);
+        if (medalallo_other("arab-forums", $plaseid, 1, "goall", true) == false) {
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            $error = "لا يمكنك توزيع هذا الوسام على الأعضاء لأنك لا تملك التصريح المناسب";
+        } elseif (userallo_other("arab-forums", $addwhat, $useroft) == false) {
 
-}else{
+            $error = "لا يمكنك توزيع الوسام على العضوية المحددة لأن لا تملك التصريح المناسب";
+        } else {
 
-if($addwhat == "name"){
+            $error = "";
+        }
 
-$goadd = "user_nameuser";
+        if ($error != "") {
 
-}else{
+            $arraymsg = array(
 
-$goadd = "user_id";
+                "msg" => $error,
 
-}
+                "color" => "error",
 
-if(group_user > 2){
+                "url" => "",
 
-$lockw = 0;
+            );
 
-$plus = "";
+            echo msgadmin_template("arab-forums", $arraymsg);
+        } else {
 
-}else{
+            if ($addwhat == "name") {
 
-$lockw = 1;
+                $goadd = "user_nameuser";
+            } else {
 
-$plus = "لآكن ينتظرون موافقة المراقب";
+                $goadd = "user_id";
+            }
 
-}
+            if (group_user > 2) {
 
-if($addwhat == "name"){
+                $lockw = 0;
 
-$goadd = "user_nameuser";
+                $plus = "";
+            } else {
 
-}else{
+                $lockw = 1;
 
-$goadd = "user_id";
+                $plus = "لآكن ينتظرون موافقة المراقب";
+            }
 
-}
+            if ($addwhat == "name") {
 
-$user_sql = select_mysql("arab-forums" , "user" , "user_id , user_nameuser" , "where {$goadd} = \"{$useroft}\"  limit 1");
+                $goadd = "user_nameuser";
+            } else {
 
-$user_object = object_mysql("arab-forums" , $user_sql);
+                $goadd = "user_id";
+            }
 
-if(group_user > 2){
+            $user_sql = select_mysql("arab-forums", "user", "user_id , user_nameuser", "where {$goadd} = \"{$useroft}\"  limit 1");
 
-$get_sql = select_mysql("arab-forums" , "medal" , "medal_id , medal_point" , "where medal_id in({$plaseid})");
+            $user_object = object_mysql("arab-forums", $user_sql);
 
-$get_object = object_mysql("arab-forums" , $get_sql);
+            if (group_user > 2) {
 
-update_mysql("arab-forums" , "user" , "user_point = user_point+{$get_object->medal_point} where user_id in({$user_object->user_id})");
+                $get_sql = select_mysql("arab-forums", "medal", "medal_id , medal_point", "where medal_id in({$plaseid})");
 
-}
+                $get_object = object_mysql("arab-forums", $get_sql);
 
-insert_mysql("arab-forums" , "getmedal" , "getmedal_id , getmedal_medalid , getmedal_userid , getmedal_lock , getmedal_add , getmedal_date" , "null , \"{$plaseid}\" , \"{$user_object->user_id}\" , \"{$lockw}\" , \"".id_user."\" , \"".time()."\"");
+                update_mysql("arab-forums", "user", "user_point = user_point+{$get_object->medal_point} where user_id in({$user_object->user_id})");
+            }
 
-$arraymsg = array(
+            insert_mysql("arab-forums", "getmedal", "getmedal_id , getmedal_medalid , getmedal_userid , getmedal_lock , getmedal_add , getmedal_date", "null , \"{$plaseid}\" , \"{$user_object->user_id}\" , \"{$lockw}\" , \"" . id_user . "\" , \"" . time() . "\"");
 
-"msg" => "تم إضافة الوسام إلى العضو بنجآح تام {$plus}<br><br>ملاحظة : قبل أن يتم الإدخال إلى القاعدة يتم التأكد من أن العضو موجود فعلا و ذلك لتفادي الأخطاء" ,
+            $arraymsg = array(
 
-"color" => "good" ,
+                "msg" => "تم إضافة الوسام إلى العضو بنجآح تام {$plus}<br><br>ملاحظة : قبل أن يتم الإدخال إلى القاعدة يتم التأكد من أن العضو موجود فعلا و ذلك لتفادي الأخطاء",
 
-"url" => "service.php?gert=medal&go=medal_listgo" ,
+                "color" => "good",
 
-);
+                "url" => "service.php?gert=medal&go=medal_listgo",
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            );
 
-}}else{
+            echo msgadmin_template("arab-forums", $arraymsg);
+        }
+    } else {
 
-if(is_numeric(plase)){
+        if (is_numeric(plase)) {
 
-$opplas = plase;
+            $opplas = plase;
+        } else {
 
-}else{
+            $opplas = "";
+        }
 
-$opplas = "";
+        if (is_numeric(user)) {
 
-}
+            $userlas = user;
+        } else {
 
-if(is_numeric(user)){
+            $userlas = "";
+        }
 
-$userlas = user;
+        echo "<table cellpadding=\"0\" cellspacing=\"3\" width=\"99%\" align=\"center\"><tr>";
 
-}else{
+        echo "<td>" . img_other("arab-forums", "images/service.png", "", "", "", "0", "", "") . "</td>";
 
-$userlas = "";
+        echo "<td width=\"100%\"><span style=\"color:red;font-size:13px;\">توزيع وسام فردي</span></td>";
 
-}
+        echo "</tr></table>";
 
-echo "<table cellpadding=\"0\" cellspacing=\"3\" width=\"99%\" align=\"center\"><tr>";
+        echo "<form action=\"service.php?gert=medal&go=medal_goone&type=insert\" method=\"post\">";
 
-echo "<td>".img_other("arab-forums" , "images/service.png" , "" , "" , "" , "0" , "" , "")."</td>";
+        echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"99%\" align=\"center\">";
 
-echo "<td width=\"100%\"><span style=\"color:red;font-size:13px;\">توزيع وسام فردي</span></td>";
+        echo "<tr align=\"center\"><td class=\"tcotadmin\" colspan=\"5\"><div class=\"pad\">رقم الوسام</div></td></tr>";
 
-echo "</tr></table>";
+        echo "<tr align=\"center\">";
 
-echo "<form action=\"service.php?gert=medal&go=medal_goone&type=insert\" method=\"post\">";
+        echo "<td class=\"alttext1\" colspan=\"5\"><div class=\"pad\"><input style=\"width:80px\" class=\"input\" name=\"plaseid\" value=\"{$opplas}\" type=\"text\"></div></td>";
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" width=\"99%\" align=\"center\">";
+        echo "</tr>";
 
-echo "<tr align=\"center\"><td class=\"tcotadmin\" colspan=\"5\"><div class=\"pad\">رقم الوسام</div></td></tr>";
+        echo "<tr align=\"center\"><td class=\"tcotadmin\" colspan=\"5\"><div class=\"pad\">إسم أو رقم العضوية</div></td></tr>";
 
-echo "<tr align=\"center\">";
+        echo "<tr align=\"center\">";
 
-echo "<td class=\"alttext1\" colspan=\"5\"><div class=\"pad\"><input style=\"width:80px\" class=\"input\" name=\"plaseid\" value=\"{$opplas}\" type=\"text\"></div></td>";
+        echo "<td class=\"alttext1\" colspan=\"5\"><div class=\"pad\">";
 
-echo "</tr>";
+        echo "<select class=\"inputselect\" name=\"addwhat\">";
 
-echo "<tr align=\"center\"><td class=\"tcotadmin\" colspan=\"5\"><div class=\"pad\">إسم أو رقم العضوية</div></td></tr>";
+        echo "<option value=\"name\" " . (orp == "name" ? "selected" : "") . ">إدخال بإسم العضوية</option>";
 
-echo "<tr align=\"center\">";
+        echo "<option value=\"id\" " . (orp == "id" ? "selected" : "") . ">إدخال برقم العضوية</option>";
 
-echo "<td class=\"alttext1\" colspan=\"5\"><div class=\"pad\">";
+        echo "</select></div></td>";
 
-echo "<select class=\"inputselect\" name=\"addwhat\">";
+        echo "</tr>";
 
-echo "<option value=\"name\" ".(orp == "name" ? "selected" : "").">إدخال بإسم العضوية</option>";
+        echo "<tr align=\"center\">";
 
-echo "<option value=\"id\" ".(orp == "id" ? "selected" : "").">إدخال برقم العضوية</option>";
+        echo "<td class=\"alttext1\" colspan=\"5\"><div class=\"pad\"><input style=\"width:80px\" class=\"input\" name=\"userid\" value=\"{$userlas}\" type=\"text\"></div></td>";
 
-echo "</select></div></td>";
+        echo "</tr>";
 
-echo "</tr>";
+        echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"5\"><div class=\"pad\"><br><center><input type=\"submit\" class=\"button\" value=\"توزيع الوسام على العضوية\"  " . confirm_other("arab-forums", "هل أنت متأكد من أنك تريد توزيع الوسام على العضوية المدخلة ؟") . "> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقول\"></center><br></div></td></tr>";
 
-echo "<tr align=\"center\">";
+        echo "</table>";
 
-echo "<td class=\"alttext1\" colspan=\"5\"><div class=\"pad\"><input style=\"width:80px\" class=\"input\" name=\"userid\" value=\"{$userlas}\" type=\"text\"></div></td>";
+        echo "</form>";
+    }
+} else {
 
-echo "</tr>";
+    $arraymsg = array(
 
-echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"5\"><div class=\"pad\"><br><center><input type=\"submit\" class=\"button\" value=\"توزيع الوسام على العضوية\"  ".confirm_other("arab-forums" , "هل أنت متأكد من أنك تريد توزيع الوسام على العضوية المدخلة ؟")."> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقول\"></center><br></div></td></tr>";
+        "msg" => $error,
 
-echo "</table>";
+        "color" => "error",
 
-echo "</form>";
+        "url" => "",
 
-}}else{
+    );
 
-$arraymsg = array(
-
-"msg" => $error ,
-
-"color" => "error" ,
-
-"url" => "" ,
-
-);
-
-echo msgadmin_template("arab-forums" , $arraymsg);
-
+    echo msgadmin_template("arab-forums", $arraymsg);
 }
 
 /*#####################################################################*|
@@ -222,4 +206,3 @@ echo msgadmin_template("arab-forums" , $arraymsg);
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

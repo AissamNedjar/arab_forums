@@ -11,11 +11,13 @@
 
 |*#####################################################################*/
 
-if(!defined("error_page_arab_forums")){exit(header("location: ../error.php"));}
+if (!defined("error_page_arab_forums")) {
+    exit(header("location: ../error.php"));
+}
 
 echo "<form action=\"install.php?go=install&type=insertoption\" method=\"post\">";
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" width=\"60%\" align=\"center\">";
+echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"60%\" align=\"center\">";
 
 echo "<tr align=\"right\">";
 
@@ -78,4 +80,3 @@ echo "</form>";
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

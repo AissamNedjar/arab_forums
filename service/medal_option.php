@@ -12,284 +12,268 @@
 
 |*#####################################################################*/
 
-if(!defined("error_page_arab_forums")){exit(header("location: ../error.php"));}
-
-if(per_other("arab-forums" , 9) == true){
-
-$medal_sql = select_mysql("arab-forums" , "medal" , "w.medal_id , w.medal_name , w.medal_url , w.medal_forumid , w.medal_lock , c.cat_id , c.cat_monitor1 , c.cat_monitor2 , f.forum_id , f.forum_catid , f.forum_name , f.forum_mode" , "as w left join forum".prefix_connect." as f on(w.medal_forumid = f.forum_id) left join cat".prefix_connect." as c on(f.forum_catid = c.cat_id) where medal_id in(".id.")");
-
-if(num_mysql("arab-forums" , $medal_sql) == false){
-
-$errorp = "الوسام المختار غير موجود ضمن قائمة الأوسمة";
-
-}else{
-
-$medal_object = object_mysql("arab-forums" , $medal_sql);
-
-$moderatget1 = moderatget1_other("arab-forums" , $medal_object->forum_id , $medal_object->cat_monitor1 , $medal_object->cat_monitor2 , $medal_object->forum_mode);
-
-$moderatget2 = moderatget2_other("arab-forums" , $medal_object->cat_monitor1 , $medal_object->cat_monitor2);
-
-if(($medal_object->medal_forumid == 0 && group_user != 6) || ($medal_object->medal_forumid > 0 && $moderatget1 == false)){
-
-$errorp = "للأسف لا تملك التصريح المناسب للتحكم في خصائص هذا الوسام";
-
-}else{
-
-$errorp = "";
-
-}}
-
-if($errorp == ""){
-
-if(fort == "edit"){
-
-if(type == "insert"){
-
-$name = text_other("arab-forums" , post_other("arab-forums" , "name") , true , true , true , false , true);
-
-$url = text_other("arab-forums" , post_other("arab-forums" , "url") , true , true , true , false , true);
-
-$forumid = text_other("arab-forums" , post_other("arab-forums" , "forumid") , true , true , true , false , true);
-
-if($name == "" || $forumid == "" || $url == ""){
-
-$error = "الرجاء ملأ جميع الحقول ليتم التعديل على الوسام";
-
-}else{
-
-$error = "";
-
+if (!defined("error_page_arab_forums")) {
+    exit(header("location: ../error.php"));
 }
 
-if($error != ""){
+if (per_other("arab-forums", 9) == true) {
 
-$arraymsg = array(
+    $medal_sql = select_mysql("arab-forums", "medal", "w.medal_id , w.medal_name , w.medal_url , w.medal_forumid , w.medal_lock , c.cat_id , c.cat_monitor1 , c.cat_monitor2 , f.forum_id , f.forum_catid , f.forum_name , f.forum_mode", "as w left join forum" . prefix_connect . " as f on(w.medal_forumid = f.forum_id) left join cat" . prefix_connect . " as c on(f.forum_catid = c.cat_id) where medal_id in(" . id . ")");
 
-"msg" => $error ,
+    if (num_mysql("arab-forums", $medal_sql) == false) {
 
-"color" => "error" ,
+        $errorp = "الوسام المختار غير موجود ضمن قائمة الأوسمة";
+    } else {
 
-"url" => "" ,
+        $medal_object = object_mysql("arab-forums", $medal_sql);
 
-);
+        $moderatget1 = moderatget1_other("arab-forums", $medal_object->forum_id, $medal_object->cat_monitor1, $medal_object->cat_monitor2, $medal_object->forum_mode);
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+        $moderatget2 = moderatget2_other("arab-forums", $medal_object->cat_monitor1, $medal_object->cat_monitor2);
 
-}else{
+        if (($medal_object->medal_forumid == 0 && group_user != 6) || ($medal_object->medal_forumid > 0 && $moderatget1 == false)) {
 
-update_mysql("arab-forums" , "medal" , "medal_name = \"{$name}\" , medal_forumid = \"{$forumid}\" , medal_url = \"{$url}\" where medal_id in({$medal_object->medal_id})");
+            $errorp = "للأسف لا تملك التصريح المناسب للتحكم في خصائص هذا الوسام";
+        } else {
 
-$arraymsg = array(
+            $errorp = "";
+        }
+    }
 
-"msg" => "تم تعديل الوسام بنجاح تام" ,
+    if ($errorp == "") {
 
-"color" => "good" ,
+        if (fort == "edit") {
 
-"url" => "service.php?gert=medal&go=medal_list" ,
+            if (type == "insert") {
 
-);
+                $name = text_other("arab-forums", post_other("arab-forums", "name"), true, true, true, false, true);
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+                $url = text_other("arab-forums", post_other("arab-forums", "url"), true, true, true, false, true);
 
-}}else{
+                $forumid = text_other("arab-forums", post_other("arab-forums", "forumid"), true, true, true, false, true);
 
-echo "<form action=\"service.php?gert=medal&go=medal_option&fort=edit&id={$medal_object->medal_id}&type=insert\" method=\"post\">";
+                if ($name == "" || $forumid == "" || $url == "") {
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" width=\"99%\" align=\"center\">";
+                    $error = "الرجاء ملأ جميع الحقول ليتم التعديل على الوسام";
+                } else {
 
-echo "<tr><td class=\"tcotadmin\">الوسام تابع للمنتدى</td></tr>";
+                    $error = "";
+                }
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                if ($error != "") {
 
-$forum_sql = select_mysql("arab-forums" , "forum" , "forum_id , forum_name , forum_order" , "where forum_id in(".allowedin1_other("arab-forums").") order by forum_order asc");
+                    $arraymsg = array(
 
-if(num_mysql("arab-forums" , $forum_sql) != false){
+                        "msg" => $error,
 
-echo "<select class=\"inputselect\" name=\"forumid\">";
+                        "color" => "error",
 
-if(group_user == 6){
+                        "url" => "",
 
-echo "<option value=\"0\" ".($medal_object->medal_forumid == 0 ? "selected" : "").">إضافة الوسام في جميع المنتديات</option>";
+                    );
 
-}
+                    echo msgadmin_template("arab-forums", $arraymsg);
+                } else {
 
-while($forum_object = object_mysql("arab-forums" , $forum_sql)){
+                    update_mysql("arab-forums", "medal", "medal_name = \"{$name}\" , medal_forumid = \"{$forumid}\" , medal_url = \"{$url}\" where medal_id in({$medal_object->medal_id})");
 
-echo "<option value=\"{$forum_object->forum_id}\" ".($medal_object->medal_forumid == $forum_object->forum_id ? "selected" : "").">{$forum_object->forum_name}</option>";
+                    $arraymsg = array(
 
-}
+                        "msg" => "تم تعديل الوسام بنجاح تام",
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">إختر المنتدى الذي تريد إضافة الوسام له</span>";
+                        "color" => "good",
 
-}
+                        "url" => "service.php?gert=medal&go=medal_list",
 
-echo "</div></td></tr>";
+                    );
 
-echo "<tr><td class=\"tcotadmin\">عنوان الوسام</td></tr>";
+                    echo msgadmin_template("arab-forums", $arraymsg);
+                }
+            } else {
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                echo "<form action=\"service.php?gert=medal&go=medal_option&fort=edit&id={$medal_object->medal_id}&type=insert\" method=\"post\">";
 
-echo "<input style=\"width:300px\" class=\"input\" name=\"name\" value=\"{$medal_object->medal_name}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال عنوان الوسام</span>";
+                echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" width=\"99%\" align=\"center\">";
 
-echo "</div></td></tr>";
+                echo "<tr><td class=\"tcotadmin\">الوسام تابع للمنتدى</td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">رابط صورة الوسام</td></tr>";
+                echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                $forum_sql = select_mysql("arab-forums", "forum", "forum_id , forum_name , forum_order", "where forum_id in(" . allowedin1_other("arab-forums") . ") order by forum_order asc");
 
-echo "<input style=\"width:300px\" class=\"input\" name=\"url\" value=\"{$medal_object->medal_url}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال رابط صورة الوسام</span>";
+                if (num_mysql("arab-forums", $forum_sql) != false) {
 
-echo "</div></td></tr>";
+                    echo "<select class=\"inputselect\" name=\"forumid\">";
 
-echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال الوسام الجديد\"  ".confirm_other("arab-forums" , "هل أنت متأكد من أنك تريد إدخال الوسام الجديد ؟")."> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقول\"><br><br></td></tr>";
+                    if (group_user == 6) {
 
-echo "</table></form>";
+                        echo "<option value=\"0\" " . ($medal_object->medal_forumid == 0 ? "selected" : "") . ">إضافة الوسام في جميع المنتديات</option>";
+                    }
 
-}}elseif(fort == "wait" && $moderatget2 == true){
+                    while ($forum_object = object_mysql("arab-forums", $forum_sql)) {
 
-if($medal_object->medal_lock == 0){
+                        echo "<option value=\"{$forum_object->forum_id}\" " . ($medal_object->medal_forumid == $forum_object->forum_id ? "selected" : "") . ">{$forum_object->forum_name}</option>";
+                    }
 
-$arraymsg = array(
+                    echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">إختر المنتدى الذي تريد إضافة الوسام له</span>";
+                }
 
-"msg" => "الوسام موافق عليه من قبل" ,
+                echo "</div></td></tr>";
 
-"color" => "error" ,
+                echo "<tr><td class=\"tcotadmin\">عنوان الوسام</td></tr>";
 
-"url" => "service.php?gert=medal&go=medal_list" ,
+                echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-);
+                echo "<input style=\"width:300px\" class=\"input\" name=\"name\" value=\"{$medal_object->medal_name}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال عنوان الوسام</span>";
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+                echo "</div></td></tr>";
 
-}else{
+                echo "<tr><td class=\"tcotadmin\">رابط صورة الوسام</td></tr>";
 
-update_mysql("arab-forums" , "medal" , "medal_lock = \"0\" where medal_id in({$medal_object->medal_id})");
+                echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-$arraymsg = array(
+                echo "<input style=\"width:300px\" class=\"input\" name=\"url\" value=\"{$medal_object->medal_url}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال رابط صورة الوسام</span>";
 
-"msg" => "تم الموافقة على الوسام بنجاح تام" ,
+                echo "</div></td></tr>";
 
-"color" => "good" ,
+                echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال الوسام الجديد\"  " . confirm_other("arab-forums", "هل أنت متأكد من أنك تريد إدخال الوسام الجديد ؟") . "> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقول\"><br><br></td></tr>";
 
-"url" => "service.php?gert=medal&go=medal_list" ,
+                echo "</table></form>";
+            }
+        } elseif (fort == "wait" && $moderatget2 == true) {
 
-);
+            if ($medal_object->medal_lock == 0) {
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+                $arraymsg = array(
 
-}
+                    "msg" => "الوسام موافق عليه من قبل",
 
-}elseif(fort == "bad" && $moderatget2 == true){
+                    "color" => "error",
 
-if($medal_object->medal_lock == 2){
+                    "url" => "service.php?gert=medal&go=medal_list",
 
-$arraymsg = array(
+                );
 
-"msg" => "الوسام مرفوض من قبل" ,
+                echo msgadmin_template("arab-forums", $arraymsg);
+            } else {
 
-"color" => "error" ,
+                update_mysql("arab-forums", "medal", "medal_lock = \"0\" where medal_id in({$medal_object->medal_id})");
 
-"url" => "service.php?gert=medal&go=medal_list" ,
+                $arraymsg = array(
 
-);
+                    "msg" => "تم الموافقة على الوسام بنجاح تام",
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+                    "color" => "good",
 
-}else{
+                    "url" => "service.php?gert=medal&go=medal_list",
 
-update_mysql("arab-forums" , "medal" , "medal_lock = \"2\" where medal_id in({$medal_object->medal_id})");
+                );
 
-$arraymsg = array(
+                echo msgadmin_template("arab-forums", $arraymsg);
+            }
+        } elseif (fort == "bad" && $moderatget2 == true) {
 
-"msg" => "تم رفض الوسام بنجاح تام" ,
+            if ($medal_object->medal_lock == 2) {
 
-"color" => "good" ,
+                $arraymsg = array(
 
-"url" => "service.php?gert=medal&go=medal_list" ,
+                    "msg" => "الوسام مرفوض من قبل",
 
-);
+                    "color" => "error",
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+                    "url" => "service.php?gert=medal&go=medal_list",
 
-}
+                );
 
-}elseif(fort == "delete" && $moderatget2 == true){
+                echo msgadmin_template("arab-forums", $arraymsg);
+            } else {
 
-if($medal_object->medal_lock == 3){
+                update_mysql("arab-forums", "medal", "medal_lock = \"2\" where medal_id in({$medal_object->medal_id})");
 
-$arraymsg = array(
+                $arraymsg = array(
 
-"msg" => "الوسام محذوف من قبل" ,
+                    "msg" => "تم رفض الوسام بنجاح تام",
 
-"color" => "error" ,
+                    "color" => "good",
 
-"url" => "service.php?gert=medal&go=medal_list" ,
+                    "url" => "service.php?gert=medal&go=medal_list",
 
-);
+                );
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+                echo msgadmin_template("arab-forums", $arraymsg);
+            }
+        } elseif (fort == "delete" && $moderatget2 == true) {
 
-}else{
+            if ($medal_object->medal_lock == 3) {
 
-update_mysql("arab-forums" , "medal" , "medal_lock = \"3\" where medal_id in({$medal_object->medal_id})");
+                $arraymsg = array(
 
-$arraymsg = array(
+                    "msg" => "الوسام محذوف من قبل",
 
-"msg" => "تم حذف الوسام بنجاح تام" ,
+                    "color" => "error",
 
-"color" => "good" ,
+                    "url" => "service.php?gert=medal&go=medal_list",
 
-"url" => "service.php?gert=medal&go=medal_list" ,
+                );
 
-);
+                echo msgadmin_template("arab-forums", $arraymsg);
+            } else {
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+                update_mysql("arab-forums", "medal", "medal_lock = \"3\" where medal_id in({$medal_object->medal_id})");
 
-}
+                $arraymsg = array(
 
-}else{
+                    "msg" => "تم حذف الوسام بنجاح تام",
 
-$arraymsg = array(
+                    "color" => "good",
 
-"msg" => "عفوآ لقد قمت بإختيار خدمة غير متوفرة حاليا" ,
+                    "url" => "service.php?gert=medal&go=medal_list",
 
-"color" => "error" ,
+                );
 
-"url" => "service.php?gert=catforum&go=medal_list" ,
+                echo msgadmin_template("arab-forums", $arraymsg);
+            }
+        } else {
 
-);
+            $arraymsg = array(
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+                "msg" => "عفوآ لقد قمت بإختيار خدمة غير متوفرة حاليا",
 
-}}else{
+                "color" => "error",
 
-$arraymsg = array(
+                "url" => "service.php?gert=catforum&go=medal_list",
 
-"msg" => $errorp ,
+            );
 
-"color" => "error" ,
+            echo msgadmin_template("arab-forums", $arraymsg);
+        }
+    } else {
 
-"url" => "service.php?gert=catforum&go=medal_list" ,
+        $arraymsg = array(
 
-);
+            "msg" => $errorp,
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            "color" => "error",
 
-}}else{
+            "url" => "service.php?gert=catforum&go=medal_list",
 
-$arraymsg = array(
+        );
 
-"msg" => "للأسف المجموعة التي تنتمي إليها لا تملك التصريح المناسب لهذه الخاصية" ,
+        echo msgadmin_template("arab-forums", $arraymsg);
+    }
+} else {
 
-"color" => "error" ,
+    $arraymsg = array(
 
-"url" => "" ,
+        "msg" => "للأسف المجموعة التي تنتمي إليها لا تملك التصريح المناسب لهذه الخاصية",
 
-);
+        "color" => "error",
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+        "url" => "",
 
+    );
+
+    echo msgadmin_template("arab-forums", $arraymsg);
 }
 
 /*#####################################################################*|
@@ -304,4 +288,3 @@ echo msgadmin_template("arab-forums" , $arraymsg);
 |  site : www.prince-algeriw.com  || www.arab-forums-sc.com             |
 
 |*#####################################################################*/
-?>

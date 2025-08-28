@@ -11,410 +11,408 @@
 
 |*#####################################################################*/
 
-if(!defined("error_page_arab_forums")){exit(header("location: ../error.php"));}
-
-if(type == "insert"){
-
-$title1sex1 = text_other("arab-forums" , post_other("arab-forums" , "title1sex1") , true , true , true , false , true);
-
-$title1sex2 = text_other("arab-forums" , post_other("arab-forums" , "title1sex2") , true , true , true , false , true);
-
-$title2sex1 = text_other("arab-forums" , post_other("arab-forums" , "title2sex1") , true , true , true , false , true);
-
-$title2sex2 = text_other("arab-forums" , post_other("arab-forums" , "title2sex2") , true , true , true , false , true);
-
-$title3sex1 = text_other("arab-forums" , post_other("arab-forums" , "title3sex1") , true , true , true , false , true);
-
-$title3sex2 = text_other("arab-forums" , post_other("arab-forums" , "title3sex2") , true , true , true , false , true);
-
-$title4sex1 = text_other("arab-forums" , post_other("arab-forums" , "title4sex1") , true , true , true , false , true);
-
-$title4sex2 = text_other("arab-forums" , post_other("arab-forums" , "title4sex2") , true , true , true , false , true);
-
-$title5sex1 = text_other("arab-forums" , post_other("arab-forums" , "title5sex1") , true , true , true , false , true);
-
-$title5sex2 = text_other("arab-forums" , post_other("arab-forums" , "title5sex2") , true , true , true , false , true);
-
-$title6sex1 = text_other("arab-forums" , post_other("arab-forums" , "title6sex1") , true , true , true , false , true);
-
-$title6sex2 = text_other("arab-forums" , post_other("arab-forums" , "title6sex2") , true , true , true , false , true);
-
-$title7sex1 = text_other("arab-forums" , post_other("arab-forums" , "title7sex1") , true , true , true , false , true);
-
-$title7sex2 = text_other("arab-forums" , post_other("arab-forums" , "title7sex2") , true , true , true , false , true);
-
-$title8sex1 = text_other("arab-forums" , post_other("arab-forums" , "title8sex1") , true , true , true , false , true);
-
-$title8sex2 = text_other("arab-forums" , post_other("arab-forums" , "title8sex2") , true , true , true , false , true);
-
-$title9sex1 = text_other("arab-forums" , post_other("arab-forums" , "title9sex1") , true , true , true , false , true);
-
-$title9sex2 = text_other("arab-forums" , post_other("arab-forums" , "title9sex2") , true , true , true , false , true);
-
-$title10sex1 = text_other("arab-forums" , post_other("arab-forums" , "title10sex1") , true , true , true , false , true);
-
-$title10sex2 = text_other("arab-forums" , post_other("arab-forums" , "title10sex2") , true , true , true , false , true);
-
-$title11sex1 = text_other("arab-forums" , post_other("arab-forums" , "title11sex1") , true , true , true , false , true);
-
-$title11sex2 = text_other("arab-forums" , post_other("arab-forums" , "title11sex2") , true , true , true , false , true);
-
-$title12sex1 = text_other("arab-forums" , post_other("arab-forums" , "title12sex1") , true , true , true , false , true);
-
-$title12sex2 = text_other("arab-forums" , post_other("arab-forums" , "title12sex2") , true , true , true , false , true);
-
-$title13sex1 = text_other("arab-forums" , post_other("arab-forums" , "title13sex1") , true , true , true , false , true);
-
-$title13sex2 = text_other("arab-forums" , post_other("arab-forums" , "title13sex2") , true , true , true , false , true);
-
-$title14sex1 = text_other("arab-forums" , post_other("arab-forums" , "title14sex1") , true , true , true , false , true);
-
-$title14sex2 = text_other("arab-forums" , post_other("arab-forums" , "title14sex2") , true , true , true , false , true);
-
-$title15sex1 = text_other("arab-forums" , post_other("arab-forums" , "title15sex1") , true , true , true , false , true);
-
-$title15sex2 = text_other("arab-forums" , post_other("arab-forums" , "title15sex2") , true , true , true , false , true);
-
-$title16sex1 = text_other("arab-forums" , post_other("arab-forums" , "title16sex1") , true , true , true , false , true);
-
-$title16sex2 = text_other("arab-forums" , post_other("arab-forums" , "title16sex2") , true , true , true , false , true);
-
-$titlepoint1 = text_other("arab-forums" , post_other("arab-forums" , "titlepoint1") , true , true , true , false , true);
-
-$titlepoint2 = text_other("arab-forums" , post_other("arab-forums" , "titlepoint2") , true , true , true , false , true);
-
-$titlepoint3 = text_other("arab-forums" , post_other("arab-forums" , "titlepoint3") , true , true , true , false , true);
-
-$titlepoint4 = text_other("arab-forums" , post_other("arab-forums" , "titlepoint4") , true , true , true , false , true);
-
-$titlepoint5 = text_other("arab-forums" , post_other("arab-forums" , "titlepoint5") , true , true , true , false , true);
-
-$titlepoint6 = text_other("arab-forums" , post_other("arab-forums" , "titlepoint6") , true , true , true , false , true);
-
-$titlepoint7 = text_other("arab-forums" , post_other("arab-forums" , "titlepoint7") , true , true , true , false , true);
-
-$titlepoint8 = text_other("arab-forums" , post_other("arab-forums" , "titlepoint8") , true , true , true , false , true);
-
-$titlepoint9 = text_other("arab-forums" , post_other("arab-forums" , "titlepoint9") , true , true , true , false , true);
-
-$titlepoint10 = text_other("arab-forums" , post_other("arab-forums" , "titlepoint10") , true , true , true , false , true);
-
-if($title1sex1 == "" || $title1sex2 == "" || $title2sex1 == "" || $title2sex2 == "" || $title3sex1 == "" || $title3sex2 == "" || $title4sex1 == "" || $title4sex2 == "" || $title5sex1 == "" || $title5sex2 == "" || $title6sex1 == "" || $title6sex2 == "" || $title7sex1 == "" || $title7sex2 == "" || $title8sex1 == "" || $title8sex2 == "" || $title9sex1 == "" || $title9sex2 == "" || $title10sex1 == "" || $title10sex2 == "" || $title11sex1 == "" || $title11sex2 == "" || $title12sex1 == "" || $title12sex2 == "" || $title13sex1 == "" || $title13sex2 == "" || $title14sex1 == "" || $title14sex2 == "" || $title15sex1 == "" || $title15sex2 == "" || $title16sex1 == "" || $title16sex2 == "" || $titlepoint1 == "" || $titlepoint2 == "" || $titlepoint3 == "" || $titlepoint4 == "" || $titlepoint5 == "" || $titlepoint6 == "" || $titlepoint7 == "" || $titlepoint8 == "" || $titlepoint9 == "" || $titlepoint10 == ""){
-
-$error = "الرجاء ملأ جميع الحقول ليتم تسجيل البيانات";
-
-}else{
-
-$error = "";
-
+if (!defined("error_page_arab_forums")) {
+    exit(header("location: ../error.php"));
 }
 
-if($error != ""){
+if (type == "insert") {
 
-$arraymsg = array(
+    $title1sex1 = text_other("arab-forums", post_other("arab-forums", "title1sex1"), true, true, true, false, true);
 
-"msg" => $error ,
+    $title1sex2 = text_other("arab-forums", post_other("arab-forums", "title1sex2"), true, true, true, false, true);
 
-"color" => "error" ,
+    $title2sex1 = text_other("arab-forums", post_other("arab-forums", "title2sex1"), true, true, true, false, true);
 
-"url" => "" ,
+    $title2sex2 = text_other("arab-forums", post_other("arab-forums", "title2sex2"), true, true, true, false, true);
 
-);
+    $title3sex1 = text_other("arab-forums", post_other("arab-forums", "title3sex1"), true, true, true, false, true);
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+    $title3sex2 = text_other("arab-forums", post_other("arab-forums", "title3sex2"), true, true, true, false, true);
 
-}else{
+    $title4sex1 = text_other("arab-forums", post_other("arab-forums", "title4sex1"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title1sex1}\" where option_name = \"title1sex1\"");
+    $title4sex2 = text_other("arab-forums", post_other("arab-forums", "title4sex2"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title1sex2}\" where option_name = \"title1sex2\"");
+    $title5sex1 = text_other("arab-forums", post_other("arab-forums", "title5sex1"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title2sex1}\" where option_name = \"title2sex1\"");
+    $title5sex2 = text_other("arab-forums", post_other("arab-forums", "title5sex2"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title2sex2}\" where option_name = \"title2sex2\"");
+    $title6sex1 = text_other("arab-forums", post_other("arab-forums", "title6sex1"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title3sex1}\" where option_name = \"title3sex1\"");
+    $title6sex2 = text_other("arab-forums", post_other("arab-forums", "title6sex2"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title3sex2}\" where option_name = \"title3sex2\"");
+    $title7sex1 = text_other("arab-forums", post_other("arab-forums", "title7sex1"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title4sex1}\" where option_name = \"title4sex1\"");
+    $title7sex2 = text_other("arab-forums", post_other("arab-forums", "title7sex2"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title4sex2}\" where option_name = \"title4sex2\"");
+    $title8sex1 = text_other("arab-forums", post_other("arab-forums", "title8sex1"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title5sex1}\" where option_name = \"title5sex1\"");
+    $title8sex2 = text_other("arab-forums", post_other("arab-forums", "title8sex2"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title5sex2}\" where option_name = \"title5sex2\"");
+    $title9sex1 = text_other("arab-forums", post_other("arab-forums", "title9sex1"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title6sex1}\" where option_name = \"title6sex1\"");
+    $title9sex2 = text_other("arab-forums", post_other("arab-forums", "title9sex2"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title6sex2}\" where option_name = \"title6sex2\"");
+    $title10sex1 = text_other("arab-forums", post_other("arab-forums", "title10sex1"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title7sex1}\" where option_name = \"title7sex1\"");
+    $title10sex2 = text_other("arab-forums", post_other("arab-forums", "title10sex2"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title7sex2}\" where option_name = \"title7sex2\"");
+    $title11sex1 = text_other("arab-forums", post_other("arab-forums", "title11sex1"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title8sex1}\" where option_name = \"title8sex1\"");
+    $title11sex2 = text_other("arab-forums", post_other("arab-forums", "title11sex2"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title8sex2}\" where option_name = \"title8sex2\"");
+    $title12sex1 = text_other("arab-forums", post_other("arab-forums", "title12sex1"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title9sex1}\" where option_name = \"title9sex1\"");
+    $title12sex2 = text_other("arab-forums", post_other("arab-forums", "title12sex2"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title9sex2}\" where option_name = \"title9sex2\"");
+    $title13sex1 = text_other("arab-forums", post_other("arab-forums", "title13sex1"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title10sex1}\" where option_name = \"title10sex1\"");
+    $title13sex2 = text_other("arab-forums", post_other("arab-forums", "title13sex2"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title10sex2}\" where option_name = \"title10sex2\"");
+    $title14sex1 = text_other("arab-forums", post_other("arab-forums", "title14sex1"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title11sex1}\" where option_name = \"title11sex1\"");
+    $title14sex2 = text_other("arab-forums", post_other("arab-forums", "title14sex2"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title11sex2}\" where option_name = \"title11sex2\"");
+    $title15sex1 = text_other("arab-forums", post_other("arab-forums", "title15sex1"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title12sex1}\" where option_name = \"title12sex1\"");
+    $title15sex2 = text_other("arab-forums", post_other("arab-forums", "title15sex2"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title12sex2}\" where option_name = \"title12sex2\"");
+    $title16sex1 = text_other("arab-forums", post_other("arab-forums", "title16sex1"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title13sex1}\" where option_name = \"title13sex1\"");
+    $title16sex2 = text_other("arab-forums", post_other("arab-forums", "title16sex2"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title13sex2}\" where option_name = \"title13sex2\"");
+    $titlepoint1 = text_other("arab-forums", post_other("arab-forums", "titlepoint1"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title14sex1}\" where option_name = \"title14sex1\"");
+    $titlepoint2 = text_other("arab-forums", post_other("arab-forums", "titlepoint2"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title14sex2}\" where option_name = \"title14sex2\"");
+    $titlepoint3 = text_other("arab-forums", post_other("arab-forums", "titlepoint3"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title15sex1}\" where option_name = \"title15sex1\"");
+    $titlepoint4 = text_other("arab-forums", post_other("arab-forums", "titlepoint4"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title15sex2}\" where option_name = \"title15sex2\"");
+    $titlepoint5 = text_other("arab-forums", post_other("arab-forums", "titlepoint5"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title16sex1}\" where option_name = \"title16sex1\"");
+    $titlepoint6 = text_other("arab-forums", post_other("arab-forums", "titlepoint6"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$title16sex2}\" where option_name = \"title16sex2\"");
+    $titlepoint7 = text_other("arab-forums", post_other("arab-forums", "titlepoint7"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$titlepoint1}\" where option_name = \"titlepoint1\"");
+    $titlepoint8 = text_other("arab-forums", post_other("arab-forums", "titlepoint8"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$titlepoint2}\" where option_name = \"titlepoint2\"");
+    $titlepoint9 = text_other("arab-forums", post_other("arab-forums", "titlepoint9"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$titlepoint3}\" where option_name = \"titlepoint3\"");
+    $titlepoint10 = text_other("arab-forums", post_other("arab-forums", "titlepoint10"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$titlepoint4}\" where option_name = \"titlepoint4\"");
+    if ($title1sex1 == "" || $title1sex2 == "" || $title2sex1 == "" || $title2sex2 == "" || $title3sex1 == "" || $title3sex2 == "" || $title4sex1 == "" || $title4sex2 == "" || $title5sex1 == "" || $title5sex2 == "" || $title6sex1 == "" || $title6sex2 == "" || $title7sex1 == "" || $title7sex2 == "" || $title8sex1 == "" || $title8sex2 == "" || $title9sex1 == "" || $title9sex2 == "" || $title10sex1 == "" || $title10sex2 == "" || $title11sex1 == "" || $title11sex2 == "" || $title12sex1 == "" || $title12sex2 == "" || $title13sex1 == "" || $title13sex2 == "" || $title14sex1 == "" || $title14sex2 == "" || $title15sex1 == "" || $title15sex2 == "" || $title16sex1 == "" || $title16sex2 == "" || $titlepoint1 == "" || $titlepoint2 == "" || $titlepoint3 == "" || $titlepoint4 == "" || $titlepoint5 == "" || $titlepoint6 == "" || $titlepoint7 == "" || $titlepoint8 == "" || $titlepoint9 == "" || $titlepoint10 == "") {
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$titlepoint5}\" where option_name = \"titlepoint5\"");
+        $error = "الرجاء ملأ جميع الحقول ليتم تسجيل البيانات";
+    } else {
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$titlepoint6}\" where option_name = \"titlepoint6\"");
+        $error = "";
+    }
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$titlepoint7}\" where option_name = \"titlepoint7\"");
+    if ($error != "") {
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$titlepoint8}\" where option_name = \"titlepoint8\"");
+        $arraymsg = array(
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$titlepoint9}\" where option_name = \"titlepoint9\"");
+            "msg" => $error,
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$titlepoint10}\" where option_name = \"titlepoint10\"");
+            "color" => "error",
 
-$arraymsg = array(
+            "url" => "",
 
-"msg" => "تم إدخال البيانات الجديدة بنجآح تآم" ,
+        );
 
-"color" => "good" ,
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } else {
 
-"url" => "admin.php?gert=usergroup&go=usergroup_title" ,
+        update_mysql("arab-forums", "option", "option_value = \"{$title1sex1}\" where option_name = \"title1sex1\"");
 
-);
+        update_mysql("arab-forums", "option", "option_value = \"{$title1sex2}\" where option_name = \"title1sex2\"");
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+        update_mysql("arab-forums", "option", "option_value = \"{$title2sex1}\" where option_name = \"title2sex1\"");
 
-}}else{
+        update_mysql("arab-forums", "option", "option_value = \"{$title2sex2}\" where option_name = \"title2sex2\"");
 
-echo "<form action=\"admin.php?gert=usergroup&go=usergroup_title&type=insert\" method=\"post\">";
- 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" width=\"99%\" align=\"center\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$title3sex1}\" where option_name = \"title3sex1\"");
 
-echo "<tr><td class=\"tcotadmin\" colspan=\"3\">أوصاف فريق عمل المنتدى</td></tr>";
+        update_mysql("arab-forums", "option", "option_value = \"{$title3sex2}\" where option_name = \"title3sex2\"");
 
-echo "<tr><td class=\"alttext1\" colspan=\"3\"><div class=\"pad\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$title4sex1}\" where option_name = \"title4sex1\"");
 
-echo "<span style=\"color:red;font-size:12px;\">الوصف الإفتراضي للمدير</span><br><br><input style=\"width:150px\" class=\"input\" name=\"title16sex1\" value=\"".title16sex1_option."\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title16sex2\" value=\"".title16sex2_option."\" type=\"text\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$title4sex2}\" where option_name = \"title4sex2\"");
 
-echo "</div></td></tr>";
+        update_mysql("arab-forums", "option", "option_value = \"{$title5sex1}\" where option_name = \"title5sex1\"");
 
-echo "<tr><td class=\"alttext1\" colspan=\"3\"><div class=\"pad\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$title5sex2}\" where option_name = \"title5sex2\"");
 
-echo "<span style=\"color:red;font-size:12px;\">الوصف الإفتراضي للمراقب العام</span><br><br><input style=\"width:150px\" class=\"input\" name=\"title15sex1\" value=\"".title15sex1_option."\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title15sex2\" value=\"".title15sex2_option."\" type=\"text\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$title6sex1}\" where option_name = \"title6sex1\"");
 
-echo "</div></td></tr>";
+        update_mysql("arab-forums", "option", "option_value = \"{$title6sex2}\" where option_name = \"title6sex2\"");
 
-echo "<tr><td class=\"alttext1\" colspan=\"3\"><div class=\"pad\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$title7sex1}\" where option_name = \"title7sex1\"");
 
-echo "<span style=\"color:red;font-size:12px;\">الوصف الإفتراضي للمراقب</span><br><br><input style=\"width:150px\" class=\"input\" name=\"title14sex1\" value=\"".title14sex1_option."\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title14sex2\" value=\"".title14sex2_option."\" type=\"text\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$title7sex2}\" where option_name = \"title7sex2\"");
 
-echo "</div></td></tr>";
+        update_mysql("arab-forums", "option", "option_value = \"{$title8sex1}\" where option_name = \"title8sex1\"");
 
-echo "<tr><td class=\"alttext1\" colspan=\"3\"><div class=\"pad\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$title8sex2}\" where option_name = \"title8sex2\"");
 
-echo "<span style=\"color:red;font-size:12px;\">الوصف الإفتراضي لنائب المراقب</span><br><br><input style=\"width:150px\" class=\"input\" name=\"title13sex1\" value=\"".title13sex1_option."\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title13sex2\" value=\"".title13sex2_option."\" type=\"text\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$title9sex1}\" where option_name = \"title9sex1\"");
 
-echo "</div></td></tr>";
+        update_mysql("arab-forums", "option", "option_value = \"{$title9sex2}\" where option_name = \"title9sex2\"");
 
-echo "<tr><td class=\"alttext1\" colspan=\"3\"><div class=\"pad\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$title10sex1}\" where option_name = \"title10sex1\"");
 
-echo "<span style=\"color:red;font-size:12px;\">الوصف الإفتراضي للمشرف</span><br><br><input style=\"width:150px\" class=\"input\" name=\"title12sex1\" value=\"".title12sex1_option."\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title12sex2\" value=\"".title12sex2_option."\" type=\"text\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$title10sex2}\" where option_name = \"title10sex2\"");
 
-echo "</div></td></tr>";
+        update_mysql("arab-forums", "option", "option_value = \"{$title11sex1}\" where option_name = \"title11sex1\"");
 
-echo "<tr><td class=\"tcotadmin\" colspan=\"3\">أوصاف و نجوم الأعضاء</td></tr>";
+        update_mysql("arab-forums", "option", "option_value = \"{$title11sex2}\" where option_name = \"title11sex2\"");
 
-echo "<tr><td class=\"alttext1\" width=\"20%\"><div class=\"pad\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$title12sex1}\" where option_name = \"title12sex1\"");
 
-echo "<span style=\"color:red;font-size:12px;\">بلا نجوم</span>";
+        update_mysql("arab-forums", "option", "option_value = \"{$title12sex2}\" where option_name = \"title12sex2\"");
 
-echo "</div></td><td class=\"alttext1\" colspan=\"2\"><div class=\"pad\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$title13sex1}\" where option_name = \"title13sex1\"");
 
-echo "<input style=\"width:150px\" class=\"input\" name=\"title1sex1\" value=\"".title1sex1_option."\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title1sex2\" value=\"".title1sex2_option."\" type=\"text\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$title13sex2}\" where option_name = \"title13sex2\"");
 
-echo "</div></td></tr>";
+        update_mysql("arab-forums", "option", "option_value = \"{$title14sex1}\" where option_name = \"title14sex1\"");
 
-echo "<tr><td class=\"alttext1\" width=\"20%\"><div class=\"pad\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$title14sex2}\" where option_name = \"title14sex2\"");
 
-echo "<span style=\"color:red;font-size:12px;\">النجمة الأولى</span>";
+        update_mysql("arab-forums", "option", "option_value = \"{$title15sex1}\" where option_name = \"title15sex1\"");
 
-echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$title15sex2}\" where option_name = \"title15sex2\"");
 
-echo "<input style=\"width:150px\" class=\"input\" name=\"titlepoint1\" value=\"".titlepoint1_option."\" type=\"text\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$title16sex1}\" where option_name = \"title16sex1\"");
 
-echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$title16sex2}\" where option_name = \"title16sex2\"");
 
-echo "<input style=\"width:150px\" class=\"input\" name=\"title2sex1\" value=\"".title2sex1_option."\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title2sex2\" value=\"".title2sex2_option."\" type=\"text\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$titlepoint1}\" where option_name = \"titlepoint1\"");
 
-echo "</div></td></tr>";
+        update_mysql("arab-forums", "option", "option_value = \"{$titlepoint2}\" where option_name = \"titlepoint2\"");
 
-echo "<tr><td class=\"alttext1\" width=\"20%\"><div class=\"pad\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$titlepoint3}\" where option_name = \"titlepoint3\"");
 
-echo "<span style=\"color:red;font-size:12px;\">النجمة الثانية</span>";
+        update_mysql("arab-forums", "option", "option_value = \"{$titlepoint4}\" where option_name = \"titlepoint4\"");
 
-echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$titlepoint5}\" where option_name = \"titlepoint5\"");
 
-echo "<input style=\"width:150px\" class=\"input\" name=\"titlepoint2\" value=\"".titlepoint2_option."\" type=\"text\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$titlepoint6}\" where option_name = \"titlepoint6\"");
 
-echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$titlepoint7}\" where option_name = \"titlepoint7\"");
 
-echo "<input style=\"width:150px\" class=\"input\" name=\"title3sex1\" value=\"".title3sex1_option."\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title3sex2\" value=\"".title3sex2_option."\" type=\"text\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$titlepoint8}\" where option_name = \"titlepoint8\"");
 
-echo "</div></td></tr>";
+        update_mysql("arab-forums", "option", "option_value = \"{$titlepoint9}\" where option_name = \"titlepoint9\"");
 
-echo "<tr><td class=\"alttext1\" width=\"20%\"><div class=\"pad\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$titlepoint10}\" where option_name = \"titlepoint10\"");
 
-echo "<span style=\"color:red;font-size:12px;\">النجمة الثالثة</span>";
+        $arraymsg = array(
 
-echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+            "msg" => "تم إدخال البيانات الجديدة بنجآح تآم",
 
-echo "<input style=\"width:150px\" class=\"input\" name=\"titlepoint3\" value=\"".titlepoint3_option."\" type=\"text\">";
+            "color" => "good",
 
-echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+            "url" => "admin.php?gert=usergroup&go=usergroup_title",
 
-echo "<input style=\"width:150px\" class=\"input\" name=\"title4sex1\" value=\"".title4sex1_option."\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title4sex2\" value=\"".title4sex2_option."\" type=\"text\">";
+        );
 
-echo "</div></td></tr>";
+        echo msgadmin_template("arab-forums", $arraymsg);
+    }
+} else {
 
-echo "<tr><td class=\"alttext1\" width=\"20%\"><div class=\"pad\">";
+    echo "<form action=\"admin.php?gert=usergroup&go=usergroup_title&type=insert\" method=\"post\">";
 
-echo "<span style=\"color:red;font-size:12px;\">النجمة الرابعة</span>";
+    echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" width=\"99%\" align=\"center\">";
 
-echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+    echo "<tr><td class=\"tcotadmin\" colspan=\"3\">أوصاف فريق عمل المنتدى</td></tr>";
 
-echo "<input style=\"width:150px\" class=\"input\" name=\"titlepoint4\" value=\"".titlepoint4_option."\" type=\"text\">";
+    echo "<tr><td class=\"alttext1\" colspan=\"3\"><div class=\"pad\">";
 
-echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+    echo "<span style=\"color:red;font-size:12px;\">الوصف الإفتراضي للمدير</span><br><br><input style=\"width:150px\" class=\"input\" name=\"title16sex1\" value=\"" . title16sex1_option . "\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title16sex2\" value=\"" . title16sex2_option . "\" type=\"text\">";
 
-echo "<input style=\"width:150px\" class=\"input\" name=\"title5sex1\" value=\"".title5sex1_option."\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title5sex2\" value=\"".title5sex2_option."\" type=\"text\">";
+    echo "</div></td></tr>";
 
-echo "</div></td></tr>";
+    echo "<tr><td class=\"alttext1\" colspan=\"3\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\" width=\"20%\"><div class=\"pad\">";
+    echo "<span style=\"color:red;font-size:12px;\">الوصف الإفتراضي للمراقب العام</span><br><br><input style=\"width:150px\" class=\"input\" name=\"title15sex1\" value=\"" . title15sex1_option . "\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title15sex2\" value=\"" . title15sex2_option . "\" type=\"text\">";
 
-echo "<span style=\"color:red;font-size:12px;\">النجمة الخامسة</span>";
+    echo "</div></td></tr>";
 
-echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+    echo "<tr><td class=\"alttext1\" colspan=\"3\"><div class=\"pad\">";
 
-echo "<input style=\"width:150px\" class=\"input\" name=\"titlepoint5\" value=\"".titlepoint5_option."\" type=\"text\">";
+    echo "<span style=\"color:red;font-size:12px;\">الوصف الإفتراضي للمراقب</span><br><br><input style=\"width:150px\" class=\"input\" name=\"title14sex1\" value=\"" . title14sex1_option . "\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title14sex2\" value=\"" . title14sex2_option . "\" type=\"text\">";
 
-echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+    echo "</div></td></tr>";
 
-echo "<input style=\"width:150px\" class=\"input\" name=\"title6sex1\" value=\"".title6sex1_option."\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title6sex2\" value=\"".title6sex2_option."\" type=\"text\">";
+    echo "<tr><td class=\"alttext1\" colspan=\"3\"><div class=\"pad\">";
 
-echo "</div></td></tr>";
+    echo "<span style=\"color:red;font-size:12px;\">الوصف الإفتراضي لنائب المراقب</span><br><br><input style=\"width:150px\" class=\"input\" name=\"title13sex1\" value=\"" . title13sex1_option . "\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title13sex2\" value=\"" . title13sex2_option . "\" type=\"text\">";
 
-echo "<tr><td class=\"alttext1\" width=\"20%\"><div class=\"pad\">";
+    echo "</div></td></tr>";
 
-echo "<span style=\"color:red;font-size:12px;\">النجمة السادسة</span>";
+    echo "<tr><td class=\"alttext1\" colspan=\"3\"><div class=\"pad\">";
 
-echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+    echo "<span style=\"color:red;font-size:12px;\">الوصف الإفتراضي للمشرف</span><br><br><input style=\"width:150px\" class=\"input\" name=\"title12sex1\" value=\"" . title12sex1_option . "\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title12sex2\" value=\"" . title12sex2_option . "\" type=\"text\">";
 
-echo "<input style=\"width:150px\" class=\"input\" name=\"titlepoint6\" value=\"".titlepoint6_option."\" type=\"text\">";
+    echo "</div></td></tr>";
 
-echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+    echo "<tr><td class=\"tcotadmin\" colspan=\"3\">أوصاف و نجوم الأعضاء</td></tr>";
 
-echo "<input style=\"width:150px\" class=\"input\" name=\"title7sex1\" value=\"".title7sex1_option."\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title7sex2\" value=\"".title7sex2_option."\" type=\"text\">";
+    echo "<tr><td class=\"alttext1\" width=\"20%\"><div class=\"pad\">";
 
-echo "</div></td></tr>";
+    echo "<span style=\"color:red;font-size:12px;\">بلا نجوم</span>";
 
-echo "<tr><td class=\"alttext1\" width=\"20%\"><div class=\"pad\">";
+    echo "</div></td><td class=\"alttext1\" colspan=\"2\"><div class=\"pad\">";
 
-echo "<span style=\"color:red;font-size:12px;\">النجمة السابعة</span>";
+    echo "<input style=\"width:150px\" class=\"input\" name=\"title1sex1\" value=\"" . title1sex1_option . "\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title1sex2\" value=\"" . title1sex2_option . "\" type=\"text\">";
 
-echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+    echo "</div></td></tr>";
 
-echo "<input style=\"width:150px\" class=\"input\" name=\"titlepoint7\" value=\"".titlepoint7_option."\" type=\"text\">";
+    echo "<tr><td class=\"alttext1\" width=\"20%\"><div class=\"pad\">";
 
-echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+    echo "<span style=\"color:red;font-size:12px;\">النجمة الأولى</span>";
 
-echo "<input style=\"width:150px\" class=\"input\" name=\"title8sex1\" value=\"".title8sex1_option."\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title8sex2\" value=\"".title8sex2_option."\" type=\"text\">";
+    echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
 
-echo "</div></td></tr>";
+    echo "<input style=\"width:150px\" class=\"input\" name=\"titlepoint1\" value=\"" . titlepoint1_option . "\" type=\"text\">";
 
-echo "<tr><td class=\"alttext1\" width=\"20%\"><div class=\"pad\">";
+    echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
 
-echo "<span style=\"color:red;font-size:12px;\">النجمة الثامنة</span>";
+    echo "<input style=\"width:150px\" class=\"input\" name=\"title2sex1\" value=\"" . title2sex1_option . "\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title2sex2\" value=\"" . title2sex2_option . "\" type=\"text\">";
 
-echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+    echo "</div></td></tr>";
 
-echo "<input style=\"width:150px\" class=\"input\" name=\"titlepoint8\" value=\"".titlepoint8_option."\" type=\"text\">";
+    echo "<tr><td class=\"alttext1\" width=\"20%\"><div class=\"pad\">";
 
-echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+    echo "<span style=\"color:red;font-size:12px;\">النجمة الثانية</span>";
 
-echo "<input style=\"width:150px\" class=\"input\" name=\"title9sex1\" value=\"".title9sex1_option."\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title9sex2\" value=\"".title9sex2_option."\" type=\"text\">";
+    echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
 
-echo "</div></td></tr>";
+    echo "<input style=\"width:150px\" class=\"input\" name=\"titlepoint2\" value=\"" . titlepoint2_option . "\" type=\"text\">";
 
-echo "<tr><td class=\"alttext1\" width=\"20%\"><div class=\"pad\">";
+    echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
 
-echo "<span style=\"color:red;font-size:12px;\">النجمة التاسعة</span>";
+    echo "<input style=\"width:150px\" class=\"input\" name=\"title3sex1\" value=\"" . title3sex1_option . "\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title3sex2\" value=\"" . title3sex2_option . "\" type=\"text\">";
 
-echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+    echo "</div></td></tr>";
 
-echo "<input style=\"width:150px\" class=\"input\" name=\"titlepoint9\" value=\"".titlepoint9_option."\" type=\"text\">";
+    echo "<tr><td class=\"alttext1\" width=\"20%\"><div class=\"pad\">";
 
-echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+    echo "<span style=\"color:red;font-size:12px;\">النجمة الثالثة</span>";
 
-echo "<input style=\"width:150px\" class=\"input\" name=\"title10sex1\" value=\"".title10sex1_option."\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title10sex2\" value=\"".title10sex2_option."\" type=\"text\">";
+    echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
 
-echo "</div></td></tr>";
+    echo "<input style=\"width:150px\" class=\"input\" name=\"titlepoint3\" value=\"" . titlepoint3_option . "\" type=\"text\">";
 
-echo "<tr><td class=\"alttext1\" width=\"20%\"><div class=\"pad\">";
+    echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
 
-echo "<span style=\"color:red;font-size:12px;\">النجمة العاشرة</span>";
+    echo "<input style=\"width:150px\" class=\"input\" name=\"title4sex1\" value=\"" . title4sex1_option . "\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title4sex2\" value=\"" . title4sex2_option . "\" type=\"text\">";
 
-echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+    echo "</div></td></tr>";
 
-echo "<input style=\"width:150px\" class=\"input\" name=\"titlepoint10\" value=\"".titlepoint10_option."\" type=\"text\">";
+    echo "<tr><td class=\"alttext1\" width=\"20%\"><div class=\"pad\">";
 
-echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+    echo "<span style=\"color:red;font-size:12px;\">النجمة الرابعة</span>";
 
-echo "<input style=\"width:150px\" class=\"input\" name=\"title11sex1\" value=\"".title11sex1_option."\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title11sex2\" value=\"".title11sex2_option."\" type=\"text\">";
+    echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
 
-echo "</div></td></tr>";
+    echo "<input style=\"width:150px\" class=\"input\" name=\"titlepoint4\" value=\"" . titlepoint4_option . "\" type=\"text\">";
 
-echo "<tr><td class=\"alttext2\" align=\"center\" colspan=\"3\"><br><input type=\"submit\" class=\"button\" value=\"إدخال البيانات الجديدة\"  ".confirm_other("arab-forums" , "")."> - <input type=\"reset\" class=\"button\" value=\"إرجاع البيانات الأصلية\"><br><br></td></tr>";
+    echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
 
-echo "</table></form>";
+    echo "<input style=\"width:150px\" class=\"input\" name=\"title5sex1\" value=\"" . title5sex1_option . "\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title5sex2\" value=\"" . title5sex2_option . "\" type=\"text\">";
 
+    echo "</div></td></tr>";
+
+    echo "<tr><td class=\"alttext1\" width=\"20%\"><div class=\"pad\">";
+
+    echo "<span style=\"color:red;font-size:12px;\">النجمة الخامسة</span>";
+
+    echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+
+    echo "<input style=\"width:150px\" class=\"input\" name=\"titlepoint5\" value=\"" . titlepoint5_option . "\" type=\"text\">";
+
+    echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+
+    echo "<input style=\"width:150px\" class=\"input\" name=\"title6sex1\" value=\"" . title6sex1_option . "\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title6sex2\" value=\"" . title6sex2_option . "\" type=\"text\">";
+
+    echo "</div></td></tr>";
+
+    echo "<tr><td class=\"alttext1\" width=\"20%\"><div class=\"pad\">";
+
+    echo "<span style=\"color:red;font-size:12px;\">النجمة السادسة</span>";
+
+    echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+
+    echo "<input style=\"width:150px\" class=\"input\" name=\"titlepoint6\" value=\"" . titlepoint6_option . "\" type=\"text\">";
+
+    echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+
+    echo "<input style=\"width:150px\" class=\"input\" name=\"title7sex1\" value=\"" . title7sex1_option . "\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title7sex2\" value=\"" . title7sex2_option . "\" type=\"text\">";
+
+    echo "</div></td></tr>";
+
+    echo "<tr><td class=\"alttext1\" width=\"20%\"><div class=\"pad\">";
+
+    echo "<span style=\"color:red;font-size:12px;\">النجمة السابعة</span>";
+
+    echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+
+    echo "<input style=\"width:150px\" class=\"input\" name=\"titlepoint7\" value=\"" . titlepoint7_option . "\" type=\"text\">";
+
+    echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+
+    echo "<input style=\"width:150px\" class=\"input\" name=\"title8sex1\" value=\"" . title8sex1_option . "\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title8sex2\" value=\"" . title8sex2_option . "\" type=\"text\">";
+
+    echo "</div></td></tr>";
+
+    echo "<tr><td class=\"alttext1\" width=\"20%\"><div class=\"pad\">";
+
+    echo "<span style=\"color:red;font-size:12px;\">النجمة الثامنة</span>";
+
+    echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+
+    echo "<input style=\"width:150px\" class=\"input\" name=\"titlepoint8\" value=\"" . titlepoint8_option . "\" type=\"text\">";
+
+    echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+
+    echo "<input style=\"width:150px\" class=\"input\" name=\"title9sex1\" value=\"" . title9sex1_option . "\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title9sex2\" value=\"" . title9sex2_option . "\" type=\"text\">";
+
+    echo "</div></td></tr>";
+
+    echo "<tr><td class=\"alttext1\" width=\"20%\"><div class=\"pad\">";
+
+    echo "<span style=\"color:red;font-size:12px;\">النجمة التاسعة</span>";
+
+    echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+
+    echo "<input style=\"width:150px\" class=\"input\" name=\"titlepoint9\" value=\"" . titlepoint9_option . "\" type=\"text\">";
+
+    echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+
+    echo "<input style=\"width:150px\" class=\"input\" name=\"title10sex1\" value=\"" . title10sex1_option . "\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title10sex2\" value=\"" . title10sex2_option . "\" type=\"text\">";
+
+    echo "</div></td></tr>";
+
+    echo "<tr><td class=\"alttext1\" width=\"20%\"><div class=\"pad\">";
+
+    echo "<span style=\"color:red;font-size:12px;\">النجمة العاشرة</span>";
+
+    echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+
+    echo "<input style=\"width:150px\" class=\"input\" name=\"titlepoint10\" value=\"" . titlepoint10_option . "\" type=\"text\">";
+
+    echo "</div></td><td class=\"alttext1\" width=\"30%\"><div class=\"pad\">";
+
+    echo "<input style=\"width:150px\" class=\"input\" name=\"title11sex1\" value=\"" . title11sex1_option . "\" type=\"text\"><br><br><input style=\"width:150px\" class=\"input\" name=\"title11sex2\" value=\"" . title11sex2_option . "\" type=\"text\">";
+
+    echo "</div></td></tr>";
+
+    echo "<tr><td class=\"alttext2\" align=\"center\" colspan=\"3\"><br><input type=\"submit\" class=\"button\" value=\"إدخال البيانات الجديدة\"  " . confirm_other("arab-forums", "") . "> - <input type=\"reset\" class=\"button\" value=\"إرجاع البيانات الأصلية\"><br><br></td></tr>";
+
+    echo "</table></form>";
 }
 
 /*#####################################################################*|
@@ -428,4 +426,3 @@ echo "</table></form>";
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

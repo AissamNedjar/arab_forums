@@ -11,240 +11,254 @@
 
 |*#####################################################################*/
 
-if(!defined("error_page_arab_forums")){exit(header("location: ../error.php"));}
-
-$ads_sql = select_mysql("arab-forums" , "ads" , "ads_id , ads_lock , ads_order , ads_open , ads_br , ads_name , ads_link , ads_images" , "where ads_id in(".id.")");
-
-if(num_mysql("arab-forums" , $ads_sql) != false){
-
-$ads_object = object_mysql("arab-forums" , $ads_sql);
-
-if(fort == "edit"){
-
-if(type == "insert"){
-
-$name = text_other("arab-forums" , post_other("arab-forums" , "name") , true , true , true , false , true);
-
-$order = text_other("arab-forums" , post_other("arab-forums" , "order") , true , true , true , false , true);
-
-$lock = text_other("arab-forums" , post_other("arab-forums" , "lock") , true , true , true , false , true);
-
-$open = text_other("arab-forums" , post_other("arab-forums" , "open") , true , true , true , false , true);
-
-$br = text_other("arab-forums" , post_other("arab-forums" , "br") , true , true , true , false , true);
-
-$link = text_other("arab-forums" , post_other("arab-forums" , "link") , true , true , true , false , true);
-
-$images = text_other("arab-forums" , post_other("arab-forums" , "images") , true , true , true , false , true);
-
-if($name == "" || $order == "" || $lock == "" || $open == "" || $br == "" || $link == "" || $images == ""){
-
-$error = "الرجاء ملأ جميع الحقول ليتم التعديل على الإعلان";
-
-}elseif(!is_numeric($order)){
-
-$error = "يجب أن تكون قيمة ترتيب الإعلان صحيحة";
-
-}else{
-
-$error = "";
-
+if (!defined("error_page_arab_forums")) {
+    exit(header("location: ../error.php"));
 }
 
-if($error != ""){
+$ads_sql = select_mysql("arab-forums", "ads", "ads_id , ads_lock , ads_order , ads_open , ads_br , ads_name , ads_link , ads_images", "where ads_id in(" . id . ")");
 
-$arraymsg = array(
+if (num_mysql("arab-forums", $ads_sql) != false) {
 
-"msg" => $error ,
+    $ads_object = object_mysql("arab-forums", $ads_sql);
 
-"color" => "error" ,
+    if (fort == "edit") {
 
-"url" => "" ,
+        if (type == "insert") {
 
-);
+            $name = text_other("arab-forums", post_other("arab-forums", "name"), true, true, true, false, true);
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            $order = text_other("arab-forums", post_other("arab-forums", "order"), true, true, true, false, true);
 
-}else{
+            $lock = text_other("arab-forums", post_other("arab-forums", "lock"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "ads" , "ads_lock = \"{$lock}\" , ads_order = \"{$order}\" , ads_open = \"{$open}\" , ads_br = \"{$br}\" , ads_name = \"{$name}\" , ads_link = \"{$link}\" , ads_images = \"{$images}\" where ads_id in({$ads_object->ads_id})");
+            $open = text_other("arab-forums", post_other("arab-forums", "open"), true, true, true, false, true);
 
-$arraymsg = array(
+            $br = text_other("arab-forums", post_other("arab-forums", "br"), true, true, true, false, true);
 
-"msg" => "تم تعديل الإعلان بنجاح تام" ,
+            $link = text_other("arab-forums", post_other("arab-forums", "link"), true, true, true, false, true);
 
-"color" => "good" ,
+            $images = text_other("arab-forums", post_other("arab-forums", "images"), true, true, true, false, true);
 
-"url" => "admin.php?gert=ads&go=ads_list" ,
+            if ($name == "" || $order == "" || $lock == "" || $open == "" || $br == "" || $link == "" || $images == "") {
 
-);
+                $error = "الرجاء ملأ جميع الحقول ليتم التعديل على الإعلان";
+            } elseif (!is_numeric($order)) {
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+                $error = "يجب أن تكون قيمة ترتيب الإعلان صحيحة";
+            } else {
 
-}}else{
+                $error = "";
+            }
 
-echo "<form action=\"admin.php?gert=ads&go=ads_option&fort=edit&id={$ads_object->ads_id}&type=insert\" method=\"post\">";
- 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" width=\"99%\" align=\"center\">";
+            if ($error != "") {
 
-echo "<tr><td class=\"tcotadmin\">عنوان الإعلان</td></tr>";
+                $arraymsg = array(
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                    "msg" => $error,
 
-echo "<input style=\"width:300px\" class=\"input\" name=\"name\" value=\"{$ads_object->ads_name}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال عنوان الإعلان</span>";
+                    "color" => "error",
 
-echo "</div></td></tr>";
+                    "url" => "",
 
-echo "<tr><td class=\"tcotadmin\">رابط الإعلان</td></tr>";
+                );
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                echo msgadmin_template("arab-forums", $arraymsg);
+            } else {
 
-echo "<input dir=\"ltr\" style=\"width:300px\" class=\"input\" name=\"link\" value=\"{$ads_object->ads_link}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال الرابط الذي تأدي إليه الإعلان و يجب أن يكون مسبوق ب http://www</span>";
+                update_mysql("arab-forums", "ads", "ads_lock = \"{$lock}\" , ads_order = \"{$order}\" , ads_open = \"{$open}\" , ads_br = \"{$br}\" , ads_name = \"{$name}\" , ads_link = \"{$link}\" , ads_images = \"{$images}\" where ads_id in({$ads_object->ads_id})");
 
-echo "</div></td></tr>";
+                $arraymsg = array(
 
-echo "<tr><td class=\"tcotadmin\">صورة الإعلان</td></tr>";
+                    "msg" => "تم تعديل الإعلان بنجاح تام",
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                    "color" => "good",
 
-echo "<input dir=\"ltr\" style=\"width:300px\" class=\"input\" name=\"images\" value=\"{$ads_object->ads_images}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال رابط صورة الإعلان التي تظهر في الهايدر</span>";
+                    "url" => "admin.php?gert=ads&go=ads_list",
 
-echo "</div></td></tr>";
+                );
 
-echo "<tr><td class=\"tcotadmin\">ترتيب الإعلان</td></tr>";
+                echo msgadmin_template("arab-forums", $arraymsg);
+            }
+        } else {
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "<form action=\"admin.php?gert=ads&go=ads_option&fort=edit&id={$ads_object->ads_id}&type=insert\" method=\"post\">";
 
-echo "<input size=\"1\" class=\"input\" name=\"order\" value=\"{$ads_object->ads_order}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال الترتيب الخاص بالإعلان و إن كنت لا تريده مرتب أتركه 1</span>";
+            echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" width=\"99%\" align=\"center\">";
 
-echo "</div></td></tr>";
+            echo "<tr><td class=\"tcotadmin\">عنوان الإعلان</td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">تعطيل الإعلان</td></tr>";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "<input style=\"width:300px\" class=\"input\" name=\"name\" value=\"{$ads_object->ads_name}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال عنوان الإعلان</span>";
 
-echo "<select class=\"inputselect\" name=\"lock\">";
+            echo "</div></td></tr>";
 
-echo "<option value=\"0\" ".($ads_object->ads_lock == 0 ? "selected" : "").">لآ</option>";
+            echo "<tr><td class=\"tcotadmin\">رابط الإعلان</td></tr>";
 
-echo "<option value=\"1\" ".($ads_object->ads_lock == 1 ? "selected" : "").">نعم</option>";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الإعلان معطل ؟</span>";
+            echo "<input dir=\"ltr\" style=\"width:300px\" class=\"input\" name=\"link\" value=\"{$ads_object->ads_link}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال الرابط الذي تأدي إليه الإعلان و يجب أن يكون مسبوق ب http://www</span>";
 
-echo "</div></td></tr>";
+            echo "</div></td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">فتح الإعلان في صفحة مستقلة</td></tr>";
+            echo "<tr><td class=\"tcotadmin\">صورة الإعلان</td></tr>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<select class=\"inputselect\" name=\"open\">";
+            echo "<input dir=\"ltr\" style=\"width:300px\" class=\"input\" name=\"images\" value=\"{$ads_object->ads_images}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال رابط صورة الإعلان التي تظهر في الهايدر</span>";
 
-echo "<option value=\"0\" ".($ads_object->ads_open == 0 ? "selected" : "").">لآ</option>";
+            echo "</div></td></tr>";
 
-echo "<option value=\"1\" ".($ads_object->ads_open == 1 ? "selected" : "").">نعم</option>";
+            echo "<tr><td class=\"tcotadmin\">ترتيب الإعلان</td></tr>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل رابط الإعلان يفتح في صفحة مستقلة ؟</span>";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "</div></td></tr>";
+            echo "<input size=\"1\" class=\"input\" name=\"order\" value=\"{$ads_object->ads_order}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال الترتيب الخاص بالإعلان و إن كنت لا تريده مرتب أتركه 1</span>";
 
-echo "<tr><td class=\"tcotadmin\">ظهور الإعلان في سطر جديد</td></tr>";
+            echo "</div></td></tr>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "<tr><td class=\"tcotadmin\">تعطيل الإعلان</td></tr>";
 
-echo "<select class=\"inputselect\" name=\"br\">";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<option value=\"0\" ".($ads_object->ads_br == 0 ? "selected" : "").">لآ</option>";
+            echo "<select class=\"inputselect\" name=\"lock\">";
 
-echo "<option value=\"1\" ".($ads_object->ads_br == 1 ? "selected" : "").">نعم</option>";
+            echo "<option value=\"0\" " . ($ads_object->ads_lock == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الإعلان يوضع في سطر جديد أي تحت الإعلانات السابقة ؟</span>";
+            echo "<option value=\"1\" " . ($ads_object->ads_lock == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "</div></td></tr>";
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الإعلان معطل ؟</span>";
 
-echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال البيانات الجديدة\"  ".confirm_other("arab-forums" , "")."> - <input type=\"reset\" class=\"button\" value=\"إرجاع البيانات الأصلية\"><br><br></td></tr>";
+            echo "</div></td></tr>";
 
-echo "</table></form>";
+            echo "<tr><td class=\"tcotadmin\">فتح الإعلان في صفحة مستقلة</td></tr>";
 
-}}elseif(fort == "delete"){
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-delete_mysql("arab-forums" , "ads" , "ads_id in({$ads_object->ads_id})");
+            echo "<select class=\"inputselect\" name=\"open\">";
 
-$arraymsg = array(
+            echo "<option value=\"0\" " . ($ads_object->ads_open == 0 ? "selected" : "") . ">لآ</option>";
 
-"msg" => "تم حذف الإعلان بنجاح تام" ,
+            echo "<option value=\"1\" " . ($ads_object->ads_open == 1 ? "selected" : "") . ">نعم</option>";
 
-"color" => "good" ,
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل رابط الإعلان يفتح في صفحة مستقلة ؟</span>";
 
-"url" => "admin.php?gert=ads&go=ads_list" ,
+            echo "</div></td></tr>";
 
-);
+            echo "<tr><td class=\"tcotadmin\">ظهور الإعلان في سطر جديد</td></tr>";
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-}elseif(fort == "lock"){
+            echo "<select class=\"inputselect\" name=\"br\">";
 
-if($ads_object->ads_lock == 1){$error = false;$text = "الإعلان معطل من قبل";$class = "error";}else{$error = true;$text = "تم تعطيل الإعلان بنجاح تام";$class = "good";}
+            echo "<option value=\"0\" " . ($ads_object->ads_br == 0 ? "selected" : "") . ">لآ</option>";
 
-if($error == true){update_mysql("arab-forums" , "ads" , "ads_lock = \"1\" where ads_id = \"{$ads_object->ads_id}\"");}
+            echo "<option value=\"1\" " . ($ads_object->ads_br == 1 ? "selected" : "") . ">نعم</option>";
 
-$arraymsg = array(
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الإعلان يوضع في سطر جديد أي تحت الإعلانات السابقة ؟</span>";
 
-"msg" => $text ,
+            echo "</div></td></tr>";
 
-"color" => $class ,
+            echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال البيانات الجديدة\"  " . confirm_other("arab-forums", "") . "> - <input type=\"reset\" class=\"button\" value=\"إرجاع البيانات الأصلية\"><br><br></td></tr>";
 
-"url" => "admin.php?gert=ads&go=ads_list" ,
+            echo "</table></form>";
+        }
+    } elseif (fort == "delete") {
 
-);
+        delete_mysql("arab-forums", "ads", "ads_id in({$ads_object->ads_id})");
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+        $arraymsg = array(
 
-}elseif(fort == "nolock"){
+            "msg" => "تم حذف الإعلان بنجاح تام",
 
-if($ads_object->ads_lock == 0){$error = false;$text = "الإعلان مفعل من قبل";$class = "error";}else{$error = true;$text = "تم تفعيل الإعلان بنجاح تام";$class = "good";}
+            "color" => "good",
 
-if($error == true){update_mysql("arab-forums" , "ads" , "ads_lock = \"0\" where ads_id = \"{$ads_object->ads_id}\"");}
+            "url" => "admin.php?gert=ads&go=ads_list",
 
-$arraymsg = array(
+        );
 
-"msg" => $text ,
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } elseif (fort == "lock") {
 
-"color" => $class ,
+        if ($ads_object->ads_lock == 1) {
+            $error = false;
+            $text = "الإعلان معطل من قبل";
+            $class = "error";
+        } else {
+            $error = true;
+            $text = "تم تعطيل الإعلان بنجاح تام";
+            $class = "good";
+        }
 
-"url" => "admin.php?gert=ads&go=ads_list" ,
+        if ($error == true) {
+            update_mysql("arab-forums", "ads", "ads_lock = \"1\" where ads_id = \"{$ads_object->ads_id}\"");
+        }
 
-);
+        $arraymsg = array(
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            "msg" => $text,
 
-}else{
+            "color" => $class,
 
-$arraymsg = array(
+            "url" => "admin.php?gert=ads&go=ads_list",
 
-"msg" => "عفوآ لقد قمت بإختيار خدمة غير متوفرة حاليا" ,
+        );
 
-"color" => "error" ,
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } elseif (fort == "nolock") {
 
-"url" => "admin.php?gert=catforum&go=ads_list" ,
+        if ($ads_object->ads_lock == 0) {
+            $error = false;
+            $text = "الإعلان مفعل من قبل";
+            $class = "error";
+        } else {
+            $error = true;
+            $text = "تم تفعيل الإعلان بنجاح تام";
+            $class = "good";
+        }
 
-);
+        if ($error == true) {
+            update_mysql("arab-forums", "ads", "ads_lock = \"0\" where ads_id = \"{$ads_object->ads_id}\"");
+        }
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+        $arraymsg = array(
 
-}}else{
+            "msg" => $text,
 
-$arraymsg = array(
+            "color" => $class,
 
-"msg" => "الإعلان المختار غير موجود ضمن قائمة الإعلانات" ,
+            "url" => "admin.php?gert=ads&go=ads_list",
 
-"color" => "error" ,
+        );
 
-"url" => "admin.php?gert=catforum&go=ads_list" ,
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } else {
 
-);
+        $arraymsg = array(
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            "msg" => "عفوآ لقد قمت بإختيار خدمة غير متوفرة حاليا",
 
+            "color" => "error",
+
+            "url" => "admin.php?gert=catforum&go=ads_list",
+
+        );
+
+        echo msgadmin_template("arab-forums", $arraymsg);
+    }
+} else {
+
+    $arraymsg = array(
+
+        "msg" => "الإعلان المختار غير موجود ضمن قائمة الإعلانات",
+
+        "color" => "error",
+
+        "url" => "admin.php?gert=catforum&go=ads_list",
+
+    );
+
+    echo msgadmin_template("arab-forums", $arraymsg);
 }
 
 /*#####################################################################*|
@@ -258,4 +272,3 @@ echo msgadmin_template("arab-forums" , $arraymsg);
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

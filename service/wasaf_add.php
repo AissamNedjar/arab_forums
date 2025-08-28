@@ -11,174 +11,166 @@
 
 |*#####################################################################*/
 
-if(!defined("error_page_arab_forums")){exit(header("location: ../error.php"));}
-
-if(per_other("arab-forums" , 10) == true){
-
-if(num_mysql("arab-forums" , select_mysql("arab-forums" , "forum" , "forum_id" , "where forum_id in(".allowedin1_other("arab-forums").")")) == false){
-
-$arraymsg = array(
-
-"msg" => "للأسف لا يمكنك إدخال وصف جديد لأن عدد المنتديات التي تشرف عليها هي 0" ,
-
-"color" => "error" ,
-
-"url" => "" ,
-
-);
-
-echo msgadmin_template("arab-forums" , $arraymsg);
-
-}else{
-
-if(type == "insert"){
-
-$name = text_other("arab-forums" , post_other("arab-forums" , "name") , true , true , true , false , true);
-
-$forumid = text_other("arab-forums" , post_other("arab-forums" , "forumid") , true , true , true , false , true);
-
-$forumall = text_other("arab-forums" , post_other("arab-forums" , "forumall") , true , true , true , false , true);
-
-if($name == "" || $forumid == ""){
-
-$error = "الرجاء ملأ جميع الحقول ليتم إدخال الوصف الجديد";
-
-}else{
-
-$error = "";
-
+if (!defined("error_page_arab_forums")) {
+    exit(header("location: ../error.php"));
 }
 
-if($error != ""){
+if (per_other("arab-forums", 10) == true) {
 
-$arraymsg = array(
+    if (num_mysql("arab-forums", select_mysql("arab-forums", "forum", "forum_id", "where forum_id in(" . allowedin1_other("arab-forums") . ")")) == false) {
 
-"msg" => $error ,
+        $arraymsg = array(
 
-"color" => "error" ,
+            "msg" => "للأسف لا يمكنك إدخال وصف جديد لأن عدد المنتديات التي تشرف عليها هي 0",
 
-"url" => "" ,
+            "color" => "error",
 
-);
+            "url" => "",
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+        );
 
-}else{
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } else {
 
-if(group_user > 2){
+        if (type == "insert") {
 
-$alerrtt = ", wasaf_forumall";
+            $name = text_other("arab-forums", post_other("arab-forums", "name"), true, true, true, false, true);
 
-$alerrty = ", \"{$forumall}\"";
+            $forumid = text_other("arab-forums", post_other("arab-forums", "forumid"), true, true, true, false, true);
 
-$alerrtr = "0";
+            $forumall = text_other("arab-forums", post_other("arab-forums", "forumall"), true, true, true, false, true);
 
-$alerrtq = "تم إدخال الوصف الجديد بنجآح تام";
+            if ($name == "" || $forumid == "") {
 
-}else{
+                $error = "الرجاء ملأ جميع الحقول ليتم إدخال الوصف الجديد";
+            } else {
 
-$alerrtt = "";
+                $error = "";
+            }
 
-$alerrty = "";
+            if ($error != "") {
 
-$alerrtr = "1";
+                $arraymsg = array(
 
-$alerrtq = "تم إدخال الوصف الجديد بنجآح تام و لآكن يحتاج الموافقة ليتم إستخدامه";
+                    "msg" => $error,
 
-}
+                    "color" => "error",
 
-insert_mysql("arab-forums" , "wasaf" , "wasaf_id , wasaf_name , wasaf_forumid , wasaf_add , wasaf_date , wasaf_lock {$alerrtt}" , "null , \"{$name}\" , \"{$forumid}\" , \"".id_user."\" , \"".time()."\" , \"{$alerrtr}\" {$alerrty}");
+                    "url" => "",
 
-$arraymsg = array(
+                );
 
-"msg" => $alerrtq ,
+                echo msgadmin_template("arab-forums", $arraymsg);
+            } else {
 
-"color" => "good" ,
+                if (group_user > 2) {
 
-"url" => "service.php?gert=wasaf&go=wasaf_list" ,
+                    $alerrtt = ", wasaf_forumall";
 
-);
+                    $alerrty = ", \"{$forumall}\"";
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+                    $alerrtr = "0";
 
-}}else{
+                    $alerrtq = "تم إدخال الوصف الجديد بنجآح تام";
+                } else {
 
-echo "<form action=\"service.php?gert=wasaf&go=wasaf_add&type=insert\" method=\"post\">";
- 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" width=\"99%\" align=\"center\">";
+                    $alerrtt = "";
 
-echo "<tr><td class=\"tcotadmin\">الوصف تابع للمنتدى</td></tr>";
+                    $alerrty = "";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                    $alerrtr = "1";
 
-$forum_sql = select_mysql("arab-forums" , "forum" , "forum_id , forum_name , forum_order" , "where forum_id in(".allowedin1_other("arab-forums").") order by forum_order asc");
+                    $alerrtq = "تم إدخال الوصف الجديد بنجآح تام و لآكن يحتاج الموافقة ليتم إستخدامه";
+                }
 
-if(num_mysql("arab-forums" , $forum_sql) != false){
+                insert_mysql("arab-forums", "wasaf", "wasaf_id , wasaf_name , wasaf_forumid , wasaf_add , wasaf_date , wasaf_lock {$alerrtt}", "null , \"{$name}\" , \"{$forumid}\" , \"" . id_user . "\" , \"" . time() . "\" , \"{$alerrtr}\" {$alerrty}");
 
-echo "<select class=\"inputselect\" name=\"forumid\">";
+                $arraymsg = array(
 
-if(group_user == 6){
+                    "msg" => $alerrtq,
 
-echo "<option value=\"0\">إضافة الوصف في جميع المنتديات</option>";
+                    "color" => "good",
 
-}
+                    "url" => "service.php?gert=wasaf&go=wasaf_list",
 
-while($forum_object = object_mysql("arab-forums" , $forum_sql)){
+                );
 
-echo "<option value=\"{$forum_object->forum_id}\">{$forum_object->forum_name}</option>";
+                echo msgadmin_template("arab-forums", $arraymsg);
+            }
+        } else {
 
-}
+            echo "<form action=\"service.php?gert=wasaf&go=wasaf_add&type=insert\" method=\"post\">";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">إختر المنتدى الذي تريد إضافة الوصف له</span>";
+            echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" width=\"99%\" align=\"center\">";
 
-}
+            echo "<tr><td class=\"tcotadmin\">الوصف تابع للمنتدى</td></tr>";
 
-echo "</div></td></tr>";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"tcotadmin\">عنوان الوصف</td></tr>";
+            $forum_sql = select_mysql("arab-forums", "forum", "forum_id , forum_name , forum_order", "where forum_id in(" . allowedin1_other("arab-forums") . ") order by forum_order asc");
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            if (num_mysql("arab-forums", $forum_sql) != false) {
 
-echo "<input style=\"width:300px\" class=\"input\" name=\"name\" value=\"\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال عنوان الوصف</span>";
+                echo "<select class=\"inputselect\" name=\"forumid\">";
 
-echo "</div></td></tr>";
+                if (group_user == 6) {
 
-if(group_user > 2){
+                    echo "<option value=\"0\">إضافة الوصف في جميع المنتديات</option>";
+                }
 
-echo "<tr><td class=\"tcotadmin\">ظهور الوصف</td></tr>";
+                while ($forum_object = object_mysql("arab-forums", $forum_sql)) {
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                    echo "<option value=\"{$forum_object->forum_id}\">{$forum_object->forum_name}</option>";
+                }
 
-echo "<select class=\"inputselect\" name=\"forumall\">";
+                echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">إختر المنتدى الذي تريد إضافة الوصف له</span>";
+            }
 
-echo "<option value=\"0\">لآ</option>";
+            echo "</div></td></tr>";
 
-echo "<option value=\"1\">نعم</option>";
+            echo "<tr><td class=\"tcotadmin\">عنوان الوصف</td></tr>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الوصف يظهر في جميع المنتديات ؟</span>";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "</div></td></tr>";
+            echo "<input style=\"width:300px\" class=\"input\" name=\"name\" value=\"\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال عنوان الوصف</span>";
 
-}
+            echo "</div></td></tr>";
 
-echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال الوصف الجديد\"  ".confirm_other("arab-forums" , "هل أنت متأكد من أنك تريد إدخال الوصف الجديد ؟")."> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقول\"><br><br></td></tr>";
+            if (group_user > 2) {
 
-echo "</table></form>";
+                echo "<tr><td class=\"tcotadmin\">ظهور الوصف</td></tr>";
 
-}}}else{
+                echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-$arraymsg = array(
+                echo "<select class=\"inputselect\" name=\"forumall\">";
 
-"msg" => "للأسف المجموعة التي تنتمي إليها لا تملك التصريح المناسب لهذه الخاصية" ,
+                echo "<option value=\"0\">لآ</option>";
 
-"color" => "error" ,
+                echo "<option value=\"1\">نعم</option>";
 
-"url" => "" ,
+                echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الوصف يظهر في جميع المنتديات ؟</span>";
 
-);
+                echo "</div></td></tr>";
+            }
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال الوصف الجديد\"  " . confirm_other("arab-forums", "هل أنت متأكد من أنك تريد إدخال الوصف الجديد ؟") . "> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقول\"><br><br></td></tr>";
 
+            echo "</table></form>";
+        }
+    }
+} else {
+
+    $arraymsg = array(
+
+        "msg" => "للأسف المجموعة التي تنتمي إليها لا تملك التصريح المناسب لهذه الخاصية",
+
+        "color" => "error",
+
+        "url" => "",
+
+    );
+
+    echo msgadmin_template("arab-forums", $arraymsg);
 }
 
 /*#####################################################################*|
@@ -192,4 +184,3 @@ echo msgadmin_template("arab-forums" , $arraymsg);
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

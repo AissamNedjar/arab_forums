@@ -11,262 +11,259 @@
 
 |*#####################################################################*/
 
-if(!defined("error_page_arab_forums")){exit(header("location: ../error.php"));}
-
-if(type == "insert"){
-
-$time = text_other("arab-forums" , post_other("arab-forums" , "time") , true , true , true , false , true);
-
-$registeroff = text_other("arab-forums" , post_other("arab-forums" , "registeroff") , true , true , true , false , true);
-
-$registerwait = text_other("arab-forums" , post_other("arab-forums" , "registerwait") , true , true , true , false , true);
-
-$password = text_other("arab-forums" , post_other("arab-forums" , "password") , true , true , true , false , true);
-
-$email = text_other("arab-forums" , post_other("arab-forums" , "email") , true , true , true , false , true);
-
-$sex = text_other("arab-forums" , post_other("arab-forums" , "sex") , true , true , true , false , true);
-
-$age = text_other("arab-forums" , post_other("arab-forums" , "age") , true , true , true , false , true);
-
-$detail = text_other("arab-forums" , post_other("arab-forums" , "detail") , true , true , true , false , true);
-
-$default = text_other("arab-forums" , post_other("arab-forums" , "default") , true , true , true , false , true);
-
-$sig = text_other("arab-forums" , post_other("arab-forums" , "sig") , true , true , true , false , true);
-
-$change = text_other("arab-forums" , post_other("arab-forums" , "change") , true , true , true , false , true);
-
-if($time == "" || $registeroff == "" || $registerwait == "" || $password == "" || $email == "" || $sex == "" || $age == "" || $detail == "" || $default == "" || $sig == "" || $change == ""){
-
-$error = "الرجاء ملأ جميع الحقول ليتم تسجيل البيانات";
-
-}else{
-
-$error = "";
-
+if (!defined("error_page_arab_forums")) {
+    exit(header("location: ../error.php"));
 }
 
-if($error != ""){
+if (type == "insert") {
 
-$arraymsg = array(
+    $time = text_other("arab-forums", post_other("arab-forums", "time"), true, true, true, false, true);
 
-"msg" => $error ,
+    $registeroff = text_other("arab-forums", post_other("arab-forums", "registeroff"), true, true, true, false, true);
 
-"color" => "error" ,
+    $registerwait = text_other("arab-forums", post_other("arab-forums", "registerwait"), true, true, true, false, true);
 
-"url" => "" ,
+    $password = text_other("arab-forums", post_other("arab-forums", "password"), true, true, true, false, true);
 
-);
+    $email = text_other("arab-forums", post_other("arab-forums", "email"), true, true, true, false, true);
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+    $sex = text_other("arab-forums", post_other("arab-forums", "sex"), true, true, true, false, true);
 
-}else{
+    $age = text_other("arab-forums", post_other("arab-forums", "age"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$time}\" where option_name = \"time\"");
+    $detail = text_other("arab-forums", post_other("arab-forums", "detail"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$registeroff}\" where option_name = \"registeroff\"");
+    $default = text_other("arab-forums", post_other("arab-forums", "default"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$registerwait}\" where option_name = \"registerwait\"");
+    $sig = text_other("arab-forums", post_other("arab-forums", "sig"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$password}\" where option_name = \"password\"");
+    $change = text_other("arab-forums", post_other("arab-forums", "change"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$email}\" where option_name = \"email\"");
+    if ($time == "" || $registeroff == "" || $registerwait == "" || $password == "" || $email == "" || $sex == "" || $age == "" || $detail == "" || $default == "" || $sig == "" || $change == "") {
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$sex}\" where option_name = \"sex\"");
+        $error = "الرجاء ملأ جميع الحقول ليتم تسجيل البيانات";
+    } else {
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$age}\" where option_name = \"age\"");
+        $error = "";
+    }
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$detail}\" where option_name = \"detail\"");
+    if ($error != "") {
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$default}\" where option_name = \"default\"");
+        $arraymsg = array(
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$change}\" where option_name = \"change\"");
+            "msg" => $error,
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$sig}\" where option_name = \"sig\"");
+            "color" => "error",
 
-$arraymsg = array(
+            "url" => "",
 
-"msg" => "تم إدخال البيانات الجديدة بنجآح تآم" ,
+        );
 
-"color" => "good" ,
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } else {
 
-"url" => "admin.php?gert=option&go=option_other" ,
+        update_mysql("arab-forums", "option", "option_value = \"{$time}\" where option_name = \"time\"");
 
-);
+        update_mysql("arab-forums", "option", "option_value = \"{$registeroff}\" where option_name = \"registeroff\"");
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+        update_mysql("arab-forums", "option", "option_value = \"{$registerwait}\" where option_name = \"registerwait\"");
 
-}}else{
+        update_mysql("arab-forums", "option", "option_value = \"{$password}\" where option_name = \"password\"");
 
-echo "<form action=\"admin.php?gert=option&go=option_other&type=insert\" method=\"post\">";
- 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" width=\"99%\" align=\"center\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$email}\" where option_name = \"email\"");
 
-echo "<tr><td class=\"tcotadmin\">الوقت الأصلي للمنتدى</td></tr>";
+        update_mysql("arab-forums", "option", "option_value = \"{$sex}\" where option_name = \"sex\"");
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$age}\" where option_name = \"age\"");
 
-echo "<select class=\"inputselect\" name=\"time\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$detail}\" where option_name = \"detail\"");
 
-for($x=-12;$x<=12;$x++){
+        update_mysql("arab-forums", "option", "option_value = \"{$default}\" where option_name = \"default\"");
 
-echo "<option value=\"".($x == 0 ? "00" : $x)."\" ".(time_option == $x ? "selected" : "").">GMT ".($x == 0 ? "" : ($x > 0 ? "+{$x}" : $x))."</option>";
+        update_mysql("arab-forums", "option", "option_value = \"{$change}\" where option_name = \"change\"");
 
-}
+        update_mysql("arab-forums", "option", "option_value = \"{$sig}\" where option_name = \"sig\"");
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">إدخال الوقت الأصلي الخاص بالمنتدى</span>";
+        $arraymsg = array(
 
-echo "</div></td></tr>";
+            "msg" => "تم إدخال البيانات الجديدة بنجآح تآم",
 
-echo "<tr><td class=\"tcotadmin\">التسجيل</td></tr>";
+            "color" => "good",
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            "url" => "admin.php?gert=option&go=option_other",
 
-echo "<select class=\"inputselect\" name=\"registeroff\">";
+        );
 
-echo "<option value=\"0\" ".(registeroff_option == 0 ? "selected" : "").">مفتوح</option>";
+        echo msgadmin_template("arab-forums", $arraymsg);
+    }
+} else {
 
-echo "<option value=\"1\" ".(registeroff_option == 1 ? "selected" : "").">مغلوق</option>";
+    echo "<form action=\"admin.php?gert=option&go=option_other&type=insert\" method=\"post\">";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">التسجيل مفتوح أم مغلوق</span>";
+    echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" width=\"99%\" align=\"center\">";
 
-echo "</div></td></tr>";
+    echo "<tr><td class=\"tcotadmin\">الوقت الأصلي للمنتدى</td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">حالة التسجيل</td></tr>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<select class=\"inputselect\" name=\"time\">";
 
-echo "<select class=\"inputselect\" name=\"registerwait\">";
+    for ($x = -12; $x <= 12; $x++) {
 
-echo "<option value=\"0\" ".(registerwait_option == 0 ? "selected" : "").">بدون موافقة أو تفعيل</option>";
+        echo "<option value=\"" . ($x == 0 ? "00" : $x) . "\" " . (time_option == $x ? "selected" : "") . ">GMT " . ($x == 0 ? "" : ($x > 0 ? "+{$x}" : $x)) . "</option>";
+    }
 
-echo "<option value=\"1\" ".(registerwait_option == 1 ? "selected" : "").">ينتظر موافقة الإدارة</option>";
+    echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">إدخال الوقت الأصلي الخاص بالمنتدى</span>";
 
-echo "<option value=\"2\" ".(registerwait_option == 2 ? "selected" : "").">التفعيل بالبريد الإلكتروني</option>";
+    echo "</div></td></tr>";
 
-echo "<option value=\"3\" ".(registerwait_option == 3 ? "selected" : "").">التفعيل بالبريد الإلكتروني + ينتظر موافقة الإدارة</option>";
+    echo "<tr><td class=\"tcotadmin\">التسجيل</td></tr>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">حالة التسجيل بالمنتدى (إن قمت بإختيار التفعيل بالبريد الإلكتروني يجب أن تكون إستضافتك تدعم دالة mail)</span>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "</div></td></tr>";
+    echo "<select class=\"inputselect\" name=\"registeroff\">";
 
-echo "<tr><td class=\"tcotadmin\">السماح بتغيير البيانات</td></tr>";
+    echo "<option value=\"0\" " . (registeroff_option == 0 ? "selected" : "") . ">مفتوح</option>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<option value=\"1\" " . (registeroff_option == 1 ? "selected" : "") . ">مغلوق</option>";
 
-echo "<select class=\"inputselect\" name=\"detail\">";
+    echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">التسجيل مفتوح أم مغلوق</span>";
 
-echo "<option value=\"1\" ".(detail_option == 1 ? "selected" : "").">نعم</option>";
+    echo "</div></td></tr>";
 
-echo "<option value=\"0\" ".(detail_option == 0 ? "selected" : "").">لآ</option>";
+    echo "<tr><td class=\"tcotadmin\">حالة التسجيل</td></tr>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">السماح للأعضاء بتغيير بيانتهم أو لآ</span>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "</div></td></tr>";
+    echo "<select class=\"inputselect\" name=\"registerwait\">";
 
-echo "<tr><td class=\"tcotadmin\">السماح بتغيير الكلمة السرية</td></tr>";
+    echo "<option value=\"0\" " . (registerwait_option == 0 ? "selected" : "") . ">بدون موافقة أو تفعيل</option>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<option value=\"1\" " . (registerwait_option == 1 ? "selected" : "") . ">ينتظر موافقة الإدارة</option>";
 
-echo "<select class=\"inputselect\" name=\"password\">";
+    echo "<option value=\"2\" " . (registerwait_option == 2 ? "selected" : "") . ">التفعيل بالبريد الإلكتروني</option>";
 
-echo "<option value=\"1\" ".(password_option == 1 ? "selected" : "").">نعم</option>";
+    echo "<option value=\"3\" " . (registerwait_option == 3 ? "selected" : "") . ">التفعيل بالبريد الإلكتروني + ينتظر موافقة الإدارة</option>";
 
-echo "<option value=\"0\" ".(password_option == 0 ? "selected" : "").">لآ</option>";
+    echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">حالة التسجيل بالمنتدى (إن قمت بإختيار التفعيل بالبريد الإلكتروني يجب أن تكون إستضافتك تدعم دالة mail)</span>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">السماح للأعضاء بتغيير الكلمة السرية أو لآ</span>";
+    echo "</div></td></tr>";
 
-echo "</div></td></tr>";
+    echo "<tr><td class=\"tcotadmin\">السماح بتغيير البيانات</td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">السماح بتغيير الإيميل</td></tr>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<select class=\"inputselect\" name=\"detail\">";
 
-echo "<select class=\"inputselect\" name=\"email\">";
+    echo "<option value=\"1\" " . (detail_option == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "<option value=\"1\" ".(email_option == 1 ? "selected" : "").">نعم</option>";
+    echo "<option value=\"0\" " . (detail_option == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "<option value=\"0\" ".(email_option == 0 ? "selected" : "").">لآ</option>";
+    echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">السماح للأعضاء بتغيير بيانتهم أو لآ</span>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">السماح للأعضاء بتغيير الإيميل أو لآ</span>";
+    echo "</div></td></tr>";
 
-echo "</div></td></tr>";
+    echo "<tr><td class=\"tcotadmin\">السماح بتغيير الكلمة السرية</td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">السماح بتغيير الجنس</td></tr>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<select class=\"inputselect\" name=\"password\">";
 
-echo "<select class=\"inputselect\" name=\"sex\">";
+    echo "<option value=\"1\" " . (password_option == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "<option value=\"1\" ".(sex_option == 1 ? "selected" : "").">نعم</option>";
+    echo "<option value=\"0\" " . (password_option == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "<option value=\"0\" ".(sex_option == 0 ? "selected" : "").">لآ</option>";
+    echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">السماح للأعضاء بتغيير الكلمة السرية أو لآ</span>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">السماح للأعضاء بتغيير الجنس أو لآ</span>";
+    echo "</div></td></tr>";
 
-echo "</div></td></tr>";
+    echo "<tr><td class=\"tcotadmin\">السماح بتغيير الإيميل</td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">السماح بتغيير تاريخ الإزدياد</td></tr>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<select class=\"inputselect\" name=\"email\">";
 
-echo "<select class=\"inputselect\" name=\"age\">";
+    echo "<option value=\"1\" " . (email_option == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "<option value=\"1\" ".(age_option == 1 ? "selected" : "").">نعم</option>";
+    echo "<option value=\"0\" " . (email_option == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "<option value=\"0\" ".(age_option == 0 ? "selected" : "").">لآ</option>";
+    echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">السماح للأعضاء بتغيير الإيميل أو لآ</span>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">السماح للأعضاء بتغيير تاريخ الإزدياد أو لآ</span>";
+    echo "</div></td></tr>";
 
-echo "</div></td></tr>";
+    echo "<tr><td class=\"tcotadmin\">السماح بتغيير الجنس</td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">السماح بتغيير الإعدادات الإفتراضية</td></tr>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<select class=\"inputselect\" name=\"sex\">";
 
-echo "<select class=\"inputselect\" name=\"default\">";
+    echo "<option value=\"1\" " . (sex_option == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "<option value=\"1\" ".(default_option == 1 ? "selected" : "").">نعم</option>";
+    echo "<option value=\"0\" " . (sex_option == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "<option value=\"0\" ".(default_option == 0 ? "selected" : "").">لآ</option>";
+    echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">السماح للأعضاء بتغيير الجنس أو لآ</span>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">السماح للأعضاء بتغيير الإعدادات الإفتراضية أو لآ</span>";
+    echo "</div></td></tr>";
 
-echo "</div></td></tr>";
+    echo "<tr><td class=\"tcotadmin\">السماح بتغيير تاريخ الإزدياد</td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">السماح بتغيير التوقيع</td></tr>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<select class=\"inputselect\" name=\"age\">";
 
-echo "<select class=\"inputselect\" name=\"sig\">";
+    echo "<option value=\"1\" " . (age_option == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "<option value=\"1\" ".(sig_option == 1 ? "selected" : "").">نعم</option>";
+    echo "<option value=\"0\" " . (age_option == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "<option value=\"0\" ".(sig_option == 0 ? "selected" : "").">لآ</option>";
+    echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">السماح للأعضاء بتغيير تاريخ الإزدياد أو لآ</span>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">السماح للأعضاء بتغيير التوقيع أو لآ</span>";
+    echo "</div></td></tr>";
 
-echo "</div></td></tr>";
+    echo "<tr><td class=\"tcotadmin\">السماح بتغيير الإعدادات الإفتراضية</td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">السماح بطلب تغيير إسم العضوية</td></tr>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<select class=\"inputselect\" name=\"default\">";
 
-echo "<select class=\"inputselect\" name=\"change\">";
+    echo "<option value=\"1\" " . (default_option == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "<option value=\"1\" ".(change_option == 1 ? "selected" : "").">نعم</option>";
+    echo "<option value=\"0\" " . (default_option == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "<option value=\"0\" ".(change_option == 0 ? "selected" : "").">لآ</option>";
+    echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">السماح للأعضاء بتغيير الإعدادات الإفتراضية أو لآ</span>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">السماح للأعضاء بطلب تغيير إسم العضوية أو لآ</span>";
+    echo "</div></td></tr>";
 
-echo "</div></td></tr>";
+    echo "<tr><td class=\"tcotadmin\">السماح بتغيير التوقيع</td></tr>";
 
-echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال البيانات الجديدة\"  ".confirm_other("arab-forums" , "")."> - <input type=\"reset\" class=\"button\" value=\"إرجاع البيانات الأصلية\"><br><br></td></tr>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "</table></form>";
+    echo "<select class=\"inputselect\" name=\"sig\">";
 
+    echo "<option value=\"1\" " . (sig_option == 1 ? "selected" : "") . ">نعم</option>";
+
+    echo "<option value=\"0\" " . (sig_option == 0 ? "selected" : "") . ">لآ</option>";
+
+    echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">السماح للأعضاء بتغيير التوقيع أو لآ</span>";
+
+    echo "</div></td></tr>";
+
+    echo "<tr><td class=\"tcotadmin\">السماح بطلب تغيير إسم العضوية</td></tr>";
+
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+
+    echo "<select class=\"inputselect\" name=\"change\">";
+
+    echo "<option value=\"1\" " . (change_option == 1 ? "selected" : "") . ">نعم</option>";
+
+    echo "<option value=\"0\" " . (change_option == 0 ? "selected" : "") . ">لآ</option>";
+
+    echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">السماح للأعضاء بطلب تغيير إسم العضوية أو لآ</span>";
+
+    echo "</div></td></tr>";
+
+    echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال البيانات الجديدة\"  " . confirm_other("arab-forums", "") . "> - <input type=\"reset\" class=\"button\" value=\"إرجاع البيانات الأصلية\"><br><br></td></tr>";
+
+    echo "</table></form>";
 }
 
 /*#####################################################################*|
@@ -280,4 +277,3 @@ echo "</table></form>";
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

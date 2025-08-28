@@ -11,95 +11,92 @@
 
 |*#####################################################################*/
 
-define("error_page_arab_forums" , true);
+define("error_page_arab_forums", true);
 
 @include("includes.php");
 
-define("pageupdate" , true);
+define("pageupdate", true);
 
 @include("includes/e.noopen.php");
 
-define("pagebody" , "recover");
+define("pagebody", "recover");
 
-online_other("arab-forums" , "recover" , "0" , "0" , "0" , "0");
+online_other("arab-forums", "recover", "0", "0", "0", "0");
 
-if(group_user == 0){
+if (group_user == 0) {
 
-if(go == ""){
+    if (go == "") {
 
-echo bodytop_template("arab-forums" , "إسترجاع الكلمة السرية");
+        echo bodytop_template("arab-forums", "إسترجاع الكلمة السرية");
 
-$arrayheader = array(
+        $arrayheader = array(
 
-"login" => false ,
+            "login" => false,
 
-);
+        );
 
-echo header_template("arab-forums" , $arrayheader);
+        echo header_template("arab-forums", $arrayheader);
 
-echo "<form action=\"recover.php?go=insert\" method=\"post\">";
- 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" width=\"50%\" align=\"center\">";
+        echo "<form action=\"recover.php?go=insert\" method=\"post\">";
 
-echo "<tr align=\"center\"><td class=\"tcat\">إسترجاع الكلمة السرية</td></tr>";
+        echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" width=\"50%\" align=\"center\">";
 
-echo "<tr><td class=\"alttext1\" align=\"center\"><div class=\"pad\">";
+        echo "<tr align=\"center\"><td class=\"tcat\">إسترجاع الكلمة السرية</td></tr>";
 
-echo "<br>لإسترجاع الكلمة السرية<br><br>أدخل إسمك المسجل في المنتديات و إضغط على إسترجاع الكلمة السرية";
+        echo "<tr><td class=\"alttext1\" align=\"center\"><div class=\"pad\">";
 
-echo "<br><br><input style=\"width:250px\" class=\"input\" name=\"namerecover\" value=\"\" type=\"text\">";
+        echo "<br>لإسترجاع الكلمة السرية<br><br>أدخل إسمك المسجل في المنتديات و إضغط على إسترجاع الكلمة السرية";
 
-echo "<br><br>ملاحظة: يجب ان يكون الاسم مطابقا لسجلاتنا تماما<br><br>";
+        echo "<br><br><input style=\"width:250px\" class=\"input\" name=\"namerecover\" value=\"\" type=\"text\">";
 
-echo "</div></td></tr>";
+        echo "<br><br>ملاحظة: يجب ان يكون الاسم مطابقا لسجلاتنا تماما<br><br>";
 
-echo "<tr><td class=\"alttext2\" align=\"center\"><div class=\"pad\">";
+        echo "</div></td></tr>";
 
-echo "<br><input type=\"submit\" class=\"button\" name=\"insert\" value=\"إسترجاع الكلمة السرية\" ".confirm_other("arab-forums" , "هل أنت متأكد من أنك تريد إسترجاع الكلمة السرية للإسم المدخل ؟")."> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقل\"><br><br>";
+        echo "<tr><td class=\"alttext2\" align=\"center\"><div class=\"pad\">";
 
-echo "</div></td></tr>";
+        echo "<br><input type=\"submit\" class=\"button\" name=\"insert\" value=\"إسترجاع الكلمة السرية\" " . confirm_other("arab-forums", "هل أنت متأكد من أنك تريد إسترجاع الكلمة السرية للإسم المدخل ؟") . "> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقل\"><br><br>";
 
-echo "</table></form>";
+        echo "</div></td></tr>";
 
-echo footer_template("arab-forums");
+        echo "</table></form>";
 
-echo bodybottom_template("arab-forums");
+        echo footer_template("arab-forums");
 
-}elseif(go == "insert"){
+        echo bodybottom_template("arab-forums");
+    } elseif (go == "insert") {
 
-$namerecover = text_other("arab-forums" , post_other("arab-forums" , "namerecover") , true , true , true , true , true);
+        $namerecover = text_other("arab-forums", post_other("arab-forums", "namerecover"), true, true, true, true, true);
 
-if($namerecover == ""){
+        if ($namerecover == "") {
 
-$error = "الرجاء إدخال إسم العضوية ليتم إسترجاع الكلمة السرية";
+            $error = "الرجاء إدخال إسم العضوية ليتم إسترجاع الكلمة السرية";
+        } else {
 
-}else{
+            $recover_sql = select_mysql("arab-forums", "user", "user_id , user_email , user_nameuser , user_wait , user_active", "where user_wait in(0) && user_active in(0) && user_nameuser = \"" . $namerecover . "\" limit 1");
 
-$recover_sql = select_mysql("arab-forums" , "user" , "user_id , user_email , user_nameuser , user_wait , user_active" , "where user_wait in(0) && user_active in(0) && user_nameuser = \"".$namerecover."\" limit 1");
+            if (num_mysql("arab-forums", $recover_sql) == false) {
 
-if(num_mysql("arab-forums" , $recover_sql) == false){
+                $error = "الإسم الذي أدخلته ليس مسجلا لدينا الرجاء التأكد من الإسم من قائمة الأعضاء";
+            } else {
 
-$error = "الإسم الذي أدخلته ليس مسجلا لدينا الرجاء التأكد من الإسم من قائمة الأعضاء";
+                $error = "";
 
-}else{
+                $recover_object = object_mysql("arab-forums", $recover_sql);
+            }
+        }
 
-$error = "";
+        if ($error == "") {
 
-$recover_object = object_mysql("arab-forums" , $recover_sql);
+            $codeyserr = md5(code_other("arab-forums", 10));
 
-}}
+            update_mysql("arab-forums", "user", "user_codepassword = \"{$codeyserr}\" where user_id in({$recover_object->user_id}) limit 1");
 
-if($error == ""){
+            $subject = "رسالة من " . title_option . " : طلب إسترجاع الكلمة السرية";
 
-$codeyserr = md5(code_other("arab-forums" , 10));
+            $activeurl = "http://" . showurl_option . "/recover.php?go=reset&id={$recover_object->user_id}&code=" . substr($codeyserr, 8, 8) . "";
 
-update_mysql("arab-forums" , "user" , "user_codepassword = \"{$codeyserr}\" where user_id in({$recover_object->user_id}) limit 1");
-
-$subject = "رسالة من ".title_option." : طلب إسترجاع الكلمة السرية";
-
-$activeurl = "http://".showurl_option."/recover.php?go=reset&id={$recover_object->user_id}&code=".substr($codeyserr , 8 , 8)."";
-
-$message = "مرحباً بك {$recover_object->user_nameuser}
+            $message = "مرحباً بك {$recover_object->user_nameuser}
 
 أنت أو شخص آخر طلب بإسترجاع الكلمة السرية
 		
@@ -111,249 +108,237 @@ $message = "مرحباً بك {$recover_object->user_nameuser}
 
 -------------------------------------------------
 
-مع أطيب الأمنيات إدارة ".title_option."";
+مع أطيب الأمنيات إدارة " . title_option . "";
 
-mail_other("arab-forums" , $recover_object->user_email , $subject , $message , "" , "" , "");
+            mail_other("arab-forums", $recover_object->user_email, $subject, $message, "", "", "");
 
-$arraymsg = array(
+            $arraymsg = array(
 
-"login" => false ,
+                "login" => false,
 
-"msg" => "تم إرسال إلى بريدك الإلكتروني رابط إسترجاع كلمتك السرية" ,
+                "msg" => "تم إرسال إلى بريدك الإلكتروني رابط إسترجاع كلمتك السرية",
 
-"color" => "good" ,
+                "color" => "good",
 
-"old" => true ,
+                "old" => true,
 
-"auto" => false ,
+                "auto" => false,
 
-"text" => "الذهاب إلى الصفحة الرئيسية" ,
+                "text" => "الذهاب إلى الصفحة الرئيسية",
 
-"url" => "index.php" ,
+                "url" => "index.php",
 
-"array" => "" ,
+                "array" => "",
 
-);
+            );
 
-echo msg_template("arab-forums" , $arraymsg);
+            echo msg_template("arab-forums", $arraymsg);
+        } else {
 
-}else{
+            $arraymsg = array(
 
-$arraymsg = array(
+                "login" => false,
 
-"login" => false ,
+                "msg" => $error,
 
-"msg" => $error ,
+                "color" => "error",
 
-"color" => "error" ,
+                "old" => true,
 
-"old" => true ,
+                "auto" => false,
 
-"auto" => false ,
+                "text" => "",
 
-"text" => "" ,
+                "url" => "",
 
-"url" => "" ,
+                "array" => "",
 
-"array" => "" ,
+            );
 
-);
+            echo msg_template("arab-forums", $arraymsg);
+        }
+    } elseif (go == "reset") {
 
-echo msg_template("arab-forums" , $arraymsg);
+        $reset_sql = select_mysql("arab-forums", "user", "user_id , user_wait , user_active , user_codepassword", "where user_id in(" . id . ") && user_wait in(0) && user_active in(0) limit 1");
 
-}}elseif(go == "reset"){
+        if (num_mysql("arab-forums", $reset_sql) != false) {
 
-$reset_sql = select_mysql("arab-forums" , "user" , "user_id , user_wait , user_active , user_codepassword" , "where user_id in(".id.") && user_wait in(0) && user_active in(0) limit 1");
+            $reset_object = object_mysql("arab-forums", $reset_sql);
 
-if(num_mysql("arab-forums" , $reset_sql) != false){
+            if ($reset_object->user_codepassword == "") {
 
-$reset_object = object_mysql("arab-forums" , $reset_sql);
+                $truegood = "لم يتم التعرف على العضوية و السبب من الرابط , الرجاء منك الضغط على الرابط من البريد الإلكتروني";
+            } elseif (code != substr($reset_object->user_codepassword, 8, 8)) {
 
-if($reset_object->user_codepassword == ""){
+                $truegood = "لم يتم التعرف على العضوية و السبب من الرابط , الرجاء منك الضغط على الرابط من البريد الإلكتروني";
+            } else {
 
-$truegood = "لم يتم التعرف على العضوية و السبب من الرابط , الرجاء منك الضغط على الرابط من البريد الإلكتروني";
+                $truegood = "";
+            }
+        } else {
 
-}elseif(code != substr($reset_object->user_codepassword , 8 , 8)){
+            $truegood = "لم يتم التعرف على العضوية و السبب من الرابط , الرجاء منك الضغط على الرابط من البريد الإلكتروني";
+        }
 
-$truegood = "لم يتم التعرف على العضوية و السبب من الرابط , الرجاء منك الضغط على الرابط من البريد الإلكتروني";
+        if ($truegood != "") {
 
-}else{
+            $arraymsg = array(
 
-$truegood = "";
+                "login" => false,
 
-}}else{
+                "msg" => $truegood,
 
-$truegood = "لم يتم التعرف على العضوية و السبب من الرابط , الرجاء منك الضغط على الرابط من البريد الإلكتروني";
+                "color" => "error",
 
-}
+                "old" => true,
 
-if($truegood != ""){
+                "auto" => false,
 
-$arraymsg = array(
+                "text" => "الذهاب إلى الصفحة الرئيسية",
 
-"login" => false ,
+                "url" => "home.php",
 
-"msg" => $truegood ,
+                "array" => "",
 
-"color" => "error" ,
+            );
 
-"old" => true ,
+            echo msg_template("arab-forums", $arraymsg);
+        } else {
 
-"auto" => false ,
+            $insert  = text_other("arab-forums", post_other("arab-forums", "insert"), false, false, false, false, false);
 
-"text" => "الذهاب إلى الصفحة الرئيسية" ,
+            if (isset($insert)) {
 
-"url" => "home.php" ,
+                $passnew1 = text_other("arab-forums", post_other("arab-forums", "passnew1"), true, true, true, true, true);
 
-"array" => "" ,
+                $passnew2 = text_other("arab-forums", post_other("arab-forums", "passnew2"), true, true, true, true, true);
 
-);
+                $codenew = text_other("arab-forums", post_other("arab-forums", "codenew"), true, true, true, true, true);
 
-echo msg_template("arab-forums" , $arraymsg);
+                if ($passnew1 == "" || $passnew2 == "" || $codenew == "") {
 
-}else{
+                    $errorerror = "الرجاء ملأ جميع الحقول ليتم تغيير البيانات";
+                } elseif (mb_strlen($passnew1) < 5 || mb_strlen($passnew1) > 20) {
 
-$insert  = text_other("arab-forums" , post_other("arab-forums" , "insert") , false , false , false , false , false);
+                    $errorpass1 = "الكلمة السرية لا يجب أن تكون أقل من 5 حروف و أكبر من 20 حرف";
+                } elseif ($passnew1 != $passnew2) {
 
-if(isset($insert)){
+                    $errorpass2 = "يجب أن تتطابق الكلمة السرية مع التأكيد";
+                } elseif (md5(strtoupper($codenew)) != get_cookie("arab-forums", "codesrecover")) {
 
-$passnew1 = text_other("arab-forums" , post_other("arab-forums" , "passnew1") , true , true , true , true , true);
+                    $errorcode = "عفوآ الكود غير مطابق للكود المدخل";
+                }
+            }
 
-$passnew2 = text_other("arab-forums" , post_other("arab-forums" , "passnew2") , true , true , true , true , true);
+            if (isset($insert) && $errorerror == "" && $errorpass1 == "" && $errorpass2 == "" && $errorcode == "") {
 
-$codenew = text_other("arab-forums" , post_other("arab-forums" , "codenew") , true , true , true , true , true);
+                update_mysql("arab-forums", "user", "user_pass = \"" . pass_other("arab-forums", $passnew1) . "\" , user_codepassword = null where user_id in(" . id . ") limit 1");
 
-if($passnew1 == "" || $passnew2 == "" || $codenew == ""){
+                $arraymsg = array(
 
-$errorerror = "الرجاء ملأ جميع الحقول ليتم تغيير البيانات";
+                    "login" => false,
 
-}elseif(mb_strlen($passnew1) < 5 || mb_strlen($passnew1) > 20){
+                    "msg" => "تم تغيير الكلمة السرية بنجآح تام",
 
-$errorpass1 = "الكلمة السرية لا يجب أن تكون أقل من 5 حروف و أكبر من 20 حرف";
+                    "color" => "good",
 
-}elseif($passnew1 != $passnew2){
+                    "old" => true,
 
-$errorpass2 = "يجب أن تتطابق الكلمة السرية مع التأكيد";
+                    "auto" => false,
 
-}elseif(md5(strtoupper($codenew)) != get_cookie("arab-forums" , "codesrecover")){
+                    "text" => "الذهاب إلى الصفحة الرئيسية",
 
-$errorcode = "عفوآ الكود غير مطابق للكود المدخل";
+                    "url" => "home.php",
 
-}
+                    "array" => "",
 
-}
+                );
 
-if(isset($insert) && $errorerror == "" && $errorpass1 == "" && $errorpass2 == "" && $errorcode == ""){
+                echo msg_template("arab-forums", $arraymsg);
+            } else {
 
-update_mysql("arab-forums" , "user" , "user_pass = \"".pass_other("arab-forums" , $passnew1)."\" , user_codepassword = null where user_id in(".id.") limit 1");
+                $codey = code_other("arab-forums", 8);
 
-$arraymsg = array(
+                set_cookie("arab-forums", "codesrecover", md5(strtoupper($codey)), time() + 60 * 60 * 24 * 365);
 
-"login" => false ,
+                echo bodytop_template("arab-forums", "إسترجاع الكلمة السرية");
 
-"msg" => "تم تغيير الكلمة السرية بنجآح تام" ,
+                $arrayheader = array(
 
-"color" => "good" ,
+                    "login" => false,
 
-"old" => true ,
+                );
 
-"auto" => false ,
+                echo header_template("arab-forums", $arrayheader);
 
-"text" => "الذهاب إلى الصفحة الرئيسية" ,
+                echo "<form action=\"" . self . "\" method=\"post\">";
 
-"url" => "home.php" ,
+                echo "<input type=\"hidden\" name=\"agree\" value=\"1\">";
 
-"array" => "" ,
+                echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" width=\"50%\" align=\"center\">";
 
-);
+                echo "<tr><td class=\"tcat\">إسترجاع الكلمة السرية الخاصة بك</td></tr>";
 
-echo msg_template("arab-forums" , $arraymsg);
+                echo "<tr><td class=\"alttext1\" align=\"center\"><div class=\"pad\">";
 
-}else{
+                echo "<br><span style=\"color:red;font-size:12px;\">{$errorerror}</span><br>";
 
-$codey = code_other("arab-forums" , 8);
+                echo "<div style=\"width:640px\" align=\"right\">";
 
-set_cookie("arab-forums" , "codesrecover" , md5(strtoupper($codey)) , time()+60*60*24*365);
+                echo "<br><fieldset><legend>تغيير الكلمة السرية</legend>";
 
-echo bodytop_template("arab-forums" , "إسترجاع الكلمة السرية");
+                echo "<p><span style=\"color:green;font-size:12px;\">الكلمة السرية الجديدة :</span></p>";
 
-$arrayheader = array(
+                echo "<p><input style=\"width:250px\" class=\"input\" name=\"passnew1\" value=\"\" type=\"password\">&nbsp;<span style=\"color:red;font-size:12px;\">{$errorpass1}</span></p>";
 
-"login" => false ,
+                echo "<p><span style=\"color:green;font-size:12px;\">إعادة الكلمة السرية الجديدة :</span></p>";
 
-);
+                echo "<p><input style=\"width:250px\" class=\"input\" name=\"passnew2\" value=\"\" type=\"password\">&nbsp;<span style=\"color:red;font-size:12px;\">{$errorpass2}</span></p>";
 
-echo header_template("arab-forums" , $arrayheader);
+                echo "<p><span style=\"color:green;font-size:12px;\">كود التحقق : <span class=\"codes\">{$codey}</span></span>&nbsp;<span style=\"color:green;font-size:12px;\">يرجى كتابة الكود في الخانة المخصصة له</span></p>";
 
-echo "<form action=\"".self."\" method=\"post\">";
+                echo "<p><input dir=\"ltr\" style=\"width:150px\" class=\"input\" name=\"codenew\" value=\"\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">{$errorcode}</span></p>";
 
-echo "<input type=\"hidden\" name=\"agree\" value=\"1\">";
- 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" width=\"50%\" align=\"center\">";
+                echo "</select></p>";
 
-echo "<tr><td class=\"tcat\">إسترجاع الكلمة السرية الخاصة بك</td></tr>";
+                echo "</fieldset>";
 
-echo "<tr><td class=\"alttext1\" align=\"center\"><div class=\"pad\">";
+                echo "<br><center><input type=\"submit\" class=\"button\" name=\"insert\" value=\"إدخال البيانات الجديدة\" " . confirm_other("arab-forums", "") . "> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقول\"></center><br>";
 
-echo "<br><span style=\"color:red;font-size:12px;\">{$errorerror}</span><br>";
+                echo "</div></div></td></tr></table></form>";
 
-echo "<div style=\"width:640px\" align=\"right\">";
- 
-echo "<br><fieldset><legend>تغيير الكلمة السرية</legend>";
+                echo footer_template("arab-forums");
 
-echo "<p><span style=\"color:green;font-size:12px;\">الكلمة السرية الجديدة :</span></p>";
+                echo bodybottom_template("arab-forums");
+            }
+        }
+    } else {
 
-echo "<p><input style=\"width:250px\" class=\"input\" name=\"passnew1\" value=\"\" type=\"password\">&nbsp;<span style=\"color:red;font-size:12px;\">{$errorpass1}</span></p>";
+        exit(header("location: error.php"));
+    }
+} else {
 
-echo "<p><span style=\"color:green;font-size:12px;\">إعادة الكلمة السرية الجديدة :</span></p>";
+    $arraymsg = array(
 
-echo "<p><input style=\"width:250px\" class=\"input\" name=\"passnew2\" value=\"\" type=\"password\">&nbsp;<span style=\"color:red;font-size:12px;\">{$errorpass2}</span></p>";
+        "login" => false,
 
-echo "<p><span style=\"color:green;font-size:12px;\">كود التحقق : <span class=\"codes\">{$codey}</span></span>&nbsp;<span style=\"color:green;font-size:12px;\">يرجى كتابة الكود في الخانة المخصصة له</span></p>";
+        "msg" => "عفوآ بيانتنا تأكد أنك مسجل بهذه العضوية : " . name_user . "",
 
-echo "<p><input dir=\"ltr\" style=\"width:150px\" class=\"input\" name=\"codenew\" value=\"\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">{$errorcode}</span></p>";
+        "color" => "error",
 
-echo "</select></p>";
+        "old" => true,
 
-echo "</fieldset>";
+        "auto" => false,
 
-echo "<br><center><input type=\"submit\" class=\"button\" name=\"insert\" value=\"إدخال البيانات الجديدة\" ".confirm_other("arab-forums" , "")."> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقول\"></center><br>";
+        "text" => "",
 
-echo "</div></div></td></tr></table></form>";
+        "url" => "",
 
-echo footer_template("arab-forums");
+        "array" => "",
 
-echo bodybottom_template("arab-forums");
+    );
 
-}}}else{
-
-exit(header("location: error.php"));
-
-}}else{
-
-$arraymsg = array(
-
-"login" => false ,
-
-"msg" => "عفوآ بيانتنا تأكد أنك مسجل بهذه العضوية : ".name_user."" ,
-
-"color" => "error" ,
-
-"old" => true ,
-
-"auto" => false ,
-
-"text" => "" ,
-
-"url" => "" ,
-
-"array" => "" ,
-
-);
-
-echo msg_template("arab-forums" , $arraymsg);
-
+    echo msg_template("arab-forums", $arraymsg);
 }
 
 disconnect_mysql("arab-forums");
-?>

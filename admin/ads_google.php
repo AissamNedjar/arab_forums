@@ -11,202 +11,200 @@
 
 |*#####################################################################*/
 
-if(!defined("error_page_arab_forums")){exit(header("location: ../error.php"));}
-
-if(type == "insert"){
-
-$ads1 = text_other("arab-forums" , post_other("arab-forums" , "ads1") , true , true , true , false , true);
-
-$client1 = text_other("arab-forums" , post_other("arab-forums" , "client1") , true , true , true , false , true);
-
-$slot1 = text_other("arab-forums" , post_other("arab-forums" , "slot1") , true , true , true , false , true);
-
-$url1 = text_other("arab-forums" , post_other("arab-forums" , "url1") , true , true , true , false , true);
-
-$ads2 = text_other("arab-forums" , post_other("arab-forums" , "ads2") , true , true , true , false , true);
-
-$client2 = text_other("arab-forums" , post_other("arab-forums" , "client2") , true , true , true , false , true);
-
-$slot2 = text_other("arab-forums" , post_other("arab-forums" , "slot2") , true , true , true , false , true);
-
-$url2 = text_other("arab-forums" , post_other("arab-forums" , "url2") , true , true , true , false , true);
-
-$ads3 = text_other("arab-forums" , post_other("arab-forums" , "ads3") , true , true , true , false , true);
-
-$client3 = text_other("arab-forums" , post_other("arab-forums" , "client3") , true , true , true , false , true);
-
-$slot3 = text_other("arab-forums" , post_other("arab-forums" , "slot3") , true , true , true , false , true);
-
-$url3 = text_other("arab-forums" , post_other("arab-forums" , "url3") , true , true , true , false , true);
-
-if($ads1 == "" || $client1 == "" || $slot1 == "" || $url1 == "" || $ads2 == "" || $client2 == "" || $slot2 == "" || $url2 == "" || $ads3 == "" || $client3 == "" || $slot3 == "" || $url3 == ""){
-
-$error = "الرجاء ملأ جميع الحقول ليتم تسجيل البيانات";
-
-}else{
-
-$error = "";
-
+if (!defined("error_page_arab_forums")) {
+    exit(header("location: ../error.php"));
 }
 
-if($error != ""){
+if (type == "insert") {
 
-$arraymsg = array(
+    $ads1 = text_other("arab-forums", post_other("arab-forums", "ads1"), true, true, true, false, true);
 
-"msg" => $error ,
+    $client1 = text_other("arab-forums", post_other("arab-forums", "client1"), true, true, true, false, true);
 
-"color" => "error" ,
+    $slot1 = text_other("arab-forums", post_other("arab-forums", "slot1"), true, true, true, false, true);
 
-"url" => "" ,
+    $url1 = text_other("arab-forums", post_other("arab-forums", "url1"), true, true, true, false, true);
 
-);
+    $ads2 = text_other("arab-forums", post_other("arab-forums", "ads2"), true, true, true, false, true);
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+    $client2 = text_other("arab-forums", post_other("arab-forums", "client2"), true, true, true, false, true);
 
-}else{
+    $slot2 = text_other("arab-forums", post_other("arab-forums", "slot2"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$ads1}\" where option_name = \"ads1\"");
+    $url2 = text_other("arab-forums", post_other("arab-forums", "url2"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$client1}\" where option_name = \"client1\"");
+    $ads3 = text_other("arab-forums", post_other("arab-forums", "ads3"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$slot1}\" where option_name = \"slot1\"");
+    $client3 = text_other("arab-forums", post_other("arab-forums", "client3"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$url1}\" where option_name = \"url1\"");
+    $slot3 = text_other("arab-forums", post_other("arab-forums", "slot3"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$ads2}\" where option_name = \"ads2\"");
+    $url3 = text_other("arab-forums", post_other("arab-forums", "url3"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$client2}\" where option_name = \"client2\"");
+    if ($ads1 == "" || $client1 == "" || $slot1 == "" || $url1 == "" || $ads2 == "" || $client2 == "" || $slot2 == "" || $url2 == "" || $ads3 == "" || $client3 == "" || $slot3 == "" || $url3 == "") {
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$slot2}\" where option_name = \"slot2\"");
+        $error = "الرجاء ملأ جميع الحقول ليتم تسجيل البيانات";
+    } else {
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$url2}\" where option_name = \"url2\"");
+        $error = "";
+    }
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$ads3}\" where option_name = \"ads3\"");
+    if ($error != "") {
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$client3}\" where option_name = \"client3\"");
+        $arraymsg = array(
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$slot3}\" where option_name = \"slot3\"");
+            "msg" => $error,
 
-update_mysql("arab-forums" , "option" , "option_value = \"{$url3}\" where option_name = \"url3\"");
+            "color" => "error",
 
-$arraymsg = array(
+            "url" => "",
 
-"msg" => "تم إدخال البيانات الجديدة بنجآح تآم" ,
+        );
 
-"color" => "good" ,
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } else {
 
-"url" => "admin.php?gert=ads&go=ads_google" ,
+        update_mysql("arab-forums", "option", "option_value = \"{$ads1}\" where option_name = \"ads1\"");
 
-);
+        update_mysql("arab-forums", "option", "option_value = \"{$client1}\" where option_name = \"client1\"");
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+        update_mysql("arab-forums", "option", "option_value = \"{$slot1}\" where option_name = \"slot1\"");
 
-}}else{
+        update_mysql("arab-forums", "option", "option_value = \"{$url1}\" where option_name = \"url1\"");
 
-echo "<form action=\"admin.php?gert=ads&go=ads_google&type=insert\" method=\"post\">";
- 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" width=\"99%\" align=\"center\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$ads2}\" where option_name = \"ads2\"");
 
-echo "<tr><td class=\"tcotadmin\">إعلان الهايدر (728 * 90)</td></tr>";
+        update_mysql("arab-forums", "option", "option_value = \"{$client2}\" where option_name = \"client2\"");
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$slot2}\" where option_name = \"slot2\"");
 
-echo "<select class=\"inputselect\" name=\"ads1\">";
+        update_mysql("arab-forums", "option", "option_value = \"{$url2}\" where option_name = \"url2\"");
 
-echo "<option value=\"1\" ".(ads1_option == 1 ? "selected" : "").">نعم</option>";
+        update_mysql("arab-forums", "option", "option_value = \"{$ads3}\" where option_name = \"ads3\"");
 
-echo "<option value=\"0\" ".(ads1_option == 0 ? "selected" : "").">لآ</option>";
+        update_mysql("arab-forums", "option", "option_value = \"{$client3}\" where option_name = \"client3\"");
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل تود تشغيل الإعلان في الهايدر ؟</span>";
+        update_mysql("arab-forums", "option", "option_value = \"{$slot3}\" where option_name = \"slot3\"");
 
-echo "</div></td></tr>";
+        update_mysql("arab-forums", "option", "option_value = \"{$url3}\" where option_name = \"url3\"");
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+        $arraymsg = array(
 
-echo "<input dir=\"ltr\" style=\"width:250px\" class=\"input\" name=\"client1\" value=\"".client1_option."\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">google_ad_client</span>";
+            "msg" => "تم إدخال البيانات الجديدة بنجآح تآم",
 
-echo "</div></td></tr>";
+            "color" => "good",
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            "url" => "admin.php?gert=ads&go=ads_google",
 
-echo "<input dir=\"ltr\" style=\"width:250px\" class=\"input\" name=\"slot1\" value=\"".slot1_option."\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">google_ad_slot</span>";
+        );
 
-echo "</div></td></tr>";
+        echo msgadmin_template("arab-forums", $arraymsg);
+    }
+} else {
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<form action=\"admin.php?gert=ads&go=ads_google&type=insert\" method=\"post\">";
 
-echo "<input dir=\"ltr\" style=\"width:400px\" class=\"input\" name=\"url1\" value=\"".url1_option."\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">page ads</span>";
+    echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" width=\"99%\" align=\"center\">";
 
-echo "</div></td></tr>";
+    echo "<tr><td class=\"tcotadmin\">إعلان الهايدر (728 * 90)</td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">إعلان المواضيع (728 * 90)</td></tr>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<select class=\"inputselect\" name=\"ads1\">";
 
-echo "<select class=\"inputselect\" name=\"ads2\">";
+    echo "<option value=\"1\" " . (ads1_option == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "<option value=\"1\" ".(ads2_option == 1 ? "selected" : "").">نعم</option>";
+    echo "<option value=\"0\" " . (ads1_option == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "<option value=\"0\" ".(ads2_option == 0 ? "selected" : "").">لآ</option>";
+    echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل تود تشغيل الإعلان في الهايدر ؟</span>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل تود تشغيل الإعلان في المواضيع ؟</span>";
+    echo "</div></td></tr>";
 
-echo "</div></td></tr>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<input dir=\"ltr\" style=\"width:250px\" class=\"input\" name=\"client1\" value=\"" . client1_option . "\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">google_ad_client</span>";
 
-echo "<input dir=\"ltr\" style=\"width:250px\" class=\"input\" name=\"client2\" value=\"".client2_option."\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">google_ad_client</span>";
+    echo "</div></td></tr>";
 
-echo "</div></td></tr>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<input dir=\"ltr\" style=\"width:250px\" class=\"input\" name=\"slot1\" value=\"" . slot1_option . "\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">google_ad_slot</span>";
 
-echo "<input dir=\"ltr\" style=\"width:250px\" class=\"input\" name=\"slot2\" value=\"".slot2_option."\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">google_ad_slot</span>";
+    echo "</div></td></tr>";
 
-echo "</div></td></tr>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<input dir=\"ltr\" style=\"width:400px\" class=\"input\" name=\"url1\" value=\"" . url1_option . "\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">page ads</span>";
 
-echo "<input dir=\"ltr\" style=\"width:400px\" class=\"input\" name=\"url2\" value=\"".url2_option."\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">page ads</span>";
+    echo "</div></td></tr>";
 
-echo "</div></td></tr>";
+    echo "<tr><td class=\"tcotadmin\">إعلان المواضيع (728 * 90)</td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">إعلان الفوتر (728 * 90)</td></tr>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<select class=\"inputselect\" name=\"ads2\">";
 
-echo "<select class=\"inputselect\" name=\"ads3\">";
+    echo "<option value=\"1\" " . (ads2_option == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "<option value=\"1\" ".(ads3_option == 1 ? "selected" : "").">نعم</option>";
+    echo "<option value=\"0\" " . (ads2_option == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "<option value=\"0\" ".(ads3_option == 0 ? "selected" : "").">لآ</option>";
+    echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل تود تشغيل الإعلان في المواضيع ؟</span>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل تود تشغيل الإعلان في الفوتر ؟</span>";
+    echo "</div></td></tr>";
 
-echo "</div></td></tr>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<input dir=\"ltr\" style=\"width:250px\" class=\"input\" name=\"client2\" value=\"" . client2_option . "\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">google_ad_client</span>";
 
-echo "<input dir=\"ltr\" style=\"width:250px\" class=\"input\" name=\"client3\" value=\"".client3_option."\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">google_ad_client</span>";
+    echo "</div></td></tr>";
 
-echo "</div></td></tr>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<input dir=\"ltr\" style=\"width:250px\" class=\"input\" name=\"slot2\" value=\"" . slot2_option . "\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">google_ad_slot</span>";
 
-echo "<input dir=\"ltr\" style=\"width:250px\" class=\"input\" name=\"slot3\" value=\"".slot3_option."\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">google_ad_slot</span>";
+    echo "</div></td></tr>";
 
-echo "</div></td></tr>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<input dir=\"ltr\" style=\"width:400px\" class=\"input\" name=\"url2\" value=\"" . url2_option . "\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">page ads</span>";
 
-echo "<input dir=\"ltr\" style=\"width:400px\" class=\"input\" name=\"url3\" value=\"".url3_option."\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">page ads</span>";
+    echo "</div></td></tr>";
 
-echo "</div></td></tr>";
+    echo "<tr><td class=\"tcotadmin\">إعلان الفوتر (728 * 90)</td></tr>";
 
-echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال البيانات الجديدة\"  ".confirm_other("arab-forums" , "")."> - <input type=\"reset\" class=\"button\" value=\"إرجاع البيانات الأصلية\"><br><br></td></tr>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "</table></form>";
+    echo "<select class=\"inputselect\" name=\"ads3\">";
 
+    echo "<option value=\"1\" " . (ads3_option == 1 ? "selected" : "") . ">نعم</option>";
+
+    echo "<option value=\"0\" " . (ads3_option == 0 ? "selected" : "") . ">لآ</option>";
+
+    echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل تود تشغيل الإعلان في الفوتر ؟</span>";
+
+    echo "</div></td></tr>";
+
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+
+    echo "<input dir=\"ltr\" style=\"width:250px\" class=\"input\" name=\"client3\" value=\"" . client3_option . "\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">google_ad_client</span>";
+
+    echo "</div></td></tr>";
+
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+
+    echo "<input dir=\"ltr\" style=\"width:250px\" class=\"input\" name=\"slot3\" value=\"" . slot3_option . "\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">google_ad_slot</span>";
+
+    echo "</div></td></tr>";
+
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+
+    echo "<input dir=\"ltr\" style=\"width:400px\" class=\"input\" name=\"url3\" value=\"" . url3_option . "\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">page ads</span>";
+
+    echo "</div></td></tr>";
+
+    echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال البيانات الجديدة\"  " . confirm_other("arab-forums", "") . "> - <input type=\"reset\" class=\"button\" value=\"إرجاع البيانات الأصلية\"><br><br></td></tr>";
+
+    echo "</table></form>";
 }
 
 /*#####################################################################*|
@@ -220,4 +218,3 @@ echo "</table></form>";
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

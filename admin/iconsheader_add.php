@@ -11,166 +11,162 @@
 
 |*#####################################################################*/
 
-if(!defined("error_page_arab_forums")){exit(header("location: ../error.php"));}
-
-if(type == "insert"){
-
-$name = text_other("arab-forums" , post_other("arab-forums" , "name") , true , true , true , false , true);
-
-$order = text_other("arab-forums" , post_other("arab-forums" , "order") , true , true , true , false , true);
-
-$lock = text_other("arab-forums" , post_other("arab-forums" , "lock") , true , true , true , false , true);
-
-$open = text_other("arab-forums" , post_other("arab-forums" , "open") , true , true , true , false , true);
-
-$link = text_other("arab-forums" , post_other("arab-forums" , "link") , true , true , true , false , true);
-
-$images = text_other("arab-forums" , post_other("arab-forums" , "images") , true , true , true , false , true);
-
-$group0 = text_other("arab-forums" , post_other("arab-forums" , "group0") , true , true , true , false , true);
-
-$group1 = text_other("arab-forums" , post_other("arab-forums" , "group1") , true , true , true , false , true);
-
-$group2 = text_other("arab-forums" , post_other("arab-forums" , "group2") , true , true , true , false , true);
-
-$group3 = text_other("arab-forums" , post_other("arab-forums" , "group3") , true , true , true , false , true);
-
-$group4 = text_other("arab-forums" , post_other("arab-forums" , "group4") , true , true , true , false , true);
-
-$group5 = text_other("arab-forums" , post_other("arab-forums" , "group5") , true , true , true , false , true);
-
-if($name == "" || $order == "" || $lock == "" || $open == "" || $link == "" || $images == "" || $group0 == "" || $group1 == "" || $group2 == "" || $group3 == "" || $group4 == "" || $group5 == ""){
-
-$error = "الرجاء ملأ جميع الحقول ليتم إدخال الأيقونة الجديدة";
-
-}elseif(!is_numeric($order)){
-
-$error = "يجب أن تكون قيمة ترتيب الأيقونة صحيحة";
-
-}else{
-
-$error = "";
-
+if (!defined("error_page_arab_forums")) {
+    exit(header("location: ../error.php"));
 }
 
-if($error != ""){
+if (type == "insert") {
 
-$arraymsg = array(
+    $name = text_other("arab-forums", post_other("arab-forums", "name"), true, true, true, false, true);
 
-"msg" => $error ,
+    $order = text_other("arab-forums", post_other("arab-forums", "order"), true, true, true, false, true);
 
-"color" => "error" ,
+    $lock = text_other("arab-forums", post_other("arab-forums", "lock"), true, true, true, false, true);
 
-"url" => "" ,
+    $open = text_other("arab-forums", post_other("arab-forums", "open"), true, true, true, false, true);
 
-);
+    $link = text_other("arab-forums", post_other("arab-forums", "link"), true, true, true, false, true);
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+    $images = text_other("arab-forums", post_other("arab-forums", "images"), true, true, true, false, true);
 
-}else{
+    $group0 = text_other("arab-forums", post_other("arab-forums", "group0"), true, true, true, false, true);
 
-insert_mysql("arab-forums" , "iconsheader" , "iconsheader_id , iconsheader_lock , iconsheader_order , iconsheader_open , iconsheader_name , iconsheader_link , iconsheader_images , iconsheader_group0 , iconsheader_group1 , iconsheader_group2 , iconsheader_group3 , iconsheader_group4 , iconsheader_group5" , "null , \"{$lock}\" , \"{$order}\" , \"{$open}\" , \"{$name}\" , \"{$link}\" , \"{$images}\" , \"{$group0}\" , \"{$group1}\" , \"{$group2}\" , \"{$group3}\" , \"{$group4}\" , \"{$group5}\"");
+    $group1 = text_other("arab-forums", post_other("arab-forums", "group1"), true, true, true, false, true);
 
-$arraymsg = array(
+    $group2 = text_other("arab-forums", post_other("arab-forums", "group2"), true, true, true, false, true);
 
-"msg" => "تم إدخال الأيقونة الجديدة بنجاح تام" ,
+    $group3 = text_other("arab-forums", post_other("arab-forums", "group3"), true, true, true, false, true);
 
-"color" => "good" ,
+    $group4 = text_other("arab-forums", post_other("arab-forums", "group4"), true, true, true, false, true);
 
-"url" => "admin.php?gert=iconsheader&go=iconsheader_list" ,
+    $group5 = text_other("arab-forums", post_other("arab-forums", "group5"), true, true, true, false, true);
 
-);
+    if ($name == "" || $order == "" || $lock == "" || $open == "" || $link == "" || $images == "" || $group0 == "" || $group1 == "" || $group2 == "" || $group3 == "" || $group4 == "" || $group5 == "") {
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+        $error = "الرجاء ملأ جميع الحقول ليتم إدخال الأيقونة الجديدة";
+    } elseif (!is_numeric($order)) {
 
-}}else{
+        $error = "يجب أن تكون قيمة ترتيب الأيقونة صحيحة";
+    } else {
 
-echo "<form action=\"admin.php?gert=iconsheader&go=iconsheader_add&type=insert\" method=\"post\">";
- 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" width=\"99%\" align=\"center\">";
+        $error = "";
+    }
 
-echo "<tr><td class=\"tcotadmin\">عنوان الأيقونة</td></tr>";
+    if ($error != "") {
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+        $arraymsg = array(
 
-echo "<input style=\"width:300px\" class=\"input\" name=\"name\" value=\"\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال عنوان الأيقونة</span>";
+            "msg" => $error,
 
-echo "</div></td></tr>";
+            "color" => "error",
 
-echo "<tr><td class=\"tcotadmin\">رابط الأيقونة</td></tr>";
+            "url" => "",
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+        );
 
-echo "<input dir=\"ltr\" style=\"width:300px\" class=\"input\" name=\"link\" value=\"\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال الرابط الذي تأدي إليه الأيقونة و يجب أن يكون مسبوق ب http://www</span>";
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } else {
 
-echo "</div></td></tr>";
+        insert_mysql("arab-forums", "iconsheader", "iconsheader_id , iconsheader_lock , iconsheader_order , iconsheader_open , iconsheader_name , iconsheader_link , iconsheader_images , iconsheader_group0 , iconsheader_group1 , iconsheader_group2 , iconsheader_group3 , iconsheader_group4 , iconsheader_group5", "null , \"{$lock}\" , \"{$order}\" , \"{$open}\" , \"{$name}\" , \"{$link}\" , \"{$images}\" , \"{$group0}\" , \"{$group1}\" , \"{$group2}\" , \"{$group3}\" , \"{$group4}\" , \"{$group5}\"");
 
-echo "<tr><td class=\"tcotadmin\">صورة الأيقونة</td></tr>";
+        $arraymsg = array(
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            "msg" => "تم إدخال الأيقونة الجديدة بنجاح تام",
 
-echo "<input dir=\"ltr\" style=\"width:300px\" class=\"input\" name=\"images\" value=\"\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال رابط صورة الأيقونة التي تظهر في الهايدر</span>";
+            "color" => "good",
 
-echo "</div></td></tr>";
+            "url" => "admin.php?gert=iconsheader&go=iconsheader_list",
 
-echo "<tr><td class=\"tcotadmin\">ترتيب الأيقونة</td></tr>";
+        );
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+        echo msgadmin_template("arab-forums", $arraymsg);
+    }
+} else {
 
-echo "<input size=\"1\" class=\"input\" name=\"order\" value=\"1\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال الترتيب الخاص بالأيقونة و إن كنت لا تريدها مرتبة أتركها 1</span>";
+    echo "<form action=\"admin.php?gert=iconsheader&go=iconsheader_add&type=insert\" method=\"post\">";
 
-echo "</div></td></tr>";
+    echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" width=\"99%\" align=\"center\">";
 
-echo "<tr><td class=\"tcotadmin\">تعطيل الأيقونة</td></tr>";
+    echo "<tr><td class=\"tcotadmin\">عنوان الأيقونة</td></tr>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<select class=\"inputselect\" name=\"lock\">";
+    echo "<input style=\"width:300px\" class=\"input\" name=\"name\" value=\"\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال عنوان الأيقونة</span>";
 
-echo "<option value=\"0\">لآ</option>";
+    echo "</div></td></tr>";
 
-echo "<option value=\"1\">نعم</option>";
+    echo "<tr><td class=\"tcotadmin\">رابط الأيقونة</td></tr>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الأيقونة معطلة ؟</span>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "</div></td></tr>";
+    echo "<input dir=\"ltr\" style=\"width:300px\" class=\"input\" name=\"link\" value=\"\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال الرابط الذي تأدي إليه الأيقونة و يجب أن يكون مسبوق ب http://www</span>";
 
-echo "<tr><td class=\"tcotadmin\">فتح الأيقونة في صفحة مستقلة</td></tr>";
+    echo "</div></td></tr>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<tr><td class=\"tcotadmin\">صورة الأيقونة</td></tr>";
 
-echo "<select class=\"inputselect\" name=\"open\">";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<option value=\"0\">لآ</option>";
+    echo "<input dir=\"ltr\" style=\"width:300px\" class=\"input\" name=\"images\" value=\"\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال رابط صورة الأيقونة التي تظهر في الهايدر</span>";
 
-echo "<option value=\"1\">نعم</option>";
+    echo "</div></td></tr>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل رابط الأيقونة يفتح في صفحة مستقلة ؟</span>";
+    echo "<tr><td class=\"tcotadmin\">ترتيب الأيقونة</td></tr>";
 
-echo "</div></td></tr>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"tcotadmin\">ظهور الأيقونة للمجموعات</td></tr>";
+    echo "<input size=\"1\" class=\"input\" name=\"order\" value=\"1\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال الترتيب الخاص بالأيقونة و إن كنت لا تريدها مرتبة أتركها 1</span>";
 
-for($x = 0; $x <= 5; $x++){
+    echo "</div></td></tr>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<tr><td class=\"tcotadmin\">تعطيل الأيقونة</td></tr>";
 
-echo "<select class=\"inputselect\" name=\"group{$x}\">";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<option value=\"1\">نعم</option>";
+    echo "<select class=\"inputselect\" name=\"lock\">";
 
-echo "<option value=\"0\">لآ</option>";
+    echo "<option value=\"0\">لآ</option>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الأيقونة تظهر لمجموعة {$group_list[$x]} ؟</span>";
+    echo "<option value=\"1\">نعم</option>";
 
-echo "</div></td></tr>";
+    echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الأيقونة معطلة ؟</span>";
 
-}
+    echo "</div></td></tr>";
 
-echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال الأيقونة الجديدة\"  ".confirm_other("arab-forums" , "هل أنت متأكد من أنك تريد إدخال الأيقونة الجديدة ؟")."> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقول\"><br><br></td></tr>";
+    echo "<tr><td class=\"tcotadmin\">فتح الأيقونة في صفحة مستقلة</td></tr>";
 
-echo "</table></form>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
+    echo "<select class=\"inputselect\" name=\"open\">";
+
+    echo "<option value=\"0\">لآ</option>";
+
+    echo "<option value=\"1\">نعم</option>";
+
+    echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل رابط الأيقونة يفتح في صفحة مستقلة ؟</span>";
+
+    echo "</div></td></tr>";
+
+    echo "<tr><td class=\"tcotadmin\">ظهور الأيقونة للمجموعات</td></tr>";
+
+    for ($x = 0; $x <= 5; $x++) {
+
+        echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+
+        echo "<select class=\"inputselect\" name=\"group{$x}\">";
+
+        echo "<option value=\"1\">نعم</option>";
+
+        echo "<option value=\"0\">لآ</option>";
+
+        echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الأيقونة تظهر لمجموعة {$group_list[$x]} ؟</span>";
+
+        echo "</div></td></tr>";
+    }
+
+    echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال الأيقونة الجديدة\"  " . confirm_other("arab-forums", "هل أنت متأكد من أنك تريد إدخال الأيقونة الجديدة ؟") . "> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقول\"><br><br></td></tr>";
+
+    echo "</table></form>";
 }
 
 /*#####################################################################*|
@@ -184,4 +180,3 @@ echo "</table></form>";
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

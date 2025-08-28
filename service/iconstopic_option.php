@@ -11,198 +11,190 @@
 
 |*#####################################################################*/
 
-if(!defined("error_page_arab_forums")){exit(header("location: ../error.php"));}
-
-if(per_other("arab-forums" , 11) == true){
-
-$iconstopic_sql = select_mysql("arab-forums" , "iconstopic" , "a.iconstopic_id , a.iconstopic_name , a.iconstopic_images , a.iconstopic_forumid , c.cat_id , c.cat_monitor1 , c.cat_monitor2 , f.forum_id , f.forum_catid , f.forum_name , f.forum_mode" , "as a left join forum".prefix_connect." as f on(a.iconstopic_forumid = f.forum_id) left join cat".prefix_connect." as c on(f.forum_catid = c.cat_id) where iconstopic_id in(".id.")");
-
-if(num_mysql("arab-forums" , $iconstopic_sql) == false){
-
-$errorp = "الأيقونة المختارة غير موجودة ضمن قائمة الأيقونات";
-
-}else{
-
-$iconstopic_object = object_mysql("arab-forums" , $iconstopic_sql);
-
-$moderatget1 = moderatget1_other("arab-forums" , $iconstopic_object->forum_id , $iconstopic_object->cat_monitor1 , $iconstopic_object->cat_monitor2 , $iconstopic_object->forum_mode);
-
-if(($iconstopic_object->iconstopic_forumid == 0 && group_user != 6) || ($iconstopic_object->iconstopic_forumid > 0 && $moderatget1 == false)){
-
-$errorp = "للأسف لا تملك التصريح المناسب لتعديل أو حذف هذه الأيقونة";
-
-}else{
-
-$errorp = "";
-
-}}
-
-if($errorp == ""){
-
-if(fort == "edit"){
-
-if(type == "insert"){
-
-$name = text_other("arab-forums" , post_other("arab-forums" , "name") , true , true , true , false , true);
-
-$images = text_other("arab-forums" , post_other("arab-forums" , "images") , true , true , true , false , true);
-
-$forumid = text_other("arab-forums" , post_other("arab-forums" , "forumid") , true , true , true , false , true);
-
-if($name == "" || $images == "" || $forumid == ""){
-
-$error = "الرجاء ملأ جميع الحقول ليتم التعديل على الأيقونة";
-
-}else{
-
-$error = "";
-
+if (!defined("error_page_arab_forums")) {
+    exit(header("location: ../error.php"));
 }
 
-if($error != ""){
+if (per_other("arab-forums", 11) == true) {
 
-$arraymsg = array(
+    $iconstopic_sql = select_mysql("arab-forums", "iconstopic", "a.iconstopic_id , a.iconstopic_name , a.iconstopic_images , a.iconstopic_forumid , c.cat_id , c.cat_monitor1 , c.cat_monitor2 , f.forum_id , f.forum_catid , f.forum_name , f.forum_mode", "as a left join forum" . prefix_connect . " as f on(a.iconstopic_forumid = f.forum_id) left join cat" . prefix_connect . " as c on(f.forum_catid = c.cat_id) where iconstopic_id in(" . id . ")");
 
-"msg" => $error ,
+    if (num_mysql("arab-forums", $iconstopic_sql) == false) {
 
-"color" => "error" ,
+        $errorp = "الأيقونة المختارة غير موجودة ضمن قائمة الأيقونات";
+    } else {
 
-"url" => "" ,
+        $iconstopic_object = object_mysql("arab-forums", $iconstopic_sql);
 
-);
+        $moderatget1 = moderatget1_other("arab-forums", $iconstopic_object->forum_id, $iconstopic_object->cat_monitor1, $iconstopic_object->cat_monitor2, $iconstopic_object->forum_mode);
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+        if (($iconstopic_object->iconstopic_forumid == 0 && group_user != 6) || ($iconstopic_object->iconstopic_forumid > 0 && $moderatget1 == false)) {
 
-}else{
+            $errorp = "للأسف لا تملك التصريح المناسب لتعديل أو حذف هذه الأيقونة";
+        } else {
 
-update_mysql("arab-forums" , "iconstopic" , "iconstopic_name = \"{$name}\" , iconstopic_images = \"{$images}\" , iconstopic_forumid = \"{$forumid}\" where iconstopic_id in({$iconstopic_object->iconstopic_id})");
+            $errorp = "";
+        }
+    }
 
-$arraymsg = array(
+    if ($errorp == "") {
 
-"msg" => "تم تعديل الأيقونة بنجاح تام" ,
+        if (fort == "edit") {
 
-"color" => "good" ,
+            if (type == "insert") {
 
-"url" => "service.php?gert=iconstopic&go=iconstopic_list" ,
+                $name = text_other("arab-forums", post_other("arab-forums", "name"), true, true, true, false, true);
 
-);
+                $images = text_other("arab-forums", post_other("arab-forums", "images"), true, true, true, false, true);
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+                $forumid = text_other("arab-forums", post_other("arab-forums", "forumid"), true, true, true, false, true);
 
-}}else{
+                if ($name == "" || $images == "" || $forumid == "") {
 
-echo "<form action=\"service.php?gert=iconstopic&go=iconstopic_option&fort=edit&id={$iconstopic_object->iconstopic_id}&type=insert\" method=\"post\">";
- 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" width=\"99%\" align=\"center\">";
+                    $error = "الرجاء ملأ جميع الحقول ليتم التعديل على الأيقونة";
+                } else {
 
-echo "<tr><td class=\"tcotadmin\">الأيقونة تابعة لمنتدى</td></tr>";
+                    $error = "";
+                }
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                if ($error != "") {
 
-$forum_sql = select_mysql("arab-forums" , "forum" , "forum_id , forum_name , forum_order" , "where forum_id in(".allowedin1_other("arab-forums").") order by forum_order asc");
+                    $arraymsg = array(
 
-if(num_mysql("arab-forums" , $forum_sql) != false){
+                        "msg" => $error,
 
-echo "<select class=\"inputselect\" name=\"forumid\">";
+                        "color" => "error",
 
-if(group_user == 6){
+                        "url" => "",
 
-echo "<option value=\"0\" ".($iconstopic_object->iconstopic_forumid == 0 ? "selected" : "").">إضافة الأيقونة في جميع المنتديات</option>";
+                    );
 
-}
+                    echo msgadmin_template("arab-forums", $arraymsg);
+                } else {
 
-while($forum_object = object_mysql("arab-forums" , $forum_sql)){
+                    update_mysql("arab-forums", "iconstopic", "iconstopic_name = \"{$name}\" , iconstopic_images = \"{$images}\" , iconstopic_forumid = \"{$forumid}\" where iconstopic_id in({$iconstopic_object->iconstopic_id})");
 
-echo "<option value=\"{$forum_object->forum_id}\" ".($iconstopic_object->iconstopic_forumid == $forum_object->forum_id ? "selected" : "").">{$forum_object->forum_name}</option>";
+                    $arraymsg = array(
 
-}
+                        "msg" => "تم تعديل الأيقونة بنجاح تام",
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">إختر المنتدى الذي تريد إضافة الأيقونة له</span>";
+                        "color" => "good",
 
-}
+                        "url" => "service.php?gert=iconstopic&go=iconstopic_list",
 
-echo "</div></td></tr>";
+                    );
 
-echo "<tr><td class=\"tcotadmin\">إسم الأيقونة</td></tr>";
+                    echo msgadmin_template("arab-forums", $arraymsg);
+                }
+            } else {
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                echo "<form action=\"service.php?gert=iconstopic&go=iconstopic_option&fort=edit&id={$iconstopic_object->iconstopic_id}&type=insert\" method=\"post\">";
 
-echo "<input style=\"width:300px\" class=\"input\" name=\"name\" value=\"{$iconstopic_object->iconstopic_name}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال إسم الأيقونة</span>";
+                echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" width=\"99%\" align=\"center\">";
 
-echo "</div></td></tr>";
+                echo "<tr><td class=\"tcotadmin\">الأيقونة تابعة لمنتدى</td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">صورة الأيقونة</td></tr>";
+                echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                $forum_sql = select_mysql("arab-forums", "forum", "forum_id , forum_name , forum_order", "where forum_id in(" . allowedin1_other("arab-forums") . ") order by forum_order asc");
 
-echo "<input dir=\"ltr\" style=\"width:300px\" class=\"input\" name=\"images\" value=\"{$iconstopic_object->iconstopic_images}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال رابط صورة الأيقونة التي تظهر في الموضوع</span>";
+                if (num_mysql("arab-forums", $forum_sql) != false) {
 
-echo "</div></td></tr>";
+                    echo "<select class=\"inputselect\" name=\"forumid\">";
 
-echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال البيانات الجديدة\"  ".confirm_other("arab-forums" , "")."> - <input type=\"reset\" class=\"button\" value=\"إرجاع البيانات الأصلية\"><br><br></td></tr>";
+                    if (group_user == 6) {
 
-echo "</table></form>";
+                        echo "<option value=\"0\" " . ($iconstopic_object->iconstopic_forumid == 0 ? "selected" : "") . ">إضافة الأيقونة في جميع المنتديات</option>";
+                    }
 
-}}elseif(fort == "delete"){
+                    while ($forum_object = object_mysql("arab-forums", $forum_sql)) {
 
-update_mysql("arab-forums" , "topic" , "topic_icons = \"0\" where topic_icons in({$iconstopic_object->iconstopic_id})");
+                        echo "<option value=\"{$forum_object->forum_id}\" " . ($iconstopic_object->iconstopic_forumid == $forum_object->forum_id ? "selected" : "") . ">{$forum_object->forum_name}</option>";
+                    }
 
-delete_mysql("arab-forums" , "iconstopic" , "iconstopic_id in({$iconstopic_object->iconstopic_id})");
+                    echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">إختر المنتدى الذي تريد إضافة الأيقونة له</span>";
+                }
 
-$arraymsg = array(
+                echo "</div></td></tr>";
 
-"msg" => "تم حذف الأيقونة بنجاح تام" ,
+                echo "<tr><td class=\"tcotadmin\">إسم الأيقونة</td></tr>";
 
-"color" => "good" ,
+                echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-"url" => "service.php?gert=iconstopic&go=iconstopic_list" ,
+                echo "<input style=\"width:300px\" class=\"input\" name=\"name\" value=\"{$iconstopic_object->iconstopic_name}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال إسم الأيقونة</span>";
 
-);
+                echo "</div></td></tr>";
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+                echo "<tr><td class=\"tcotadmin\">صورة الأيقونة</td></tr>";
 
-}else{
+                echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-$arraymsg = array(
+                echo "<input dir=\"ltr\" style=\"width:300px\" class=\"input\" name=\"images\" value=\"{$iconstopic_object->iconstopic_images}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال رابط صورة الأيقونة التي تظهر في الموضوع</span>";
 
-"msg" => "عفوآ لقد قمت بإختيار خدمة غير متوفرة حاليا" ,
+                echo "</div></td></tr>";
 
-"color" => "error" ,
+                echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال البيانات الجديدة\"  " . confirm_other("arab-forums", "") . "> - <input type=\"reset\" class=\"button\" value=\"إرجاع البيانات الأصلية\"><br><br></td></tr>";
 
-"url" => "service.php?gert=catforum&go=iconstopic_list" ,
+                echo "</table></form>";
+            }
+        } elseif (fort == "delete") {
 
-);
+            update_mysql("arab-forums", "topic", "topic_icons = \"0\" where topic_icons in({$iconstopic_object->iconstopic_id})");
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            delete_mysql("arab-forums", "iconstopic", "iconstopic_id in({$iconstopic_object->iconstopic_id})");
 
-}}else{
+            $arraymsg = array(
 
-$arraymsg = array(
+                "msg" => "تم حذف الأيقونة بنجاح تام",
 
-"msg" => $errorp ,
+                "color" => "good",
 
-"color" => "error" ,
+                "url" => "service.php?gert=iconstopic&go=iconstopic_list",
 
-"url" => "service.php?gert=catforum&go=iconstopic_list" ,
+            );
 
-);
+            echo msgadmin_template("arab-forums", $arraymsg);
+        } else {
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            $arraymsg = array(
 
-}}else{
+                "msg" => "عفوآ لقد قمت بإختيار خدمة غير متوفرة حاليا",
 
-$arraymsg = array(
+                "color" => "error",
 
-"msg" => "للأسف المجموعة التي تنتمي إليها لا تملك التصريح المناسب لهذه الخاصية" ,
+                "url" => "service.php?gert=catforum&go=iconstopic_list",
 
-"color" => "error" ,
+            );
 
-"url" => "" ,
+            echo msgadmin_template("arab-forums", $arraymsg);
+        }
+    } else {
 
-);
+        $arraymsg = array(
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            "msg" => $errorp,
 
+            "color" => "error",
+
+            "url" => "service.php?gert=catforum&go=iconstopic_list",
+
+        );
+
+        echo msgadmin_template("arab-forums", $arraymsg);
+    }
+} else {
+
+    $arraymsg = array(
+
+        "msg" => "للأسف المجموعة التي تنتمي إليها لا تملك التصريح المناسب لهذه الخاصية",
+
+        "color" => "error",
+
+        "url" => "",
+
+    );
+
+    echo msgadmin_template("arab-forums", $arraymsg);
 }
 
 /*#####################################################################*|
@@ -216,4 +208,3 @@ echo msgadmin_template("arab-forums" , $arraymsg);
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

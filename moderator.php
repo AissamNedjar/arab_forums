@@ -11,570 +11,558 @@
 
 |*#####################################################################*/
 
-define("error_page_arab_forums" , true);
+define("error_page_arab_forums", true);
 
 @include("includes.php");
 
-define("pageupdate" , true);
+define("pageupdate", true);
 
 @include("includes/e.noopen.php");
 
-define("pagebody" , "moderator");
+define("pagebody", "moderator");
 
-online_other("arab-forums" , "moderator" , "0" , "0" , "0" , "0");
+online_other("arab-forums", "moderator", "0", "0", "0", "0");
 
-if(group_user > 3){
+if (group_user > 3) {
 
-if(go == "add"){
+    if (go == "add") {
 
-if(type == "insert"){
+        if (type == "insert") {
 
-$user = text_other("arab-forums" , post_other("arab-forums" , "user") , false , false , false , false , false);
+            $user = text_other("arab-forums", post_other("arab-forums", "user"), false, false, false, false, false);
 
-$addwhat = text_other("arab-forums" , post_other("arab-forums" , "addwhat") , true , true , true , true , true);
+            $addwhat = text_other("arab-forums", post_other("arab-forums", "addwhat"), true, true, true, true, true);
 
-$forumsget = text_other("arab-forums" , post_other("arab-forums" , "forumsget") , true , true , true , true , true);
+            $forumsget = text_other("arab-forums", post_other("arab-forums", "forumsget"), true, true, true, true, true);
 
-$import = @implode("," , $user);
+            $import = @implode(",", $user);
 
-if(counts_other("arab-forums" , $user) == 0){
+            if (counts_other("arab-forums", $user) == 0) {
 
-$arraymsg = array(
+                $arraymsg = array(
 
-"login" => true ,
+                    "login" => true,
 
-"msg" => "الرجاء إدخال رقم أو إسم عضو وآحد على الأقل" ,
+                    "msg" => "الرجاء إدخال رقم أو إسم عضو وآحد على الأقل",
 
-"color" => "error" ,
+                    "color" => "error",
 
-"old" => true ,
+                    "old" => true,
 
-"auto" => false ,
+                    "auto" => false,
 
-"text" => "" ,
+                    "text" => "",
 
-"url" => "" ,
+                    "url" => "",
 
-"array" => "" ,
+                    "array" => "",
 
-);
+                );
 
-echo msg_template("arab-forums" , $arraymsg);
+                echo msg_template("arab-forums", $arraymsg);
+            } elseif ($forumsget == "") {
 
-}elseif($forumsget == ""){
+                $arraymsg = array(
 
-$arraymsg = array(
+                    "login" => true,
 
-"login" => true ,
+                    "msg" => "الرجاء إختيار المنتدى المراد ترشيح المشرفين فيه",
 
-"msg" => "الرجاء إختيار المنتدى المراد ترشيح المشرفين فيه" ,
+                    "color" => "error",
 
-"color" => "error" ,
+                    "old" => true,
 
-"old" => true ,
+                    "auto" => false,
 
-"auto" => false ,
+                    "text" => "",
 
-"text" => "" ,
+                    "url" => "",
 
-"url" => "" ,
+                    "array" => "",
 
-"array" => "" ,
+                );
 
-);
+                echo msg_template("arab-forums", $arraymsg);
+            } else {
 
-echo msg_template("arab-forums" , $arraymsg);
+                if ($addwhat == "name") {
 
-}else{
+                    $goadd = "user_nameuser";
+                } else {
 
-if($addwhat == "name"){
+                    $goadd = "user_id";
+                }
 
-$goadd = "user_nameuser";
+                if (group_user == 6) {
 
-}else{
+                    $classmp = "good";
 
-$goadd = "user_id";
+                    $textmp = "";
 
-}
+                    $waitmp = "0";
+                } else {
 
-if(group_user == 6){
+                    $classmp = "info";
 
-$classmp = "good";
+                    $textmp = "و لآكن ينتظرون موافقة الإدارة";
 
-$textmp = "";
+                    $waitmp = "2";
+                }
 
-$waitmp = "0";
+                for ($x = 0; $x < count($user); ++$x) {
 
-}else{
+                    $useroft = text_other("arab-forums", $user[$x], true, true, true, true, true);
 
-$classmp = "info";
+                    if ($useroft != "") {
 
-$textmp = "و لآكن ينتظرون موافقة الإدارة";
+                        $forum_sql = select_mysql("arab-forums", "forum", "forum_id", "where forum_id in({$forumsget}) limit 1");
 
-$waitmp = "2";
+                        if (num_mysql("arab-forums", $forum_sql) != false) {
 
-}
+                            $forum_object = object_mysql("arab-forums", $forum_sql);
 
-for($x = 0; $x < count($user); ++$x){
+                            $user_sql = select_mysql("arab-forums", "user", "user_id , user_nameuser , user_wait , user_bad", "where {$goadd} = \"{$useroft}\" && user_wait in(0) && user_bad in(0) limit 1");
 
-$useroft = text_other("arab-forums" , $user[$x] , true , true , true , true , true);
+                            if (num_mysql("arab-forums", $user_sql) != false) {
 
-if($useroft != ""){
+                                $user_object = object_mysql("arab-forums", $user_sql);
 
-$forum_sql = select_mysql("arab-forums" , "forum" , "forum_id" , "where forum_id in({$forumsget}) limit 1");
+                                $gogo_sql = select_mysql("arab-forums", "moderate", "moderate_id , moderate_forumid , moderate_userid", "where moderate_forumid in({$forum_object->forum_id}) && moderate_userid in({$user_object->user_id}) limit 1");
 
-if(num_mysql("arab-forums" , $forum_sql) != false){
+                                if (num_mysql("arab-forums", $gogo_sql) == false) {
 
-$forum_object = object_mysql("arab-forums" , $forum_sql);
+                                    insert_mysql("arab-forums", "moderate", "moderate_id , moderate_forumid , moderate_userid , moderate_add , moderate_date , moderate_lock", "null , \"{$forum_object->forum_id}\" , \"{$user_object->user_id}\" , \"" . id_user . "\" , \"" . time() . "\" , \"{$waitmp}\"");
+                                }
+                            }
+                        }
+                    }
+                }
 
-$user_sql = select_mysql("arab-forums" , "user" , "user_id , user_nameuser , user_wait , user_bad" , "where {$goadd} = \"{$useroft}\" && user_wait in(0) && user_bad in(0) limit 1");
+                $arraymsg = array(
 
-if(num_mysql("arab-forums" , $user_sql) != false){
+                    "login" => true,
 
-$user_object = object_mysql("arab-forums" , $user_sql);
+                    "msg" => "تم ترشيح المشرفين للمنتدى بنجآح تام {$textmp}<br><br>ملاحظة : قبل أن يتم الإدخال إلى القاعدة يتم التأكد من أن العضو موجود فعلا<br><br>و أيضا يقوم بالتأكد من أن العضو غير مرشح للمنتدى المختار مسبقا و ذلك لتفادي الأخطاء",
 
-$gogo_sql = select_mysql("arab-forums" , "moderate" , "moderate_id , moderate_forumid , moderate_userid" , "where moderate_forumid in({$forum_object->forum_id}) && moderate_userid in({$user_object->user_id}) limit 1");
+                    "color" => $classmp,
 
-if(num_mysql("arab-forums" , $gogo_sql) == false){
+                    "old" => true,
 
-insert_mysql("arab-forums" , "moderate" , "moderate_id , moderate_forumid , moderate_userid , moderate_add , moderate_date , moderate_lock" , "null , \"{$forum_object->forum_id}\" , \"{$user_object->user_id}\" , \"".id_user."\" , \"".time()."\" , \"{$waitmp}\"");
+                    "auto" => false,
 
-}}}}}
+                    "text" => "الذهاب إلى التعيينات الإشرافية",
 
-$arraymsg = array(
+                    "url" => "moderator.php",
 
-"login" => true ,
+                    "array" => "",
 
-"msg" => "تم ترشيح المشرفين للمنتدى بنجآح تام {$textmp}<br><br>ملاحظة : قبل أن يتم الإدخال إلى القاعدة يتم التأكد من أن العضو موجود فعلا<br><br>و أيضا يقوم بالتأكد من أن العضو غير مرشح للمنتدى المختار مسبقا و ذلك لتفادي الأخطاء" ,
+                );
 
-"color" => $classmp ,
+                echo msg_template("arab-forums", $arraymsg);
+            }
+        } else {
 
-"old" => true ,
+            echo bodytop_template("arab-forums", "تعيين مشرفين جدد");
 
-"auto" => false ,
+            $arrayheader = array(
 
-"text" => "الذهاب إلى التعيينات الإشرافية" ,
+                "login" => true,
 
-"url" => "moderator.php" ,
+            );
 
-"array" => "" ,
+            echo header_template("arab-forums", $arrayheader);
 
-);
+            echo "<form action=\"moderator.php?go=add&type=insert\" method=\"post\">";
 
-echo msg_template("arab-forums" , $arraymsg);
+            echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"60%\" align=\"center\">";
 
-}}else{
+            echo "<tr align=\"center\"><td class=\"tcat\" colspan=\"4\"><div class=\"pad\">تعيين مشرفين جدد</div></td></tr>";
 
-echo bodytop_template("arab-forums" , "تعيين مشرفين جدد");
+            echo "<tr align=\"center\"><td class=\"alttext2\" colspan=\"4\"><br><div class=\"pad\">الرجاء إختيار المنتدى المراد ترشيح المشرفين فيه و القيام بإدخال أسماء العضويات المراد ترشيحهم للإشراف</div><br></td></tr>";
 
-$arrayheader = array(
+            echo "<tr align=\"center\"><td class=\"alttext2\" colspan=\"4\"><div class=\"pad\"><select class=\"inputselect\" name=\"forumsget\">";
 
-"login" => true ,
+            echo "<option value=\"\">إختر المنتدى الذي تريد ترشيح المشرفين فيه من القائمة</option>";
 
-);
+            $forum_sql = select_mysql("arab-forums", "forum", "forum_id , forum_catid , forum_name , forum_order", "where forum_id in(" . allowedin2_other("arab-forums") . ") order by forum_order asc");
 
-echo header_template("arab-forums" , $arrayheader);
+            if (num_mysql("arab-forums", $forum_sql) != false) {
 
-echo "<form action=\"moderator.php?go=add&type=insert\" method=\"post\">";
+                while ($forum_object = object_mysql("arab-forums", $forum_sql)) {
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" width=\"60%\" align=\"center\">";
+                    echo "<option value=\"{$forum_object->forum_id}\">{$forum_object->forum_name}</option>";
+                }
+            }
 
-echo "<tr align=\"center\"><td class=\"tcat\" colspan=\"4\"><div class=\"pad\">تعيين مشرفين جدد</div></td></tr>";
+            echo "</select>&nbsp;&nbsp;<select class=\"inputselect\" name=\"addwhat\">";
 
-echo "<tr align=\"center\"><td class=\"alttext2\" colspan=\"4\"><br><div class=\"pad\">الرجاء إختيار المنتدى المراد ترشيح المشرفين فيه و القيام بإدخال أسماء العضويات المراد ترشيحهم للإشراف</div><br></td></tr>";
+            echo "<option value=\"name\">إدخال بأسماء العضويات</option>";
 
-echo "<tr align=\"center\"><td class=\"alttext2\" colspan=\"4\"><div class=\"pad\"><select class=\"inputselect\" name=\"forumsget\">";
+            echo "<option value=\"id\">إدخال بأرقام العضويات</option>";
 
-echo "<option value=\"\">إختر المنتدى الذي تريد ترشيح المشرفين فيه من القائمة</option>";
+            echo "</select></div></td></tr>";
 
-$forum_sql = select_mysql("arab-forums" , "forum" , "forum_id , forum_catid , forum_name , forum_order" , "where forum_id in(".allowedin2_other("arab-forums").") order by forum_order asc");
+            echo "<tr align=\"center\">";
 
-if(num_mysql("arab-forums" , $forum_sql) != false){
+            $xi = 0;
 
-while($forum_object = object_mysql("arab-forums" , $forum_sql)){
+            for ($x = 1; $x <= 21; ++$x) {
 
-echo "<option value=\"{$forum_object->forum_id}\">{$forum_object->forum_name}</option>";
+                if ($xi == 3) {
+                    echo "</tr><tr align=\"center\">";
+                    $xi = 0;
+                }
 
-}}
+                echo "<td class=\"alttext1\"><div class=\"pad\"><input style=\"width:140px\" class=\"input\" name=\"user[]\" value=\"\" type=\"text\"></div></td>";
 
-echo "</select>&nbsp;&nbsp;<select class=\"inputselect\" name=\"addwhat\">";
+                $xi++;
+            }
 
-echo "<option value=\"name\">إدخال بأسماء العضويات</option>";
+            echo "</tr>";
 
-echo "<option value=\"id\">إدخال بأرقام العضويات</option>";
+            echo "<tr><td class=\"alttext2\" align=\"center\" colspan=\"5\"><br><input type=\"submit\" class=\"button\" value=\"إدخال التعيينات الإشرافية الجديدة\"  " . confirm_other("arab-forums", "هل أنت متأكد من أنك تريد إدخال التعيينات الإشرافية الجديدة ؟") . "> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقول\"><br><br></td></tr>";
 
-echo "</select></div></td></tr>";
+            echo "</table>";
 
-echo "<tr align=\"center\">";
+            echo "</form>";
 
-$xi = 0;
+            echo footer_template("arab-forums");
 
-for($x = 1; $x <= 21; ++$x){
+            echo bodybottom_template("arab-forums");
+        }
+    } else {
 
-if($xi == 3){echo "</tr><tr align=\"center\">";$xi = 0;}
+        $allyu  = text_other("arab-forums", post_other("arab-forums", "allyu"), false, false, false, false, false);
 
-echo "<td class=\"alttext1\"><div class=\"pad\"><input style=\"width:140px\" class=\"input\" name=\"user[]\" value=\"\" type=\"text\"></div></td>";
+        $wait  = text_other("arab-forums", post_other("arab-forums", "wait"), false, false, false, false, false);
 
-$xi++;
+        $lock  = text_other("arab-forums", post_other("arab-forums", "lock"), false, false, false, false, false);
 
-}
+        $delete  = text_other("arab-forums", post_other("arab-forums", "delete"), false, false, false, false, false);
 
-echo "</tr>";
+        $import = @implode(",", $allyu);
 
-echo "<tr><td class=\"alttext2\" align=\"center\" colspan=\"5\"><br><input type=\"submit\" class=\"button\" value=\"إدخال التعيينات الإشرافية الجديدة\"  ".confirm_other("arab-forums" , "هل أنت متأكد من أنك تريد إدخال التعيينات الإشرافية الجديدة ؟")."> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقول\"><br><br></td></tr>";
+        if (isset($wait)) {
 
-echo "</table>";
+            if ($allyu == 0) {
 
-echo "</form>";
+                $arraymsg = array(
 
-echo footer_template("arab-forums");
+                    "login" => true,
 
-echo bodybottom_template("arab-forums");
+                    "msg" => "الرجاء تحديد تعيين واحد على الأقل ليتم الموافقة عليه",
 
-}}else{
+                    "color" => "error",
 
-$allyu  = text_other("arab-forums" , post_other("arab-forums" , "allyu") , false , false , false , false , false);
+                    "old" => true,
 
-$wait  = text_other("arab-forums" , post_other("arab-forums" , "wait") , false , false , false , false , false);
+                    "auto" => false,
 
-$lock  = text_other("arab-forums" , post_other("arab-forums" , "lock") , false , false , false , false , false);
+                    "text" => "",
 
-$delete  = text_other("arab-forums" , post_other("arab-forums" , "delete") , false , false , false , false , false);
+                    "url" => "",
 
-$import = @implode("," , $allyu);
+                    "array" => "",
 
-if(isset($wait)){
+                );
 
-if($allyu == 0){
+                echo msg_template("arab-forums", $arraymsg);
+            } else {
 
-$arraymsg = array(
+                update_mysql("arab-forums", "moderate", "moderate_lock = \"0\" where moderate_id in({$import})");
 
-"login" => true ,
+                $arraymsg = array(
 
-"msg" => "الرجاء تحديد تعيين واحد على الأقل ليتم الموافقة عليه" ,
+                    "login" => true,
 
-"color" => "error" ,
+                    "msg" => "تم الموافقة على التعيينات المحددة بنجآح تام",
 
-"old" => true ,
+                    "color" => "good",
 
-"auto" => false ,
+                    "old" => true,
 
-"text" => "" ,
+                    "auto" => false,
 
-"url" => "" ,
+                    "text" => "",
 
-"array" => "" ,
+                    "url" => "",
 
-);
+                    "array" => "",
 
-echo msg_template("arab-forums" , $arraymsg);
+                );
 
-}else{
+                echo msg_template("arab-forums", $arraymsg);
+            }
+        } elseif (isset($lock)) {
 
-update_mysql("arab-forums" , "moderate" , "moderate_lock = \"0\" where moderate_id in({$import})");
+            if ($allyu == 0) {
 
-$arraymsg = array(
+                $arraymsg = array(
 
-"login" => true ,
+                    "login" => true,
 
-"msg" => "تم الموافقة على التعيينات المحددة بنجآح تام" ,
+                    "msg" => "الرجاء تحديد تعيين واحد على الأقل ليتم تجميده",
 
-"color" => "good" ,
+                    "color" => "error",
 
-"old" => true ,
+                    "old" => true,
 
-"auto" => false ,
+                    "auto" => false,
 
-"text" => "" ,
+                    "text" => "",
 
-"url" => "" ,
+                    "url" => "",
 
-"array" => "" ,
+                    "array" => "",
 
-);
+                );
 
-echo msg_template("arab-forums" , $arraymsg);
+                echo msg_template("arab-forums", $arraymsg);
+            } else {
 
-}}elseif(isset($lock)){
+                update_mysql("arab-forums", "moderate", "moderate_lock = \"1\" where moderate_id in({$import})");
 
-if($allyu == 0){
+                $arraymsg = array(
 
-$arraymsg = array(
+                    "login" => true,
 
-"login" => true ,
+                    "msg" => "تم تجميد التعيينات المحددة بنجآح تام",
 
-"msg" => "الرجاء تحديد تعيين واحد على الأقل ليتم تجميده" ,
+                    "color" => "good",
 
-"color" => "error" ,
+                    "old" => true,
 
-"old" => true ,
+                    "auto" => false,
 
-"auto" => false ,
+                    "text" => "",
 
-"text" => "" ,
+                    "url" => "",
 
-"url" => "" ,
+                    "array" => "",
 
-"array" => "" ,
+                );
 
-);
+                echo msg_template("arab-forums", $arraymsg);
+            }
+        } elseif (isset($delete)) {
 
-echo msg_template("arab-forums" , $arraymsg);
+            if ($allyu == 0) {
 
-}else{
+                $arraymsg = array(
 
-update_mysql("arab-forums" , "moderate" , "moderate_lock = \"1\" where moderate_id in({$import})");
+                    "login" => true,
 
-$arraymsg = array(
+                    "msg" => "الرجاء تحديد تعيين واحد على الأقل ليتم حذفه",
 
-"login" => true ,
+                    "color" => "error",
 
-"msg" => "تم تجميد التعيينات المحددة بنجآح تام" ,
+                    "old" => true,
 
-"color" => "good" ,
+                    "auto" => false,
 
-"old" => true ,
+                    "text" => "",
 
-"auto" => false ,
+                    "url" => "",
 
-"text" => "" ,
+                    "array" => "",
 
-"url" => "" ,
+                );
 
-"array" => "" ,
+                echo msg_template("arab-forums", $arraymsg);
+            } else {
 
-);
+                delete_mysql("arab-forums", "moderate", "moderate_id in({$import})");
 
-echo msg_template("arab-forums" , $arraymsg);
+                $arraymsg = array(
 
-}}elseif(isset($delete)){
+                    "login" => true,
 
-if($allyu == 0){
+                    "msg" => "تم حذف التعيينات المحددة بنجآح تام",
 
-$arraymsg = array(
+                    "color" => "good",
 
-"login" => true ,
+                    "old" => true,
 
-"msg" => "الرجاء تحديد تعيين واحد على الأقل ليتم حذفه" ,
+                    "auto" => false,
 
-"color" => "error" ,
+                    "text" => "",
 
-"old" => true ,
+                    "url" => "",
 
-"auto" => false ,
+                    "array" => "",
 
-"text" => "" ,
+                );
 
-"url" => "" ,
+                echo msg_template("arab-forums", $arraymsg);
+            }
+        } else {
 
-"array" => "" ,
+            echo bodytop_template("arab-forums", "التعيينات الإشرافية");
 
-);
+            $arrayheader = array(
 
-echo msg_template("arab-forums" , $arraymsg);
+                "login" => true,
 
-}else{
+            );
 
-delete_mysql("arab-forums" , "moderate" , "moderate_id in({$import})");
+            echo header_template("arab-forums", $arrayheader);
 
-$arraymsg = array(
+            echo "<table cellpadding=\"0\" cellspacing=\"3\" width=\"99%\" align=\"center\"><tr>";
 
-"login" => true ,
+            echo "<td>" . img_other("arab-forums", "images/moderator.png", "", "", "", "0", "", "") . "</td>";
 
-"msg" => "تم حذف التعيينات المحددة بنجآح تام" ,
+            echo "<td width=\"100%\">" . a_other("arab-forums", $urlget, "التعيينات الإشرافية", "التعيينات الإشرافية", "") . "</td>";
 
-"color" => "good" ,
+            echo "<td class=\"menu\"><nobr>" . a_other("arab-forums", "moderator.php?go=add", "تعيين مشرفين جدد", img_other("arab-forums", "images/nmoderator.png", "", "", "", "0", "", "") . "<br>تعيين مشرفين", "") . "</nobr></td>";
 
-"old" => true ,
+            $count_page = tother_option;
 
-"auto" => false ,
+            $get_page = (page == "" || !is_numeric(page) ? 1 : page);
 
-"text" => "" ,
+            $limit_page = (($get_page * $count_page) - $count_page);
 
-"url" => "" ,
+            echo page_pager("arab-forums", "moderate", "moderate_id , moderate_lock , moderate_forumid", "where moderate_forumid in(" . allowedin2_other("arab-forums") . ")", $count_page, $get_page, "moderator.php?");
 
-"array" => "" ,
+            echo list_forumcatlist("arab-forums");
 
-);
+            echo "</tr></table>";
 
-echo msg_template("arab-forums" , $arraymsg);
+            if (group_user == 6) {
 
-}}else{
+                echo "<form action=\"" . self . "\" method=\"post\">";
 
-echo bodytop_template("arab-forums" , "التعيينات الإشرافية");
+                echo "<table cellpadding=\"0\" cellspacing=\"3\" width=\"99%\" align=\"center\"><tr>";
 
-$arrayheader = array(
+                echo "<td class=\"menu\"><nobr><input class=\"button\" value=\"الموافقة على التعيينات المحددة\" type=\"submit\" name=\"wait\" " . confirm_other("arab-forums", "هل أنت متأكد من أنك تريد الموافقة على التعيينات المحددة ؟") . "></nobr></td>";
 
-"login" => true ,
+                echo "<td class=\"menu\"><nobr><input class=\"button\" value=\"تجميد التعيينات المحددة\" type=\"submit\" name=\"lock\" " . confirm_other("arab-forums", "هل أنت متأكد من أنك تريد تجميد التعيينات المحددة ؟") . "></nobr></td>";
 
-);
+                echo "<td class=\"menu\"><nobr><input class=\"button\" value=\"حذف التعيينات المحددة\" type=\"submit\" name=\"delete\" " . confirm_other("arab-forums", "هل أنت متأكد من أنك تريد حذف التعيينات المحددة ؟") . "></nobr></td>";
 
-echo header_template("arab-forums" , $arrayheader);
+                echo "<td width=\"100%\"></td>";
 
-echo "<table cellpadding=\"0\" cellspacing=\"3\" width=\"99%\" align=\"center\"><tr>";
+                echo "</tr></table>";
+            }
 
-echo "<td>".img_other("arab-forums" , "images/moderator.png" , "" , "" , "" , "0" , "" , "")."</td>";
+            echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"99%\" align=\"center\">";
 
-echo "<td width=\"100%\">".a_other("arab-forums" , $urlget , "التعيينات الإشرافية" , "التعيينات الإشرافية" , "")."</td>";
+            echo "<tr align=\"center\"><td class=\"tcat\" colspan=\"6\"><div class=\"pad\">التعيينات الإشرافية على المنتديات التي تراقب عليها</div></td></tr>";
 
-echo "<td class=\"menu\"><nobr>".a_other("arab-forums" , "moderator.php?go=add" , "تعيين مشرفين جدد" , img_other("arab-forums" , "images/nmoderator.png" , "" , "" , "" , "0" , "" , "")."<br>تعيين مشرفين" , "")."</nobr></td>";
+            echo "<tr align=\"center\">";
 
-$count_page = tother_option;
+            if (group_user == 6) {
 
-$get_page = (page == "" || !is_numeric(page) ? 1 : page);
+                $inputtext = array(
 
-$limit_page = (($get_page * $count_page) - $count_page);
+                    1 => "تحديد جميع التعيينات",
 
-echo page_pager("arab-forums" , "moderate" , "moderate_id , moderate_lock , moderate_forumid" , "where moderate_forumid in(".allowedin2_other("arab-forums").")" , $count_page , $get_page , "moderator.php?");
+                    2 => "إلغاء تحديد جميع التعيينات",
 
-echo list_forumcatlist("arab-forums");
+                    3 => "لا يوجد تعيينات بالصفحة حاليا",
 
-echo "</tr></table>";
+                    4 => "عدد التعيينات الذي إخترت هو :",
 
-if(group_user == 6){
+                    5 => "التعيين",
 
-echo "<form action=\"".self."\" method=\"post\">";
+                );
 
-echo "<table cellpadding=\"0\" cellspacing=\"3\" width=\"99%\" align=\"center\"><tr>";
+                echo "<td class=\"tcat\" width=\"3%\"><div class=\"pad\"><input type=\"checkbox\" title=\"{$inputtext["1"]}\" name=\"chk_all\" onclick=\"check2(this.form , this , '{$inputtext["1"]}' , '{$inputtext["2"]}' , '{$inputtext["3"]}' , '{$inputtext["4"]}' , '{$inputtext["5"]}' , 'alttext1 select');\"></div></td>";
+            }
 
-echo "<td class=\"menu\"><nobr><input class=\"button\" value=\"الموافقة على التعيينات المحددة\" type=\"submit\" name=\"wait\" ".confirm_other("arab-forums" , "هل أنت متأكد من أنك تريد الموافقة على التعيينات المحددة ؟")."></nobr></td>";
+            echo "<td class=\"tcat\" width=\"15%\"><div class=\"pad\">الإسم</div></td>";
 
-echo "<td class=\"menu\"><nobr><input class=\"button\" value=\"تجميد التعيينات المحددة\" type=\"submit\" name=\"lock\" ".confirm_other("arab-forums" , "هل أنت متأكد من أنك تريد تجميد التعيينات المحددة ؟")."></nobr></td>";
+            echo "<td class=\"tcat\" width=\"15%\"><div class=\"pad\">تم التعيين بواسطة</div></td>";
 
-echo "<td class=\"menu\"><nobr><input class=\"button\" value=\"حذف التعيينات المحددة\" type=\"submit\" name=\"delete\" ".confirm_other("arab-forums" , "هل أنت متأكد من أنك تريد حذف التعيينات المحددة ؟")."></nobr></td>";
+            echo "<td class=\"tcat\" width=\"15%\"><div class=\"pad\">تاريخ التعيين</div></td>";
 
-echo "<td width=\"100%\"></td>";
+            echo "<td class=\"tcat\" width=\"37%\"><div class=\"pad\">المنتدى</div></td>";
 
-echo "</tr></table>";
+            echo "<td class=\"tcat\" width=\"15%\"><div class=\"pad\">الحالة</div></td>";
 
-}
+            echo "</tr>";
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" width=\"99%\" align=\"center\">";
+            $moderate_sql = select_mysql("arab-forums", "moderate", "u1.user_id as u1user_id , u1.user_lock1 as u1user_lock , u1.user_nameuser as u1user_name , u1.user_group as u1user_group , u1.user_coloruser as u1user_color , u2.user_id as u2user_id , u2.user_lock1 as u2user_lock , u2.user_nameuser as u2user_name , u2.user_group as u2user_group , u2.user_coloruser as u2user_color , m.moderate_id , m.moderate_forumid , m.moderate_userid , m.moderate_lock , m.moderate_add , m.moderate_date , f.forum_id , f.forum_name", "as m left join user" . prefix_connect . " as u1 on(u1.user_id = m.moderate_userid) left join user" . prefix_connect . " as u2 on(u2.user_id = m.moderate_add) left join forum" . prefix_connect . " as f on(f.forum_id = m.moderate_forumid) order by m.moderate_lock desc , m.moderate_date desc limit {$limit_page},{$count_page}");
 
-echo "<tr align=\"center\"><td class=\"tcat\" colspan=\"6\"><div class=\"pad\">التعيينات الإشرافية على المنتديات التي تراقب عليها</div></td></tr>";
+            if (num_mysql("arab-forums", $moderate_sql) == false) {
 
-echo "<tr align=\"center\">";
+                echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"6\"><br><br>لا توجد تعيينات تابعة لمنتديات تحت رقابتك<br><br><br></td></tr>";
+            } else {
 
-if(group_user == 6){
+                while ($moderate_object = object_mysql("arab-forums", $moderate_sql)) {
 
-$inputtext = array(
+                    if ($moderate_object->moderate_lock == 0) {
 
-1 => "تحديد جميع التعيينات" ,
+                        $colort = "green";
 
-2 => "إلغاء تحديد جميع التعيينات" ,
+                        $textt = "ساري حاليا";
+                    } elseif ($moderate_object->moderate_lock == 1) {
 
-3 => "لا يوجد تعيينات بالصفحة حاليا" ,
+                        $colort = "red";
 
-4 => "عدد التعيينات الذي إخترت هو :" ,
+                        $textt = "مجمد";
+                    } else {
 
-5 => "التعيين" ,
+                        $colort = "blue";
 
-);
+                        $textt = "ينتظر الموافقة";
+                    }
 
-echo "<td class=\"tcat\" width=\"3%\"><div class=\"pad\"><input type=\"checkbox\" title=\"{$inputtext["1"]}\" name=\"chk_all\" onclick=\"check2(this.form , this , '{$inputtext["1"]}' , '{$inputtext["2"]}' , '{$inputtext["3"]}' , '{$inputtext["4"]}' , '{$inputtext["5"]}' , 'alttext1 select');\"></div></td>";
+                    echo "<tr class=\"alttext1\" id=\"tr_{$moderate_object->moderate_id}\" align=\"center\">";
 
-}
+                    if (group_user == 6) {
 
-echo "<td class=\"tcat\" width=\"15%\"><div class=\"pad\">الإسم</div></td>";
+                        echo "<td><div class=\"pad\"><input onclick=\"check1(this, '{$moderate_object->moderate_id}' , 'alttext1' , 'التعيين' , 'alttext1 select');\" type=\"checkbox\" name=\"allyu[]\" title=\"تحديد التعيين\" value=\"{$moderate_object->moderate_id}\"><input type=\"hidden\" name=\"bg_{$moderate_object->moderate_id}\" id=\"bg_{$moderate_object->moderate_id}\" value=\"alttext1\"></div></td>";
+                    }
 
-echo "<td class=\"tcat\" width=\"15%\"><div class=\"pad\">تم التعيين بواسطة</div></td>";
+                    echo "<td><div class=\"pad\"><nobr>" . user_other("arab-forums", array($moderate_object->u1user_id, $moderate_object->u1user_group, $moderate_object->u1user_name, $moderate_object->u1user_lock, $moderate_object->u1user_color, false)) . "</nobr></div></td>";
 
-echo "<td class=\"tcat\" width=\"15%\"><div class=\"pad\">تاريخ التعيين</div></td>";
+                    echo "<td><div class=\"pad\"><nobr>" . user_other("arab-forums", array($moderate_object->u2user_id, $moderate_object->u2user_group, $moderate_object->u2user_name, $moderate_object->u2user_lock, $moderate_object->u2user_color, false)) . "</nobr></div></td>";
 
-echo "<td class=\"tcat\" width=\"37%\"><div class=\"pad\">المنتدى</div></td>";
+                    echo "<td><div class=\"pad\"><nobr>" . times_date("arab-forums", "", $moderate_object->moderate_date) . "</nobr></div></td>";
 
-echo "<td class=\"tcat\" width=\"15%\"><div class=\"pad\">الحالة</div></td>";
+                    echo "<td><div class=\"pad\">" . a_other("arab-forums", "forum.php?id={$moderate_object->forum_id}", "{$moderate_object->forum_name}", "<span style=\"color:orange;font-size:12px;\">{$moderate_object->forum_name}</span>", "") . "</div></td>";
 
-echo "</tr>";
+                    echo "<td><div class=\"pad\"><nobr><span style=\"color:{$colort};font-size:12px;\">{$textt}</span></nobr></div></td>";
 
-$moderate_sql = select_mysql("arab-forums" , "moderate" , "u1.user_id as u1user_id , u1.user_lock1 as u1user_lock , u1.user_nameuser as u1user_name , u1.user_group as u1user_group , u1.user_coloruser as u1user_color , u2.user_id as u2user_id , u2.user_lock1 as u2user_lock , u2.user_nameuser as u2user_name , u2.user_group as u2user_group , u2.user_coloruser as u2user_color , m.moderate_id , m.moderate_forumid , m.moderate_userid , m.moderate_lock , m.moderate_add , m.moderate_date , f.forum_id , f.forum_name" , "as m left join user".prefix_connect." as u1 on(u1.user_id = m.moderate_userid) left join user".prefix_connect." as u2 on(u2.user_id = m.moderate_add) left join forum".prefix_connect." as f on(f.forum_id = m.moderate_forumid) order by m.moderate_lock desc , m.moderate_date desc limit {$limit_page},{$count_page}");
+                    echo "</tr>";
+                }
+            }
 
-if(num_mysql("arab-forums" , $moderate_sql) == false){
+            echo "</table>";
 
-echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"6\"><br><br>لا توجد تعيينات تابعة لمنتديات تحت رقابتك<br><br><br></td></tr>";
+            if (group_user == 6) {
 
-}else{
+                echo "</form>";
+            }
 
-while($moderate_object = object_mysql("arab-forums" , $moderate_sql)){
+            echo footer_template("arab-forums");
 
-if($moderate_object->moderate_lock == 0){
+            echo bodybottom_template("arab-forums");
+        }
+    }
+} else {
 
-$colort = "green";
+    $arraymsg = array(
 
-$textt = "ساري حاليا";
+        "login" => true,
 
-}elseif($moderate_object->moderate_lock == 1){
+        "msg" => "للأسف لا يمكنك الولوج إلى هذه الصفحة لأنك لا تملك التصريح المناسب",
 
-$colort = "red";
+        "color" => "error",
 
-$textt = "مجمد";
+        "old" => true,
 
-}else{
+        "auto" => false,
 
-$colort = "blue";
+        "text" => "",
 
-$textt = "ينتظر الموافقة";
+        "url" => "",
 
-}
+        "array" => "",
 
-echo "<tr class=\"alttext1\" id=\"tr_{$moderate_object->moderate_id}\" align=\"center\">";
+    );
 
-if(group_user == 6){
-
-echo "<td><div class=\"pad\"><input onclick=\"check1(this, '{$moderate_object->moderate_id}' , 'alttext1' , 'التعيين' , 'alttext1 select');\" type=\"checkbox\" name=\"allyu[]\" title=\"تحديد التعيين\" value=\"{$moderate_object->moderate_id}\"><input type=\"hidden\" name=\"bg_{$moderate_object->moderate_id}\" id=\"bg_{$moderate_object->moderate_id}\" value=\"alttext1\"></div></td>";
-
-}
-
-echo "<td><div class=\"pad\"><nobr>".user_other("arab-forums" , array($moderate_object->u1user_id , $moderate_object->u1user_group , $moderate_object->u1user_name , $moderate_object->u1user_lock , $moderate_object->u1user_color , false))."</nobr></div></td>";
-
-echo "<td><div class=\"pad\"><nobr>".user_other("arab-forums" , array($moderate_object->u2user_id , $moderate_object->u2user_group , $moderate_object->u2user_name , $moderate_object->u2user_lock , $moderate_object->u2user_color , false))."</nobr></div></td>";
-
-echo "<td><div class=\"pad\"><nobr>".times_date("arab-forums" , "" , $moderate_object->moderate_date)."</nobr></div></td>";
-
-echo "<td><div class=\"pad\">".a_other("arab-forums" , "forum.php?id={$moderate_object->forum_id}" , "{$moderate_object->forum_name}" , "<span style=\"color:orange;font-size:12px;\">{$moderate_object->forum_name}</span>" , "")."</div></td>";
-
-echo "<td><div class=\"pad\"><nobr><span style=\"color:{$colort};font-size:12px;\">{$textt}</span></nobr></div></td>";
-
-echo "</tr>";
-
-}}
-
-echo "</table>";
-
-if(group_user == 6){
-
-echo "</form>";
-
-}
-
-echo footer_template("arab-forums");
-
-echo bodybottom_template("arab-forums");
-
-}}}else{
-
-$arraymsg = array(
-
-"login" => true ,
-
-"msg" => "للأسف لا يمكنك الولوج إلى هذه الصفحة لأنك لا تملك التصريح المناسب" ,
-
-"color" => "error" ,
-
-"old" => true ,
-
-"auto" => false ,
-
-"text" => "" ,
-
-"url" => "" ,
-
-"array" => "" ,
-
-);
-
-echo msg_template("arab-forums" , $arraymsg);
-
+    echo msg_template("arab-forums", $arraymsg);
 }
 
 disconnect_mysql("arab-forums");
@@ -590,4 +578,3 @@ disconnect_mysql("arab-forums");
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

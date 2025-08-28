@@ -11,239 +11,224 @@
 
 |*#####################################################################*/
 
-define("error_page_arab_forums" , true);
+define("error_page_arab_forums", true);
 
 @include("includes.php");
 
-define("pageupdate" , true);
+define("pageupdate", true);
 
 @include("includes/e.noopen.php");
 
-define("pagebody" , "register");
+define("pagebody", "register");
 
-online_other("arab-forums" , "register" , "0" , "0" , "0" , "0");
+online_other("arab-forums", "register", "0", "0", "0", "0");
 
-if(group_user == 0){
+if (group_user == 0) {
 
-if(go == ""){
+    if (go == "") {
 
-if(registeroff_option == 1){
+        if (registeroff_option == 1) {
 
-$arraymsg = array(
+            $arraymsg = array(
 
-"login" => true ,
+                "login" => true,
 
-"msg" => "عفوآ التسجيل موقف حاليا من طرف الإدارة نعتذر على ذلك" ,
+                "msg" => "عفوآ التسجيل موقف حاليا من طرف الإدارة نعتذر على ذلك",
 
-"color" => "error" ,
+                "color" => "error",
 
-"old" => true ,
+                "old" => true,
 
-"auto" => false ,
+                "auto" => false,
 
-"text" => "" ,
+                "text" => "",
 
-"url" => "" ,
+                "url" => "",
 
-"array" => "" ,
+                "array" => "",
 
-);
+            );
 
-echo msg_template("arab-forums" , $arraymsg);
+            echo msg_template("arab-forums", $arraymsg);
+        } else {
 
-}else{
+            echo bodytop_template("arab-forums", "شروط التسجيل");
 
-echo bodytop_template("arab-forums" , "شروط التسجيل");
+            $arrayheader = array(
 
-$arrayheader = array(
+                "login" => false,
 
-"login" => false ,
+            );
 
-);
+            echo header_template("arab-forums", $arrayheader);
 
-echo header_template("arab-forums" , $arrayheader);
+            echo "<form action=\"register.php?go=register\" method=\"post\">";
 
-echo "<form action=\"register.php?go=register\" method=\"post\">";
- 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" width=\"50%\" align=\"center\">";
+            echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" width=\"50%\" align=\"center\">";
 
-echo "<tr><td class=\"tcat\"><div class=\"pad\">شروط ".title_option."</div></td></tr>";
+            echo "<tr><td class=\"tcat\"><div class=\"pad\">شروط " . title_option . "</div></td></tr>";
 
-echo "<tr><td class=\"alttext1\" align=\"center\"><div class=\"pad\">";
+            echo "<tr><td class=\"alttext1\" align=\"center\"><div class=\"pad\">";
 
-echo "<div style=\"width:640px\" align=\"right\">";
- 
-echo "<fieldset><legend>قوانين المنتدى</legend>";
+            echo "<div style=\"width:640px\" align=\"right\">";
 
-echo "<table cellpadding=\"0\" cellspacing=\"3\" border=\"0\" width=\"100%\">";
+            echo "<fieldset><legend>قوانين المنتدى</legend>";
 
-echo "<tr><td>رجاءآ اقرأ شروط التسجيل وبدقة للموافقة عليها قبل التسارع في انهاء خطوات التسجيل</td></tr>";
+            echo "<table cellpadding=\"0\" cellspacing=\"3\" border=\"0\" width=\"100%\">";
 
-echo "<tr><td><div class=\"page\" style=\"border:thin inset; padding:6px; height:175px; overflow:auto\">";
+            echo "<tr><td>رجاءآ اقرأ شروط التسجيل وبدقة للموافقة عليها قبل التسارع في انهاء خطوات التسجيل</td></tr>";
 
-echo "<p><strong>شروط و اتفاقية التسجيل</strong></p>";
+            echo "<tr><td><div class=\"page\" style=\"border:thin inset; padding:6px; height:175px; overflow:auto\">";
 
-echo "<p>التسجيل في هذا المنتدى مجاني و متاح للجميع ، مقابل هذا نحن نصر على التزامك بالقوانين و سياستنا الموضحة أدناه .اذا كانت موافق على هذه الشروط , يرجى منك التأشير على صندوق قراءة الشروط و الموافقة عليها ومن ثم الضغط على زر 'التسجيل' بالأسفل ، أما اذا رأيت بأن هذه الشروط تعجيزية و لا تود التسجيل معنا و إلغاء هذا اضغط <a href=\"home.php\">هنا</a>للعودة إلى واجهة المنتدى الرئيسية .</p>";
+            echo "<p><strong>شروط و اتفاقية التسجيل</strong></p>";
 
-echo "<p>بالرغم من ادارة و طاقم مشرفين ".title_option." يبذلون كل ما في وسعهم و يجتهدون لإبقاء المشاركات المخالفة بعيدة عن هذا المنتدى , الا انهم غير قادرين أيضاً على مراجعة وتدقيق كافة المشاركات المطروحة ، ادارة ".title_option." تتمنى أن تراقب نفسك كي لا تراقب ، تأكد من أن المشاركات المطروحة هنا لا تمثّل وجهة نظر الموقع بل وجهة نظر كاتبها فقط و لذلك فإن ادارة ".title_option." لا تتحمل مسؤولية محتوى أي مشاركة .</p>";
+            echo "<p>التسجيل في هذا المنتدى مجاني و متاح للجميع ، مقابل هذا نحن نصر على التزامك بالقوانين و سياستنا الموضحة أدناه .اذا كانت موافق على هذه الشروط , يرجى منك التأشير على صندوق قراءة الشروط و الموافقة عليها ومن ثم الضغط على زر 'التسجيل' بالأسفل ، أما اذا رأيت بأن هذه الشروط تعجيزية و لا تود التسجيل معنا و إلغاء هذا اضغط <a href=\"home.php\">هنا</a>للعودة إلى واجهة المنتدى الرئيسية .</p>";
 
-echo "<p>بموافقتك على هذه الشروط فأنت تتعهد لله سبحانه و تعالى بأن لا تضيف أية مشاركات تسيء للدين الإسلامي الحنيف , القرآن الكريم , الأنبياء , الصحابة و الخلفاء الصالحين , أمهات المؤمنين , علماء الدين , المذاهب , رؤوساء الدول , الإدارة , المشرفين و أعضاءها ، و لا تضيف مشاركات تخدش الحياء إن كانت جنسية أو اهانات .</p>";
+            echo "<p>بالرغم من ادارة و طاقم مشرفين " . title_option . " يبذلون كل ما في وسعهم و يجتهدون لإبقاء المشاركات المخالفة بعيدة عن هذا المنتدى , الا انهم غير قادرين أيضاً على مراجعة وتدقيق كافة المشاركات المطروحة ، ادارة " . title_option . " تتمنى أن تراقب نفسك كي لا تراقب ، تأكد من أن المشاركات المطروحة هنا لا تمثّل وجهة نظر الموقع بل وجهة نظر كاتبها فقط و لذلك فإن ادارة " . title_option . " لا تتحمل مسؤولية محتوى أي مشاركة .</p>";
 
-echo "<p>ادارة ".title_option." ومشرفيها لهم الحق بازالة ، تعديل ، نقل أو اغلاق أي موضوع مخالف لأي سبب كان .</p>";
+            echo "<p>بموافقتك على هذه الشروط فأنت تتعهد لله سبحانه و تعالى بأن لا تضيف أية مشاركات تسيء للدين الإسلامي الحنيف , القرآن الكريم , الأنبياء , الصحابة و الخلفاء الصالحين , أمهات المؤمنين , علماء الدين , المذاهب , رؤوساء الدول , الإدارة , المشرفين و أعضاءها ، و لا تضيف مشاركات تخدش الحياء إن كانت جنسية أو اهانات .</p>";
 
-echo "</div><div><label for=\"cb_rules_agree\"><input type=\"checkbox\" name=\"agree\" id=\"cb_rules_agree\" value=\"1\">قرأت كل شروط التسجيل في ".title_option." ، واتعهد بالالتزام بما جاء فيها .</label></div></div></td></tr></table></fieldset></div><div style=\"margin-top:6px\"><input type=\"submit\" class=\"button\" value=\"التسجيل\" ".confirm_other("arab-forums" , "هل أنت متأكد من أنك موافق على شروط المنتدى ؟").">";
+            echo "<p>ادارة " . title_option . " ومشرفيها لهم الحق بازالة ، تعديل ، نقل أو اغلاق أي موضوع مخالف لأي سبب كان .</p>";
 
-echo "</div></td></tr></table></form>";
+            echo "</div><div><label for=\"cb_rules_agree\"><input type=\"checkbox\" name=\"agree\" id=\"cb_rules_agree\" value=\"1\">قرأت كل شروط التسجيل في " . title_option . " ، واتعهد بالالتزام بما جاء فيها .</label></div></div></td></tr></table></fieldset></div><div style=\"margin-top:6px\"><input type=\"submit\" class=\"button\" value=\"التسجيل\" " . confirm_other("arab-forums", "هل أنت متأكد من أنك موافق على شروط المنتدى ؟") . ">";
 
-echo footer_template("arab-forums");
+            echo "</div></td></tr></table></form>";
 
-echo bodybottom_template("arab-forums");
+            echo footer_template("arab-forums");
 
-}}elseif(go == "register"){
+            echo bodybottom_template("arab-forums");
+        }
+    } elseif (go == "register") {
 
-if(post_other("arab-forums" , "agree") == 1){
+        if (post_other("arab-forums", "agree") == 1) {
 
-$insert  = text_other("arab-forums" , post_other("arab-forums" , "insert") , false , false , false , false , false);
+            $insert  = text_other("arab-forums", post_other("arab-forums", "insert"), false, false, false, false, false);
 
-if(isset($insert)){
+            if (isset($insert)) {
 
-$nameregister = text_other("arab-forums" , post_other("arab-forums" , "rename") , true , true , true , true , true);
+                $nameregister = text_other("arab-forums", post_other("arab-forums", "rename"), true, true, true, true, true);
 
-$passregister = text_other("arab-forums" , post_other("arab-forums" , "repass") , true , true , true , true , true);
+                $passregister = text_other("arab-forums", post_other("arab-forums", "repass"), true, true, true, true, true);
 
-$emailregister = text_other("arab-forums" , post_other("arab-forums" , "reemail") , true , true , true , true , true);
+                $emailregister = text_other("arab-forums", post_other("arab-forums", "reemail"), true, true, true, true, true);
 
-$countryregister = text_other("arab-forums" , post_other("arab-forums" , "recountry") , true , true , true , true , true);
+                $countryregister = text_other("arab-forums", post_other("arab-forums", "recountry"), true, true, true, true, true);
 
-$cityregister = text_other("arab-forums" , post_other("arab-forums" , "recity") , true , true , true , true , true);
+                $cityregister = text_other("arab-forums", post_other("arab-forums", "recity"), true, true, true, true, true);
 
-$stateregister = text_other("arab-forums" , post_other("arab-forums" , "restate") , true , true , true , true , true);
+                $stateregister = text_other("arab-forums", post_other("arab-forums", "restate"), true, true, true, true, true);
 
-$daysregister = text_other("arab-forums" , post_other("arab-forums" , "redays") , true , true , true , true , true);
+                $daysregister = text_other("arab-forums", post_other("arab-forums", "redays"), true, true, true, true, true);
 
-$monthregister = text_other("arab-forums" , post_other("arab-forums" , "remonth") , true , true , true , true , true);
+                $monthregister = text_other("arab-forums", post_other("arab-forums", "remonth"), true, true, true, true, true);
 
-$yearsregister = text_other("arab-forums" , post_other("arab-forums" , "reyears") , true , true , true , true , true);
+                $yearsregister = text_other("arab-forums", post_other("arab-forums", "reyears"), true, true, true, true, true);
 
-$sexregister = text_other("arab-forums" , post_other("arab-forums" , "resex") , true , true , true , true , true);
+                $sexregister = text_other("arab-forums", post_other("arab-forums", "resex"), true, true, true, true, true);
 
-$halaregister = text_other("arab-forums" , post_other("arab-forums" , "rehala") , true , true , true , true , true);
+                $halaregister = text_other("arab-forums", post_other("arab-forums", "rehala"), true, true, true, true, true);
 
-$coderegister = text_other("arab-forums" , post_other("arab-forums" , "recode") , true , true , true , true , true);
+                $coderegister = text_other("arab-forums", post_other("arab-forums", "recode"), true, true, true, true, true);
 
-if($nameregister == "" || $passregister == "" || $emailregister == "" || $countryregister == "" || $cityregister == "" || $stateregister == "" || $daysregister == "" || $monthregister == "" || $yearsregister == "" || $sexregister == "" || $halaregister == "" || $coderegister == ""){
+                if ($nameregister == "" || $passregister == "" || $emailregister == "" || $countryregister == "" || $cityregister == "" || $stateregister == "" || $daysregister == "" || $monthregister == "" || $yearsregister == "" || $sexregister == "" || $halaregister == "" || $coderegister == "") {
 
-$errorerror = "الرجاء ملأ جميع الحقول ليتم التسجيل";
+                    $errorerror = "الرجاء ملأ جميع الحقول ليتم التسجيل";
+                } elseif (mb_strlen($nameregister) < 5 || mb_strlen($nameregister) > 20) {
 
-}elseif(mb_strlen($nameregister) < 5 || mb_strlen($nameregister) > 20){
+                    $errorname = "الإسم لا يجب أن يكون اقل من 5 حروف و أكبر من 20 حرف";
+                } elseif (num_mysql("arab-forums", select_mysql("arab-forums", "user", "user_nameuser", "where user_nameuser = \"" . strtolower($nameregister) . "\" limit 1")) == true) {
 
-$errorname = "الإسم لا يجب أن يكون اقل من 5 حروف و أكبر من 20 حرف";
+                    $errorname = "الإسم المدخل مسجل لعضو آخر";
+                } elseif (num_mysql("arab-forums", select_mysql("arab-forums", "user", "user_namelogin", "where user_namelogin = \"" . strtolower($nameregister) . "\" limit 1")) == true) {
 
-}elseif(num_mysql("arab-forums" , select_mysql("arab-forums" , "user" , "user_nameuser" , "where user_nameuser = \"".strtolower($nameregister)."\" limit 1")) == true){
+                    $errorname = "الإسم المدخل مسجل لعضو آخر";
+                } elseif (num_mysql("arab-forums", select_mysql("arab-forums", "registerband", "registerband_name", "where registerband_name = \"" . strtolower($nameregister) . "\" limit 1")) == true) {
 
-$errorname = "الإسم المدخل مسجل لعضو آخر";
+                    $errorname = "الإسم المدخل تم منعه من قبل الإدارة";
+                } elseif (mb_strlen($passregister) < 5 || mb_strlen($passregister) > 20) {
 
-}elseif(num_mysql("arab-forums" , select_mysql("arab-forums" , "user" , "user_namelogin" , "where user_namelogin = \"".strtolower($nameregister)."\" limit 1")) == true){
+                    $errorpass = "الكلمة السرية لا يجب أن تكون أقل من 5 حروف و أكبر من 20 حرف";
+                } elseif (!eregi("^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$", $emailregister)) {
 
-$errorname = "الإسم المدخل مسجل لعضو آخر";
+                    $erroremail = "البريد الإلكتروني يجب أن يكون صحيح";
+                } elseif (num_mysql("arab-forums", select_mysql("arab-forums", "user", "user_email", "where user_email = \"" . $emailregister . "\" limit 1")) == true) {
 
-}elseif(num_mysql("arab-forums" , select_mysql("arab-forums" , "registerband" , "registerband_name" , "where registerband_name = \"".strtolower($nameregister)."\" limit 1")) == true){
+                    $erroremail = "البريد الإلكتروني مسجل لعضو آخر";
+                } elseif (md5(strtoupper($coderegister)) != get_cookie("arab-forums", "codesregister")) {
 
-$errorname = "الإسم المدخل تم منعه من قبل الإدارة";
+                    $errorcode = "عفوآ الكود غير مطابق للكود المدخل";
+                }
+            }
 
-}elseif(mb_strlen($passregister) < 5 || mb_strlen($passregister) > 20){
+            if (isset($insert) && $errorerror == "" && $errorname == "" && $errorpass == "" && $erroremail == "" && $errorcode == "") {
 
-$errorpass = "الكلمة السرية لا يجب أن تكون أقل من 5 حروف و أكبر من 20 حرف";
+                $codeyserr = md5(code_other("arab-forums", 10));
 
-}elseif(!eregi("^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$" , $emailregister)){
+                if (registerwait_option == 0) {
 
-$erroremail = "البريد الإلكتروني يجب أن يكون صحيح";
+                    $wait = "0";
 
-}elseif(num_mysql("arab-forums" , select_mysql("arab-forums" , "user" , "user_email" , "where user_email = \"".$emailregister."\" limit 1")) == true){
+                    $active = "0";
 
-$erroremail = "البريد الإلكتروني مسجل لعضو آخر";
+                    $text = "تم تسجيل عضوتك بنجاح تام يمكنك الأن المشاركة بها";
 
-}elseif(md5(strtoupper($coderegister)) != get_cookie("arab-forums" , "codesregister")){
+                    $email = false;
 
-$errorcode = "عفوآ الكود غير مطابق للكود المدخل";
+                    $msgcolor = "good";
+                } elseif (registerwait_option == 1) {
 
-}
+                    $wait = "1";
 
-}
+                    $active = "0";
 
-if(isset($insert) && $errorerror == "" && $errorname == "" && $errorpass == "" && $erroremail == "" && $errorcode == ""){
+                    $text = "تم تسجيل عضويتك بنجاح تام لاكن تحتاج لموافقة الإدارة";
 
-$codeyserr = md5(code_other("arab-forums" , 10));
+                    $msgcolor = "info";
 
-if(registerwait_option == 0){
+                    $email = false;
+                } elseif (registerwait_option == 2) {
 
-$wait = "0";
+                    $wait = "0";
 
-$active = "0";
+                    $active = "1";
 
-$text = "تم تسجيل عضوتك بنجاح تام يمكنك الأن المشاركة بها";
+                    $text = "تم تسجيل عضويتك بنجاح تام لاكن يجب عليك الذهاب الى البريد الالكتروني الذي سجلت عندنا لتفعيل العضوية";
 
-$email = false;
+                    $msgcolor = "info";
 
-$msgcolor = "good";
+                    $email = true;
+                } elseif (registerwait_option == 3) {
 
-}elseif(registerwait_option == 1){
+                    $wait = "1";
 
-$wait = "1";
+                    $active = "1";
 
-$active = "0";
+                    $text = "تم تسجيل عضويتك بنجاح تام لاكن يجب عليك الذهاب الى البريد الالكتروني الذي سجلت عندنا لتفعيل العضوية";
 
-$text = "تم تسجيل عضويتك بنجاح تام لاكن تحتاج لموافقة الإدارة";
+                    $msgcolor = "info";
 
-$msgcolor = "info";
+                    $email = true;
+                }
 
-$email = false;
+                insert_mysql("arab-forums", "user", "user_id , user_wait , user_active , user_namelogin , user_nameuser , user_pass , user_email , user_dateregister , user_adressip , user_sex , user_days , user_month , user_years , user_country , user_city , user_state , user_hala , user_coderegister", "null , \"{$wait}\" , \"{$active}\" , \"{$nameregister}\" , \"{$nameregister}\" , \"" . pass_other("arab-forums", $passregister) . "\" , \"{$emailregister}\" , \"" . time() . "\" , \"" . ip_other("arab-forums") . "\" , \"{$sexregister}\" , \"{$daysregister}\" , \"{$monthregister}\" , \"{$yearsregister}\" , \"{$countryregister}\" , \"{$cityregister}\" , \"{$stateregister}\" , \"{$halaregister}\" , \"{$codeyserr}\"");
 
-}elseif(registerwait_option == 2){
+                set_cookie("arab-forums", "username", $nameregister, time() + 60 * 60 * 24 * 365);
 
-$wait = "0";
+                set_cookie("arab-forums", "userpass", pass_other("arab-forums", $passregister), time() + 60 * 60 * 24 * 365);
 
-$active = "1";
+                $insert = mysql_insert_id();
 
-$text = "تم تسجيل عضويتك بنجاح تام لاكن يجب عليك الذهاب الى البريد الالكتروني الذي سجلت عندنا لتفعيل العضوية";
+                insert_mysql("arab-forums", "ip", "ip_id , ip_ip , ip_user , ip_date , ip_type , ip_code", "null , \"" . ip_other("arab-forums") . "\" , \"{$insert}\" , \"" . time() . "\" , \"2\" , \"" . couip_other("arab-forums", ip_other("arab-forums")) . "\"");
 
-$msgcolor = "info";
+                if ($email == true) {
 
-$email = true;
+                    $subject = "طلب تفعيل العضوية في " . title_option . "";
 
-}elseif(registerwait_option == 3){
+                    $activeurl = "http://" . showurl_option . "/register.php?go=active&id=" . $insert . "&code=" . substr($codeyserr, 9, 9) . "";
 
-$wait = "1";
+                    $message = "مرحباً بك {$nameregister}
 
-$active = "1";
-
-$text = "تم تسجيل عضويتك بنجاح تام لاكن يجب عليك الذهاب الى البريد الالكتروني الذي سجلت عندنا لتفعيل العضوية";
-
-$msgcolor = "info";
-
-$email = true;
-
-}
-
-insert_mysql("arab-forums" , "user" , "user_id , user_wait , user_active , user_namelogin , user_nameuser , user_pass , user_email , user_dateregister , user_adressip , user_sex , user_days , user_month , user_years , user_country , user_city , user_state , user_hala , user_coderegister" , "null , \"{$wait}\" , \"{$active}\" , \"{$nameregister}\" , \"{$nameregister}\" , \"".pass_other("arab-forums" , $passregister)."\" , \"{$emailregister}\" , \"".time()."\" , \"".ip_other("arab-forums")."\" , \"{$sexregister}\" , \"{$daysregister}\" , \"{$monthregister}\" , \"{$yearsregister}\" , \"{$countryregister}\" , \"{$cityregister}\" , \"{$stateregister}\" , \"{$halaregister}\" , \"{$codeyserr}\"");
-
-set_cookie("arab-forums" , "username" , $nameregister , time()+60*60*24*365);
-
-set_cookie("arab-forums" , "userpass" , pass_other("arab-forums" , $passregister) , time()+60*60*24*365);
-
-$insert = mysql_insert_id();
-
-insert_mysql("arab-forums" , "ip" , "ip_id , ip_ip , ip_user , ip_date , ip_type , ip_code" , "null , \"".ip_other("arab-forums")."\" , \"{$insert}\" , \"".time()."\" , \"2\" , \"".couip_other("arab-forums" , ip_other("arab-forums"))."\"");
-
-if($email == true){
-
-$subject = "طلب تفعيل العضوية في ".title_option."";
-
-$activeurl = "http://".showurl_option."/register.php?go=active&id=".$insert."&code=".substr($codeyserr , 9 , 9)."";
-
-$message = "مرحباً بك {$nameregister}
-
-شكراً لتسجيلك في ".title_option."
+شكراً لتسجيلك في " . title_option . "
 		
 -------------------------------------------------
 
@@ -253,299 +238,293 @@ $message = "مرحباً بك {$nameregister}
 
 -------------------------------------------------
 
-مع أطيب الأمنيات إدارة ".title_option."";
+مع أطيب الأمنيات إدارة " . title_option . "";
 
-mail_other("arab-forums" , $emailregister , $subject , $message , "" , "" , "");
+                    mail_other("arab-forums", $emailregister, $subject, $message, "", "", "");
+                }
 
-}
+                $arraymsg = array(
 
-$arraymsg = array(
+                    "login" => false,
 
-"login" => false ,
+                    "msg" => $text,
 
-"msg" => $text ,
+                    "color" => $msgcolor,
 
-"color" => $msgcolor ,
+                    "old" => true,
 
-"old" => true ,
+                    "auto" => false,
 
-"auto" => false ,
+                    "text" => "الذهاب إلى الصفحة الرئيسية",
 
-"text" => "الذهاب إلى الصفحة الرئيسية" ,
+                    "url" => "home.php",
 
-"url" => "home.php" ,
+                    "array" => "",
 
-"array" => "" ,
+                );
 
-);
+                echo msg_template("arab-forums", $arraymsg);
+            } else {
 
-echo msg_template("arab-forums" , $arraymsg);
+                $codey = code_other("arab-forums", 8);
 
-}else{
+                set_cookie("arab-forums", "codesregister", md5(strtoupper($codey)), time() + 60 * 60 * 24 * 365);
 
-$codey = code_other("arab-forums" , 8);
+                echo bodytop_template("arab-forums", "التسجيل");
 
-set_cookie("arab-forums" , "codesregister" , md5(strtoupper($codey)) , time()+60*60*24*365);
+                $arrayheader = array(
 
-echo bodytop_template("arab-forums" , "التسجيل");
+                    "login" => false,
 
-$arrayheader = array(
+                );
 
-"login" => false ,
+                echo header_template("arab-forums", $arrayheader);
 
-);
+                echo "<form action=\"" . self . "\" method=\"post\">";
 
-echo header_template("arab-forums" , $arrayheader);
+                echo "<input type=\"hidden\" name=\"agree\" value=\"1\">";
 
-echo "<form action=\"".self."\" method=\"post\">";
+                echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" width=\"50%\" align=\"center\">";
 
-echo "<input type=\"hidden\" name=\"agree\" value=\"1\">";
- 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" width=\"50%\" align=\"center\">";
+                echo "<tr><td class=\"tcat\"><div class=\"pad\">التسجيل في " . title_option . "</div></td></tr>";
 
-echo "<tr><td class=\"tcat\"><div class=\"pad\">التسجيل في ".title_option."</div></td></tr>";
+                echo "<tr><td class=\"alttext1\" align=\"center\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\" align=\"center\"><div class=\"pad\">";
+                echo "<br><span style=\"color:red;font-size:12px;\">{$errorerror}</span><br>";
 
-echo "<br><span style=\"color:red;font-size:12px;\">{$errorerror}</span><br>";
+                echo "<div style=\"width:640px\" align=\"right\">";
 
-echo "<div style=\"width:640px\" align=\"right\">";
- 
-echo "<br><fieldset><legend>بيانات العضوية</legend>";
+                echo "<br><fieldset><legend>بيانات العضوية</legend>";
 
-echo "<p><span style=\"color:green;font-size:12px;\">الإسم الذي يعرفك في المنتديات :</span></p>";
+                echo "<p><span style=\"color:green;font-size:12px;\">الإسم الذي يعرفك في المنتديات :</span></p>";
 
-echo "<p><input style=\"width:250px\" class=\"input\" name=\"rename\" value=\"{$nameregister}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">{$errorname}</span></p>";
+                echo "<p><input style=\"width:250px\" class=\"input\" name=\"rename\" value=\"{$nameregister}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">{$errorname}</span></p>";
 
-echo "<p><span style=\"color:green;font-size:12px;\">الكلمة السرية :</span></p>";
+                echo "<p><span style=\"color:green;font-size:12px;\">الكلمة السرية :</span></p>";
 
-echo "<p><input style=\"width:250px\" class=\"input\" name=\"repass\" value=\"\" type=\"password\">&nbsp;<span style=\"color:red;font-size:12px;\">{$errorpass}</span></p>";
+                echo "<p><input style=\"width:250px\" class=\"input\" name=\"repass\" value=\"\" type=\"password\">&nbsp;<span style=\"color:red;font-size:12px;\">{$errorpass}</span></p>";
 
-echo "<p><span style=\"color:green;font-size:12px;\">البريد الإلكتروني :</span></p>";
+                echo "<p><span style=\"color:green;font-size:12px;\">البريد الإلكتروني :</span></p>";
 
-echo "<p><input dir=\"ltr\" style=\"width:250px\" class=\"input\" name=\"reemail\" value=\"{$emailregister}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">{$erroremail}</span></p>";
+                echo "<p><input dir=\"ltr\" style=\"width:250px\" class=\"input\" name=\"reemail\" value=\"{$emailregister}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">{$erroremail}</span></p>";
 
-echo "</fieldset>";
+                echo "</fieldset>";
 
-echo "<br><fieldset><legend>بيانات أخرى</legend>";
+                echo "<br><fieldset><legend>بيانات أخرى</legend>";
 
-echo "<p><span style=\"color:green;font-size:12px;\">الدولة :</span></p>";
+                echo "<p><span style=\"color:green;font-size:12px;\">الدولة :</span></p>";
 
-echo "<p><select class=\"inputselect\" name=\"recountry\">";
+                echo "<p><select class=\"inputselect\" name=\"recountry\">";
 
-foreach($country_list as $code=>$name){
+                foreach ($country_list as $code => $name) {
 
-echo "<option value=\"{$code}\" ".($countryregister == $code ? "selected" : "").">{$name}</option>";
+                    echo "<option value=\"{$code}\" " . ($countryregister == $code ? "selected" : "") . ">{$name}</option>";
+                }
 
-}
+                echo "</select></p>";
 
-echo "</select></p>";
+                echo "<p><span style=\"color:green;font-size:12px;\">المدينة :</span></p>";
 
-echo "<p><span style=\"color:green;font-size:12px;\">المدينة :</span></p>";
+                echo "<p><input style=\"width:150px\" class=\"input\" name=\"recity\" value=\"{$cityregister}\" type=\"text\"></p>";
 
-echo "<p><input style=\"width:150px\" class=\"input\" name=\"recity\" value=\"{$cityregister}\" type=\"text\"></p>";
+                echo "<p><span style=\"color:green;font-size:12px;\">المنطقة :</span></p>";
 
-echo "<p><span style=\"color:green;font-size:12px;\">المنطقة :</span></p>";
+                echo "<p><input style=\"width:150px\" class=\"input\" name=\"restate\" value=\"{$stateregister}\" type=\"text\"></p>";
 
-echo "<p><input style=\"width:150px\" class=\"input\" name=\"restate\" value=\"{$stateregister}\" type=\"text\"></p>";
+                echo "<p><span style=\"color:green;font-size:12px;\">تاريخ الإزدياد :</span></p>";
 
-echo "<p><span style=\"color:green;font-size:12px;\">تاريخ الإزدياد :</span></p>";
+                echo "<p><select class=\"inputselect\" name=\"redays\">";
 
-echo "<p><select class=\"inputselect\" name=\"redays\">";
+                for ($x = 1; $x <= 31; $x++) {
+                    echo "<option value=\"{$x}\" " . ($daysregister == $x ? "selected" : "") . ">{$x}</option>";
+                }
 
-for($x = 1; $x <= 31 ; $x++){echo "<option value=\"{$x}\" ".($daysregister == $x ? "selected" : "").">{$x}</option>";}
+                echo "</select>&nbsp;<select class=\"inputselect\" name=\"remonth\">";
 
-echo "</select>&nbsp;<select class=\"inputselect\" name=\"remonth\">";
+                for ($x = 1; $x <= 12; $x++) {
+                    echo "<option value=\"{$x}\" " . ($monthregister == $x ? "selected" : "") . ">{$months_list[$x]}</option>";
+                }
 
-for($x = 1; $x <= 12 ; $x++){echo "<option value=\"{$x}\" ".($monthregister == $x ? "selected" : "").">{$months_list[$x]}</option>";}
+                echo "</select>&nbsp;<select class=\"inputselect\" name=\"reyears\">";
 
-echo "</select>&nbsp;<select class=\"inputselect\" name=\"reyears\">";
+                for ($x = 1904; $x <= 2012; $x++) {
+                    echo "<option value=\"{$x}\" " . ($yearsregister == $x ? "selected" : "") . ">{$x}</option>";
+                }
 
-for($x = 1904; $x <= 2012 ; $x++){echo "<option value=\"{$x}\" ".($yearsregister == $x ? "selected" : "").">{$x}</option>";}
+                echo "</select></p>";
 
-echo "</select></p>";
+                echo "<p><span style=\"color:green;font-size:12px;\">الجنس :</span></p>";
 
-echo "<p><span style=\"color:green;font-size:12px;\">الجنس :</span></p>";
+                echo "<p><select class=\"inputselect\" name=\"resex\">";
 
-echo "<p><select class=\"inputselect\" name=\"resex\">";
+                echo "<option value=\"1\" " . ($sexregister == 1 ? "selected" : "") . ">ذكر</option>";
 
-echo "<option value=\"1\" ".($sexregister == 1 ? "selected" : "").">ذكر</option>";
+                echo "<option value=\"2\" " . ($sexregister == 2 ? "selected" : "") . ">أنثى</option>";
 
-echo "<option value=\"2\" ".($sexregister == 2 ? "selected" : "").">أنثى</option>";
+                echo "</select></p>";
 
-echo "</select></p>";
+                echo "<p><span style=\"color:green;font-size:12px;\">الحالة الإجتماعية :</span></p>";
 
-echo "<p><span style=\"color:green;font-size:12px;\">الحالة الإجتماعية :</span></p>";
+                echo "<p><select class=\"inputselect\" name=\"rehala\">";
 
-echo "<p><select class=\"inputselect\" name=\"rehala\">";
+                foreach ($hala_list as $code => $name) {
 
-foreach($hala_list as $code=>$name){
+                    echo "<option value=\"{$code}\" " . ($halaregister == $code ? "selected" : "") . ">{$name}</option>";
+                }
 
-echo "<option value=\"{$code}\" ".($halaregister == $code ? "selected" : "").">{$name}</option>";
+                echo "</select></p>";
 
-}
+                echo "<p><span style=\"color:green;font-size:12px;\">كود التحقق : <span class=\"codes\">{$codey}</span></span>&nbsp;<span style=\"color:green;font-size:12px;\">يرجى كتابة الكود في الخانة المخصصة له</span></p>";
 
-echo "</select></p>";
+                echo "<p><input dir=\"ltr\" style=\"width:150px\" class=\"input\" name=\"recode\" value=\"\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">{$errorcode}</span></p>";
 
-echo "<p><span style=\"color:green;font-size:12px;\">كود التحقق : <span class=\"codes\">{$codey}</span></span>&nbsp;<span style=\"color:green;font-size:12px;\">يرجى كتابة الكود في الخانة المخصصة له</span></p>";
+                echo "</select></p>";
 
-echo "<p><input dir=\"ltr\" style=\"width:150px\" class=\"input\" name=\"recode\" value=\"\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">{$errorcode}</span></p>";
+                echo "</fieldset>";
 
-echo "</select></p>";
+                echo "<br><center><input type=\"submit\" class=\"button\" name=\"insert\" value=\"التسجيل\" " . confirm_other("arab-forums", "هل أنت متأكد من أنك تريد التسجيل بهذه البيانات ؟") . "> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقول\"></center><br>";
 
-echo "</fieldset>";
+                echo "</div></div></td></tr></table></form>";
 
-echo "<br><center><input type=\"submit\" class=\"button\" name=\"insert\" value=\"التسجيل\" ".confirm_other("arab-forums" , "هل أنت متأكد من أنك تريد التسجيل بهذه البيانات ؟")."> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقول\"></center><br>";
+                echo footer_template("arab-forums");
 
-echo "</div></div></td></tr></table></form>";
+                echo bodybottom_template("arab-forums");
+            }
+        } else {
 
-echo footer_template("arab-forums");
+            $arraymsg = array(
 
-echo bodybottom_template("arab-forums");
+                "login" => false,
 
-}}else{
+                "msg" => "عفوآ أنت لم توافق على قوانين المنتدى لذلك لا يمكنك التسجيل",
 
-$arraymsg = array(
+                "color" => "error",
 
-"login" => false ,
+                "old" => true,
 
-"msg" => "عفوآ أنت لم توافق على قوانين المنتدى لذلك لا يمكنك التسجيل" ,
+                "auto" => false,
 
-"color" => "error" ,
+                "text" => "",
 
-"old" => true ,
+                "url" => "",
 
-"auto" => false ,
+                "array" => "",
 
-"text" => "" ,
+            );
 
-"url" => "" ,
+            echo msg_template("arab-forums", $arraymsg);
+        }
+    } elseif (go == "active") {
 
-"array" => "" ,
+        $active_sql = select_mysql("arab-forums", "user", "user_id , user_wait , user_active , user_coderegister", "where user_id in(" . id . ") limit 1");
 
-);
+        if (num_mysql("arab-forums", $active_sql) != false) {
 
-echo msg_template("arab-forums" , $arraymsg);
+            $active_object = object_mysql("arab-forums", $active_sql);
 
-}}elseif(go == "active"){
+            if ($active_object->user_active == 0) {
 
-$active_sql = select_mysql("arab-forums" , "user" , "user_id , user_wait , user_active , user_coderegister" , "where user_id in(".id.") limit 1");
+                $truegood = "للأسف العضوية المراد تفعيلها مفعلة من قبل , ربما تنتظر موافقة الإدارة فقط";
+            } elseif (code != substr($active_object->user_coderegister, 9, 9)) {
 
-if(num_mysql("arab-forums" , $active_sql) != false){
+                $truegood = "لم يتم تفعيل العضوية و السبب من الرابط , الرجاء منك الضغط على الرابط من البريد الإلكتروني";
+            } else {
 
-$active_object = object_mysql("arab-forums" , $active_sql);
+                $truegood = "";
+            }
+        } else {
 
-if($active_object->user_active == 0){
+            $truegood = "لم يتم تفعيل العضوية و السبب من الرابط , الرجاء منك الضغط على الرابط من البريد الإلكتروني";
+        }
 
-$truegood = "للأسف العضوية المراد تفعيلها مفعلة من قبل , ربما تنتظر موافقة الإدارة فقط";
+        if ($truegood != "") {
 
-}elseif(code != substr($active_object->user_coderegister , 9 , 9)){
+            $arraymsg = array(
 
-$truegood = "لم يتم تفعيل العضوية و السبب من الرابط , الرجاء منك الضغط على الرابط من البريد الإلكتروني";
+                "login" => false,
 
-}else{
+                "msg" => $truegood,
 
-$truegood = "";
+                "color" => "error",
 
-}}else{
+                "old" => true,
 
-$truegood = "لم يتم تفعيل العضوية و السبب من الرابط , الرجاء منك الضغط على الرابط من البريد الإلكتروني";
+                "auto" => false,
 
-}
+                "text" => "الذهاب إلى الصفحة الرئيسية",
 
-if($truegood != ""){
+                "url" => "home.php",
 
-$arraymsg = array(
+                "array" => "",
 
-"login" => false ,
+            );
 
-"msg" => $truegood ,
+            echo msg_template("arab-forums", $arraymsg);
+        } else {
 
-"color" => "error" ,
+            update_mysql("arab-forums", "user", "user_active = \"0\" where user_id in(" . id . ") limit 1");
 
-"old" => true ,
+            if ($active_object->user_wait == 1) {
 
-"auto" => false ,
+                $textgood = "تم تفعيل العضوية بنجآح و لآكن تحتاج إلى موافقة الإدارة و سوف يتم الموافقة عليها بعد ساعات";
 
-"text" => "الذهاب إلى الصفحة الرئيسية" ,
+                $msgcolor = "info";
+            } else {
 
-"url" => "home.php" ,
+                $textgood = "تم تفعيل العضوية بنجآح يمكنك بدأ المشاركة بها";
 
-"array" => "" ,
+                $msgcolor = "good";
+            }
 
-);
+            $arraymsg = array(
 
-echo msg_template("arab-forums" , $arraymsg);
+                "login" => false,
 
-}else{
+                "msg" => $textgood,
 
-update_mysql("arab-forums" , "user" , "user_active = \"0\" where user_id in(".id.") limit 1");
+                "color" => $msgcolor,
 
-if($active_object->user_wait == 1){
+                "old" => true,
 
-$textgood = "تم تفعيل العضوية بنجآح و لآكن تحتاج إلى موافقة الإدارة و سوف يتم الموافقة عليها بعد ساعات";
+                "auto" => false,
 
-$msgcolor = "info";
+                "text" => "الذهاب إلى الصفحة الرئيسية",
 
-}else{
+                "url" => "home.php",
 
-$textgood = "تم تفعيل العضوية بنجآح يمكنك بدأ المشاركة بها";
+                "array" => "",
 
-$msgcolor = "good";
+            );
 
-}
+            echo msg_template("arab-forums", $arraymsg);
+        }
+    } else {
 
-$arraymsg = array(
+        exit(header("location: error.php"));
+    }
+} else {
 
-"login" => false ,
+    $arraymsg = array(
 
-"msg" => $textgood ,
+        "login" => false,
 
-"color" => $msgcolor ,
+        "msg" => "عفوآ بيانتنا تأكد أنك مسجل بهذه العضوية : " . name_user . "",
 
-"old" => true ,
+        "color" => "error",
 
-"auto" => false ,
+        "old" => true,
 
-"text" => "الذهاب إلى الصفحة الرئيسية" ,
+        "auto" => false,
 
-"url" => "home.php" ,
+        "text" => "",
 
-"array" => "" ,
+        "url" => "",
 
-);
+        "array" => "",
 
-echo msg_template("arab-forums" , $arraymsg);
+    );
 
-}}else{
-
-exit(header("location: error.php"));
-
-}}else{
-
-$arraymsg = array(
-
-"login" => false ,
-
-"msg" => "عفوآ بيانتنا تأكد أنك مسجل بهذه العضوية : ".name_user."" ,
-
-"color" => "error" ,
-
-"old" => true ,
-
-"auto" => false ,
-
-"text" => "" ,
-
-"url" => "" ,
-
-"array" => "" ,
-
-);
-
-echo msg_template("arab-forums" , $arraymsg);
-
+    echo msg_template("arab-forums", $arraymsg);
 }
 
 disconnect_mysql("arab-forums");
-?>

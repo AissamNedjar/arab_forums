@@ -11,110 +11,107 @@
 
 |*#####################################################################*/
 
-if(!defined("error_page_arab_forums")){exit(header("location: ../error.php"));}
-
-if(type == "insert"){
-
-$name = text_other("arab-forums" , post_other("arab-forums" , "name") , true , true , true , false , true);
-
-$fils = text_other("arab-forums" , post_other("arab-forums" , "fils") , true , true , true , false , true);
-
-$order = text_other("arab-forums" , post_other("arab-forums" , "order") , true , true , true , false , true);
-
-$lock = text_other("arab-forums" , post_other("arab-forums" , "lock") , true , true , true , false , true);
-
-if($name == "" || $order == "" || $lock == "" || $fils == ""){
-
-$error = "الرجاء ملأ جميع الحقول ليتم إدخال الستايل الجديد";
-
-}elseif(!is_numeric($order)){
-
-$error = "يجب أن تكون قيمة ترتيب الستايل صحيحة";
-
-}else{
-
-$error = "";
-
+if (!defined("error_page_arab_forums")) {
+    exit(header("location: ../error.php"));
 }
 
-if($error != ""){
+if (type == "insert") {
 
-$arraymsg = array(
+    $name = text_other("arab-forums", post_other("arab-forums", "name"), true, true, true, false, true);
 
-"msg" => $error ,
+    $fils = text_other("arab-forums", post_other("arab-forums", "fils"), true, true, true, false, true);
 
-"color" => "error" ,
+    $order = text_other("arab-forums", post_other("arab-forums", "order"), true, true, true, false, true);
 
-"url" => "" ,
+    $lock = text_other("arab-forums", post_other("arab-forums", "lock"), true, true, true, false, true);
 
-);
+    if ($name == "" || $order == "" || $lock == "" || $fils == "") {
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+        $error = "الرجاء ملأ جميع الحقول ليتم إدخال الستايل الجديد";
+    } elseif (!is_numeric($order)) {
 
-}else{
+        $error = "يجب أن تكون قيمة ترتيب الستايل صحيحة";
+    } else {
 
-insert_mysql("arab-forums" , "style" , "style_id , style_name , style_lock , style_order , style_fils , style_default" , "null , \"{$name}\" , \"{$lock}\" , \"{$order}\" , \"{$fils}\" , \"0\"");
+        $error = "";
+    }
 
-$arraymsg = array(
+    if ($error != "") {
 
-"msg" => "تم إدخال الستايل الجديد بنجاح تام" ,
+        $arraymsg = array(
 
-"color" => "good" ,
+            "msg" => $error,
 
-"url" => "admin.php?gert=style&go=style_list" ,
+            "color" => "error",
 
-);
+            "url" => "",
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+        );
 
-}}else{
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } else {
 
-echo "<form action=\"admin.php?gert=style&go=style_add&type=insert\" method=\"post\">";
- 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" width=\"99%\" align=\"center\">";
+        insert_mysql("arab-forums", "style", "style_id , style_name , style_lock , style_order , style_fils , style_default", "null , \"{$name}\" , \"{$lock}\" , \"{$order}\" , \"{$fils}\" , \"0\"");
 
-echo "<tr><td class=\"tcotadmin\">عنوان الستايل</td></tr>";
+        $arraymsg = array(
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            "msg" => "تم إدخال الستايل الجديد بنجاح تام",
 
-echo "<input style=\"width:300px\" class=\"input\" name=\"name\" value=\"\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال عنوان الستايل</span>";
+            "color" => "good",
 
-echo "</div></td></tr>";
+            "url" => "admin.php?gert=style&go=style_list",
 
-echo "<tr><td class=\"tcotadmin\">مجلد الستايل</td></tr>";
+        );
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+        echo msgadmin_template("arab-forums", $arraymsg);
+    }
+} else {
 
-echo "<input dir=\"ltr\" style=\"width:300px\" class=\"input\" name=\"fils\" value=\"\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال إسم مجلد الستايل</span>";
+    echo "<form action=\"admin.php?gert=style&go=style_add&type=insert\" method=\"post\">";
 
-echo "</div></td></tr>";
+    echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" width=\"99%\" align=\"center\">";
 
-echo "<tr><td class=\"tcotadmin\">ترتيب الستايل</td></tr>";
+    echo "<tr><td class=\"tcotadmin\">عنوان الستايل</td></tr>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<input size=\"1\" class=\"input\" name=\"order\" value=\"1\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال الترتيب الخاص بالستايل و إن كنت لا تريده مرتب أتركه 1</span>";
+    echo "<input style=\"width:300px\" class=\"input\" name=\"name\" value=\"\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال عنوان الستايل</span>";
 
-echo "</div></td></tr>";
+    echo "</div></td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">تعطيل الستايل</td></tr>";
+    echo "<tr><td class=\"tcotadmin\">مجلد الستايل</td></tr>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<select class=\"inputselect\" name=\"lock\">";
+    echo "<input dir=\"ltr\" style=\"width:300px\" class=\"input\" name=\"fils\" value=\"\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال إسم مجلد الستايل</span>";
 
-echo "<option value=\"0\">لآ</option>";
+    echo "</div></td></tr>";
 
-echo "<option value=\"1\">نعم</option>";
+    echo "<tr><td class=\"tcotadmin\">ترتيب الستايل</td></tr>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الستايل معطل ؟</span>";
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "</div></td></tr>";
+    echo "<input size=\"1\" class=\"input\" name=\"order\" value=\"1\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال الترتيب الخاص بالستايل و إن كنت لا تريده مرتب أتركه 1</span>";
 
-echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال الستايل الجديد\"  ".confirm_other("arab-forums" , "هل أنت متأكد من أنك تريد إدخال الستايل الجديد ؟")."> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقول\"><br><br></td></tr>";
+    echo "</div></td></tr>";
 
-echo "</table></form>";
+    echo "<tr><td class=\"tcotadmin\">تعطيل الستايل</td></tr>";
 
+    echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+
+    echo "<select class=\"inputselect\" name=\"lock\">";
+
+    echo "<option value=\"0\">لآ</option>";
+
+    echo "<option value=\"1\">نعم</option>";
+
+    echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل الستايل معطل ؟</span>";
+
+    echo "</div></td></tr>";
+
+    echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال الستايل الجديد\"  " . confirm_other("arab-forums", "هل أنت متأكد من أنك تريد إدخال الستايل الجديد ؟") . "> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقول\"><br><br></td></tr>";
+
+    echo "</table></form>";
 }
 
 /*#####################################################################*|
@@ -128,4 +125,3 @@ echo "</table></form>";
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

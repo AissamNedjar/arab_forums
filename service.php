@@ -11,310 +11,279 @@
 
 |*#####################################################################*/
 
-define("error_page_arab_forums" , true);
+define("error_page_arab_forums", true);
 
 @include("includes.php");
 
-define("pageupdate" , true);
+define("pageupdate", true);
 
 @include("includes/e.noopen.php");
 
-define("pagebody" , "service");
+define("pagebody", "service");
 
-online_other("arab-forums" , "service" , "0" , "0" , "0" , "0");
+online_other("arab-forums", "service", "0", "0", "0", "0");
 
-if(group_user > 1){
+if (group_user > 1) {
 
-$gert = array(
+    $gert = array(
 
-"wasaf" => "إعدادات أوصاف الأعضاء" ,
+        "wasaf" => "إعدادات أوصاف الأعضاء",
 
-"medal" => "إعدادات أوسمة التميز" ,
+        "medal" => "إعدادات أوسمة التميز",
 
-"iconstopic" => "إعدادات أيقونات المواضيع" ,
+        "iconstopic" => "إعدادات أيقونات المواضيع",
 
-"texttopic" => "إعدادات إختصارات المواضيع" ,
+        "texttopic" => "إعدادات إختصارات المواضيع",
 
-"topicreply" => "إعدادات المواضيع و الردود" ,
+        "topicreply" => "إعدادات المواضيع و الردود",
 
-);
+    );
 
-$service["wasaf"] = array(
+    $service["wasaf"] = array(
 
-"wasaf_list" => "عرض الأوصاف" ,
+        "wasaf_list" => "عرض الأوصاف",
 
-"wasaf_listgo" => "عرض الأوصاف الموزعة" ,
+        "wasaf_listgo" => "عرض الأوصاف الموزعة",
 
-"wasaf_add" => "إضافة وصف جديد" ,
+        "wasaf_add" => "إضافة وصف جديد",
 
-"wasaf_option" => "إعدادات وصف" ,
+        "wasaf_option" => "إعدادات وصف",
 
-"wasaf_goall" => "توزيع وصف جماعي" ,
+        "wasaf_goall" => "توزيع وصف جماعي",
 
-"wasaf_goone" => "توزيع وصف فردي" ,
+        "wasaf_goone" => "توزيع وصف فردي",
 
-);
+    );
 
-$service["medal"] = array(
+    $service["medal"] = array(
 
-"medal_list" => "عرض الأوسمة" ,
+        "medal_list" => "عرض الأوسمة",
 
-"medal_listgo" => "عرض الأوسمة الموزعة" ,
+        "medal_listgo" => "عرض الأوسمة الموزعة",
 
-"medal_add" => "إضافة وسام جديد" ,
+        "medal_add" => "إضافة وسام جديد",
 
-"medal_option" => "إعدادات وسام" ,
+        "medal_option" => "إعدادات وسام",
 
-"medal_goall" => "توزيع وسام جماعي" ,
+        "medal_goall" => "توزيع وسام جماعي",
 
-"medal_goone" => "توزيع وسام فردي" ,
+        "medal_goone" => "توزيع وسام فردي",
 
-);
+    );
 
-$service["iconstopic"] = array(
+    $service["iconstopic"] = array(
 
-"iconstopic_list" => "عرض أيقونات المواضيع" ,
+        "iconstopic_list" => "عرض أيقونات المواضيع",
 
-"iconstopic_add" => "إضافة أيقونة جديدة" ,
+        "iconstopic_add" => "إضافة أيقونة جديدة",
 
-"iconstopic_option" => "إعدادات أيقونة" ,
+        "iconstopic_option" => "إعدادات أيقونة",
 
-);
+    );
 
-$service["texttopic"] = array(
+    $service["texttopic"] = array(
 
-"texttopic_list" => "عرض إختصارات المواضيع" ,
+        "texttopic_list" => "عرض إختصارات المواضيع",
 
-"texttopic_add" => "إضافة إختصار جديد" ,
+        "texttopic_add" => "إضافة إختصار جديد",
 
-"texttopic_option" => "إعدادات إختصار" ,
+        "texttopic_option" => "إعدادات إختصار",
 
-);
+    );
 
-$service["topicreply"] = array(
+    $service["topicreply"] = array(
 
-"topicreply_order" => "ترتيب وصلات المواضيع" ,
+        "topicreply_order" => "ترتيب وصلات المواضيع",
 
-"topicreply_topicwait" => "مواضيع تنتظر الموافقة" ,
+        "topicreply_topicwait" => "مواضيع تنتظر الموافقة",
 
-"topicreply_replywait" => "ردود تنتظر الموافقة" ,
+        "topicreply_replywait" => "ردود تنتظر الموافقة",
 
-);
+    );
 
-if(gert == "wasaf"){
+    if (gert == "wasaf") {
 
-$true1 = true;
+        $true1 = true;
+    } elseif (gert == "medal") {
 
-}elseif(gert == "medal"){
+        $true1 = true;
+    } elseif (gert == "iconstopic") {
 
-$true1 = true;
+        $true1 = true;
+    } elseif (gert == "texttopic") {
 
-}elseif(gert == "iconstopic"){
+        $true1 = true;
+    } elseif (gert == "topicreply") {
 
-$true1 = true;
+        $true1 = true;
+    } else {
 
-}elseif(gert == "texttopic"){
+        $true1 = false;
+    }
 
-$true1 = true;
+    if (go == "wasaf_list") {
 
-}elseif(gert == "topicreply"){
+        $true2 = true;
+    } elseif (go == "wasaf_listgo") {
 
-$true1 = true;
+        $true2 = true;
+    } elseif (go == "wasaf_add") {
 
-}else{
+        $true2 = true;
+    } elseif (go == "wasaf_option") {
 
-$true1 = false;
+        $true2 = true;
+    } elseif (go == "wasaf_goall") {
 
-}
+        $true2 = true;
+    } elseif (go == "wasaf_goone") {
 
-if(go == "wasaf_list"){
+        $true2 = true;
+    } elseif (go == "medal_list") {
 
-$true2 = true;
+        $true2 = true;
+    } elseif (go == "medal_listgo") {
 
-}elseif(go == "wasaf_listgo"){
+        $true2 = true;
+    } elseif (go == "medal_add") {
 
-$true2 = true;
+        $true2 = true;
+    } elseif (go == "medal_option") {
 
-}elseif(go == "wasaf_add"){
+        $true2 = true;
+    } elseif (go == "medal_goall") {
 
-$true2 = true;
+        $true2 = true;
+    } elseif (go == "medal_goone") {
 
-}elseif(go == "wasaf_option"){
+        $true2 = true;
+    } elseif (go == "iconstopic_list") {
 
-$true2 = true;
+        $true2 = true;
+    } elseif (go == "iconstopic_add") {
 
-}elseif(go == "wasaf_goall"){
+        $true2 = true;
+    } elseif (go == "iconstopic_option") {
 
-$true2 = true;
+        $true2 = true;
+    } elseif (go == "texttopic_list") {
 
-}elseif(go == "wasaf_goone"){
+        $true2 = true;
+    } elseif (go == "texttopic_add") {
 
-$true2 = true;
+        $true2 = true;
+    } elseif (go == "texttopic_option") {
 
-}elseif(go == "medal_list"){
+        $true2 = true;
+    } elseif (go == "topicreply_order") {
 
-$true2 = true;
+        $true2 = true;
+    } elseif (go == "topicreply_topicwait") {
 
-}elseif(go == "medal_listgo"){
+        $true2 = true;
+    } elseif (go == "topicreply_replywait") {
 
-$true2 = true;
+        $true2 = true;
+    } else {
 
-}elseif(go == "medal_add"){
+        $true2 = false;
+    }
 
-$true2 = true;
+    echo bodytop_template("arab-forums", "خدمات الإشراف");
 
-}elseif(go == "medal_option"){
+    $arrayheader = array(
 
-$true2 = true;
+        "login" => true,
 
-}elseif(go == "medal_goall"){
+    );
 
-$true2 = true;
+    echo header_template("arab-forums", $arrayheader);
 
-}elseif(go == "medal_goone"){
+    echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" width=\"99%\" align=\"center\">";
 
-$true2 = true;
+    echo "<tr><td class=\"tcatadmin\" colspan=\"2\" align=\"center\">أهلا و سهلا بك يا " . name_user . " في خدمات الإشراف</td></tr>";
 
-}elseif(go == "iconstopic_list"){
+    echo "<tr>";
 
-$true2 = true;
+    echo "<td class=\"alttext1\" align=\"center\" width=\"20%\" valign=\"top\"><br>";
 
-}elseif(go == "iconstopic_add"){
+    echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" align=\"center\" width=\"98%\">";
 
-$true2 = true;
+    echo "<tr><td class=\"tcotadmin\">خدمات الإشراف</td></tr>";
 
-}elseif(go == "iconstopic_option"){
+    echo "<tr><td class=\"tcatborder\"><div class=\"pad\">" . a_other("arab-forums", "service.php", "الصفحة الرئيسية", "الصفحة الرئيسية", "") . "</div></td></tr>";
 
-$true2 = true;
+    foreach ($gert as $fort => $text) {
 
-}elseif(go == "texttopic_list"){
+        echo "<tr><td class=\"tcotadmin\">{$text}</td></tr>";
 
-$true2 = true;
+        foreach ($service[$fort] as $url => $name) {
 
-}elseif(go == "texttopic_add"){
+            if ($url != "iconstopic_option" && $url != "texttopic_option" && $url != "topicreply_order" && $url != "wasaf_option" && $url != "medal_option") {
 
-$true2 = true;
+                echo "<tr><td class=\"tcatborder\"><div class=\"pad\">" . a_other("arab-forums", "service.php?gert={$fort}&go={$url}", $name, $name, "") . "</div></td></tr>";
+            }
+        }
+    }
 
-}elseif(go == "texttopic_option"){
+    echo "</table>";
 
-$true2 = true;
+    echo "<br></td>";
 
-}elseif(go == "topicreply_order"){
+    echo "<td class=\"alttext1\" align=\"center\" width=\"80%\" valign=\"top\"><br>";
 
-$true2 = true;
+    echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" align=\"center\" width=\"99%\">";
 
-}elseif(go == "topicreply_topicwait"){
+    if ($true1 == true && $true2 == true) {
 
-$true2 = true;
+        echo "<tr><td class=\"tcotadmin\" align=\"center\">{$gert[gert]} => {$service[gert][go]}</td></tr>";
 
-}elseif(go == "topicreply_replywait"){
+        echo "<tr align=\"center\"><td class=\"alttext2\"><div class=\"pad\">";
 
-$true2 = true;
+        @include("service/" . go . ".php");
+    } else {
 
-}else{
+        echo "<tr><td class=\"tcotadmin\" align=\"center\">خدمات الإشراف => الصفحة الرئيسية</td></tr>";
 
-$true2 = false;
+        echo "<tr><td class=\"alttext2\"><div class=\"pad\">";
 
-}
+        @include("service/home.php");
+    }
 
-echo bodytop_template("arab-forums" , "خدمات الإشراف");
+    echo "</div></td></tr>";
 
-$arrayheader = array(
+    echo "</table>";
 
-"login" => true ,
+    echo "<br></td>";
 
-);
+    echo "</tr></table>";
 
-echo header_template("arab-forums" , $arrayheader);
+    echo footer_template("arab-forums");
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" width=\"99%\" align=\"center\">";
+    echo bodybottom_template("arab-forums");
+} else {
 
-echo "<tr><td class=\"tcatadmin\" colspan=\"2\" align=\"center\">أهلا و سهلا بك يا ".name_user." في خدمات الإشراف</td></tr>";
+    $arraymsg = array(
 
-echo "<tr>";
+        "login" => true,
 
-echo "<td class=\"alttext1\" align=\"center\" width=\"20%\" valign=\"top\"><br>";
+        "msg" => "للأسف لا يمكنك الولوج إلى هذه الصفحة لأنك لا تملك التصريح المناسب",
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" align=\"center\" width=\"98%\">";
+        "color" => "error",
 
-echo "<tr><td class=\"tcotadmin\">خدمات الإشراف</td></tr>";
+        "old" => true,
 
-echo "<tr><td class=\"tcatborder\"><div class=\"pad\">".a_other("arab-forums" , "service.php" , "الصفحة الرئيسية" , "الصفحة الرئيسية" , "")."</div></td></tr>";
+        "auto" => false,
 
-foreach($gert as $fort=>$text){
+        "text" => "",
 
-echo "<tr><td class=\"tcotadmin\">{$text}</td></tr>";
+        "url" => "",
 
-foreach($service[$fort] as $url=>$name){
+        "array" => "",
 
-if($url != "iconstopic_option" && $url != "texttopic_option" && $url != "topicreply_order" && $url != "wasaf_option" && $url != "medal_option"){
+    );
 
-echo "<tr><td class=\"tcatborder\"><div class=\"pad\">".a_other("arab-forums" , "service.php?gert={$fort}&go={$url}" , $name , $name , "")."</div></td></tr>";
-
-}}}
-
-echo "</table>";
-
-echo "<br></td>";
-
-echo "<td class=\"alttext1\" align=\"center\" width=\"80%\" valign=\"top\"><br>";
-
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" align=\"center\" width=\"99%\">";
-
-if($true1 == true && $true2 == true){
-
-echo "<tr><td class=\"tcotadmin\" align=\"center\">{$gert[gert]} => {$service[gert][go]}</td></tr>";
-
-echo "<tr align=\"center\"><td class=\"alttext2\"><div class=\"pad\">";
-
-@include("service/".go.".php");
-
-}else{
-
-echo "<tr><td class=\"tcotadmin\" align=\"center\">خدمات الإشراف => الصفحة الرئيسية</td></tr>";
-
-echo "<tr><td class=\"alttext2\"><div class=\"pad\">";
-
-@include("service/home.php");
-
-}
-
-echo "</div></td></tr>";
-
-echo "</table>";
-
-echo "<br></td>";
-
-echo "</tr></table>";
-
-echo footer_template("arab-forums");
-
-echo bodybottom_template("arab-forums");
-
-}else{
-
-$arraymsg = array(
-
-"login" => true ,
-
-"msg" => "للأسف لا يمكنك الولوج إلى هذه الصفحة لأنك لا تملك التصريح المناسب" ,
-
-"color" => "error" ,
-
-"old" => true ,
-
-"auto" => false ,
-
-"text" => "" ,
-
-"url" => "" ,
-
-"array" => "" ,
-
-);
-
-echo msg_template("arab-forums" , $arraymsg);
-
+    echo msg_template("arab-forums", $arraymsg);
 }
 
 disconnect_mysql("arab-forums");
@@ -330,4 +299,3 @@ disconnect_mysql("arab-forums");
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

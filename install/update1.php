@@ -11,9 +11,11 @@
 
 |*#####################################################################*/
 
-if(!defined("error_page_arab_forums")){exit(header("location: ../error.php"));}
+if (!defined("error_page_arab_forums")) {
+    exit(header("location: ../error.php"));
+}
 
-mysql_mysql("arab-forums" , "create table option".prefix_connect."(
+mysql_mysql("arab-forums", "create table option" . prefix_connect . "(
 
 option_id int(10) unsigned not null auto_increment ,
 
@@ -23,7 +25,7 @@ option_value varchar(300) default null ,
 
 primary key(option_id))");
 
-mysql_mysql("arab-forums" , "create table user".prefix_connect."(
+mysql_mysql("arab-forums", "create table user" . prefix_connect . "(
 
 user_id int(10) unsigned not null auto_increment ,
 
@@ -123,7 +125,7 @@ user_hala int(10) default null ,
 
 primary key(user_id))");
 
-mysql_mysql("arab-forums" , "create table online".prefix_connect."(
+mysql_mysql("arab-forums", "create table online" . prefix_connect . "(
 
 online_id int(10) unsigned not null auto_increment ,
 
@@ -149,7 +151,7 @@ online_ip varchar(30) default null ,
 
 primary key(online_id))");
 
-mysql_mysql("arab-forums" , "create table style".prefix_connect."(
+mysql_mysql("arab-forums", "create table style" . prefix_connect . "(
 
 style_id int(10) unsigned not null auto_increment ,
 
@@ -165,7 +167,7 @@ style_order int(11) default \"0\" ,
 
 primary key(style_id))");
 
-mysql_mysql("arab-forums" , "create table cat".prefix_connect."(
+mysql_mysql("arab-forums", "create table cat" . prefix_connect . "(
 
 cat_id int(10) unsigned not null auto_increment ,
 
@@ -215,7 +217,7 @@ cat_post6 int(10) default \"1\" ,
 
 primary key(cat_id))");
 
-mysql_mysql("arab-forums" , "create table forum".prefix_connect."(
+mysql_mysql("arab-forums", "create table forum" . prefix_connect . "(
 
 forum_id int(10) unsigned not null auto_increment ,
 
@@ -309,7 +311,7 @@ forum_urlshowreply int(10) default \"0\" ,
 
 primary key(forum_id))");
 
-mysql_mysql("arab-forums" , "create table moderate".prefix_connect."(
+mysql_mysql("arab-forums", "create table moderate" . prefix_connect . "(
 
 moderate_id int(10) unsigned not null auto_increment ,
 
@@ -327,7 +329,7 @@ moderate_date int(10) unsigned default null ,
 
 primary key(moderate_id))");
 
-mysql_mysql("arab-forums" , "create table hidforum".prefix_connect."(
+mysql_mysql("arab-forums", "create table hidforum" . prefix_connect . "(
 
 hidforum_id int(10) unsigned not null auto_increment ,
 
@@ -345,7 +347,7 @@ hidforum_date int(10) unsigned default null ,
 
 primary key(hidforum_id))");
 
-mysql_mysql("arab-forums" , "create table ip".prefix_connect."(
+mysql_mysql("arab-forums", "create table ip" . prefix_connect . "(
 
 ip_id int(10) unsigned not null auto_increment ,
 
@@ -361,7 +363,7 @@ ip_code varchar(2) default null ,
 
 primary key(ip_id))");
 
-mysql_mysql("arab-forums" , "create table iconsheader".prefix_connect."(
+mysql_mysql("arab-forums", "create table iconsheader" . prefix_connect . "(
 
 iconsheader_id int(10) unsigned not null auto_increment ,
 
@@ -393,7 +395,7 @@ iconsheader_group6 int(10) default \"1\" ,
 
 primary key(iconsheader_id))");
 
-mysql_mysql("arab-forums" , "create table couip".prefix_connect."(
+mysql_mysql("arab-forums", "create table couip" . prefix_connect . "(
 
 couip_id int(10) unsigned not null auto_increment ,
 
@@ -405,7 +407,7 @@ couip_code varchar(2) default null ,
 
 primary key(couip_id))");
 
-mysql_mysql("arab-forums" , "create table topic".prefix_connect."(
+mysql_mysql("arab-forums", "create table topic" . prefix_connect . "(
 
 topic_id int(10) unsigned not null auto_increment ,
 
@@ -457,7 +459,7 @@ topic_message text default null ,
 
 primary key(topic_id))");
 
-mysql_mysql("arab-forums" , "create table hidtopic".prefix_connect."(
+mysql_mysql("arab-forums", "create table hidtopic" . prefix_connect . "(
 
 hidtopic_id int(10) unsigned not null auto_increment ,
 
@@ -471,7 +473,7 @@ hidtopic_date int(10) unsigned default null ,
 
 primary key(hidtopic_id))");
 
-mysql_mysql("arab-forums" , "create table locktopic".prefix_connect."(
+mysql_mysql("arab-forums", "create table locktopic" . prefix_connect . "(
 
 locktopic_id int(10) unsigned not null auto_increment ,
 
@@ -485,7 +487,7 @@ locktopic_date int(10) unsigned default null ,
 
 primary key(locktopic_id))");
 
-mysql_mysql("arab-forums" , "create table optiontopic".prefix_connect."(
+mysql_mysql("arab-forums", "create table optiontopic" . prefix_connect . "(
 
 optiontopic_id int(10) unsigned not null auto_increment ,
 
@@ -499,7 +501,7 @@ optiontopic_type varchar(100) default null ,
 
 primary key(optiontopic_id))");
 
-mysql_mysql("arab-forums" , "create table edittopic".prefix_connect."(
+mysql_mysql("arab-forums", "create table edittopic" . prefix_connect . "(
 
 edittopic_id int(10) unsigned not null auto_increment ,
 
@@ -515,7 +517,7 @@ edittopic_message text default null ,
 
 primary key(edittopic_id))");
 
-mysql_mysql("arab-forums" , "create table reply".prefix_connect."(
+mysql_mysql("arab-forums", "create table reply" . prefix_connect . "(
 
 reply_id int(10) unsigned not null auto_increment ,
 
@@ -541,7 +543,7 @@ reply_message text default null ,
 
 primary key(reply_id))");
 
-mysql_mysql("arab-forums" , "create table optionreply".prefix_connect."(
+mysql_mysql("arab-forums", "create table optionreply" . prefix_connect . "(
 
 optionreply_id int(10) unsigned not null auto_increment ,
 
@@ -555,7 +557,7 @@ optionreply_type varchar(100) default null ,
 
 primary key(optionreply_id))");
 
-mysql_mysql("arab-forums" , "create table editreply".prefix_connect."(
+mysql_mysql("arab-forums", "create table editreply" . prefix_connect . "(
 
 editreply_id int(10) unsigned not null auto_increment ,
 
@@ -569,7 +571,7 @@ editreply_message text default null ,
 
 primary key(editreply_id))");
 
-mysql_mysql("arab-forums" , "create table registerband".prefix_connect."(
+mysql_mysql("arab-forums", "create table registerband" . prefix_connect . "(
 
 registerband_id int(10) unsigned not null auto_increment ,
 
@@ -581,7 +583,7 @@ registerband_date int(10) unsigned default null ,
 
 primary key(registerband_id))");
 
-mysql_mysql("arab-forums" , "create table monitortopic".prefix_connect."(
+mysql_mysql("arab-forums", "create table monitortopic" . prefix_connect . "(
 
 monitortopic_id int(10) unsigned not null auto_increment ,
 
@@ -593,7 +595,7 @@ monitortopic_date int(10) unsigned default null ,
 
 primary key(monitortopic_id))");
 
-mysql_mysql("arab-forums" , "create table notify".prefix_connect."(
+mysql_mysql("arab-forums", "create table notify" . prefix_connect . "(
 
 notify_id int(10) unsigned not null auto_increment ,
 
@@ -627,7 +629,7 @@ notify_reply text default null ,
 
 primary key(notify_id))");
 
-mysql_mysql("arab-forums" , "create table iconstopic".prefix_connect."(
+mysql_mysql("arab-forums", "create table iconstopic" . prefix_connect . "(
 
 iconstopic_id int(10) unsigned not null auto_increment ,
 
@@ -643,7 +645,7 @@ iconstopic_date int(10) unsigned default null ,
 
 primary key(iconstopic_id))");
 
-mysql_mysql("arab-forums" , "create table texttopic".prefix_connect."(
+mysql_mysql("arab-forums", "create table texttopic" . prefix_connect . "(
 
 texttopic_id int(10) unsigned not null auto_increment ,
 
@@ -657,7 +659,7 @@ texttopic_date int(10) unsigned default null ,
 
 primary key(texttopic_id))");
 
-mysql_mysql("arab-forums" , "create table optionuser".prefix_connect."(
+mysql_mysql("arab-forums", "create table optionuser" . prefix_connect . "(
 
 optionuser_id int(10) unsigned not null auto_increment ,
 
@@ -673,7 +675,7 @@ optionuser_msg text default null ,
 
 primary key(optionuser_id))");
 
-mysql_mysql("arab-forums" , "create table changename".prefix_connect."(
+mysql_mysql("arab-forums", "create table changename" . prefix_connect . "(
 
 changename_id int(10) unsigned not null auto_increment ,
 
@@ -689,7 +691,7 @@ changename_date int(10) unsigned default null ,
 
 primary key(changename_id))");
 
-mysql_mysql("arab-forums" , "create table message".prefix_connect."(
+mysql_mysql("arab-forums", "create table message" . prefix_connect . "(
 
 message_id int(10) unsigned not null auto_increment ,
 
@@ -719,7 +721,7 @@ message_message text default null ,
 
 primary key(message_id))");
 
-mysql_mysql("arab-forums" , "create table ads".prefix_connect."(
+mysql_mysql("arab-forums", "create table ads" . prefix_connect . "(
 
 ads_id int(10) unsigned not null auto_increment ,
 
@@ -739,7 +741,7 @@ ads_images varchar(255) default null ,
 
 primary key(ads_id))");
 
-mysql_mysql("arab-forums" , "create table pmlist".prefix_connect."(
+mysql_mysql("arab-forums", "create table pmlist" . prefix_connect . "(
 
 pmlist_id int(10) unsigned not null auto_increment ,
 
@@ -751,7 +753,7 @@ pmlist_name varchar(100) default null ,
 
 primary key(pmlist_id))");
 
-mysql_mysql("arab-forums" , "create table slide".prefix_connect."(
+mysql_mysql("arab-forums", "create table slide" . prefix_connect . "(
 
 slide_id int(10) unsigned not null auto_increment ,
 
@@ -765,7 +767,7 @@ slide_images varchar(255) default null ,
 
 primary key(slide_id))");
 
-mysql_mysql("arab-forums" , "create table wasaf".prefix_connect."(
+mysql_mysql("arab-forums", "create table wasaf" . prefix_connect . "(
 
 wasaf_id int(10) unsigned not null auto_increment ,
 
@@ -783,7 +785,7 @@ wasaf_name varchar(100) default null ,
 
 primary key(wasaf_id))");
 
-mysql_mysql("arab-forums" , "create table getwasaf".prefix_connect."(
+mysql_mysql("arab-forums", "create table getwasaf" . prefix_connect . "(
 
 getwasaf_id int(10) unsigned not null auto_increment ,
 
@@ -799,7 +801,7 @@ getwasaf_date int(10) unsigned default null ,
 
 primary key(getwasaf_id))");
 
-mysql_mysql("arab-forums" , "create table medal".prefix_connect."(
+mysql_mysql("arab-forums", "create table medal" . prefix_connect . "(
 
 medal_id int(10) unsigned not null auto_increment ,
 
@@ -819,7 +821,7 @@ medal_url varchar(100) default null ,
 
 primary key(medal_id))");
 
-mysql_mysql("arab-forums" , "create table getmedal".prefix_connect."(
+mysql_mysql("arab-forums", "create table getmedal" . prefix_connect . "(
 
 getmedal_id int(10) unsigned not null auto_increment ,
 
@@ -835,7 +837,7 @@ getmedal_date int(10) unsigned default null ,
 
 primary key(getmedal_id))");
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" width=\"60%\" align=\"center\">";
+echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"60%\" align=\"center\">";
 
 echo "<tr align=\"center\">";
 
@@ -866,4 +868,3 @@ echo "</table>";
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

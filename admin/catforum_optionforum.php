@@ -11,946 +11,965 @@
 
 |*#####################################################################*/
 
-if(!defined("error_page_arab_forums")){exit(header("location: ../error.php"));}
-
-$forum_sql = select_mysql("arab-forums" , "forum" , "forum_id , forum_catid , forum_lock , forum_hid1 , forum_hid2 , forum_name , forum_wasaf , forum_logo , forum_moderattext , forum_order , forum_sex , forum_totaltopic , forum_totalreply , forum_moderattopic , forum_moderatreply , forum_mode , forum_group0 , forum_group1 , forum_group2 , forum_group3 , forum_group4 , forum_group5 , forum_group6 , forum_post1 , forum_post2 , forum_post3 , forum_post4 , forum_post5 , forum_post6 , forum_phototopic , forum_sigtopic , forum_detailtopic , forum_wasaftopic , forum_photoreply , forum_sigreply , forum_detailreply , forum_wasafreply , forum_visitortopicshow , forum_visitorreplyshow , forum_urlshowtopic , forum_urlshowreply" , "where forum_id in(".id.")");
-
-if(num_mysql("arab-forums" , $forum_sql) != false){
-
-$forum_object = object_mysql("arab-forums" , $forum_sql);
-
-if(fort == "edit"){
-
-if(type == "insert"){
-
-$catid = text_other("arab-forums" , post_other("arab-forums" , "catid") , true , true , true , false , true);
-
-$name = text_other("arab-forums" , post_other("arab-forums" , "name") , true , true , true , false , true);
-
-$wasaf = text_other("arab-forums" , post_other("arab-forums" , "wasaf") , true , true , true , false , true);
-
-$logo = text_other("arab-forums" , post_other("arab-forums" , "logo") , true , true , true , false , true);
-
-$order = text_other("arab-forums" , post_other("arab-forums" , "order") , true , true , true , false , true);
-
-$lock = text_other("arab-forums" , post_other("arab-forums" , "lock") , true , true , true , false , true);
-
-$hid1 = text_other("arab-forums" , post_other("arab-forums" , "hid1") , true , true , true , false , true);
-
-$hid2 = text_other("arab-forums" , post_other("arab-forums" , "hid2") , true , true , true , false , true);
-
-$group0 = text_other("arab-forums" , post_other("arab-forums" , "group0") , true , true , true , false , true);
-
-$group1 = text_other("arab-forums" , post_other("arab-forums" , "group1") , true , true , true , false , true);
-
-$group2 = text_other("arab-forums" , post_other("arab-forums" , "group2") , true , true , true , false , true);
-
-$group3 = text_other("arab-forums" , post_other("arab-forums" , "group3") , true , true , true , false , true);
-
-$group4 = text_other("arab-forums" , post_other("arab-forums" , "group4") , true , true , true , false , true);
-
-$group5 = text_other("arab-forums" , post_other("arab-forums" , "group5") , true , true , true , false , true);
-
-$post1 = text_other("arab-forums" , post_other("arab-forums" , "post1") , true , true , true , false , true);
-
-$post2 = text_other("arab-forums" , post_other("arab-forums" , "post2") , true , true , true , false , true);
-
-$post3 = text_other("arab-forums" , post_other("arab-forums" , "post3") , true , true , true , false , true);
-
-$post4 = text_other("arab-forums" , post_other("arab-forums" , "post4") , true , true , true , false , true);
-
-$post5 = text_other("arab-forums" , post_other("arab-forums" , "post5") , true , true , true , false , true);
-
-$moderattext = text_other("arab-forums" , post_other("arab-forums" , "moderattext") , true , true , true , false , true);
-
-$sex = text_other("arab-forums" , post_other("arab-forums" , "sex") , true , true , true , false , true);
-
-$mode = text_other("arab-forums" , post_other("arab-forums" , "mode") , true , true , true , false , true);
-
-$topic = text_other("arab-forums" , post_other("arab-forums" , "topic") , true , true , true , false , true);
-
-$reply = text_other("arab-forums" , post_other("arab-forums" , "reply") , true , true , true , false , true);
-
-$modetopic = text_other("arab-forums" , post_other("arab-forums" , "modetopic") , true , true , true , false , true);
-
-$modereply = text_other("arab-forums" , post_other("arab-forums" , "modereply") , true , true , true , false , true);
-
-$phototopic = text_other("arab-forums" , post_other("arab-forums" , "phototopic") , true , true , true , false , true);
-
-$photoreply = text_other("arab-forums" , post_other("arab-forums" , "photoreply") , true , true , true , false , true);
-
-$sigtopic = text_other("arab-forums" , post_other("arab-forums" , "sigtopic") , true , true , true , false , true);
-
-$sigreply = text_other("arab-forums" , post_other("arab-forums" , "sigreply") , true , true , true , false , true);
-
-$detailtopic = text_other("arab-forums" , post_other("arab-forums" , "detailtopic") , true , true , true , false , true);
-
-$detailreply = text_other("arab-forums" , post_other("arab-forums" , "detailreply") , true , true , true , false , true);
-
-$wasaftopic = text_other("arab-forums" , post_other("arab-forums" , "wasaftopic") , true , true , true , false , true);
-
-$wasafreply = text_other("arab-forums" , post_other("arab-forums" , "wasafreply") , true , true , true , false , true);
-
-$visitortopicshow = text_other("arab-forums" , post_other("arab-forums" , "visitortopicshow") , true , true , true , false , true);
-
-$visitorreplyshow = text_other("arab-forums" , post_other("arab-forums" , "visitorreplyshow") , true , true , true , false , true);
-
-$urlshowtopic = text_other("arab-forums" , post_other("arab-forums" , "urlshowtopic") , true , true , true , false , true);
-
-$urlshowreply = text_other("arab-forums" , post_other("arab-forums" , "urlshowreply") , true , true , true , false , true);
-
-if($catid == "" || $name == "" || $wasaf == "" || $logo == "" || $order == "" || $lock == "" || $hid1 == "" || $hid2 == "" || $group0 == "" || $group1 == "" || $group2 == "" || $group3 == "" || $group4 == "" || $group5 == "" || $post1 == "" || $post2 == "" || $post3 == "" || $post4 == "" || $post5 == "" || $moderattext == "" || $sex == "" || $mode == "" || $phototopic == "" || $photoreply == "" || $sigtopic == "" || $sigreply == "" || $detailtopic == "" || $detailreply == "" || $wasaftopic == "" || $wasafreply == "" || $topic == "" || $reply == "" || $modetopic == "" || $modereply == "" || $visitortopicshow == "" || $visitorreplyshow == "" || $urlshowtopic == "" || $urlshowreply == ""){
-
-$error = "الرجاء ملأ جميع الحقول ليتم التعديل على المنتدى";
-
-}elseif(!is_numeric($order)){
-
-$error = "يجب أن تكون قيمة ترتيب المنتدى صحيحة";
-
-}elseif(!is_numeric($topic)){
-
-$error = "يجب أن تكون قيمة عدد المواضيع المسموح بها يوميا صحيحة";
-
-}elseif(!is_numeric($reply)){
-
-$error = "يجب أن تكون قيمة عدد المشاركات المسموح بها يوميا صحيحة";
-
-}else{
-
-$error = "";
-
+if (!defined("error_page_arab_forums")) {
+    exit(header("location: ../error.php"));
 }
 
-if($error != ""){
+$forum_sql = select_mysql("arab-forums", "forum", "forum_id , forum_catid , forum_lock , forum_hid1 , forum_hid2 , forum_name , forum_wasaf , forum_logo , forum_moderattext , forum_order , forum_sex , forum_totaltopic , forum_totalreply , forum_moderattopic , forum_moderatreply , forum_mode , forum_group0 , forum_group1 , forum_group2 , forum_group3 , forum_group4 , forum_group5 , forum_group6 , forum_post1 , forum_post2 , forum_post3 , forum_post4 , forum_post5 , forum_post6 , forum_phototopic , forum_sigtopic , forum_detailtopic , forum_wasaftopic , forum_photoreply , forum_sigreply , forum_detailreply , forum_wasafreply , forum_visitortopicshow , forum_visitorreplyshow , forum_urlshowtopic , forum_urlshowreply", "where forum_id in(" . id . ")");
 
-$arraymsg = array(
+if (num_mysql("arab-forums", $forum_sql) != false) {
 
-"msg" => $error ,
+    $forum_object = object_mysql("arab-forums", $forum_sql);
 
-"color" => "error" ,
+    if (fort == "edit") {
 
-"url" => "" ,
+        if (type == "insert") {
 
-);
+            $catid = text_other("arab-forums", post_other("arab-forums", "catid"), true, true, true, false, true);
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            $name = text_other("arab-forums", post_other("arab-forums", "name"), true, true, true, false, true);
 
-}else{
+            $wasaf = text_other("arab-forums", post_other("arab-forums", "wasaf"), true, true, true, false, true);
 
-if($forum_object->forum_catid != $catid){
+            $logo = text_other("arab-forums", post_other("arab-forums", "logo"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "moderate" , "moderate_catid = \"{$catid}\" where moderate_forumid in({$forum_object->forum_id})");
+            $order = text_other("arab-forums", post_other("arab-forums", "order"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "hidforum" , "hidforum_catid = \"{$catid}\" where hidforum_forumid in({$forum_object->forum_id})");
+            $lock = text_other("arab-forums", post_other("arab-forums", "lock"), true, true, true, false, true);
 
-}
+            $hid1 = text_other("arab-forums", post_other("arab-forums", "hid1"), true, true, true, false, true);
 
-update_mysql("arab-forums" , "forum" , "forum_catid = \"{$catid}\" , forum_lock = \"{$lock}\" , forum_hid1 = \"{$hid1}\" , forum_hid2 = \"{$hid2}\" , forum_name = \"{$name}\" , forum_wasaf = \"{$wasaf}\" , forum_logo = \"{$logo}\" , forum_moderattext = \"{$moderattext}\" , forum_order = \"{$order}\" , forum_sex = \"{$sex}\" , forum_totaltopic = \"{$topic}\" , forum_totalreply = \"{$reply}\" , forum_moderattopic = \"{$modetopic}\" , forum_moderatreply = \"{$modereply}\" , forum_mode = \"{$mode}\" , forum_group0 = \"{$group0}\" , forum_group1 = \"{$group1}\" , forum_group2 = \"{$group2}\" , forum_group3 = \"{$group3}\" , forum_group4 = \"{$group4}\" , forum_group5 = \"{$group5}\" , forum_post1 = \"{$post1}\" , forum_post2 = \"{$post2}\" , forum_post3 = \"{$post3}\" , forum_post4 = \"{$post4}\" , forum_post5 = \"{$post5}\" , forum_phototopic = \"{$phototopic}\" , forum_sigtopic = \"{$sigtopic}\" , forum_detailtopic = \"{$detailtopic}\" , forum_wasaftopic = \"{$wasaftopic}\" , forum_photoreply = \"{$photoreply}\" , forum_sigreply = \"{$sigreply}\" , forum_detailreply = \"{$detailreply}\" , forum_wasafreply = \"{$wasafreply}\" , forum_visitortopicshow = \"{$visitortopicshow}\" , forum_visitorreplyshow = \"{$visitorreplyshow}\" , forum_urlshowtopic = \"{$urlshowtopic}\" , forum_urlshowreply = \"{$urlshowreply}\" where forum_id in({$forum_object->forum_id})");
+            $hid2 = text_other("arab-forums", post_other("arab-forums", "hid2"), true, true, true, false, true);
 
-$arraymsg = array(
+            $group0 = text_other("arab-forums", post_other("arab-forums", "group0"), true, true, true, false, true);
 
-"msg" => "تم تعديل المنتدى بنجاح تام" ,
+            $group1 = text_other("arab-forums", post_other("arab-forums", "group1"), true, true, true, false, true);
 
-"color" => "good" ,
+            $group2 = text_other("arab-forums", post_other("arab-forums", "group2"), true, true, true, false, true);
 
-"url" => "admin.php?gert=catforum&go=catforum_list" ,
+            $group3 = text_other("arab-forums", post_other("arab-forums", "group3"), true, true, true, false, true);
 
-);
+            $group4 = text_other("arab-forums", post_other("arab-forums", "group4"), true, true, true, false, true);
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            $group5 = text_other("arab-forums", post_other("arab-forums", "group5"), true, true, true, false, true);
 
-}}else{
+            $post1 = text_other("arab-forums", post_other("arab-forums", "post1"), true, true, true, false, true);
 
-echo "<form action=\"admin.php?gert=catforum&go=catforum_optionforum&fort=edit&id={$forum_object->forum_id}&type=insert\" method=\"post\">";
- 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" border=\"0\" width=\"99%\" align=\"center\">";
+            $post2 = text_other("arab-forums", post_other("arab-forums", "post2"), true, true, true, false, true);
 
-echo "<tr><td class=\"tcotadmin\">المنتدى تابع لفئة</td></tr>";
+            $post3 = text_other("arab-forums", post_other("arab-forums", "post3"), true, true, true, false, true);
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            $post4 = text_other("arab-forums", post_other("arab-forums", "post4"), true, true, true, false, true);
 
-$cat_sql = select_mysql("arab-forums" , "cat" , "cat_id , cat_name , cat_order" , " order by cat_order asc");
+            $post5 = text_other("arab-forums", post_other("arab-forums", "post5"), true, true, true, false, true);
 
-if(num_mysql("arab-forums" , $cat_sql) != false){
+            $moderattext = text_other("arab-forums", post_other("arab-forums", "moderattext"), true, true, true, false, true);
 
-echo "<select class=\"inputselect\" name=\"catid\">";
+            $sex = text_other("arab-forums", post_other("arab-forums", "sex"), true, true, true, false, true);
 
-while($cat_object = object_mysql("arab-forums" , $cat_sql)){
+            $mode = text_other("arab-forums", post_other("arab-forums", "mode"), true, true, true, false, true);
 
-echo "<option value=\"{$cat_object->cat_id}\" ".($forum_object->forum_catid == $cat_object->cat_id ? "selected" : "").">{$cat_object->cat_name}</option>";
+            $topic = text_other("arab-forums", post_other("arab-forums", "topic"), true, true, true, false, true);
 
-}
+            $reply = text_other("arab-forums", post_other("arab-forums", "reply"), true, true, true, false, true);
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">إختر الفئة التي تريد إضافة المنتدى لهآ</span>";
+            $modetopic = text_other("arab-forums", post_other("arab-forums", "modetopic"), true, true, true, false, true);
 
-}
+            $modereply = text_other("arab-forums", post_other("arab-forums", "modereply"), true, true, true, false, true);
 
-echo "</div></td></tr>";
+            $phototopic = text_other("arab-forums", post_other("arab-forums", "phototopic"), true, true, true, false, true);
 
-echo "<tr><td class=\"tcotadmin\">عنوان المنتدى</td></tr>";
+            $photoreply = text_other("arab-forums", post_other("arab-forums", "photoreply"), true, true, true, false, true);
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            $sigtopic = text_other("arab-forums", post_other("arab-forums", "sigtopic"), true, true, true, false, true);
 
-echo "<input style=\"width:300px\" class=\"input\" name=\"name\" value=\"{$forum_object->forum_name}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال عنوان المنتدى</span>";
+            $sigreply = text_other("arab-forums", post_other("arab-forums", "sigreply"), true, true, true, false, true);
 
-echo "</div></td></tr>";
+            $detailtopic = text_other("arab-forums", post_other("arab-forums", "detailtopic"), true, true, true, false, true);
 
-echo "<tr><td class=\"tcotadmin\">وصف المنتدى</td></tr>";
+            $detailreply = text_other("arab-forums", post_other("arab-forums", "detailreply"), true, true, true, false, true);
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            $wasaftopic = text_other("arab-forums", post_other("arab-forums", "wasaftopic"), true, true, true, false, true);
 
-echo "<input style=\"width:300px\" class=\"input\" name=\"wasaf\" value=\"{$forum_object->forum_wasaf}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال وصف المنتدى</span>";
+            $wasafreply = text_other("arab-forums", post_other("arab-forums", "wasafreply"), true, true, true, false, true);
 
-echo "</div></td></tr>";
+            $visitortopicshow = text_other("arab-forums", post_other("arab-forums", "visitortopicshow"), true, true, true, false, true);
 
-echo "<tr><td class=\"tcotadmin\">صورة المنتدى</td></tr>";
+            $visitorreplyshow = text_other("arab-forums", post_other("arab-forums", "visitorreplyshow"), true, true, true, false, true);
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            $urlshowtopic = text_other("arab-forums", post_other("arab-forums", "urlshowtopic"), true, true, true, false, true);
 
-echo "<input dir=\"ltr\" style=\"width:400px\" class=\"input\" name=\"logo\" value=\"{$forum_object->forum_logo}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال رابط صورة المنتدى</span>";
+            $urlshowreply = text_other("arab-forums", post_other("arab-forums", "urlshowreply"), true, true, true, false, true);
 
-echo "</div></td></tr>";
+            if ($catid == "" || $name == "" || $wasaf == "" || $logo == "" || $order == "" || $lock == "" || $hid1 == "" || $hid2 == "" || $group0 == "" || $group1 == "" || $group2 == "" || $group3 == "" || $group4 == "" || $group5 == "" || $post1 == "" || $post2 == "" || $post3 == "" || $post4 == "" || $post5 == "" || $moderattext == "" || $sex == "" || $mode == "" || $phototopic == "" || $photoreply == "" || $sigtopic == "" || $sigreply == "" || $detailtopic == "" || $detailreply == "" || $wasaftopic == "" || $wasafreply == "" || $topic == "" || $reply == "" || $modetopic == "" || $modereply == "" || $visitortopicshow == "" || $visitorreplyshow == "" || $urlshowtopic == "" || $urlshowreply == "") {
 
-echo "<tr><td class=\"tcotadmin\">ترتيب المنتدى</td></tr>";
+                $error = "الرجاء ملأ جميع الحقول ليتم التعديل على المنتدى";
+            } elseif (!is_numeric($order)) {
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                $error = "يجب أن تكون قيمة ترتيب المنتدى صحيحة";
+            } elseif (!is_numeric($topic)) {
 
-echo "<input size=\"1\" class=\"input\" name=\"order\" value=\"{$forum_object->forum_order}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال الترتيب الخاص بالمنتدى و إن كنت لا تريده مرتب أتركه 1</span>";
+                $error = "يجب أن تكون قيمة عدد المواضيع المسموح بها يوميا صحيحة";
+            } elseif (!is_numeric($reply)) {
 
-echo "</div></td></tr>";
+                $error = "يجب أن تكون قيمة عدد المشاركات المسموح بها يوميا صحيحة";
+            } else {
 
-echo "<tr><td class=\"tcotadmin\">حذف المنتدى</td></tr>";
+                $error = "";
+            }
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            if ($error != "") {
 
-echo "<select class=\"inputselect\" name=\"delete\">";
+                $arraymsg = array(
 
-echo "<option value=\"0\" ".($forum_object->forum_delete == 0 ? "selected" : "").">لآ</option>";
+                    "msg" => $error,
 
-echo "<option value=\"1\" ".($forum_object->forum_delete == 1 ? "selected" : "").">نعم</option>";
+                    "color" => "error",
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل المنتدى محذوف ؟</span>";
+                    "url" => "",
 
-echo "<tr><td class=\"tcotadmin\">غلق المنتدى</td></tr>";
+                );
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                echo msgadmin_template("arab-forums", $arraymsg);
+            } else {
 
-echo "<select class=\"inputselect\" name=\"lock\">";
+                if ($forum_object->forum_catid != $catid) {
 
-echo "<option value=\"0\" ".($forum_object->forum_lock == 0 ? "selected" : "").">لآ</option>";
+                    update_mysql("arab-forums", "moderate", "moderate_catid = \"{$catid}\" where moderate_forumid in({$forum_object->forum_id})");
 
-echo "<option value=\"1\" ".($forum_object->forum_lock == 1 ? "selected" : "").">نعم</option>";
+                    update_mysql("arab-forums", "hidforum", "hidforum_catid = \"{$catid}\" where hidforum_forumid in({$forum_object->forum_id})");
+                }
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل المنتدى مغلوق ؟</span>";
+                update_mysql("arab-forums", "forum", "forum_catid = \"{$catid}\" , forum_lock = \"{$lock}\" , forum_hid1 = \"{$hid1}\" , forum_hid2 = \"{$hid2}\" , forum_name = \"{$name}\" , forum_wasaf = \"{$wasaf}\" , forum_logo = \"{$logo}\" , forum_moderattext = \"{$moderattext}\" , forum_order = \"{$order}\" , forum_sex = \"{$sex}\" , forum_totaltopic = \"{$topic}\" , forum_totalreply = \"{$reply}\" , forum_moderattopic = \"{$modetopic}\" , forum_moderatreply = \"{$modereply}\" , forum_mode = \"{$mode}\" , forum_group0 = \"{$group0}\" , forum_group1 = \"{$group1}\" , forum_group2 = \"{$group2}\" , forum_group3 = \"{$group3}\" , forum_group4 = \"{$group4}\" , forum_group5 = \"{$group5}\" , forum_post1 = \"{$post1}\" , forum_post2 = \"{$post2}\" , forum_post3 = \"{$post3}\" , forum_post4 = \"{$post4}\" , forum_post5 = \"{$post5}\" , forum_phototopic = \"{$phototopic}\" , forum_sigtopic = \"{$sigtopic}\" , forum_detailtopic = \"{$detailtopic}\" , forum_wasaftopic = \"{$wasaftopic}\" , forum_photoreply = \"{$photoreply}\" , forum_sigreply = \"{$sigreply}\" , forum_detailreply = \"{$detailreply}\" , forum_wasafreply = \"{$wasafreply}\" , forum_visitortopicshow = \"{$visitortopicshow}\" , forum_visitorreplyshow = \"{$visitorreplyshow}\" , forum_urlshowtopic = \"{$urlshowtopic}\" , forum_urlshowreply = \"{$urlshowreply}\" where forum_id in({$forum_object->forum_id})");
 
-echo "<tr><td class=\"tcotadmin\">إخفاء المنتدى</td></tr>";
+                $arraymsg = array(
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                    "msg" => "تم تعديل المنتدى بنجاح تام",
 
-echo "<select class=\"inputselect\" name=\"hid1\">";
+                    "color" => "good",
 
-echo "<option value=\"0\" ".($forum_object->forum_hid1 == 0 ? "selected" : "").">لآ</option>";
+                    "url" => "admin.php?gert=catforum&go=catforum_list",
 
-echo "<option value=\"1\" ".($forum_object->forum_hid1 == 1 ? "selected" : "").">نعم</option>";
+                );
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل المنتدى مخفي ؟</span>";
+                echo msgadmin_template("arab-forums", $arraymsg);
+            }
+        } else {
 
-echo "</div></td></tr>";
+            echo "<form action=\"admin.php?gert=catforum&go=catforum_optionforum&fort=edit&id={$forum_object->forum_id}&type=insert\" method=\"post\">";
 
-echo "<tr><td class=\"tcotadmin\">إخفاء المنتدى و إظهاره للمشرفين و المراقب و النائب فقط</td></tr>";
+            echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" border=\"0\" width=\"99%\" align=\"center\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "<tr><td class=\"tcotadmin\">المنتدى تابع لفئة</td></tr>";
 
-echo "<select class=\"inputselect\" name=\"hid2\">";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<option value=\"0\" ".($forum_object->forum_hid2 == 0 ? "selected" : "").">لآ</option>";
+            $cat_sql = select_mysql("arab-forums", "cat", "cat_id , cat_name , cat_order", " order by cat_order asc");
 
-echo "<option value=\"1\" ".($forum_object->forum_hid2 == 1 ? "selected" : "").">نعم</option>";
+            if (num_mysql("arab-forums", $cat_sql) != false) {
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل تريد إظهار المنتدى للمشرفين و المراقب و نائب المراقب فقط ؟</span>";
+                echo "<select class=\"inputselect\" name=\"catid\">";
 
-echo "</div></td></tr>";
+                while ($cat_object = object_mysql("arab-forums", $cat_sql)) {
 
-echo "<tr><td class=\"tcotadmin\">المشاركة في المنتدى</td></tr>";
+                    echo "<option value=\"{$cat_object->cat_id}\" " . ($forum_object->forum_catid == $cat_object->cat_id ? "selected" : "") . ">{$cat_object->cat_name}</option>";
+                }
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">إختر الفئة التي تريد إضافة المنتدى لهآ</span>";
+            }
 
-echo "<select class=\"inputselect\" name=\"sex\">";
+            echo "</div></td></tr>";
 
-echo "<option value=\"0\" ".($forum_object->forum_sex == 0 ? "selected" : "").">للجميع</option>";
+            echo "<tr><td class=\"tcotadmin\">عنوان المنتدى</td></tr>";
 
-echo "<option value=\"1\" ".($forum_object->forum_sex == 1 ? "selected" : "").">للذكور فقط</option>";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<option value=\"2\" ".($forum_object->forum_sex == 2 ? "selected" : "").">للإيناث فقط</option>";
+            echo "<input style=\"width:300px\" class=\"input\" name=\"name\" value=\"{$forum_object->forum_name}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال عنوان المنتدى</span>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">من يمكنه المشاركة في المنتدى الكل أو الذكور فقط أو الإيناث فقط ؟</span>";
+            echo "</div></td></tr>";
 
-echo "</div></td></tr>";
+            echo "<tr><td class=\"tcotadmin\">وصف المنتدى</td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">ظهور المنتدى للمجموعات</td></tr>";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-$groupup = array($forum_object->forum_group0 , $forum_object->forum_group1 , $forum_object->forum_group2 , $forum_object->forum_group3 , $forum_object->forum_group4 , $forum_object->forum_group5);
+            echo "<input style=\"width:300px\" class=\"input\" name=\"wasaf\" value=\"{$forum_object->forum_wasaf}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال وصف المنتدى</span>";
 
-for($x = 0; $x <= 5; $x++){
+            echo "</div></td></tr>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "<tr><td class=\"tcotadmin\">صورة المنتدى</td></tr>";
 
-echo "<select class=\"inputselect\" name=\"group{$x}\">";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<option value=\"1\" ".($groupup[$x] == 1 ? "selected" : "").">نعم</option>";
+            echo "<input dir=\"ltr\" style=\"width:400px\" class=\"input\" name=\"logo\" value=\"{$forum_object->forum_logo}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال رابط صورة المنتدى</span>";
 
-echo "<option value=\"0\" ".($groupup[$x] == 0 ? "selected" : "").">لآ</option>";
+            echo "</div></td></tr>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل المنتدى يظهر لمجموعة {$group_list[$x]} ؟</span>";
+            echo "<tr><td class=\"tcotadmin\">ترتيب المنتدى</td></tr>";
 
-echo "</div></td></tr>";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-}
+            echo "<input size=\"1\" class=\"input\" name=\"order\" value=\"{$forum_object->forum_order}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال الترتيب الخاص بالمنتدى و إن كنت لا تريده مرتب أتركه 1</span>";
 
-echo "<tr><td class=\"tcotadmin\">السمآح للمجموعات بكتابة مواضيع و مشاركات في المنتدى</td></tr>";
+            echo "</div></td></tr>";
 
-$groupup = array("" , $forum_object->forum_post1 , $forum_object->forum_post2 , $forum_object->forum_post3 , $forum_object->forum_post4 , $forum_object->forum_post5);
+            echo "<tr><td class=\"tcotadmin\">حذف المنتدى</td></tr>";
 
-for($x = 1; $x <= 5; $x++){
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "<select class=\"inputselect\" name=\"delete\">";
 
-echo "<select class=\"inputselect\" name=\"post{$x}\">";
+            echo "<option value=\"0\" " . ($forum_object->forum_delete == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "<option value=\"1\" ".($groupup[$x] == 1 ? "selected" : "").">نعم</option>";
+            echo "<option value=\"1\" " . ($forum_object->forum_delete == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "<option value=\"0\" ".($groupup[$x] == 0 ? "selected" : "").">لآ</option>";
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل المنتدى محذوف ؟</span>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل تستطيع مجموعة {$group_list[$x]} كتابة مواضيع و مشاركات في المنتدى ؟</span>";
+            echo "<tr><td class=\"tcotadmin\">غلق المنتدى</td></tr>";
 
-echo "</div></td></tr>";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-}
+            echo "<select class=\"inputselect\" name=\"lock\">";
 
-echo "<tr><td class=\"tcotadmin\">المنتدى تحت إشراف</td></tr>";
+            echo "<option value=\"0\" " . ($forum_object->forum_lock == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "<option value=\"1\" " . ($forum_object->forum_lock == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "<select class=\"inputselect\" name=\"mode\">";
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل المنتدى مغلوق ؟</span>";
 
-echo "<option value=\"0\" ".($forum_object->forum_mode == 0 ? "selected" : "").">الأعضاء المعينين فقط</option>";
+            echo "<tr><td class=\"tcotadmin\">إخفاء المنتدى</td></tr>";
 
-for($x = 2; $x <= 4; $x++){
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<option value=\"{$x}\" ".($forum_object->forum_mode == $x ? "selected" : "").">الأعضاء المعينين + مجموعة {$group_list[$x]}</option>";
+            echo "<select class=\"inputselect\" name=\"hid1\">";
 
-}
+            echo "<option value=\"0\" " . ($forum_object->forum_hid1 == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">إختر مجموعة لتقوم بالإشراف على هذا المنتدى</span>";
+            echo "<option value=\"1\" " . ($forum_object->forum_hid1 == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "</div></td></tr>";
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل المنتدى مخفي ؟</span>";
 
-echo "<tr><td class=\"tcotadmin\">ظهور مشرفي المنتدى</td></tr>";
+            echo "</div></td></tr>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "<tr><td class=\"tcotadmin\">إخفاء المنتدى و إظهاره للمشرفين و المراقب و النائب فقط</td></tr>";
 
-echo "<select class=\"inputselect\" name=\"moderattext\">";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<option value=\"1\" ".($forum_object->forum_moderattext == 1 ? "selected" : "").">نعم</option>";
+            echo "<select class=\"inputselect\" name=\"hid2\">";
 
-echo "<option value=\"0\" ".($forum_object->forum_moderattext == 0 ? "selected" : "").">لآ</option>";
+            echo "<option value=\"0\" " . ($forum_object->forum_hid2 == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">ظهور مشرفي المنتدى في الرئيسية و داخل معلومات المنتديات و داخل بيانات المشرفين ؟</span>";
+            echo "<option value=\"1\" " . ($forum_object->forum_hid2 == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "</div></td></tr>";
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل تريد إظهار المنتدى للمشرفين و المراقب و نائب المراقب فقط ؟</span>";
 
-echo "<tr><td class=\"tcotadmin\">ظهور صور الأعضاء في مواضيع المنتدى</td></tr>";
+            echo "</div></td></tr>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "<tr><td class=\"tcotadmin\">المشاركة في المنتدى</td></tr>";
 
-echo "<select class=\"inputselect\" name=\"phototopic\">";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<option value=\"1\" ".($forum_object->forum_phototopic == 1 ? "selected" : "").">نعم</option>";
+            echo "<select class=\"inputselect\" name=\"sex\">";
 
-echo "<option value=\"0\" ".($forum_object->forum_phototopic == 0 ? "selected" : "").">لآ</option>";
+            echo "<option value=\"0\" " . ($forum_object->forum_sex == 0 ? "selected" : "") . ">للجميع</option>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل صور الأعضاء تظهر في مواضيع هذا المنتدى ؟</span>";
+            echo "<option value=\"1\" " . ($forum_object->forum_sex == 1 ? "selected" : "") . ">للذكور فقط</option>";
 
-echo "</div></td></tr>";
+            echo "<option value=\"2\" " . ($forum_object->forum_sex == 2 ? "selected" : "") . ">للإيناث فقط</option>";
 
-echo "<tr><td class=\"tcotadmin\">ظهور صور الأعضاء في مشاركات المنتدى</td></tr>";
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">من يمكنه المشاركة في المنتدى الكل أو الذكور فقط أو الإيناث فقط ؟</span>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "</div></td></tr>";
 
-echo "<select class=\"inputselect\" name=\"photoreply\">";
+            echo "<tr><td class=\"tcotadmin\">ظهور المنتدى للمجموعات</td></tr>";
 
-echo "<option value=\"1\" ".($forum_object->forum_photoreply == 1 ? "selected" : "").">نعم</option>";
+            $groupup = array($forum_object->forum_group0, $forum_object->forum_group1, $forum_object->forum_group2, $forum_object->forum_group3, $forum_object->forum_group4, $forum_object->forum_group5);
 
-echo "<option value=\"0\" ".($forum_object->forum_photoreply == 0 ? "selected" : "").">لآ</option>";
+            for ($x = 0; $x <= 5; $x++) {
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل صور الأعضاء تظهر في مشاركات هذا المنتدى ؟</span>";
+                echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "</div></td></tr>";
+                echo "<select class=\"inputselect\" name=\"group{$x}\">";
 
-echo "<tr><td class=\"tcotadmin\">ظهور تواقيع الأعضاء في مواضيع المنتدى</td></tr>";
+                echo "<option value=\"1\" " . ($groupup[$x] == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                echo "<option value=\"0\" " . ($groupup[$x] == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "<select class=\"inputselect\" name=\"sigtopic\">";
+                echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل المنتدى يظهر لمجموعة {$group_list[$x]} ؟</span>";
 
-echo "<option value=\"1\" ".($forum_object->forum_sigtopic == 1 ? "selected" : "").">نعم</option>";
+                echo "</div></td></tr>";
+            }
 
-echo "<option value=\"0\" ".($forum_object->forum_sigtopic == 0 ? "selected" : "").">لآ</option>";
+            echo "<tr><td class=\"tcotadmin\">السمآح للمجموعات بكتابة مواضيع و مشاركات في المنتدى</td></tr>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل تواقيع الأعضاء تظهر في مواضيع هذا المنتدى ؟</span>";
+            $groupup = array("", $forum_object->forum_post1, $forum_object->forum_post2, $forum_object->forum_post3, $forum_object->forum_post4, $forum_object->forum_post5);
 
-echo "</div></td></tr>";
+            for ($x = 1; $x <= 5; $x++) {
 
-echo "<tr><td class=\"tcotadmin\">ظهور تواقيع الأعضاء في مشاركات المنتدى</td></tr>";
+                echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+                echo "<select class=\"inputselect\" name=\"post{$x}\">";
 
-echo "<select class=\"inputselect\" name=\"sigreply\">";
+                echo "<option value=\"1\" " . ($groupup[$x] == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "<option value=\"1\" ".($forum_object->forum_sigreply == 1 ? "selected" : "").">نعم</option>";
+                echo "<option value=\"0\" " . ($groupup[$x] == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "<option value=\"0\" ".($forum_object->forum_sigreply == 0 ? "selected" : "").">لآ</option>";
+                echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل تستطيع مجموعة {$group_list[$x]} كتابة مواضيع و مشاركات في المنتدى ؟</span>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل تواقيع الأعضاء تظهر في مشاركات هذا المنتدى ؟</span>";
+                echo "</div></td></tr>";
+            }
 
-echo "</div></td></tr>";
+            echo "<tr><td class=\"tcotadmin\">المنتدى تحت إشراف</td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">ظهور بيانات الأعضاء في مواضيع المنتدى</td></tr>";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "<select class=\"inputselect\" name=\"mode\">";
 
-echo "<select class=\"inputselect\" name=\"detailtopic\">";
+            echo "<option value=\"0\" " . ($forum_object->forum_mode == 0 ? "selected" : "") . ">الأعضاء المعينين فقط</option>";
 
-echo "<option value=\"1\" ".($forum_object->forum_detailtopic == 1 ? "selected" : "").">نعم</option>";
+            for ($x = 2; $x <= 4; $x++) {
 
-echo "<option value=\"0\" ".($forum_object->forum_detailtopic == 0 ? "selected" : "").">لآ</option>";
+                echo "<option value=\"{$x}\" " . ($forum_object->forum_mode == $x ? "selected" : "") . ">الأعضاء المعينين + مجموعة {$group_list[$x]}</option>";
+            }
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل بيانات الأعضاء تظهر في مواضيع هذا المنتدى ؟</span>";
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">إختر مجموعة لتقوم بالإشراف على هذا المنتدى</span>";
 
-echo "</div></td></tr>";
+            echo "</div></td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">ظهور بيانات الأعضاء في مشاركات المنتدى</td></tr>";
+            echo "<tr><td class=\"tcotadmin\">ظهور مشرفي المنتدى</td></tr>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<select class=\"inputselect\" name=\"detailreply\">";
+            echo "<select class=\"inputselect\" name=\"moderattext\">";
 
-echo "<option value=\"1\" ".($forum_object->forum_detailreply == 1 ? "selected" : "").">نعم</option>";
+            echo "<option value=\"1\" " . ($forum_object->forum_moderattext == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "<option value=\"0\" ".($forum_object->forum_detailreply == 0 ? "selected" : "").">لآ</option>";
+            echo "<option value=\"0\" " . ($forum_object->forum_moderattext == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل بيانات الأعضاء تظهر في مشاركات هذا المنتدى ؟</span>";
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">ظهور مشرفي المنتدى في الرئيسية و داخل معلومات المنتديات و داخل بيانات المشرفين ؟</span>";
 
-echo "</div></td></tr>";
+            echo "</div></td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">ظهور أوصاف الأعضاء في مواضيع المنتدى</td></tr>";
+            echo "<tr><td class=\"tcotadmin\">ظهور صور الأعضاء في مواضيع المنتدى</td></tr>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<select class=\"inputselect\" name=\"wasaftopic\">";
+            echo "<select class=\"inputselect\" name=\"phototopic\">";
 
-echo "<option value=\"1\" ".($forum_object->forum_wasaftopic == 1 ? "selected" : "").">نعم</option>";
+            echo "<option value=\"1\" " . ($forum_object->forum_phototopic == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "<option value=\"0\" ".($forum_object->forum_wasaftopic == 0 ? "selected" : "").">لآ</option>";
+            echo "<option value=\"0\" " . ($forum_object->forum_phototopic == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل أوصاف الأعضاء تظهر في مواضيع هذا المنتدى ؟</span>";
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل صور الأعضاء تظهر في مواضيع هذا المنتدى ؟</span>";
 
-echo "</div></td></tr>";
+            echo "</div></td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">ظهور أوصاف الأعضاء في مشاركات المنتدى</td></tr>";
+            echo "<tr><td class=\"tcotadmin\">ظهور صور الأعضاء في مشاركات المنتدى</td></tr>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<select class=\"inputselect\" name=\"wasafreply\">";
+            echo "<select class=\"inputselect\" name=\"photoreply\">";
 
-echo "<option value=\"1\" ".($forum_object->forum_wasafreply == 1 ? "selected" : "").">نعم</option>";
+            echo "<option value=\"1\" " . ($forum_object->forum_photoreply == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "<option value=\"0\" ".($forum_object->forum_wasafreply == 0 ? "selected" : "").">لآ</option>";
+            echo "<option value=\"0\" " . ($forum_object->forum_photoreply == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل أوصاف الأعضاء تظهر في مشاركات هذا المنتدى ؟</span>";
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل صور الأعضاء تظهر في مشاركات هذا المنتدى ؟</span>";
 
-echo "</div></td></tr>";
+            echo "</div></td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">عدد المشاركات و المواضيع المسموح بهم يوميا</td></tr>";
+            echo "<tr><td class=\"tcotadmin\">ظهور تواقيع الأعضاء في مواضيع المنتدى</td></tr>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<input size=\"1\" class=\"input\" name=\"topic\" value=\"{$forum_object->forum_totaltopic}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال عدد المواضيع المسموح به يوميا في هذا المنتدى</span>";
+            echo "<select class=\"inputselect\" name=\"sigtopic\">";
 
-echo "</div></td></tr>";
+            echo "<option value=\"1\" " . ($forum_object->forum_sigtopic == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "<option value=\"0\" " . ($forum_object->forum_sigtopic == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "<input size=\"1\" class=\"input\" name=\"reply\" value=\"{$forum_object->forum_totalreply}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال عدد المشاركات المسموح به يوميا في هذا المنتدى</span>";
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل تواقيع الأعضاء تظهر في مواضيع هذا المنتدى ؟</span>";
 
-echo "</div></td></tr>";
+            echo "</div></td></tr>";
 
-echo "<tr><td class=\"tcotadmin\">تطبيق الرقابة على المواضيع و المشاركات</td></tr>";
+            echo "<tr><td class=\"tcotadmin\">ظهور تواقيع الأعضاء في مشاركات المنتدى</td></tr>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<select class=\"inputselect\" name=\"modetopic\">";
+            echo "<select class=\"inputselect\" name=\"sigreply\">";
 
-echo "<option value=\"0\" ".($forum_object->forum_moderattopic == 0 ? "selected" : "").">لآ</option>";
+            echo "<option value=\"1\" " . ($forum_object->forum_sigreply == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "<option value=\"1\" ".($forum_object->forum_moderattopic == 1 ? "selected" : "").">نعم</option>";
+            echo "<option value=\"0\" " . ($forum_object->forum_sigreply == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل مواضيع هذا المنتدى تنتظر موافقة المشرفي أو المراقب أو نائب المراقب ؟</span>";
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل تواقيع الأعضاء تظهر في مشاركات هذا المنتدى ؟</span>";
 
-echo "</div></td></tr>";
+            echo "</div></td></tr>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "<tr><td class=\"tcotadmin\">ظهور بيانات الأعضاء في مواضيع المنتدى</td></tr>";
 
-echo "<select class=\"inputselect\" name=\"modereply\">";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<option value=\"0\" ".($forum_object->forum_moderatreply == 0 ? "selected" : "").">لآ</option>";
+            echo "<select class=\"inputselect\" name=\"detailtopic\">";
 
-echo "<option value=\"1\" ".($forum_object->forum_moderatreply == 1 ? "selected" : "").">نعم</option>";
+            echo "<option value=\"1\" " . ($forum_object->forum_detailtopic == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل مشاركات هذا المنتدى تنتظر موافقة المشرفي أو المراقب أو نائب المراقب ؟</span>";
+            echo "<option value=\"0\" " . ($forum_object->forum_detailtopic == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "</div></td></tr>";
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل بيانات الأعضاء تظهر في مواضيع هذا المنتدى ؟</span>";
 
-echo "<tr><td class=\"tcotadmin\">مشاهدة الروابط بعد الرد</td></tr>";
+            echo "</div></td></tr>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "<tr><td class=\"tcotadmin\">ظهور بيانات الأعضاء في مشاركات المنتدى</td></tr>";
 
-echo "<select class=\"inputselect\" name=\"urlshowtopic\">";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<option value=\"1\" ".($forum_object->forum_urlshowtopic == 1 ? "selected" : "").">نعم</option>";
+            echo "<select class=\"inputselect\" name=\"detailreply\">";
 
-echo "<option value=\"0\" ".($forum_object->forum_urlshowtopic == 0 ? "selected" : "").">لآ</option>";
+            echo "<option value=\"1\" " . ($forum_object->forum_detailreply == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل يجب على العضو الرد ليتمكن من مشاهدة روابط الموضوع ؟</span>";
+            echo "<option value=\"0\" " . ($forum_object->forum_detailreply == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "</div></td></tr>";
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل بيانات الأعضاء تظهر في مشاركات هذا المنتدى ؟</span>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "</div></td></tr>";
 
-echo "<select class=\"inputselect\" name=\"urlshowreply\">";
+            echo "<tr><td class=\"tcotadmin\">ظهور أوصاف الأعضاء في مواضيع المنتدى</td></tr>";
 
-echo "<option value=\"1\" ".($forum_object->forumurlshowreply == 1 ? "selected" : "").">نعم</option>";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<option value=\"0\" ".($forum_object->forum_urlshowreply == 0 ? "selected" : "").">لآ</option>";
+            echo "<select class=\"inputselect\" name=\"wasaftopic\">";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل يجب على العضو الرد ليتمكن من مشاهدة روابط ردود الموضوع ؟</span>";
+            echo "<option value=\"1\" " . ($forum_object->forum_wasaftopic == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "</div></td></tr>";
+            echo "<option value=\"0\" " . ($forum_object->forum_wasaftopic == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "<tr><td class=\"tcotadmin\">مشاهدة المحتوى من قبل الزوار</td></tr>";
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل أوصاف الأعضاء تظهر في مواضيع هذا المنتدى ؟</span>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "</div></td></tr>";
 
-echo "<select class=\"inputselect\" name=\"visitortopicshow\">";
+            echo "<tr><td class=\"tcotadmin\">ظهور أوصاف الأعضاء في مشاركات المنتدى</td></tr>";
 
-echo "<option value=\"1\" ".($forum_object->forum_visitortopicshow == 1 ? "selected" : "").">نعم</option>";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "<option value=\"0\" ".($forum_object->forum_visitortopicshow == 0 ? "selected" : "").">لآ</option>";
+            echo "<select class=\"inputselect\" name=\"wasafreply\">";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل يمكن للزوآر مشآهدة محتوى المواضيع ؟</span>";
+            echo "<option value=\"1\" " . ($forum_object->forum_wasafreply == 1 ? "selected" : "") . ">نعم</option>";
 
-echo "</div></td></tr>";
+            echo "<option value=\"0\" " . ($forum_object->forum_wasafreply == 0 ? "selected" : "") . ">لآ</option>";
 
-echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل أوصاف الأعضاء تظهر في مشاركات هذا المنتدى ؟</span>";
 
-echo "<select class=\"inputselect\" name=\"visitorreplyshow\">";
+            echo "</div></td></tr>";
 
-echo "<option value=\"1\" ".($forum_object->forum_visitorreplyshow == 1 ? "selected" : "").">نعم</option>";
+            echo "<tr><td class=\"tcotadmin\">عدد المشاركات و المواضيع المسموح بهم يوميا</td></tr>";
 
-echo "<option value=\"0\" ".($forum_object->forum_visitorreplyshow == 0 ? "selected" : "").">لآ</option>";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل يمكن للزوآر مشآهدة محتوى ردود المواضيع ؟</span>";
+            echo "<input size=\"1\" class=\"input\" name=\"topic\" value=\"{$forum_object->forum_totaltopic}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال عدد المواضيع المسموح به يوميا في هذا المنتدى</span>";
 
-echo "</div></td></tr>";
+            echo "</div></td></tr>";
 
-echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال البيانات الجديدة\"  ".confirm_other("arab-forums" , "")."> - <input type=\"reset\" class=\"button\" value=\"إرجاع البيانات الأصلية\"><br><br></td></tr>";
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo "</table></form>";
+            echo "<input size=\"1\" class=\"input\" name=\"reply\" value=\"{$forum_object->forum_totalreply}\" type=\"text\">&nbsp;<span style=\"color:red;font-size:12px;\">إدخال عدد المشاركات المسموح به يوميا في هذا المنتدى</span>";
 
-}}elseif(fort == "delete"){
+            echo "</div></td></tr>";
 
-delete_mysql("arab-forums" , "forum" , "forum_id in({$forum_object->forum_id})");
+            echo "<tr><td class=\"tcotadmin\">تطبيق الرقابة على المواضيع و المشاركات</td></tr>";
 
-$arraymsg = array(
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-"msg" => "تم حذف المنتدى بنجاح تام" ,
+            echo "<select class=\"inputselect\" name=\"modetopic\">";
 
-"color" => "good" ,
+            echo "<option value=\"0\" " . ($forum_object->forum_moderattopic == 0 ? "selected" : "") . ">لآ</option>";
 
-"url" => "admin.php?gert=catforum&go=catforum_list" ,
+            echo "<option value=\"1\" " . ($forum_object->forum_moderattopic == 1 ? "selected" : "") . ">نعم</option>";
 
-);
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل مواضيع هذا المنتدى تنتظر موافقة المشرفي أو المراقب أو نائب المراقب ؟</span>";
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            echo "</div></td></tr>";
 
-}elseif(fort == "lock"){
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-if($forum_object->forum_lock == 1){$error = false;$text = "المنتدى مغلوق من قبل";$class = "error";}else{$error = true;$text = "تم غلق المنتدى بنجاح تام";$class = "good";}
+            echo "<select class=\"inputselect\" name=\"modereply\">";
 
-if($error == true){update_mysql("arab-forums" , "forum" , "forum_lock = \"1\" where forum_id in({$forum_object->forum_id})");}
+            echo "<option value=\"0\" " . ($forum_object->forum_moderatreply == 0 ? "selected" : "") . ">لآ</option>";
 
-$arraymsg = array(
+            echo "<option value=\"1\" " . ($forum_object->forum_moderatreply == 1 ? "selected" : "") . ">نعم</option>";
 
-"msg" => $text ,
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل مشاركات هذا المنتدى تنتظر موافقة المشرفي أو المراقب أو نائب المراقب ؟</span>";
 
-"color" => $class ,
+            echo "</div></td></tr>";
 
-"url" => "admin.php?gert=catforum&go=catforum_list" ,
+            echo "<tr><td class=\"tcotadmin\">مشاهدة الروابط بعد الرد</td></tr>";
 
-);
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            echo "<select class=\"inputselect\" name=\"urlshowtopic\">";
 
-}elseif(fort == "nolock"){
+            echo "<option value=\"1\" " . ($forum_object->forum_urlshowtopic == 1 ? "selected" : "") . ">نعم</option>";
 
-if($forum_object->forum_lock == 0){$error = false;$text = "المنتدى مفتوح من قبل";$class = "error";}else{$error = true;$text = "تم فتح المنتدى بنجاح تام";$class = "good";}
+            echo "<option value=\"0\" " . ($forum_object->forum_urlshowtopic == 0 ? "selected" : "") . ">لآ</option>";
 
-if($error == true){update_mysql("arab-forums" , "forum" , "forum_lock = \"0\" where forum_id in({$forum_object->forum_id})");}
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل يجب على العضو الرد ليتمكن من مشاهدة روابط الموضوع ؟</span>";
 
-$arraymsg = array(
+            echo "</div></td></tr>";
 
-"msg" => $text ,
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-"color" => $class ,
+            echo "<select class=\"inputselect\" name=\"urlshowreply\">";
 
-"url" => "admin.php?gert=catforum&go=catforum_list" ,
+            echo "<option value=\"1\" " . ($forum_object->forumurlshowreply == 1 ? "selected" : "") . ">نعم</option>";
 
-);
+            echo "<option value=\"0\" " . ($forum_object->forum_urlshowreply == 0 ? "selected" : "") . ">لآ</option>";
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل يجب على العضو الرد ليتمكن من مشاهدة روابط ردود الموضوع ؟</span>";
 
-}elseif(fort == "hid"){
+            echo "</div></td></tr>";
 
-if($forum_object->forum_hid1 == 1){$error = false;$text = "المنتدى مخفي من قبل";$class = "error";}else{$error = true;$text = "تم إخفاء المنتدى بنجاح تام";$class = "good";}
+            echo "<tr><td class=\"tcotadmin\">مشاهدة المحتوى من قبل الزوار</td></tr>";
 
-if($error == true){update_mysql("arab-forums" , "forum" , "forum_hid1 = \"1\" where forum_id in({$forum_object->forum_id})");}
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-$arraymsg = array(
+            echo "<select class=\"inputselect\" name=\"visitortopicshow\">";
 
-"msg" => $text ,
+            echo "<option value=\"1\" " . ($forum_object->forum_visitortopicshow == 1 ? "selected" : "") . ">نعم</option>";
 
-"color" => $class ,
+            echo "<option value=\"0\" " . ($forum_object->forum_visitortopicshow == 0 ? "selected" : "") . ">لآ</option>";
 
-"url" => "admin.php?gert=catforum&go=catforum_list" ,
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل يمكن للزوآر مشآهدة محتوى المواضيع ؟</span>";
 
-);
+            echo "</div></td></tr>";
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            echo "<tr><td class=\"alttext1\"><div class=\"pad\">";
 
-}elseif(fort == "nohid"){
+            echo "<select class=\"inputselect\" name=\"visitorreplyshow\">";
 
-if($forum_object->forum_hid1 == 0){$error = false;$text = "المنتدى ظاهر من قبل";$class = "error";}else{$error = true;$text = "تم إظهار المنتدى بنجاح تام";$class = "good";}
+            echo "<option value=\"1\" " . ($forum_object->forum_visitorreplyshow == 1 ? "selected" : "") . ">نعم</option>";
 
-if($error == true){update_mysql("arab-forums" , "forum" , "forum_hid1 = \"0\" where forum_id in({$forum_object->forum_id})");}
+            echo "<option value=\"0\" " . ($forum_object->forum_visitorreplyshow == 0 ? "selected" : "") . ">لآ</option>";
 
-$arraymsg = array(
+            echo "</select>&nbsp;<span style=\"color:red;font-size:12px;\">هل يمكن للزوآر مشآهدة محتوى ردود المواضيع ؟</span>";
 
-"msg" => $text ,
+            echo "</div></td></tr>";
 
-"color" => $class ,
+            echo "<tr><td class=\"alttext2\" align=\"center\"><br><input type=\"submit\" class=\"button\" value=\"إدخال البيانات الجديدة\"  " . confirm_other("arab-forums", "") . "> - <input type=\"reset\" class=\"button\" value=\"إرجاع البيانات الأصلية\"><br><br></td></tr>";
 
-"url" => "admin.php?gert=catforum&go=catforum_list" ,
+            echo "</table></form>";
+        }
+    } elseif (fort == "delete") {
 
-);
+        delete_mysql("arab-forums", "forum", "forum_id in({$forum_object->forum_id})");
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+        $arraymsg = array(
 
-}elseif(fort == "goshow"){
+            "msg" => "تم حذف المنتدى بنجاح تام",
 
-if($forum_object->forum_hid1 == 0){
+            "color" => "good",
 
-$error = "يجب عليك إخفاء المنتدى أولا";
+            "url" => "admin.php?gert=catforum&go=catforum_list",
 
-}else{
+        );
 
-$error = "";
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } elseif (fort == "lock") {
 
-}
+        if ($forum_object->forum_lock == 1) {
+            $error = false;
+            $text = "المنتدى مغلوق من قبل";
+            $class = "error";
+        } else {
+            $error = true;
+            $text = "تم غلق المنتدى بنجاح تام";
+            $class = "good";
+        }
 
-if($error == ""){
+        if ($error == true) {
+            update_mysql("arab-forums", "forum", "forum_lock = \"1\" where forum_id in({$forum_object->forum_id})");
+        }
 
-$allyu  = text_other("arab-forums" , post_other("arab-forums" , "allyu") , false , false , false , false , false);
+        $arraymsg = array(
 
-$gets  = text_other("arab-forums" , post_other("arab-forums" , "gets") , false , false , false , false , false);
+            "msg" => $text,
 
-$import = @implode("," , $allyu);
+            "color" => $class,
 
-if(isset($gets)){
+            "url" => "admin.php?gert=catforum&go=catforum_list",
 
-if($allyu == 0){
+        );
 
-$arraymsg = array(
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } elseif (fort == "nolock") {
 
-"msg" => "الرجاء تحديد عضو وآحد على الأقل ليتم حذفه" ,
+        if ($forum_object->forum_lock == 0) {
+            $error = false;
+            $text = "المنتدى مفتوح من قبل";
+            $class = "error";
+        } else {
+            $error = true;
+            $text = "تم فتح المنتدى بنجاح تام";
+            $class = "good";
+        }
 
-"color" => "error" ,
+        if ($error == true) {
+            update_mysql("arab-forums", "forum", "forum_lock = \"0\" where forum_id in({$forum_object->forum_id})");
+        }
 
-"url" => "" ,
+        $arraymsg = array(
 
-);
+            "msg" => $text,
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            "color" => $class,
 
-}else{
+            "url" => "admin.php?gert=catforum&go=catforum_list",
 
-delete_mysql("arab-forums" , "hidforum" , "hidforum_id in({$import})");
+        );
 
-$arraymsg = array(
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } elseif (fort == "hid") {
 
-"msg" => "تم حذف الأعضاء المحددين بنجآح تآم" ,
+        if ($forum_object->forum_hid1 == 1) {
+            $error = false;
+            $text = "المنتدى مخفي من قبل";
+            $class = "error";
+        } else {
+            $error = true;
+            $text = "تم إخفاء المنتدى بنجاح تام";
+            $class = "good";
+        }
 
-"color" => "good" ,
+        if ($error == true) {
+            update_mysql("arab-forums", "forum", "forum_hid1 = \"1\" where forum_id in({$forum_object->forum_id})");
+        }
 
-"url" => "" ,
+        $arraymsg = array(
 
-);
+            "msg" => $text,
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+            "color" => $class,
 
-}}elseif(type == "insert"){
+            "url" => "admin.php?gert=catforum&go=catforum_list",
 
-$user = text_other("arab-forums" , post_other("arab-forums" , "user") , false , false , false , false , false);
+        );
 
-$addwhat = text_other("arab-forums" , post_other("arab-forums" , "addwhat") , true , true , true , false , true);
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } elseif (fort == "nohid") {
 
-$import = @implode("," , $user);
+        if ($forum_object->forum_hid1 == 0) {
+            $error = false;
+            $text = "المنتدى ظاهر من قبل";
+            $class = "error";
+        } else {
+            $error = true;
+            $text = "تم إظهار المنتدى بنجاح تام";
+            $class = "good";
+        }
 
-if(counts_other("arab-forums" , $user) == 0){
+        if ($error == true) {
+            update_mysql("arab-forums", "forum", "forum_hid1 = \"0\" where forum_id in({$forum_object->forum_id})");
+        }
 
-$arraymsg = array(
+        $arraymsg = array(
 
-"msg" => "الرجاء إدخال رقم أو إسم عضو وآحد على الأقل" ,
+            "msg" => $text,
 
-"color" => "error" ,
+            "color" => $class,
 
-"url" => "" ,
+            "url" => "admin.php?gert=catforum&go=catforum_list",
 
-);
+        );
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+        echo msgadmin_template("arab-forums", $arraymsg);
+    } elseif (fort == "goshow") {
 
-}else{
+        if ($forum_object->forum_hid1 == 0) {
 
-if($addwhat == "name"){
+            $error = "يجب عليك إخفاء المنتدى أولا";
+        } else {
 
-$goadd = "user_nameuser";
+            $error = "";
+        }
 
-}else{
+        if ($error == "") {
 
-$goadd = "user_id";
+            $allyu  = text_other("arab-forums", post_other("arab-forums", "allyu"), false, false, false, false, false);
 
-}
+            $gets  = text_other("arab-forums", post_other("arab-forums", "gets"), false, false, false, false, false);
 
-for($x = 0; $x < count($user); ++$x){
+            $import = @implode(",", $allyu);
 
-$useroft = text_other("arab-forums" , $user[$x] , true , true , true , false , true);
+            if (isset($gets)) {
 
-if($useroft != ""){
+                if ($allyu == 0) {
 
-$user_sql = select_mysql("arab-forums" , "user" , "user_id , user_nameuser , user_wait , user_bad" , "where {$goadd} = \"{$useroft}\" && user_wait in(0) && user_bad in(0) limit 1");
+                    $arraymsg = array(
 
-if(num_mysql("arab-forums" , $user_sql) != false){
+                        "msg" => "الرجاء تحديد عضو وآحد على الأقل ليتم حذفه",
 
-$user_object = object_mysql("arab-forums" , $user_sql);
+                        "color" => "error",
 
-$gogo_sql = select_mysql("arab-forums" , "hidforum" , "hidforum_id , hidforum_forumid , hidforum_userid" , "where hidforum_forumid in({$forum_object->forum_id}) && hidforum_userid in({$user_object->user_id}) limit 1");
+                        "url" => "",
 
-if(num_mysql("arab-forums" , $gogo_sql) == false){
+                    );
 
-insert_mysql("arab-forums" , "hidforum" , "hidforum_id , hidforum_forumid , hidforum_catid , hidforum_userid , hidforum_add , hidforum_date" , "null , \"{$forum_object->forum_id}\" , \"{$forum_object->forum_catid}\" , \"{$user_object->user_id}\" , \"".id_user."\" , \"".time()."\"");
+                    echo msgadmin_template("arab-forums", $arraymsg);
+                } else {
 
-$textopp = "إشعار بفتح المنتدى المخفي لك رقم : {$forum_object->forum_id}";
+                    delete_mysql("arab-forums", "hidforum", "hidforum_id in({$import})");
 
-$editor = text_other("arab-forums" , "<br><br>السلام عليكم و رحمة الله و براكته<br><br>لقم تم فتح لك المنتدى المخفي رقم : {$forum_object->forum_id}<br><br>بواسطة الإدارة العامة للمنتدى<br><br>يمكنك الدخول و المشاركة في المنتدى من هنا : ".a_other("arab-forums" , "forum.php?id={$forum_object->forum_id}" , "{$forum_object->forum_name}" , "{$forum_object->forum_name}" , "")."<br><br><br>" , false , true , false , false , true);
+                    $arraymsg = array(
 
-insert_mysql("arab-forums" , "message" , "message_id , message_getid , message_getmy , message_getto , message_getto2 , message_folder , message_type , message_reade , message_date , message_name , message_message" , "null , \"{$user_object->user_id}\", \"{$user_object->user_id}\" , \"0\" , \"".id_user."\" , \"-1\" , \"1\" , \"0\" , \"".time()."\" , \"{$textopp}\" , \"{$editor}\"");
+                        "msg" => "تم حذف الأعضاء المحددين بنجآح تآم",
 
-}}}}
+                        "color" => "good",
 
-$arraymsg = array(
+                        "url" => "",
 
-"msg" => "تم إدخال الأعضاء إلى القائمة بنجاح تام<br><br>ملاحظة : قبل أن يتم الإدخال إلى القاعدة يتم التأكد من أن العضو موجود فعلا<br><br>و أيضا يقوم بالتأكد من أن العضو غير موجود بالقائمة مسبقا و ذلك لتفادي الأخطاء" ,
+                    );
 
-"color" => "good" ,
+                    echo msgadmin_template("arab-forums", $arraymsg);
+                }
+            } elseif (type == "insert") {
 
-"url" => "admin.php?gert=catforum&go=catforum_optionforum&fort=goshow&id={$forum_object->forum_id}" ,
+                $user = text_other("arab-forums", post_other("arab-forums", "user"), false, false, false, false, false);
 
-);
+                $addwhat = text_other("arab-forums", post_other("arab-forums", "addwhat"), true, true, true, false, true);
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+                $import = @implode(",", $user);
 
-}}else{
+                if (counts_other("arab-forums", $user) == 0) {
 
-echo "<table cellpadding=\"0\" cellspacing=\"3\" width=\"100%\" align=\"center\"><tr>";
+                    $arraymsg = array(
 
-echo "<td width=\"100%\"></td>";
+                        "msg" => "الرجاء إدخال رقم أو إسم عضو وآحد على الأقل",
 
-$count_page = tother_option;
+                        "color" => "error",
 
-$get_page = (page == "" || !is_numeric(page) ? 1 : page);
+                        "url" => "",
 
-$limit_page = (($get_page * $count_page) - $count_page);
+                    );
 
-echo page_pager("arab-forums" , "hidforum" , "hidforum_id , hidforum_forumid" , "where hidforum_forumid in({$forum_object->forum_id})" , $count_page , $get_page , "admin.php?gert=catforum&go=catforum_optionforum&fort=goshow&id={$forum_object->forum_id}&");
+                    echo msgadmin_template("arab-forums", $arraymsg);
+                } else {
 
-echo "</tr></table>";
+                    if ($addwhat == "name") {
 
-echo "<form action=\"".self."\" method=\"post\">";
+                        $goadd = "user_nameuser";
+                    } else {
 
-echo "<table cellpadding=\"0\" cellspacing=\"3\" width=\"100%\" align=\"center\"><tr>";
+                        $goadd = "user_id";
+                    }
 
-echo "<td><nobr><input class=\"button\" value=\"حذف الأعضاء المحددين من القائمة\" type=\"submit\" name=\"gets\" ".confirm_other("arab-forums" , "هل أنت متأكد من أنك تريد حذف الأعضاء المحددين من القائمة ؟")."></nobr></td>";
+                    for ($x = 0; $x < count($user); ++$x) {
 
-echo "<td width=\"100%\"></td>";
+                        $useroft = text_other("arab-forums", $user[$x], true, true, true, false, true);
 
-echo "</tr></table>";
+                        if ($useroft != "") {
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" width=\"100%\" align=\"center\">";
+                            $user_sql = select_mysql("arab-forums", "user", "user_id , user_nameuser , user_wait , user_bad", "where {$goadd} = \"{$useroft}\" && user_wait in(0) && user_bad in(0) limit 1");
 
-echo "<tr align=\"center\"><td class=\"tcat\" colspan=\"4\"><div class=\"pad\">الأعضاء المسموح لهم بالدخول للمنتدى رقم : {$forum_object->forum_id}</div></td></tr>";
+                            if (num_mysql("arab-forums", $user_sql) != false) {
 
-echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"4\"><div class=\"pad\"><br>{$forum_object->forum_name}<br><br></div></td></tr>";
+                                $user_object = object_mysql("arab-forums", $user_sql);
 
-$inputtext = array(
+                                $gogo_sql = select_mysql("arab-forums", "hidforum", "hidforum_id , hidforum_forumid , hidforum_userid", "where hidforum_forumid in({$forum_object->forum_id}) && hidforum_userid in({$user_object->user_id}) limit 1");
 
-1 => "تحديد جميع الأعضاء" ,
+                                if (num_mysql("arab-forums", $gogo_sql) == false) {
 
-2 => "إلغاء تحديد جميع الأعضاء" ,
+                                    insert_mysql("arab-forums", "hidforum", "hidforum_id , hidforum_forumid , hidforum_catid , hidforum_userid , hidforum_add , hidforum_date", "null , \"{$forum_object->forum_id}\" , \"{$forum_object->forum_catid}\" , \"{$user_object->user_id}\" , \"" . id_user . "\" , \"" . time() . "\"");
 
-3 => "لا يوجد أعضاء بالصفحة حاليا" ,
+                                    $textopp = "إشعار بفتح المنتدى المخفي لك رقم : {$forum_object->forum_id}";
 
-4 => "عدد الأعضاء الذي إخترت هو :" ,
+                                    $editor = text_other("arab-forums", "<br><br>السلام عليكم و رحمة الله و براكته<br><br>لقم تم فتح لك المنتدى المخفي رقم : {$forum_object->forum_id}<br><br>بواسطة الإدارة العامة للمنتدى<br><br>يمكنك الدخول و المشاركة في المنتدى من هنا : " . a_other("arab-forums", "forum.php?id={$forum_object->forum_id}", "{$forum_object->forum_name}", "{$forum_object->forum_name}", "") . "<br><br><br>", false, true, false, false, true);
 
-5 => "العضو" ,
+                                    insert_mysql("arab-forums", "message", "message_id , message_getid , message_getmy , message_getto , message_getto2 , message_folder , message_type , message_reade , message_date , message_name , message_message", "null , \"{$user_object->user_id}\", \"{$user_object->user_id}\" , \"0\" , \"" . id_user . "\" , \"-1\" , \"1\" , \"0\" , \"" . time() . "\" , \"{$textopp}\" , \"{$editor}\"");
+                                }
+                            }
+                        }
+                    }
 
-);
+                    $arraymsg = array(
 
-echo "<tr align=\"center\">";
+                        "msg" => "تم إدخال الأعضاء إلى القائمة بنجاح تام<br><br>ملاحظة : قبل أن يتم الإدخال إلى القاعدة يتم التأكد من أن العضو موجود فعلا<br><br>و أيضا يقوم بالتأكد من أن العضو غير موجود بالقائمة مسبقا و ذلك لتفادي الأخطاء",
 
-echo "<td class=\"tcat\" width=\"1%\"><div class=\"pad\"><input type=\"checkbox\" title=\"{$inputtext["1"]}\" name=\"chk_all\" onclick=\"check2(this.form , this , '{$inputtext["1"]}' , '{$inputtext["2"]}' , '{$inputtext["3"]}' , '{$inputtext["4"]}' , '{$inputtext["5"]}' , 'alttext1 select');\"></div></td>";
+                        "color" => "good",
 
-echo "<td class=\"tcat\"><div class=\"pad\">إسم العضو</div></td>";
+                        "url" => "admin.php?gert=catforum&go=catforum_optionforum&fort=goshow&id={$forum_object->forum_id}",
 
-echo "<td class=\"tcat\"><div class=\"pad\">تمت الإضافة بواسطة</div></td>";
+                    );
 
-echo "<td class=\"tcat\"><div class=\"pad\">تاريخ الإضافة</div></td>";
+                    echo msgadmin_template("arab-forums", $arraymsg);
+                }
+            } else {
 
-echo "</tr>";
+                echo "<table cellpadding=\"0\" cellspacing=\"3\" width=\"100%\" align=\"center\"><tr>";
 
-$hidforum_sql = select_mysql("arab-forums" , "hidforum" , "u1.user_id as u1user_id , u1.user_lock1 as u1user_lock , u1.user_nameuser as u1user_name , u1.user_group as u1user_group , u1.user_coloruser as u1user_color , u2.user_id as u2user_id , u2.user_lock1 as u2user_lock , u2.user_nameuser as u2user_name , u2.user_group as u2user_group , u2.user_coloruser as u2user_color , h.hidforum_id , h.hidforum_userid , h.hidforum_add , h.hidforum_date , h.hidforum_forumid" , "as h left join user".prefix_connect." as u1 on(u1.user_id = h.hidforum_userid) left join user".prefix_connect." as u2 on(u2.user_id = h.hidforum_add) where h.hidforum_forumid in({$forum_object->forum_id}) order by h.hidforum_date desc limit {$limit_page},{$count_page}");
+                echo "<td width=\"100%\"></td>";
 
-if(num_mysql("arab-forums" , $hidforum_sql) != false){
+                $count_page = tother_option;
 
-while($hidforum_object = object_mysql("arab-forums" , $hidforum_sql)){
+                $get_page = (page == "" || !is_numeric(page) ? 1 : page);
 
-echo "<tr align=\"center\" class=\"alttext1\" id=\"tr_{$hidforum_object->hidforum_id}\">";
+                $limit_page = (($get_page * $count_page) - $count_page);
 
-echo "<td class=\"topic\"><input onclick=\"check1(this, '{$hidforum_object->hidforum_id}' , 'alttext1' , 'العضو' , 'alttext1 select');\" type=\"checkbox\" name=\"allyu[]\" title=\"تحديد العضو\" value=\"{$hidforum_object->hidforum_id}\"><input type=\"hidden\" name=\"bg_{$hidforum_object->hidforum_id}\" id=\"bg_{$hidforum_object->hidforum_id}\" value=\"alttext1\"></td>";
+                echo page_pager("arab-forums", "hidforum", "hidforum_id , hidforum_forumid", "where hidforum_forumid in({$forum_object->forum_id})", $count_page, $get_page, "admin.php?gert=catforum&go=catforum_optionforum&fort=goshow&id={$forum_object->forum_id}&");
 
-echo "<td class=\"topic\"><span style=\"font-size:13px;\">".user_other("arab-forums" , array($hidforum_object->u1user_id , $hidforum_object->u1user_group , $hidforum_object->u1user_name , $hidforum_object->u1user_lock , $hidforum_object->u1user_color , false))."</span></td>";
+                echo "</tr></table>";
 
-echo "<td class=\"topic\"><span style=\"font-size:13px;\">".user_other("arab-forums" , array($hidforum_object->u2user_id , $hidforum_object->u2user_group , $hidforum_object->u2user_name , $hidforum_object->u2user_lock , $hidforum_object->u2user_color , false))."</span></td>";
+                echo "<form action=\"" . self . "\" method=\"post\">";
 
-echo "<td class=\"topic\"><span style=\"font-size:13px;\">".times_date("arab-forums" , "" , $hidforum_object->hidforum_date)."</span></td>";
+                echo "<table cellpadding=\"0\" cellspacing=\"3\" width=\"100%\" align=\"center\"><tr>";
 
-echo "</tr>";
+                echo "<td><nobr><input class=\"button\" value=\"حذف الأعضاء المحددين من القائمة\" type=\"submit\" name=\"gets\" " . confirm_other("arab-forums", "هل أنت متأكد من أنك تريد حذف الأعضاء المحددين من القائمة ؟") . "></nobr></td>";
 
-}}else{
+                echo "<td width=\"100%\"></td>";
 
-echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"4\"><br><br>لا يوجد أعضاء<br><br><br></td></tr>";
+                echo "</tr></table>";
 
-}
+                echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"100%\" align=\"center\">";
 
-echo "</table>";
+                echo "<tr align=\"center\"><td class=\"tcat\" colspan=\"4\"><div class=\"pad\">الأعضاء المسموح لهم بالدخول للمنتدى رقم : {$forum_object->forum_id}</div></td></tr>";
 
-echo "</form><br>";
+                echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"4\"><div class=\"pad\"><br>{$forum_object->forum_name}<br><br></div></td></tr>";
 
-echo "<form action=\"admin.php?gert=catforum&go=catforum_optionforum&fort=goshow&id={$forum_object->forum_id}&type=insert\" method=\"post\">";
+                $inputtext = array(
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" width=\"100%\" align=\"center\">";
+                    1 => "تحديد جميع الأعضاء",
 
-echo "<tr align=\"center\"><td class=\"tcat\" colspan=\"5\"><div class=\"pad\">إدخال قائمة جديدة من الأعضاء ليتمكنو من الدخول إلى المنتدى</div></td></tr>";
+                    2 => "إلغاء تحديد جميع الأعضاء",
 
-echo "<tr align=\"center\">";
+                    3 => "لا يوجد أعضاء بالصفحة حاليا",
 
-echo "<td class=\"alttext1\" colspan=\"5\"><div class=\"pad\">";
+                    4 => "عدد الأعضاء الذي إخترت هو :",
 
-echo "<select class=\"inputselect\" name=\"addwhat\">";
+                    5 => "العضو",
 
-echo "<option value=\"name\">إدخال بأسماء العضويات</option>";
+                );
 
-echo "<option value=\"id\">إدخال بأرقام العضويات</option>";
+                echo "<tr align=\"center\">";
 
-echo "</select></div></td>";
+                echo "<td class=\"tcat\" width=\"1%\"><div class=\"pad\"><input type=\"checkbox\" title=\"{$inputtext["1"]}\" name=\"chk_all\" onclick=\"check2(this.form , this , '{$inputtext["1"]}' , '{$inputtext["2"]}' , '{$inputtext["3"]}' , '{$inputtext["4"]}' , '{$inputtext["5"]}' , 'alttext1 select');\"></div></td>";
 
-echo "</tr>";
+                echo "<td class=\"tcat\"><div class=\"pad\">إسم العضو</div></td>";
 
-echo "<tr align=\"center\">";
+                echo "<td class=\"tcat\"><div class=\"pad\">تمت الإضافة بواسطة</div></td>";
 
-$xi = 0;
+                echo "<td class=\"tcat\"><div class=\"pad\">تاريخ الإضافة</div></td>";
 
-for($x = 1; $x <= 50; ++$x){
+                echo "</tr>";
 
-if($xi == 5){echo "</tr><tr align=\"center\">";$xi = 0;}
+                $hidforum_sql = select_mysql("arab-forums", "hidforum", "u1.user_id as u1user_id , u1.user_lock1 as u1user_lock , u1.user_nameuser as u1user_name , u1.user_group as u1user_group , u1.user_coloruser as u1user_color , u2.user_id as u2user_id , u2.user_lock1 as u2user_lock , u2.user_nameuser as u2user_name , u2.user_group as u2user_group , u2.user_coloruser as u2user_color , h.hidforum_id , h.hidforum_userid , h.hidforum_add , h.hidforum_date , h.hidforum_forumid", "as h left join user" . prefix_connect . " as u1 on(u1.user_id = h.hidforum_userid) left join user" . prefix_connect . " as u2 on(u2.user_id = h.hidforum_add) where h.hidforum_forumid in({$forum_object->forum_id}) order by h.hidforum_date desc limit {$limit_page},{$count_page}");
 
-echo "<td class=\"alttext2\"><div class=\"pad\"><input style=\"width:80px\" class=\"input\" name=\"user[]\" value=\"\" type=\"text\"></div></td>";
+                if (num_mysql("arab-forums", $hidforum_sql) != false) {
 
-$xi++;
+                    while ($hidforum_object = object_mysql("arab-forums", $hidforum_sql)) {
 
-}
+                        echo "<tr align=\"center\" class=\"alttext1\" id=\"tr_{$hidforum_object->hidforum_id}\">";
 
-echo "</tr>";
+                        echo "<td class=\"topic\"><input onclick=\"check1(this, '{$hidforum_object->hidforum_id}' , 'alttext1' , 'العضو' , 'alttext1 select');\" type=\"checkbox\" name=\"allyu[]\" title=\"تحديد العضو\" value=\"{$hidforum_object->hidforum_id}\"><input type=\"hidden\" name=\"bg_{$hidforum_object->hidforum_id}\" id=\"bg_{$hidforum_object->hidforum_id}\" value=\"alttext1\"></td>";
 
-echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"5\"><div class=\"pad\"><br><center><input type=\"submit\" class=\"button\" value=\"إدخال الأعضاء إلى القائمة\"  ".confirm_other("arab-forums" , "هل أنت متأكد من أنك تريد إدخال الأعضاء إلى القائمة ؟")."> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقول\"></center><br></div></td></tr>";
+                        echo "<td class=\"topic\"><span style=\"font-size:13px;\">" . user_other("arab-forums", array($hidforum_object->u1user_id, $hidforum_object->u1user_group, $hidforum_object->u1user_name, $hidforum_object->u1user_lock, $hidforum_object->u1user_color, false)) . "</span></td>";
 
-echo "</table>";
+                        echo "<td class=\"topic\"><span style=\"font-size:13px;\">" . user_other("arab-forums", array($hidforum_object->u2user_id, $hidforum_object->u2user_group, $hidforum_object->u2user_name, $hidforum_object->u2user_lock, $hidforum_object->u2user_color, false)) . "</span></td>";
 
-echo "</form>";
+                        echo "<td class=\"topic\"><span style=\"font-size:13px;\">" . times_date("arab-forums", "", $hidforum_object->hidforum_date) . "</span></td>";
 
-}}else{
+                        echo "</tr>";
+                    }
+                } else {
 
-$arraymsg = array(
+                    echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"4\"><br><br>لا يوجد أعضاء<br><br><br></td></tr>";
+                }
 
-"msg" => $error ,
+                echo "</table>";
 
-"color" => "error" ,
+                echo "</form><br>";
 
-"url" => "" ,
+                echo "<form action=\"admin.php?gert=catforum&go=catforum_optionforum&fort=goshow&id={$forum_object->forum_id}&type=insert\" method=\"post\">";
 
-);
+                echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"100%\" align=\"center\">";
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+                echo "<tr align=\"center\"><td class=\"tcat\" colspan=\"5\"><div class=\"pad\">إدخال قائمة جديدة من الأعضاء ليتمكنو من الدخول إلى المنتدى</div></td></tr>";
 
-}
+                echo "<tr align=\"center\">";
 
-}else{
+                echo "<td class=\"alttext1\" colspan=\"5\"><div class=\"pad\">";
 
-$arraymsg = array(
+                echo "<select class=\"inputselect\" name=\"addwhat\">";
 
-"msg" => "عفوآ لقد قمت بإختيار خدمة غير متوفرة حاليا" ,
+                echo "<option value=\"name\">إدخال بأسماء العضويات</option>";
 
-"color" => "error" ,
+                echo "<option value=\"id\">إدخال بأرقام العضويات</option>";
 
-"url" => "admin.php?gert=catforum&go=catforum_list" ,
+                echo "</select></div></td>";
 
-);
+                echo "</tr>";
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+                echo "<tr align=\"center\">";
 
-}}else{
+                $xi = 0;
 
-$arraymsg = array(
+                for ($x = 1; $x <= 50; ++$x) {
 
-"msg" => "المنتدى المختار غير موجود ضمن قائمة المنتديات" ,
+                    if ($xi == 5) {
+                        echo "</tr><tr align=\"center\">";
+                        $xi = 0;
+                    }
 
-"color" => "error" ,
+                    echo "<td class=\"alttext2\"><div class=\"pad\"><input style=\"width:80px\" class=\"input\" name=\"user[]\" value=\"\" type=\"text\"></div></td>";
 
-"url" => "admin.php?gert=catforum&go=catforum_list" ,
+                    $xi++;
+                }
 
-);
+                echo "</tr>";
 
-echo msgadmin_template("arab-forums" , $arraymsg);
+                echo "<tr align=\"center\"><td class=\"alttext1\" colspan=\"5\"><div class=\"pad\"><br><center><input type=\"submit\" class=\"button\" value=\"إدخال الأعضاء إلى القائمة\"  " . confirm_other("arab-forums", "هل أنت متأكد من أنك تريد إدخال الأعضاء إلى القائمة ؟") . "> - <input type=\"reset\" class=\"button\" value=\"إفراغ الحقول\"></center><br></div></td></tr>";
 
+                echo "</table>";
+
+                echo "</form>";
+            }
+        } else {
+
+            $arraymsg = array(
+
+                "msg" => $error,
+
+                "color" => "error",
+
+                "url" => "",
+
+            );
+
+            echo msgadmin_template("arab-forums", $arraymsg);
+        }
+    } else {
+
+        $arraymsg = array(
+
+            "msg" => "عفوآ لقد قمت بإختيار خدمة غير متوفرة حاليا",
+
+            "color" => "error",
+
+            "url" => "admin.php?gert=catforum&go=catforum_list",
+
+        );
+
+        echo msgadmin_template("arab-forums", $arraymsg);
+    }
+} else {
+
+    $arraymsg = array(
+
+        "msg" => "المنتدى المختار غير موجود ضمن قائمة المنتديات",
+
+        "color" => "error",
+
+        "url" => "admin.php?gert=catforum&go=catforum_list",
+
+    );
+
+    echo msgadmin_template("arab-forums", $arraymsg);
 }
 
 /*#####################################################################*|
@@ -964,4 +983,3 @@ echo msgadmin_template("arab-forums" , $arraymsg);
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>

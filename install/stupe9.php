@@ -9094,7 +9094,7 @@ insert_mysql("arab-forums" , "couip" , "couip_id , couip_star , couip_end , coui
 insert_mysql("arab-forums" , "couip" , "couip_id , couip_star , couip_end , couip_code" , "30030, '1566365696', '1566367743', 'RU'");
 insert_mysql("arab-forums" , "couip" , "couip_id , couip_star , couip_end , couip_code" , "30031, '1566367744', '1566369791', 'ES'");
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" width=\"60%\" align=\"center\">";
+echo "<table class=\"border\" cellpadding=\"".CELLPADDING."\" cellspacing=\"". CELLSPACING ."\" width=\"60%\" align=\"center\">";
 
 echo "<tr align=\"center\">";
 

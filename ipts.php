@@ -11,244 +11,236 @@
 
 |*#####################################################################*/
 
-define("error_page_arab_forums" , true);
+define("error_page_arab_forums", true);
 
 @include("includes.php");
 
-define("pageupdate" , true);
+define("pageupdate", true);
 
 @include("includes/e.noopen.php");
 
-define("pagebody" , "ipts");
+define("pagebody", "ipts");
 
-if(group_user == 6){
+if (group_user == 6) {
 
-if(go == "ip"){
+    if (go == "ip") {
 
-if(value == ""){
+        if (value == "") {
 
-$error = "للأسف لا يمكنك الولوج إلى هذه الصفحة لأنك لا تملك التصريح المناسب";
+            $error = "للأسف لا يمكنك الولوج إلى هذه الصفحة لأنك لا تملك التصريح المناسب";
+        } else {
 
-}else{
+            $error = "";
+        }
 
-$error = "";
+        if ($error != "") {
 
-}
+            online_other("arab-forums", "ipts", "0", "0", "0", "0");
 
-if($error != ""){
+            $arraymsg = array(
 
-online_other("arab-forums" , "ipts" , "0" , "0" , "0" , "0");
+                "login" => true,
 
-$arraymsg = array(
+                "msg" => $error,
 
-"login" => true ,
+                "color" => "error",
 
-"msg" => $error ,
+                "old" => true,
 
-"color" => "error" ,
+                "auto" => false,
 
-"old" => true ,
+                "text" => "",
 
-"auto" => false ,
+                "url" => "",
 
-"text" => "" ,
+                "array" => "",
 
-"url" => "" ,
+            );
 
-"array" => "" ,
+            echo msg_template("arab-forums", $arraymsg);
+        } else {
 
-);
+            online_other("arab-forums", "ipts", "0", "0", "0", "0");
 
-echo msg_template("arab-forums" , $arraymsg);
+            echo bodytop_template("arab-forums", "مطابقة الأيبي");
 
-}else{
+            $arrayheader = array(
 
-online_other("arab-forums" , "ipts" , "0" , "0" , "0" , "0");
+                "login" => true,
 
-echo bodytop_template("arab-forums" , "مطابقة الأيبي");
+            );
 
-$arrayheader = array(
+            echo header_template("arab-forums", $arrayheader);
 
-"login" => true ,
+            echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"40%\" align=\"center\">";
 
-);
+            echo "<tr align=\"center\">";
 
-echo header_template("arab-forums" , $arrayheader);
+            echo "<td class=\"tcat\" colspan=\"2\"><div class=\"pad\">مطابقة الأيبي " . value . "</div></td>";
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" width=\"40%\" align=\"center\">";
+            echo "</tr>";
 
-echo "<tr align=\"center\">";
+            $ip_sql = select_mysql("arab-forums", "ip", "i.ip_id , i.ip_ip , i.ip_user , i.ip_date , i.ip_type , u.user_id , u.user_lock1 , u.user_nameuser , u.user_group , u.user_coloruser", "as i left join user" . prefix_connect . " as u on(u.user_id = i.ip_user) where (i.ip_ip = \"" . value . "\") group by u.user_id order by i.ip_date desc");
 
-echo "<td class=\"tcat\" colspan=\"2\"><div class=\"pad\">مطابقة الأيبي ".value."</div></td>";
+            if (num_mysql("arab-forums", $ip_sql) != false) {
 
-echo "</tr>";
+                echo "<tr align=\"center\">";
 
-$ip_sql = select_mysql("arab-forums" , "ip" , "i.ip_id , i.ip_ip , i.ip_user , i.ip_date , i.ip_type , u.user_id , u.user_lock1 , u.user_nameuser , u.user_group , u.user_coloruser" , "as i left join user".prefix_connect." as u on(u.user_id = i.ip_user) where (i.ip_ip = \"".value."\") group by u.user_id order by i.ip_date desc");
+                echo "<td class=\"tcat\" width=\"50%\"><div class=\"pad\">العضوية</div></td>";
 
-if(num_mysql("arab-forums" , $ip_sql) != false){
+                echo "<td class=\"tcat\" width=\"10%\"><div class=\"pad\">الحالة</div></td>";
 
-echo "<tr align=\"center\">";
+                echo "</tr>";
 
-echo "<td class=\"tcat\" width=\"50%\"><div class=\"pad\">العضوية</div></td>";
+                while ($ip_object = object_mysql("arab-forums", $ip_sql)) {
 
-echo "<td class=\"tcat\" width=\"10%\"><div class=\"pad\">الحالة</div></td>";
+                    echo "<tr align=\"center\">";
 
-echo "</tr>";
+                    echo "<td class=\"alttext1\"><br><br>" . user_other("arab-forums", array($ip_object->user_id, $ip_object->user_group, $ip_object->user_nameuser, $ip_object->user_lock1, $ip_object->user_coloruser, false)) . "<br><br><br></td>";
 
-while($ip_object = object_mysql("arab-forums" , $ip_sql)){
+                    echo "<td class=\"alttext2\">" . ($ip_object->ip_type == 2 ? img_other("arab-forums", "images/ipy.png", "دخول ناجح", "", "", "0", "class=\"title\"", "") : img_other("arab-forums", "images/ipn.png", "محاولة دخول فاشلة", "", "", "0", "class=\"title\"", "")) . "</td>";
 
-echo "<tr align=\"center\">";
+                    echo "</tr>";
+                }
+            } else {
 
-echo "<td class=\"alttext1\"><br><br>".user_other("arab-forums" , array($ip_object->user_id , $ip_object->user_group , $ip_object->user_nameuser , $ip_object->user_lock1 , $ip_object->user_coloruser , false))."<br><br><br></td>";
+                echo "<tr align=\"center\">";
 
-echo "<td class=\"alttext2\">".($ip_object->ip_type == 2 ? img_other("arab-forums" , "images/ipy.png" , "دخول ناجح" , "" , "" , "0" , "class=\"title\"" , "") : img_other("arab-forums" , "images/ipn.png" , "محاولة دخول فاشلة" , "" , "" , "0" , "class=\"title\"" , ""))."</td>";
+                echo "<td class=\"alttext1\" colspan=\"2\"><br><div class=\"pad\">لآ توجد أي مطابقات حاليا</div><br></td>";
 
-echo "</tr>";
+                echo "</tr>";
+            }
 
-}}else{
+            echo "</table>";
 
-echo "<tr align=\"center\">";
+            echo footer_template("arab-forums");
 
-echo "<td class=\"alttext1\" colspan=\"2\"><br><div class=\"pad\">لآ توجد أي مطابقات حاليا</div><br></td>";
+            echo bodybottom_template("arab-forums");
+        }
+    } else {
 
-echo "</tr>";
+        $user_sql = select_mysql("arab-forums", "user", "user_id , user_wait , user_active , user_bad , user_nameuser , user_sex , user_adressip , user_lastadressip", "where user_id in(" . id . ") && user_wait in(0) && user_active in(0) && user_bad in(0)");
 
-}
+        if (num_mysql("arab-forums", $user_sql) == false) {
 
-echo "</table>";
+            $error = "للأسف لا يمكنك الولوج إلى هذه الصفحة لأنك لا تملك التصريح المناسب";
+        } else {
 
-echo footer_template("arab-forums");
+            $user_object = object_mysql("arab-forums", $user_sql);
 
-echo bodybottom_template("arab-forums");
+            $error = "";
+        }
 
-}}else{
+        if ($error != "") {
 
-$user_sql = select_mysql("arab-forums" , "user" , "user_id , user_wait , user_active , user_bad , user_nameuser , user_sex , user_adressip , user_lastadressip" , "where user_id in(".id.") && user_wait in(0) && user_active in(0) && user_bad in(0)");
+            online_other("arab-forums", "ipts", "0", "0", "0", "0");
 
-if(num_mysql("arab-forums" , $user_sql) == false){
+            $arraymsg = array(
 
-$error = "للأسف لا يمكنك الولوج إلى هذه الصفحة لأنك لا تملك التصريح المناسب";
+                "login" => true,
 
-}else{
+                "msg" => $error,
 
-$user_object = object_mysql("arab-forums" , $user_sql);
+                "color" => "error",
 
-$error = "";
+                "old" => true,
 
-}
+                "auto" => false,
 
-if($error != ""){
+                "text" => "",
 
-online_other("arab-forums" , "ipts" , "0" , "0" , "0" , "0");
+                "url" => "",
 
-$arraymsg = array(
+                "array" => "",
 
-"login" => true ,
+            );
 
-"msg" => $error ,
+            echo msg_template("arab-forums", $arraymsg);
+        } else {
 
-"color" => "error" ,
+            online_other("arab-forums", "ipts", "0", "0", "0", $user_object->user_id);
 
-"old" => true ,
+            echo bodytop_template("arab-forums", "مطابقة الأيبي");
 
-"auto" => false ,
+            $arrayheader = array(
 
-"text" => "" ,
+                "login" => true,
 
-"url" => "" ,
+            );
 
-"array" => "" ,
+            echo header_template("arab-forums", $arrayheader);
 
-);
+            echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"40%\" align=\"center\">";
 
-echo msg_template("arab-forums" , $arraymsg);
+            echo "<tr align=\"center\">";
 
-}else{
+            echo "<td class=\"tcat\" colspan=\"2\"><div class=\"pad\">مطابقة الأيبي " . ($user_object->user_sex == 1 ? "للعضو" : "للعضوة") . " " . $user_object->user_nameuser . "</div></td>";
 
-online_other("arab-forums" , "ipts" , "0" , "0" , "0" , $user_object->user_id);
+            echo "</tr>";
 
-echo bodytop_template("arab-forums" , "مطابقة الأيبي");
+            $ip_sql = select_mysql("arab-forums", "ip", "i.ip_id , i.ip_ip , i.ip_user , i.ip_date , i.ip_type , u.user_id , u.user_lock1 , u.user_nameuser , u.user_group , u.user_coloruser", "as i left join user" . prefix_connect . " as u on(u.user_id = i.ip_user) where (i.ip_ip = \"{$user_object->user_adressip}\" || i.ip_ip = \"{$user_object->user_lastadressip}\") group by u.user_id order by i.ip_date desc");
 
-$arrayheader = array(
+            if (num_mysql("arab-forums", $ip_sql) != false) {
 
-"login" => true ,
+                echo "<tr align=\"center\">";
 
-);
+                echo "<td class=\"tcat\" width=\"50%\"><div class=\"pad\">العضوية</div></td>";
 
-echo header_template("arab-forums" , $arrayheader);
+                echo "<td class=\"tcat\" width=\"10%\"><div class=\"pad\">الحالة</div></td>";
 
-echo "<table class=\"border\" cellpadding=\"".cellpadding."\" cellspacing=\"".cellspacing."\" width=\"40%\" align=\"center\">";
+                echo "</tr>";
 
-echo "<tr align=\"center\">";
+                while ($ip_object = object_mysql("arab-forums", $ip_sql)) {
 
-echo "<td class=\"tcat\" colspan=\"2\"><div class=\"pad\">مطابقة الأيبي ".($user_object->user_sex == 1 ? "للعضو" : "للعضوة")." ".$user_object->user_nameuser."</div></td>";
+                    echo "<tr align=\"center\">";
 
-echo "</tr>";
+                    echo "<td class=\"alttext1\"><br><br>" . user_other("arab-forums", array($ip_object->user_id, $ip_object->user_group, $ip_object->user_nameuser, $ip_object->user_lock1, $ip_object->user_coloruser, false)) . "<br><br><br></td>";
 
-$ip_sql = select_mysql("arab-forums" , "ip" , "i.ip_id , i.ip_ip , i.ip_user , i.ip_date , i.ip_type , u.user_id , u.user_lock1 , u.user_nameuser , u.user_group , u.user_coloruser" , "as i left join user".prefix_connect." as u on(u.user_id = i.ip_user) where (i.ip_ip = \"{$user_object->user_adressip}\" || i.ip_ip = \"{$user_object->user_lastadressip}\") group by u.user_id order by i.ip_date desc");
+                    echo "<td class=\"alttext2\">" . ($ip_object->ip_type == 2 ? img_other("arab-forums", "images/ipy.png", "دخول ناجح", "", "", "0", "class=\"title\"", "") : img_other("arab-forums", "images/ipn.png", "محاولة دخول فاشلة", "", "", "0", "class=\"title\"", "")) . "</td>";
 
-if(num_mysql("arab-forums" , $ip_sql) != false){
+                    echo "</tr>";
+                }
+            } else {
 
-echo "<tr align=\"center\">";
+                echo "<tr align=\"center\">";
 
-echo "<td class=\"tcat\" width=\"50%\"><div class=\"pad\">العضوية</div></td>";
+                echo "<td class=\"alttext1\" colspan=\"2\"><br><div class=\"pad\">لآ توجد أي مطابقات حاليا</div><br></td>";
 
-echo "<td class=\"tcat\" width=\"10%\"><div class=\"pad\">الحالة</div></td>";
+                echo "</tr>";
+            }
 
-echo "</tr>";
+            echo "</table>";
 
-while($ip_object = object_mysql("arab-forums" , $ip_sql)){
+            echo footer_template("arab-forums");
 
-echo "<tr align=\"center\">";
+            echo bodybottom_template("arab-forums");
+        }
+    }
+} else {
 
-echo "<td class=\"alttext1\"><br><br>".user_other("arab-forums" , array($ip_object->user_id , $ip_object->user_group , $ip_object->user_nameuser , $ip_object->user_lock1 , $ip_object->user_coloruser , false))."<br><br><br></td>";
+    online_other("arab-forums", "ipts", "0", "0", "0", "0");
 
-echo "<td class=\"alttext2\">".($ip_object->ip_type == 2 ? img_other("arab-forums" , "images/ipy.png" , "دخول ناجح" , "" , "" , "0" , "class=\"title\"" , "") : img_other("arab-forums" , "images/ipn.png" , "محاولة دخول فاشلة" , "" , "" , "0" , "class=\"title\"" , ""))."</td>";
+    $arraymsg = array(
 
-echo "</tr>";
+        "login" => true,
 
-}}else{
+        "msg" => "للأسف لا يمكنك الولوج إلى هذه الصفحة لأنك لا تملك التصريح المناسب",
 
-echo "<tr align=\"center\">";
+        "color" => "error",
 
-echo "<td class=\"alttext1\" colspan=\"2\"><br><div class=\"pad\">لآ توجد أي مطابقات حاليا</div><br></td>";
+        "old" => true,
 
-echo "</tr>";
+        "auto" => false,
 
-}
+        "text" => "",
 
-echo "</table>";
+        "url" => "",
 
-echo footer_template("arab-forums");
+        "array" => "",
 
-echo bodybottom_template("arab-forums");
+    );
 
-}}}else{
-
-online_other("arab-forums" , "ipts" , "0" , "0" , "0" , "0");
-
-$arraymsg = array(
-
-"login" => true ,
-
-"msg" => "للأسف لا يمكنك الولوج إلى هذه الصفحة لأنك لا تملك التصريح المناسب" ,
-
-"color" => "error" ,
-
-"old" => true ,
-
-"auto" => false ,
-
-"text" => "" ,
-
-"url" => "" ,
-
-"array" => "" ,
-
-);
-
-echo msg_template("arab-forums" , $arraymsg);
-
+    echo msg_template("arab-forums", $arraymsg);
 }
 
 disconnect_mysql("arab-forums");
@@ -264,4 +256,3 @@ disconnect_mysql("arab-forums");
 |  facebook : facebook.com/aissam.nedjar.43                             |
 
 |*#####################################################################*/
-?>
