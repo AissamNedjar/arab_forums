@@ -23,10 +23,8 @@ $text = HtmlSpecialchars($text);
 
 }
 
-if($mysql == true){
-
-$text = mysql_real_escape_string($text);
-
+if ($mysql == true) {
+    $text = mysql_real_escape_string($text);
 }
 
 if($add == true){
