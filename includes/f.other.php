@@ -1900,13 +1900,12 @@ $vlink = nl2br($vlink);
 
 $xarray = array("select" , "insert" , "update" , "delet" , "great" , "drop" , "grant" , "union" , "group" , "FROM" , "where" , "limit" , "order" , "by" , "\." , "\.." , "\..." , "\/" , "\"" , "\'" , "<" , ">" , "%" , "\*" , "\#" , "\;" , "\\" , "\~" , "\&" , "@" , "\!" , ":" , "+" , "_" , "(" , ")");
 
-foreach($xarray as $danger){
-
-if(@eregi($danger , $vlink)){
-
-exit(header("location: error.php"));
-
-}}
+foreach ($xarray as $danger) {
+    if (@preg_match("/" . preg_quote($danger, "/") . "/i", $vlink)) {
+        header("Location: error.php");
+        exit;
+    }
+}
 
 return $vlink;
 
