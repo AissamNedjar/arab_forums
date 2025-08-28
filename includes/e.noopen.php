@@ -79,7 +79,7 @@ exit();
 
 }}
 
-if(lock2_user == 1){
+if(defined("lock2_user") && lock2_user == 1){
 
 online_other("arab-forums" , "home" , "0" , "0" , "0" , "0");
 
