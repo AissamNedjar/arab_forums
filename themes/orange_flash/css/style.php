@@ -13,9 +13,9 @@
 
 if(!defined("error_page_arab_forums")){exit(header("location: ../../../error.php"));}
 
-define("cellpadding" , "6");
+define("CELLPADDING" , "6");
 
-define("cellspacing" , "1");
+define("CELLSPACING" , "1");
 
 /*#####################################################################*|
 
