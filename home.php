@@ -150,7 +150,41 @@ if (num_mysql("arab-forums", $cat_sql) != false) {
 
             echo "</tr>";
 
-            $forum_sql = select_mysql("arab-forums", "forum", "count(distinct o.online_ip) as forum_online , o.online_type , o.online_forumid , u.user_id , u.user_lock1 , u.user_nameuser , u.user_group , u.user_coloruser , f.forum_id , f.forum_catid , f.forum_lock , f.forum_hid1 , f.forum_hid2 , f.forum_name , f.forum_wasaf , f.forum_order , f.forum_logo , f.forum_topic , f.forum_reply , f.forum_lastdate , f.forum_lastuser , f.forum_group" . group_user . " , f.forum_moderattext , f.forum_mode", "as f left join online" . prefix_connect . " as o on(o.online_forumid = f.forum_id) left join user" . prefix_connect . " as u on(u.user_id = f.forum_lastuser) where f.forum_catid in({$cat_object->cat_id}) && f.forum_group" . group_user . " in(1) group by f.forum_id order by f.forum_order asc , f.forum_id asc");
+            $forum_sql = select_mysql(
+                "arab-forums",
+                "forum",
+                "count(distinct o.online_ip) as forum_online , 
+     ANY_VALUE(o.online_type) as online_type , 
+     ANY_VALUE(o.online_forumid) as online_forumid , 
+     ANY_VALUE(u.user_id) as user_id , 
+     ANY_VALUE(u.user_lock1) as user_lock1 , 
+     ANY_VALUE(u.user_nameuser) as user_nameuser , 
+     ANY_VALUE(u.user_group) as user_group , 
+     ANY_VALUE(u.user_coloruser) as user_coloruser , 
+     f.forum_id , 
+     f.forum_catid , 
+     f.forum_lock , 
+     f.forum_hid1 , 
+     f.forum_hid2 , 
+     f.forum_name , 
+     f.forum_wasaf , 
+     f.forum_order , 
+     f.forum_logo , 
+     f.forum_topic , 
+     f.forum_reply , 
+     f.forum_lastdate , 
+     f.forum_lastuser , 
+     f.forum_group" . group_user . " , 
+     f.forum_moderattext , 
+     f.forum_mode",
+                "as f 
+     left join online" . prefix_connect . " as o on(o.online_forumid = f.forum_id) 
+     left join user" . prefix_connect . " as u on(u.user_id = f.forum_lastuser) 
+     where f.forum_catid in({$cat_object->cat_id}) 
+       && f.forum_group" . group_user . " in(1) 
+     group by f.forum_id 
+     order by f.forum_order asc , f.forum_id asc"
+            );
 
             if (num_mysql("arab-forums", $forum_sql) != false) {
 
