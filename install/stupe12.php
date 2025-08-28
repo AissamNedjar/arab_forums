@@ -4337,7 +4337,7 @@ insert_mysql("arab-forums", "couip", "couip_id , couip_star , couip_end , couip_
 insert_mysql("arab-forums", "couip", "couip_id , couip_star , couip_end , couip_code", "50283, '3450238976', '3450239231', 'US'");
 insert_mysql("arab-forums", "couip", "couip_id , couip_star , couip_end , couip_code", "50284, '3450239232', '3450239487', 'US'");
 
-echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"60%\" align=\"center\">";
+echo "<table class=\"border\" cellpadding=\"6\" cellspacing=\"1\" width=\"60%\" align=\"center\">";
 
 echo "<tr align=\"center\">";
 

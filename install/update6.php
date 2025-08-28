@@ -22,7 +22,7 @@ while ($array  =  @mysql_fetch_assoc($sql)) {
     insert_mysql("arab-forums", "moderate", "moderate_id , moderate_userid , moderate_forumid , moderate_catid , moderate_lock , moderate_add , moderate_date", "\"" . $array[moderate_id] . "\" , \"" . $array[moderate_user_id] . "\" , \"" . $array[moderate_forum_id] . "\" , \"" . $array[moderate_cat_id] . "\" , \"0\" , \"" . $array[moderate_member_id] . "\" , \"" . $array[moderate_date] . "\"");
 }
 
-echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"60%\" align=\"center\">";
+echo "<table class=\"border\" cellpadding=\"6\" cellspacing=\"1\" width=\"60%\" align=\"center\">";
 
 echo "<tr align=\"center\">";
 

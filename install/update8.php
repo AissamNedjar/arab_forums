@@ -76,7 +76,7 @@ while ($array  =  @mysql_fetch_assoc($sql)) {
     insert_mysql("arab-forums", "reply", "reply_id , reply_topicid , reply_delete , reply_hid , reply_date , reply_user , reply_message", "\"" . $array[reply_id] . "\" , \"" . $array[reply_topic_id] . "\" , \"" . $array[reply_delete] . "\" , \"" . $array[reply_hid] . "\" , \"" . $array[reply_date] . "\" , \"" . $array[reply_user] . "\" , \"" . $message . "\"");
 }
 
-echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"60%\" align=\"center\">";
+echo "<table class=\"border\" cellpadding=\"6\" cellspacing=\"1\" width=\"60%\" align=\"center\">";
 
 echo "<tr align=\"center\">";
 

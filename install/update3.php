@@ -48,7 +48,7 @@ while ($array  =  @mysql_fetch_assoc($sql)) {
     insert_mysql("arab-forums", "user", "user_id , user_lock1 , user_namelogin , user_nameuser , user_pass , user_email , user_coderegister , user_group , user_post , user_topics , user_posts , user_point , user_dateregister , user_datelastvisite , user_datelastpost , user_adressip , user_lastadressip , user_photo , user_jobe , user_sex , user_bio , user_sig", "\"" . $array[user_id] . "\" , \"" . $array[user_lock] . "\" , \"" . $array[user_name1] . "\" , \"" . $array[user_name2] . "\" , \"" . $array[user_pass] . "\" , \"" . $array[user_email] . "\" , \"" . $codeyserr . "\" , \"" . $array[user_group] . "\" , \"" . $array[user_post] . "\" , \"" . $topics . "\" , \"" . $posts . "\" , \"" . $array[user_point1] . "\" , \"" . $array[user_date1] . "\" , {$date2} , {$date3} , \"" . $array[user_adress_ip] . "\" , \"" . $array[user_last_ip] . "\" , \"" . $array[user_photo] . "\" , \"" . $array[user_jobe] . "\" , \"" . $array[user_sex] . "\" , \"" . $sayra . "\" , \"" . $sig . "\"");
 }
 
-echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"60%\" align=\"center\">";
+echo "<table class=\"border\" cellpadding=\"6\" cellspacing=\"1\" width=\"60%\" align=\"center\">";
 
 echo "<tr align=\"center\">";
 

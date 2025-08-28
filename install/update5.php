@@ -38,7 +38,7 @@ while ($array  =  @mysql_fetch_assoc($sql)) {
     insert_mysql("arab-forums", "forum", "forum_id , forum_catid , forum_lock , forum_hid1 , forum_hid2 , forum_name , forum_wasaf , forum_logo , forum_moderattext , forum_order , forum_topic , forum_reply , forum_lastdate , forum_lastuser , forum_sex , forum_mode , forum_group0 , forum_group1 ,forum_group2 , forum_group3 , forum_group4 , forum_group5 , forum_group6", "\"" . $array[forum_id] . "\" , \"" . $array[forum_cat_id] . "\" , \"" . $array[forum_lock] . "\" , \"" . $array[forum_hid1] . "\" , \"" . $array[forum_hid2] . "\" , \"" . $array[forum_name] . "\" , \"" . $array[forum_wasaf] . "\" , \"" . $array[forum_logo] . "\" , \"1\" , \"" . $array[forum_order] . "\" , \"" . $array[forum_topic] . "\" , \"" . $array[forum_reply] . "\" , " . $array[forum_last_d] . " , " . $array[forum_last_u] . " , \"" . $array[forum_sex] . "\" , \"" . $array[forum_mode] . "\" , \"" . $array[forum_group0] . "\" , \"" . $array[forum_group1] . "\" , \"" . $array[forum_group2] . "\" , \"" . $array[forum_group3] . "\" , \"" . $array[forum_group4] . "\" , \"" . $array[forum_group5] . "\" , \"" . $array[forum_group6] . "\"");
 }
 
-echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"60%\" align=\"center\">";
+echo "<table class=\"border\" cellpadding=\"6\" cellspacing=\"1\" width=\"60%\" align=\"center\">";
 
 echo "<tr align=\"center\">";
 

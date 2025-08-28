@@ -21,12 +21,6 @@ define("error_page_arab_forums", true);
 
 @include("../includes/f.otherto.php");
 
-echo forum_style;
-
-exit();
-
-@include("themes/".forum_style."/css/style.php");
-
 echo post_hacker("arab-forums");
 
 echo xss_hacker("arab-forums");
@@ -63,7 +57,7 @@ echo "</head><body>";
 
 echo "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
 
-echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"90%\" align=\"center\">";
+echo "<table class=\"border\" cellpadding=\"6\" cellspacing=\"1\" width=\"90%\" align=\"center\">";
 
 echo "<tr align=\"center\">";
 

@@ -55,7 +55,7 @@ while ($array  =  @mysql_fetch_assoc($sql)) {
     insert_mysql("arab-forums", "texttopic", "texttopic_id , texttopic_forumid , texttopic_name , texttopic_add , texttopic_date", "\"" . $array[texttopic_id] . "\" , \"" . $array[texttopic_forum_id] . "\" , \"" . $array[texttopic_name] . "\" , \"" . $array[texttopic_user_id] . "\" , \"" . $array[texttopic_date] . "\"");
 }
 
-echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"60%\" align=\"center\">";
+echo "<table class=\"border\" cellpadding=\"6\" cellspacing=\"1\" width=\"60%\" align=\"center\">";
 
 echo "<tr align=\"center\">";
 

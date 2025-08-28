@@ -93,7 +93,7 @@ while ($array  =  @mysql_fetch_assoc($sql)) {
     insert_mysql("arab-forums", "topic", "topic_id , topic_forumid , topic_lock , topic_delete , topic_hid , topic_stiky , topic_top , topic_link , topic_linkorder , topic_icons , topic_text , topic_reply , topic_visit , topic_date , topic_user , topic_lastdate , topic_lastuser , topic_name , topic_message", "\"" . $array[topic_id] . "\" , \"" . $array[topic_forum_id] . "\" , \"" . $array[topic_lock] . "\" , \"" . $array[topic_delete] . "\" , \"" . $array[topic_hid] . "\" , \"" . $array[topic_stiky] . "\" , \"" . $array[topic_top] . "\" , \"" . $array[topic_link] . "\" , \"" . $array[topic_linkorder] . "\" , \"" . $array[topic_icons] . "\" , \"" . $array[topic_text] . "\" , \"" . $array[topic_reply] . "\" , \"" . $array[topic_chouf] . "\" , \"" . $array[topic_date] . "\" , \"" . $array[topic_user] . "\" , " . $array[topic_last_d] . " , " . $array[topic_last_u] . " , \"" . $title . "\" , \"" . $message . "\"");
 }
 
-echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"60%\" align=\"center\">";
+echo "<table class=\"border\" cellpadding=\"6\" cellspacing=\"1\" width=\"60%\" align=\"center\">";
 
 echo "<tr align=\"center\">";
 

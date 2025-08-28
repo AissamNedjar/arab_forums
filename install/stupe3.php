@@ -364,7 +364,7 @@ if ($error == "") {
 
     insert_mysql("arab-forums", "style", "style_id , style_name , style_fils , style_default , style_lock , style_order", "null , \"البرتقالي الفلاشي\" , \"orange_flash\" , \"0\" , \"0\" , \"6\"");
 
-    echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"60%\" align=\"center\">";
+    echo "<table class=\"border\" cellpadding=\"6\" cellspacing=\"1\" width=\"60%\" align=\"center\">";
 
     echo "<tr align=\"center\">";
 
@@ -385,7 +385,7 @@ if ($error == "") {
     echo "</table>";
 } else {
 
-    echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"60%\" align=\"center\">";
+    echo "<table class=\"border\" cellpadding=\"6\" cellspacing=\"1\" width=\"60%\" align=\"center\">";
 
     echo "<tr align=\"center\">";
 

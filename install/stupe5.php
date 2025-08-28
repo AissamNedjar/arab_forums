@@ -44,7 +44,7 @@ if ($error == "") {
 
     update_mysql("arab-forums", "forum", "forum_topic = forum_topic+1 , forum_lastdate = \"" . time() . "\" , forum_lastuser = \"1\" where forum_id in(1)");
 
-    echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"60%\" align=\"center\">";
+    echo "<table class=\"border\" cellpadding=\"6\" cellspacing=\"1\" width=\"60%\" align=\"center\">";
 
     echo "<tr align=\"center\">";
 
@@ -65,7 +65,7 @@ if ($error == "") {
     echo "</table>";
 } else {
 
-    echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"60%\" align=\"center\">";
+    echo "<table class=\"border\" cellpadding=\"6\" cellspacing=\"1\" width=\"60%\" align=\"center\">";
 
     echo "<tr align=\"center\">";
 

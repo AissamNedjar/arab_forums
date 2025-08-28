@@ -17,7 +17,7 @@ if (!defined("error_page_arab_forums")) {
 
 echo "<form action=\"install.php?go=install&type=insertadmin\" method=\"post\">";
 
-echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"60%\" align=\"center\">";
+echo "<table class=\"border\" cellpadding=\"6\" cellspacing=\"1\" width=\"60%\" align=\"center\">";
 
 echo "<tr align=\"right\">";
 

@@ -6533,7 +6533,7 @@ insert_mysql("arab-forums", "couip", "couip_id , couip_star , couip_end , couip_
 insert_mysql("arab-forums", "couip", "couip_id , couip_star , couip_end , couip_code", "102956, '3223992320', '3223992575', 'US'");
 insert_mysql("arab-forums", "couip", "couip_id , couip_star , couip_end , couip_code", "102957, '3223992576', '3223992831', 'US'");
 
-echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"60%\" align=\"center\">";
+echo "<table class=\"border\" cellpadding=\"6\" cellspacing=\"1\" width=\"60%\" align=\"center\">";
 
 echo "<tr align=\"center\">";
 

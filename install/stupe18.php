@@ -7280,7 +7280,7 @@ insert_mysql("arab-forums", "couip", "couip_id , couip_star , couip_end , couip_
 insert_mysql("arab-forums", "couip", "couip_id , couip_star , couip_end , couip_code", "96439, '2784165888', '2784231423', 'KR'");
 insert_mysql("arab-forums", "couip", "couip_id , couip_star , couip_end , couip_code", "96440, '2784231424', '2784296959', 'KR'");
 
-echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"60%\" align=\"center\">";
+echo "<table class=\"border\" cellpadding=\"6\" cellspacing=\"1\" width=\"60%\" align=\"center\">";
 
 echo "<tr align=\"center\">";
 

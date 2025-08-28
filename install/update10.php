@@ -57,7 +57,7 @@ while ($array  =  @mysql_fetch_assoc($sql)) {
     insert_mysql("arab-forums", "getwasaf", "getwasaf_id , getwasaf_wasafid , getwasaf_userid , getwasaf_lock , getwasaf_add , getwasaf_date", "\"" . $array[getwasaf_id] . "\" , \"" . $array[getwasaf_wasaf_id] . "\" , \"" . $array[getwasaf_user] . "\" , \"" . $array[getwasaf_lock] . "\" , \"" . $array[getwasaf_member] . "\" , \"" . $array[getwasaf_date] . "\"");
 }
 
-echo "<table class=\"border\" cellpadding=\"" . CELLPADDING . "\" cellspacing=\"" . CELLSPACING . "\" width=\"60%\" align=\"center\">";
+echo "<table class=\"border\" cellpadding=\"6\" cellspacing=\"1\" width=\"60%\" align=\"center\">";
 
 echo "<tr align=\"center\">";
 
