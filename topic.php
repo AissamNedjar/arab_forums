@@ -878,7 +878,7 @@ if ($errorop == "") {
                 if ($emailsend == "") {
 
                     $error = "الرجاء إدخال البريد الإلكتروني الخاص بصديقك ليتم الإرسال";
-                } elseif (!eregi("^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$", $emailsend)) {
+                } elseif (!filter_var($emailsend, FILTER_VALIDATE_EMAIL)) {
 
                     $error = "الرجاء إدخال بريد إلكتروني صحيح ليتم الإرسال";
                 } else {

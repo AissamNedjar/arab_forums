@@ -148,8 +148,8 @@ if (group_user == 0) {
                 } elseif (mb_strlen($passregister) < 5 || mb_strlen($passregister) > 20) {
 
                     $errorpass = "الكلمة السرية لا يجب أن تكون أقل من 5 حروف و أكبر من 20 حرف";
-                } elseif (!eregi("^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$", $emailregister)) {
-
+                } elseif (!filter_var($emailregister, FILTER_VALIDATE_EMAIL)) {
+                
                     $erroremail = "البريد الإلكتروني يجب أن يكون صحيح";
                 } elseif (num_mysql("arab-forums", select_mysql("arab-forums", "user", "user_email", "where user_email = \"" . $emailregister . "\" limit 1")) == true) {
 

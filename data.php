@@ -267,7 +267,7 @@ if ($error != "") {
                 if ($email == "" || $code == "") {
 
                     $errory = "الرجاء ملأ جميع الحقول ليتم إدخال البيانات الجديدة";
-                } elseif (!eregi("^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$", $email)) {
+                } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
                     $errory = "البريد الإلكتروني يجب أن يكون صحيح";
                 } elseif ($email == $user_object->user_email) {
