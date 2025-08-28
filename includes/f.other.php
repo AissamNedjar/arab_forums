@@ -205,7 +205,7 @@ function online_other($copi, $type, $catid, $forumid, $topicid, $userid)
 
         $sql_online = select_mysql("arab-forums", "online", "online_ip", "where online_ip = \"" . ip_other("arab-forums") . "\"");
 
-        if (@mysql_num_rows($sql_online) == false) {
+        if (num_mysql("arab-forums", $sql_online) == 0) {
 
             insert_mysql("arab-forums", "online", "online_id , online_userid , online_group , online_type , online_catid , online_forumid , online_topicid , online_profileid , online_date , online_last , online_ip", "null , \"" . id_user . "\" , \"" . group_user . "\" , \"" . $type . "\" , \"" . $catid . "\" , \"" . $forumid . "\" , \"" . $topicid . "\" , \"" . $userid . "\" , \"" . time() . "\" , \"" . time() . "\" , \"" . ip_other("arab-forums") . "\"");
         }
