@@ -19,7 +19,7 @@ mysql_mysql("arab-forums", "create table option" . prefix_connect . "(
 
 option_id int(10) unsigned not null auto_increment ,
 
-option_name varchar(30) default null ,
+option_name varchar(191) default null ,
 
 option_value varchar(300) default null ,
 
@@ -39,17 +39,17 @@ user_bad int(10) default \"0\" ,
 
 user_active int(10) default \"0\" ,
 
-user_namelogin varchar(30) default null ,
+user_namelogin varchar(191) default null ,
 
-user_nameuser varchar(30) default null ,
+user_nameuser varchar(191) default null ,
 
-user_pass varchar(100) default null ,
+user_pass varchar(191) default null ,
 
-user_email varchar(100) default null ,
+user_email varchar(191) default null ,
 
-user_coderegister varchar(30) default null ,
+user_coderegister varchar(191) default null ,
 
-user_codepassword varchar(30) default null ,
+user_codepassword varchar(191) default null ,
 
 user_group int(10) default \"1\" ,
 
@@ -95,31 +95,31 @@ user_bio text ,
 
 user_sig text ,
 
-user_country varchar(100) default null ,
+user_country varchar(191) default null ,
 
-user_city varchar(100) default null ,
+user_city varchar(191) default null ,
 
-user_state varchar(100) default null ,
+user_state varchar(191) default null ,
 
 user_titleold int(10) default \"0\" ,
 
-user_editorcolor varchar(100) default \"#000000\" ,
+user_editorcolor varchar(191) default \"#000000\" ,
 
-user_editoralign varchar(100) default \"center\" ,
+user_editoralign varchar(191) default \"center\" ,
 
-user_editorblod varchar(100) default \"blod\" ,
+user_editorblod varchar(191) default \"blod\" ,
 
-user_editorfont varchar(100) default \"comic sans ms\" ,
+user_editorfont varchar(191) default \"comic sans ms\" ,
 
-user_editorsize varchar(100) default \"24px\" ,
+user_editorsize varchar(191) default \"24px\" ,
 
 user_time int(10) default null ,
 
-user_style varchar(30) default null ,
+user_style varchar(191) default null ,
 
-user_coloruser varchar(30) default null ,
+user_coloruser varchar(191) default null ,
 
-user_colorstar varchar(30) default null ,
+user_colorstar varchar(191) default null ,
 
 user_hala int(10) default null ,
 
@@ -133,7 +133,7 @@ online_userid int(11) default \"0\" ,
 
 online_group int(11) default \"0\" ,
 
-online_type varchar(100) default null ,
+online_type varchar(191) default null ,
 
 online_catid int(11) default \"0\" ,
 
@@ -147,7 +147,7 @@ online_date int(10) unsigned default null ,
 
 online_last int(10) unsigned default null ,
 
-online_ip varchar(30) default null ,
+online_ip varchar(191) default null ,
 
 primary key(online_id))");
 
@@ -155,9 +155,9 @@ mysql_mysql("arab-forums", "create table style" . prefix_connect . "(
 
 style_id int(10) unsigned not null auto_increment ,
 
-style_fils varchar(30) default null ,
+style_fils varchar(191) default null ,
 
-style_name varchar(30) default null ,
+style_name varchar(191) default null ,
 
 style_default int(10) default null ,
 
@@ -175,7 +175,7 @@ cat_lock int(10) default \"0\" ,
 
 cat_hid int(10) default \"0\" ,
 
-cat_name varchar(100) default null ,
+cat_name varchar(191) default null ,
 
 cat_order int(10) default \"1\" ,
 
@@ -229,7 +229,7 @@ forum_hid1 int(10) default \"0\" ,
 
 forum_hid2 int(10) default \"0\" ,
 
-forum_name varchar(100) default null ,
+forum_name varchar(191) default null ,
 
 forum_wasaf varchar(250) default null ,
 
@@ -451,7 +451,7 @@ topic_lastdate int(10) unsigned default null ,
 
 topic_lastuser int(10) default null ,
 
-topic_name varchar(100) default null ,
+topic_name varchar(191) default null ,
 
 topic_message text default null ,
 
@@ -495,7 +495,7 @@ optiontopic_user int(11) default null ,
 
 optiontopic_date int(10) unsigned default null ,
 
-optiontopic_type varchar(100) default null ,
+optiontopic_type varchar(191) default null ,
 
 primary key(optiontopic_id))");
 
@@ -509,7 +509,7 @@ edittopic_user int(11) default null ,
 
 edittopic_date int(10) unsigned default null ,
 
-edittopic_name varchar(100) default null ,
+edittopic_name varchar(191) default null ,
 
 edittopic_message text default null ,
 
@@ -551,7 +551,7 @@ optionreply_user int(11) default null ,
 
 optionreply_date int(10) unsigned default null ,
 
-optionreply_type varchar(100) default null ,
+optionreply_type varchar(191) default null ,
 
 primary key(optionreply_id))");
 
@@ -573,7 +573,7 @@ mysql_mysql("arab-forums", "create table registerband" . prefix_connect . "(
 
 registerband_id int(10) unsigned not null auto_increment ,
 
-registerband_name varchar(100) default null ,
+registerband_name varchar(191) default null ,
 
 registerband_user int(11) default null ,
 
@@ -617,11 +617,11 @@ notify_userlock int(11) default null ,
 
 notify_datelock int(10) unsigned default null ,
 
-notify_name varchar(100) default null ,
+notify_name varchar(191) default null ,
 
 notify_text text default null ,
 
-notify_type varchar(100) default null ,
+notify_type varchar(191) default null ,
 
 notify_reply text default null ,
 
@@ -667,7 +667,7 @@ optionuser_user int(11) default null ,
 
 optionuser_date int(10) unsigned default null ,
 
-optionuser_type varchar(100) default null ,
+optionuser_type varchar(191) default null ,
 
 optionuser_msg text default null ,
 
@@ -681,9 +681,9 @@ changename_userid int(11) default null ,
 
 changename_wait int(10) default \"0\" ,
 
-changename_nameold varchar(30) default null ,
+changename_nameold varchar(191) default null ,
 
-changename_namenew varchar(30) default null ,
+changename_namenew varchar(191) default null ,
 
 changename_date int(10) unsigned default null ,
 
@@ -713,7 +713,7 @@ message_reply int(10) default \"0\"  ,
 
 message_date int(10) unsigned default null ,
 
-message_name varchar(100) default null ,
+message_name varchar(191) default null ,
 
 message_message text default null ,
 
@@ -747,7 +747,7 @@ pmlist_user int(10) default null  ,
 
 pmlist_folder int(11) default null  ,
 
-pmlist_name varchar(100) default null ,
+pmlist_name varchar(191) default null ,
 
 primary key(pmlist_id))");
 
@@ -779,7 +779,7 @@ wasaf_add int(10) default null ,
 
 wasaf_date int(10) unsigned default null ,
 
-wasaf_name varchar(100) default null ,
+wasaf_name varchar(191) default null ,
 
 primary key(wasaf_id))");
 
@@ -813,9 +813,9 @@ medal_date int(10) unsigned default null ,
 
 medal_point int(10) default \"0\" ,
 
-medal_name varchar(100) default null ,
+medal_name varchar(191) default null ,
 
-medal_url varchar(100) default null ,
+medal_url varchar(191) default null ,
 
 primary key(medal_id))");
 
