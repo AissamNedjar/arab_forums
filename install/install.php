@@ -21,7 +21,9 @@ define("error_page_arab_forums", true);
 
 @include("../includes/f.otherto.php");
 
-dd(forum_style);
+echo forum_style;
+
+exit();
 
 @include("themes/".forum_style."/css/style.php");
 
