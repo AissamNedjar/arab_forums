@@ -21,6 +21,8 @@ define("error_page_arab_forums", true);
 
 @include("../includes/f.otherto.php");
 
+@include("../inccrack.php");
+
 echo post_hacker("arab-forums");
 
 echo xss_hacker("arab-forums");
