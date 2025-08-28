@@ -23,7 +23,7 @@ $template  = "";
 
 $template .= "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"3\"><tr>";
 
-$template .= "<td width=\"100%\"><nobr>".a_other("arab-forums" , "home.php" , title_option , img_other("arab-forums" , "themes/".forum_style."/images/logo.png" , "" , "" , "" , "0" , "" , "") , "")."</nobr></td>";
+$template .= "<td width=\"100%\"><nobr>".a_other("arab-forums" , "home.php" , title_option , img_other("arab-forums" , "themes/".forum_style."/images/logo.png?v=1516" , "" , "" , "" , "0" , "" , "") , "")."</nobr></td>";
 
 $template .= "<td class=\"menu\"><nobr>".a_other("arab-forums" , "home.php" , "الرئيسية" , img_other("arab-forums" , "themes/".forum_style."/images/home.png" , "" , "" , "" , "0" , "" , "")."<br>الرئيسية" , "")."</nobr></td>";
 
