@@ -23,8 +23,6 @@ if(num_mysql("arab-forums" , $user_sql) != false){
 
 $user_object = object_mysql("arab-forums" , $user_sql);
 
-print_r($user_object);
-
 define("id_user" , $user_object->user_id);
 
 define("lock2_user" , $user_object->user_lock2);
