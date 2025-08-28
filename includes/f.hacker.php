@@ -33,14 +33,20 @@ function xss_hacker($copi){
 
 if($copi == "arab-forums"){
 
-foreach($_GET as $xss_get){
-
-if((@eregi("<[^>]*script*\"?[^>]*>", $xss_get))or(@eregi("<[^>]*object*\"?[^>]*>", $xss_get))or(@eregi("<[^>]*iframe*\"?[^>]*>", $xss_get))or(@eregi("<[^>]*applet*\"?[^>]*>", $xss_get))or(@eregi("<[^>]*meta*\"?[^>]*>", $xss_get))or(@eregi("<[^>]*style*\"?[^>]*>", $xss_get))or(@eregi("<[^>]*form*\"?[^>]*>", $xss_get))or(@eregi("<[^>]*img*\"?[^>]*>", $xss_get))){
-
-exit(header("location: error.php"));
-
-}
-
+foreach ($_GET as $xss_get) {
+    if (
+        preg_match("/<[^>]*script[^>]*>/i", $xss_get) ||
+        preg_match("/<[^>]*object[^>]*>/i", $xss_get) ||
+        preg_match("/<[^>]*iframe[^>]*>/i", $xss_get) ||
+        preg_match("/<[^>]*applet[^>]*>/i", $xss_get) ||
+        preg_match("/<[^>]*meta[^>]*>/i", $xss_get) ||
+        preg_match("/<[^>]*style[^>]*>/i", $xss_get) ||
+        preg_match("/<[^>]*form[^>]*>/i", $xss_get) ||
+        preg_match("/<[^>]*img[^>]*>/i", $xss_get)
+    ) {
+        header("Location: error.php");
+        exit;
+    }
 }
    
 unset($xss_get);
