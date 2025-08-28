@@ -54,22 +54,22 @@ function mysql_mysql($copi, $query)
 
 function select_mysql($copi, $tablename, $select, $where = "")
 {
-    return mysql_mysql($copi, "SELECT {$select} FROM {$tablename} " . prefix_connect . " {$where}");
+    return mysql_mysql($copi, "SELECT {$select} FROM `{$tablename}` " . prefix_connect . " {$where}");
 }
 
 function insert_mysql($copi, $tablename, $fields, $values)
 {
-    mysql_mysql($copi, "INSERT INTO {$tablename} " . prefix_connect . " ({$fields}) VALUES ({$values})");
+    mysql_mysql($copi, "INSERT INTO `{$tablename}` " . prefix_connect . " ({$fields}) VALUES ({$values})");
 }
 
 function update_mysql($copi, $tablename, $set, $where = "")
 {
-    mysql_mysql($copi, "UPDATE {$tablename} " . prefix_connect . " SET {$set} {$where}");
+    mysql_mysql($copi, "UPDATE `{$tablename}` " . prefix_connect . " SET {$set} {$where}");
 }
 
 function delete_mysql($copi, $tablename, $where)
 {
-    mysql_mysql($copi, "DELETE FROM {$tablename} " . prefix_connect . " WHERE {$where}");
+    mysql_mysql($copi, "DELETE FROM `{$tablename}` " . prefix_connect . " WHERE {$where}");
 }
 
 function num_mysql($copi, $result)
